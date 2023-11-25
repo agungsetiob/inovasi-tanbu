@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Inisiator extends Model
+{
+    use HasFactory;
+    public function getCreatedAtAttribute()
+    {
+        return \Carbon\Carbon::parse($this->attributes['created_at'])
+        ->isoFormat('D MMMM Y');
+    }
+    public function proposals(){
+        return $this->hasMany(Proposal::class);
+    }
+    protected $guarded = [];
+}

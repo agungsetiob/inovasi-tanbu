@@ -1,0 +1,464 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="csrf-token" content="UFihRzsPQh8VHt2hLEziPSvLojlAzx6Qplt6GQqS">
+
+  <title>Sistem Informasi Riset dan Inovasi</title>
+
+  <!-- Custom fonts for this template-->
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link
+  href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+  rel="stylesheet">
+  <link href="https://inovasi.test/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="https://inovasi.test/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://inovasi.test/vendor/htmx/htmx.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.bootstrap4.min.css" integrity="sha512-ht3CSPjgWsxdbLti7wtKNEk5hLoGtP2J8C40muB5/PCWwNw9M/NMJpyvHdeko7ADC60SEOiCenU5pg+kJiG9lg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="shortcut icon" href="https://inovasi.test/assets/img/logo.png" type="image/x-icon"/>
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <div class="sidebar-brand-icon">
+                <img class="img-profile rounded-circle" style="width: 52px; height: 52px;" src="https://inovasi.test/storage/ava/ava.png" alt="logo">
+            </div>
+            <div class="sidebar-brand-text mx-3">Hi admin</div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <li class="nav-item ">
+            <a class="nav-link" href="https://inovasi.test/admin">
+                <i class="fas fa-fw fa-tachometer-alt fa-xl"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider d-none d-md-block">
+        <li class="nav-item ">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseData" aria-expanded="true" aria-controls="collapseZero">
+                <i class="fa fa-fw fa-brands fa-stack-overflow fa-xl"></i>
+                <span>Database</span>
+            </a>
+            <div id="collapseData" class="collapse" aria-labelledby="headingData" data-parent="#accordionSidebar" style="z-index: 10">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="https://inovasi.test/data/profile"><i class="fas fa-fw fa-mosque"></i> Profil Pemda</a>
+                    <a class="collapse-item" href="https://inovasi.test/data/inovasi"><i class="fas fa-fw fa-microscope"></i> Inovasi Daerah</a>
+                </div>
+            </div>
+        </li>
+        <hr class="sidebar-divider d-none d-md-block">
+        <li class="nav-item active bg-active">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseZero" aria-expanded="true" aria-controls="collapseZero">
+                <i class="fa fa-fw fa-code fa-xl"></i>
+                <span>Projects</span>
+            </a>
+            <div id="collapseZero" class="collapse" aria-labelledby="headingZero" data-parent="#accordionSidebar" style="z-index: 10;">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="https://inovasi.test/proyek/inovasi"><i class="fas fa-fw fa-rocket"></i> Inovasi</a>
+                    <a class="collapse-item" href="#"><i class="fas fa-fw fa-microscope"></i> Litbang</a>
+                    <a class="collapse-item" href="#"><i class="fas fa-fw fa-atom"></i> Riset</a>
+                </div>
+            </div>
+        </li>
+        <hr class="sidebar-divider d-none d-md-block">
+        <li class="nav-item ">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <i class="fa fa-fw fa-filter fa-xl"></i>
+                <span>Master</span>
+            </a>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar" style="z-index: 10;">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="https://inovasi.test/master/skpd"><i class="fas fa-fw fa-sitemap"></i> SKPD/UPTD</a>
+                    <a class="collapse-item" href="https://inovasi.test/master/jenis"><i class="fas fa-fw fa-list"></i> Jenis</a>
+                    <a class="collapse-item" href="https://inovasi.test/master/bentuk"><i class="fas fa-fw fa-shapes"></i> Bentuk</a>
+                    <a class="collapse-item" href="https://inovasi.test/master/klasifikasi"><i class="fas fa-fw fa-solid fa-hurricane"></i>Klasifikasi Urusan</a>
+                    <a class="collapse-item" href="https://inovasi.test/master/urusan"><i class="fas fa-fw fa-info"></i> Urusan</a>
+                    <a class="collapse-item" href="https://inovasi.test/master/tematik"><i class="fas fa-fw fa-solid fa-dragon"></i> Tematik</a>
+                    <a class="collapse-item" href="https://inovasi.test/master/indikator"><i class="fas fa-fw fa-chart-simple"></i> Indikator</a>
+                    <a class="collapse-item" href="https://inovasi.test/master/bukti"><i class="fas fa-fw fa-solid fa-meteor"></i> Bukti</a>
+                    <a class="collapse-item" href="https://inovasi.test/master/inisiator"><i class="fas fa-fw fa-lightbulb"></i> Inisiator</a>
+                    <a class="collapse-item" href="https://inovasi.test/master/tahapan"><i class="fas fa-fw fa-bars-progress"></i> Tahapan</a>
+                </div>
+            </div>
+        </li>
+        <hr class="sidebar-divider d-none d-md-block">
+        <li class="nav-item ">
+            <a class="nav-link" href="https://inovasi.test/users">
+                <i class="fas fa-fw fa-user fa-xl"></i>
+                <span>Users</span></a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <li class="nav-item ">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fa fa-fw fa-gear fa-xl"></i>
+                    <span>Settings</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="z-index: 10;">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/system/setting"><i class="fas fa-fw fa-wrench"></i> Web setting</a>
+                        <a class="collapse-item" href="https://inovasi.test/carousel"><i class="fas fa-fw fa-image"></i> Carousel</a>
+                        <a class="collapse-item" href="https://inovasi.test/background"><i class="fa-solid fa-panorama"></i> Background</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <li class="nav-item ">
+                <a class="nav-link" href="https://inovasi.test/messages">
+                    <i class="fas fa-fw fa-envelope fa-xl"></i>
+                    <span>Messages</span></a>
+                </li>
+                <hr class="sidebar-divider d-none d-md-block">
+                <li class="nav-item ">
+                    <a class="nav-link" href="https://inovasi.test/backup">
+                        <i class="fas fa-fw fa-database fa-xl"></i>
+                        <span>Backup</span></a>
+                    </li>
+                    <hr class="sidebar-divider d-none d-md-block">
+                </ul>
+                <!-- Content Wrapper -->
+                <div id="content-wrapper" class="d-flex flex-column">
+
+                  <!-- Main Content -->
+                  <div id="content"  style="background: url('https://inovasi.test/storage/backgrounds/gEPU45L9kcrphfo7nnR8yF8rCNgPydoXTDgqmEhO.svg'); background-position: center; background-repeat: no-repeat; background-size: cover;" >
+
+                    <!-- Topbar -->
+                    <nav class="navbar navbar-expand navbar-light bg-gradient-primary topbar mb-4 shadow">
+                      <button title="bars" id="sidebarToggleTop" class="btn btn-link rounded mr-3">
+                        <i class="fa fa-bars text-dark"></i>
+                    </button>
+                    <ul class="navbar-nav ml-auto">
+
+                      <div class="topbar-divider d-none d-sm-block"></div>
+
+                      <!-- Nav Item - User Information -->
+                      <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-caret-down text-white mr-1"></i> 
+                        <span class="mr-2 d-none d-lg-inline text-white small">Bappedalitbang</span>
+                        <img class="img-profile rounded-circle"
+                        src="https://inovasi.test/storage/ava/ava.png" alt="ava">
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                    aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="https://inovasi.test/edit-profile/1">
+                        <i class="fas fa-user fa-sm fa-fw mr-2"></i>
+                        Edit Profile
+                    </a>
+                    <a class="dropdown-item" href="https://inovasi.test/change-password">
+                        <i class="fas fa-key fa-sm fa-fw mr-2"></i>
+                        Change password
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+                        Logout
+                    </a>
+                </div>
+            </li>
+
+        </ul>
+    </nav>
+    <div class="container-fluid" id="createForm">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-dark">Inovasi</h1>
+            <a href="https://inovasi.test/proyek/inovasi/create" class="btn btn-sm btn-primary shadow-sm "><i class="fas fa-plus fa-sm text-white fa-flip"></i> Add Proposal</a>
+        </div>
+        <!-- DataTables Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Proposals</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-borderless table-striped" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th width="38%">Nama Inovasi</th>
+                                <th width="10%">Jenis</th>
+                                <th>Uji Coba</th>
+                                <th>Implementasi</th>
+                                <th>Skor</th>
+                                <th width="8%">Tahapan</th>
+                                <th width="4%">Bukti Dukung</th>
+                                <th width="17%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- server side dataTable gan -->
+                        </tbody>
+                        <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+                            <span id="success-message"></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div id="error-alert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                            <span id="error-message"></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Bappedalitbang Tanah Bumbu 2023</span>
+        </div>
+    </div>
+</footer>    <!-- End of Footer -->
+</div>
+<!-- End of Content Wrapper -->
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+<script src="https://inovasi.test/vendor/jquery/jquery.min.js"></script>
+<script src="https://inovasi.test/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://inovasi.test/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="https://inovasi.test/js/sb-admin-2.min.js"></script>
+<script src="https://inovasi.test/vendor/datatables/jquery.dataTables.js"></script>
+<script src="https://inovasi.test/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="logoutLabel">Anda yakin?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">Tekan logout apabila anda sudah yakin.</div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <form method="POST" action="https://inovasi.test/logout">
+                <input type="hidden" name="_token" value="UFihRzsPQh8VHt2hLEziPSvLojlAzx6Qplt6GQqS">                <button class="btn btn-primary">Logout</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div><script>
+    var dataTable;
+    $(document).ready(function () {
+        // Make an AJAX request to loadProposals
+        $.ajax({
+            url: '/api/inovasi',
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                // Initialize DataTable with the fetched data
+                dataTable = $('#dataTable').DataTable({
+                    data: response.data,
+                    columns: [
+                        { data: 'proposal.nama' },
+                        { 
+                            data: 'category',
+                            render: function (data, type, row) {
+                                var badgeCategory = '';
+                                if (data == 'Digital') {
+                                    badgeCategory = 'bg-gradient-warning';
+                                } else if (data == 'Non Digital') {
+                                    badgeCategory = 'bg-gradient-dark';
+                                }
+
+                                return '<span class="badge ' + badgeCategory + '">' + data + '</span>';
+                            }
+                        },
+                        { data: 'ujicoba' },
+                        { data: 'implementasi' },
+                        { data: 'skor', className: 'text-center', },
+                        { 
+                            data: 'tahapan', className: 'text-center',
+                            render: function (data, type, row) {
+                                // Apply badge styling based on the value of tahapan
+                                var badgeClass = '';
+                                if (data == 'ujicoba') {
+                                    badgeClass = 'bg-indigo fa-fade';
+                                } else if (data == 'penerapan') {
+                                    badgeClass = 'bg-green fa-beat';
+                                } else if (data == 'inisiatif') {
+                                    badgeClass = 'bg-orange fa-shake';
+                                }
+
+                                return '<span class="badge ' + badgeClass + '">' + data + '</span>';
+                            }
+                        },
+                        { 
+                            data: 'proposal.id', className: 'text-center',
+                            render: function (data, type, row) {
+                                // Create a link for "Bukti Dukung" based on the proposal id
+                                return '<a href="https://inovasi.test/bukti-dukung/' + data + '" class="btn btn-outline-primary btn-sm mt-1"><i class="fas fa-folder-closed"></i></a>';
+                            }
+                        },
+                        { 
+                            data: 'proposal.id',
+                            render: function (data, type, row) {
+                                var buttonsHtml = '<div class="text-center">';
+                                buttonsHtml += '<a href="https://inovasi.test/print/report/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
+                                if (row.proposal.status === 'draft') {
+                                    buttonsHtml += '<button id="hapus-' + data + '" class="delete-button btn btn-outline-danger btn-sm mr-1 mt-1" title="Hapus" data-toggle="modal" data-target="#deleteModal" data-proposal-id="' + data + '" data-proposal-name="' + row.proposal.nama + '"><i class="fas fa-trash"></i></button>';
+                                    buttonsHtml += '<a id="edit-' + data + '" href="https://inovasi.test/proyek/inovasi/' + data + '/edit" class="btn btn-outline-success btn-sm mr-1 mt-1" title="Edit"><i class="fas fa-pencil-alt" alt="edit"></i></a>';
+                                    if (row.skor > 0) {
+                                        buttonsHtml += '<button id="send-proposal-' + data + '" data-toggle="modal" data-target="#sendModal" data-proposal-name="' + row.proposal.nama + '" data-proposal-id="' + data + '" class="send-proposal btn btn-outline-dark btn-sm mr-1 mt-1" title="Kirim"><i class="fas fa-paper-plane"></i></button>';
+                                    }
+                                }
+
+                                buttonsHtml += '</div>';
+
+                                return buttonsHtml;
+                            }
+                        },
+                        ],
+rowId: function (row) {
+    return 'index_' + row.proposal.id;
+},
+});
+},
+error: function (error) {
+    console.error('Error fetching proposals:', error);
+}
+});
+});
+</script>
+<div class="modal fade" id="sendModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">Inovasi <span id="proposal-name-modal" style="color: #0061f2;"></span> akan dikirmi kepada admin. Tekan tombol kirim apabila anda sudah yakin.</div>
+        <div class="modal-footer">
+            <button class="btn btn-outline-secondary" type="button" data-dismiss="modal"><i class="fa-solid fa-ban"></i> Cancel</button>
+            <button id="send-proposal" class="btn btn-outline-primary" title="kirim"><i class="fa-solid fa-paper-plane"></i> Kirim</button>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    $(document).ready(function() {
+        var proposalId;
+
+        // When any button with the "send-proposal" class is clicked
+        $(document).on("click",".send-proposal",function() {
+            proposalId = $(this).data("proposal-id");
+            var proposalName = $(this).data("proposal-name");
+            $("#proposal-name-modal").text(proposalName);
+        });
+
+        // When the "Kirim" button in the modal is clicked
+        $("#send-proposal").click(function() {
+            $.ajax({
+                url: "/send/inovasi/" + proposalId,
+                type: 'PUT',
+                data: {
+                    _token: "UFihRzsPQh8VHt2hLEziPSvLojlAzx6Qplt6GQqS"
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#success-alert').removeClass('d-none').addClass('show');
+                        $('#success-message').text('Berhasil mengirim proposal');
+                        $('#error-alert').addClass('d-none');
+                        $(".send-proposal[data-proposal-id='" + proposalId + "']").remove();
+                        $("#edit-" + proposalId).remove();
+                        $("#hapus-" + proposalId).remove();
+                        $('#sendModal').modal('hide');
+                    }
+                },
+                error: function(error) {
+                    $('#error-message').text(error.status + ' ' + error.responseJSON.message);
+                    $('#error-alert').removeClass('d-none').addClass('show');
+                }
+            });
+        });
+    });
+
+</script>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">Proposal <span id="proposal-name" style="color: #0061f2;"></span> akan dihapus. Tekan tombol hapus apabila anda sudah yakin.</div>
+        <div class="modal-footer">
+            <button class="btn btn-outline-secondary" type="button" data-dismiss="modal"><i class="fa-solid fa-ban"></i> Cancel</button>
+            <button id="delete-proposal" class="btn btn-outline-danger" title="kirim"><i class="fa-solid fa-trash"></i> Hapus</button>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    $(document).ready(function() {
+        var proposalId;
+
+        $(document).on("click",".delete-button",function() {
+            proposalId = $(this).data("proposal-id");
+            var proposalName = $(this).data("proposal-name");
+            $("#proposal-name").text(proposalName);
+
+        });
+
+        // Ketika tombol "Kirim" di modal diklik
+        $("#delete-proposal").click(function() {
+            $.ajax({
+                url: `/proyek/inovasi/` + proposalId,
+                type: 'DELETE',
+                cache: false,
+                data: {
+                    _token: "UFihRzsPQh8VHt2hLEziPSvLojlAzx6Qplt6GQqS"
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#success-alert').removeClass('d-none').addClass('show');
+                        $('#success-message').text('Berhasil menghapus proposal');
+                        $('#error-alert').addClass('d-none');
+                        var row = dataTable.row(function (idx, data, node) {
+                            return data.proposal.id === proposalId;
+                        });
+                        row.remove().draw(false);
+                        $('#deleteModal').modal('hide');
+                        setTimeout(function() {
+                            $('#success-alert').addClass('d-none').removeClass('show');
+                        }, 4700);
+                    }
+                },
+                error: function(error) {
+                    $('#error-message').text(error.status + ' ' + error.responseJSON.message);
+                    $('#error-alert').removeClass('d-none').addClass('show');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

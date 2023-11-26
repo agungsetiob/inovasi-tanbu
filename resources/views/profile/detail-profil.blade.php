@@ -1,5 +1,6 @@
 @extends('layouts.header')
 @section('content')
+<div class="container-fluid" id="app">
 <style type="text/css">
 
     nav > .nav.nav-tabs{
@@ -48,7 +49,6 @@
       transition:background 0.20s linear;
   }
 </style>
-<div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0">Kabupaten Tanah Bumbu</h1>
         <a id="edit-profile" href="javascript:void(0)" class="btn btn-sm btn-primary shadow-sm" data-profile-id="{{$profile->id}}" data-toggle="modal" data-target="#editProfile">

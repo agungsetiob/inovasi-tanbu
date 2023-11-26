@@ -1,6 +1,7 @@
 @extends('layouts.header')
 @section('content')
-<div class="container-fluid">
+@fragment('profile')
+<div class="container-fluid" id="app">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-dark">Profil Pemda</h1>
@@ -28,7 +29,7 @@
     @endif
     <div class="card shadow mb-4">
         <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive" hx-history="false">
                 <table class="table table-borderless table-striped" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -67,5 +68,12 @@
 <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
+<script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
+<script src="{{asset('vendor/selectize/selectize.min.js')}}"></script>
+<script src="{{asset('vendor/stepper/stepper.min.js')}}"></script>
+<script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
+<script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
+<script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 <x-logout/>
+@endfragment
 @endsection

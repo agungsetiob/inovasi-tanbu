@@ -1,6 +1,6 @@
 @extends('layouts.header')
 @section('content')
-            <div class="container-fluid">
+            <div class="container-fluid" id="app">
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-dark">Bentuk Inovasi</h1>

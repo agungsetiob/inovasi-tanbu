@@ -86,7 +86,7 @@ class ProposalController extends Controller
         return response()->json([
             'success' => true,
             'data' => $results,
-        ]);
+        ])->header('HX-Trigger', 'reloadTable');
     }
 
     /**
@@ -305,7 +305,7 @@ class ProposalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Proposal $inovasi)
+    public function edit(Request $request, Proposal $inovasi)
     {
         $backgrounds = Background::all();
         $categories = Category::where('status', 'active')->get();
@@ -330,19 +330,36 @@ class ProposalController extends Controller
             }
         }
         if (auth()->user()->id == $inovasi->user_id && $inovasi->status === 'draft') {
-            return view('inovasi.edit', compact(
-                'inovasi',
-                'categories', 
-                'skpds', 
-                'bentuks', 
-                'urusans',
-                'tematiks',
-                'options',
-                'selectedUrusans',
-                'tahapans',
-                'inisiators',
-                'backgrounds'
-            ));
+            if($request->header('HX-Request')) {
+                //return 'asoy';
+                return view('inovasi.edit', compact(
+                    'inovasi',
+                    'categories', 
+                    'skpds', 
+                    'bentuks', 
+                    'urusans',
+                    'tematiks',
+                    'options',
+                    'selectedUrusans',
+                    'tahapans',
+                    'inisiators',
+                    'backgrounds'
+                ))->fragment('edit-proposal');
+            } else{
+                return view('inovasi.edit', compact(
+                    'inovasi',
+                    'categories', 
+                    'skpds', 
+                    'bentuks', 
+                    'urusans',
+                    'tematiks',
+                    'options',
+                    'selectedUrusans',
+                    'tahapans',
+                    'inisiators',
+                    'backgrounds'
+                ));
+            }
         } else{
             return redirect()->back()->with('error', 'kebaikan akan menghasilkan kebaikan');
         }

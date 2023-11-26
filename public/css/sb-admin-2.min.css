@@ -33,6 +33,10 @@
 	padding-top: 5.2rem !important;
 }
 
+li:active {
+	background-color: #3B76EF;
+}
+
 .toggled-left {
 	margin-left: 6.5rem;
 }
@@ -76,6 +80,10 @@
 
 .bg-active {
     background-color: #3B76EF;
+}
+
+.opacity-5{
+	opacity: 0.5;
 }
 
 .form-controls {

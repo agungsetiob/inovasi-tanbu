@@ -14,17 +14,26 @@ use Auth;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->role === 'admin') {
             $backgrounds = Background::all();
             $profiles = Profile::all();
             $dataExist = $profiles->count() > 0;
-            return view('profile.index', compact(
-                'profiles',
-                'dataExist',
-                'backgrounds'
-            ));
+            //sleep(1);
+            if ($request->header('HX-Request')) {
+                return view('profile.index', compact(
+                    'profiles',
+                    'dataExist',
+                    'backgrounds'
+                ))->fragment('profile');
+            } else{
+                return view('profile.index', compact(
+                    'profiles',
+                    'dataExist',
+                    'backgrounds'
+                ));
+            }
         } else {
             return view('cukrukuk');
         }

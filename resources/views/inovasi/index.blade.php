@@ -2,17 +2,17 @@
 @section('content')
 <!-- begin section -->
 @fragment('inovasi')
-        <div class="container-fluid" id="createForm">
+        <div class="container-fluid" id="app">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-dark">Inovasi</h1>
                 <a href="{{ route('inovasi.create') }}"
                     hx-get="{{ route('inovasi.create') }}" 
                     hx-trigger="click" 
-                    hx-target="#createForm" 
+                    hx-target="#app" 
                     hx-swap="outerHTML"
                     hx-push-url="true"
-                    hx-indicator="#loadingIndicator" class="btn btn-sm btn-primary shadow-sm {{ (request()->is('data/inovasi')) ? 'd-none' : '' }}"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Add Proposal</a>
+                    hx-indicator="#loadingIndicator" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Add Proposal</a>
             </div>
             <!-- DataTables Example -->
             <div class="card shadow mb-4">
@@ -38,7 +38,7 @@
                         @endphp
                     </div>
                     @endif
-                    <div class="table-responsive">
+                    <div class="table-responsive" hx-history="false">
                         <table class="table table-borderless table-striped" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
@@ -74,7 +74,6 @@
             </div>
         </div>
         <!-- /.container-fluid -->
-    
 <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
@@ -89,7 +88,6 @@
 <script>
     var dataTable;
     $(document).ready(function () {
-        // Make an AJAX request to loadProposals
         $.ajax({
             url: '/api/inovasi',
             type: 'GET',
@@ -146,7 +144,7 @@
                                 buttonsHtml += '<a href="{{url("print/report")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
                                 if (row.proposal.status === 'draft') {
                                     buttonsHtml += '<button id="hapus-' + data + '" class="delete-button btn btn-outline-danger btn-sm mr-1 mt-1" title="Hapus" data-toggle="modal" data-target="#deleteModal" data-proposal-id="' + data + '" data-proposal-name="' + row.proposal.nama + '"><i class="fas fa-trash"></i></button>';
-                                    buttonsHtml += '<a id="edit-' + data + '" href="{{ url("proyek/inovasi") }}/' + data + '/edit" class="btn btn-outline-success btn-sm mr-1 mt-1" title="Edit"><i class="fas fa-pencil-alt" alt="edit"></i></a>';
+                                    buttonsHtml += '<a id="edit-' + data + '" href="{{ url("proyek/inovasi") }}/' + data + '/edit" hx-get="{{ url("proyek/inovasi")}}/'+ data +'/edit" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-success btn-sm mr-1 mt-1" title="Edit"><i class="fas fa-pencil-alt" alt="edit"></i></a>';
                                     if (row.skor > 0) {
                                         buttonsHtml += '<button id="send-proposal-' + data + '" data-toggle="modal" data-target="#sendModal" data-proposal-name="' + row.proposal.nama + '" data-proposal-id="' + data + '" class="send-proposal btn btn-outline-dark btn-sm mr-1 mt-1" title="Kirim"><i class="fas fa-paper-plane"></i></button>';
                                     }
@@ -158,6 +156,9 @@
                             }
                         },
                     ],
+                    "initComplete": function( settings, json ) {
+                        htmx.process('#dataTable');
+                    },
                     rowId: function (row) {
                         return 'index_' + row.proposal.id;
                     },
@@ -167,12 +168,6 @@
                 console.error('Error fetching proposals:', error);
             }
         });
-    });
-
-    document.addEventListener('htmx:beforeSwap', function (event) {
-        if (typeof $.fn.DataTable !== 'undefined') {
-            $(event.target).find('#dataTable').DataTable().destroy();
-        }
     });
 </script>
 @include ('components.modal-send-proposal')

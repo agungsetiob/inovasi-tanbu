@@ -1,6 +1,7 @@
-@extends('layouts.header-create')
+@extends('layouts.header')
 @section('content')
-    <div class="container-fluid" id="editForm">
+@fragment('edit-proposal')
+    <div class="container-fluid" id="app">
       <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-dark">Formulir Proposal Inovasi</h1>
       </div>
@@ -23,7 +24,14 @@
                   </div>
                 </div>
                 <div class="bs-stepper-content">
-                  <form action="{{ route('inovasi.update', $inovasi->id) }}" method="POST" enctype="multipart/form-data">
+                    <form id="edit-proposal" action="{{ route('inovasi.update', $inovasi->id) }}" method="POST" enctype="multipart/form-data"
+                        hx-post="{{ route('inovasi.update', $inovasi->id) }}" 
+                        hx-target="#app" 
+                        hx-swap="outerHTML" 
+                        hx-indicator="#loadingIndicator"
+                        hx-push-url="true"
+                        hx-history="false"
+                        hx-encoding="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div id="test-l-1" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger1">
@@ -279,7 +287,8 @@
                             </div>
                         </div>
                       <button class="btn btn-primary" id="prevB"><i class="fa-solid fa-backward"></i> Previous</button>
-                      <button type="submit" class="btn btn-md btn-outline-primary float-right"><i class="fa fa-save"></i> Save</button>
+                      <button type="submit" class="btn btn-md btn-outline-primary float-right">
+                      <i class="fa fa-save"></i> Save</button>
                     </div>
                   </form> 
                 </div>
@@ -294,15 +303,18 @@
 <!-- Bootstrap core JavaScript-->
 <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js" integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
+<script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
+<script src="{{asset('vendor/selectize/selectize.min.js')}}"></script>
+<script src="{{asset('vendor/stepper/stepper.min.js')}}"></script>
 <script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
+<script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
+<script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 <x-logout/>
 <script type="text/javascript">
   $(document).ready(function () {
-    var stepper = new Stepper($('.bs-stepper')[0],{
+    var stepper = new Stepper($('#stepper1')[0],{
       linear: false
     });
     $("#nextB").click(function () {
@@ -310,27 +322,27 @@
     });
     $("#prevB").click(function () {
       stepper.previous();
-    });   
-  });
+    });
 
-  $(document).ready(function () {
     $('select').selectize({
-      sortField: 'text',
+      sortField: 'id',
       plugins: ['remove_button']
     });
-  });
-  CKEDITOR.replace('rancang', {
-    contentsCss: ["{{asset('vendor/ckeditor/plugins/wordcount/css/wordcount.css')}}"],
-    extraPlugins: 'wordcount',
-    wordcount: {
-      showParagraphs: false,
-      showWordCount: true
-    }
-  });
 
-  CKEDITOR.replace('manfaat')
+    CKEDITOR.replace('rancang', {
+      contentsCss: ["{{asset('vendor/ckeditor/plugins/wordcount/css/wordcount.css')}}"],
+      extraPlugins: 'wordcount',
+      wordcount: {
+        showParagraphs: false,
+        showWordCount: true
+      }
+    });
 
-  CKEDITOR.replace('hasil')
+    CKEDITOR.replace('manfaat')
+
+    CKEDITOR.replace('hasil') 
+  });
 
 </script>
+@endfragment
 @endsection

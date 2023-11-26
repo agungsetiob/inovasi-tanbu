@@ -7,7 +7,9 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="htmx-config" content='{"refreshOnHistoryMiss":"true"}' />
   <title>{{ config('app.title') }}</title>
+  <!-- ininini -->
   <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link
@@ -74,7 +76,7 @@
       </ul>
     </nav>
     <div id="loadingIndicator" class="htmx-indicator d-flex align-items-center justify-content-center" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
-      <i class="fas fa-spinner fa-spin fa-8x"></i>
+      <i class="fas fa-spinner fa-spin fa-6x"></i>
     </div>
 
     @yield ('content')

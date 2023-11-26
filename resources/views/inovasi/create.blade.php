@@ -1,7 +1,7 @@
-@extends('layouts.header-create')
+@extends('layouts.header')
 @section('content')
 @fragment('create-proposal')
-    <div class="container-fluid" id="createForm">
+    <div class="container-fluid" id="app">
       <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-dark">Formulir Proposal Inovasi</h1>
       </div>
@@ -24,14 +24,14 @@
                   </div>
                 </div>
                 <div class="bs-stepper-content">
-                  <form action="{{ route('inovasi.store') }}" method="POST" enctype="multipart/form-data">
+                  <form action="{{ route('inovasi.store') }}" method="POST" enctype="multipart/form-data"  hx-history="false">
                     @csrf
                     <div id="test-l-1" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger1">
                       <div class="form-group">
                         <label class="font-weight-bold" for="nama">Nama inovasi:</label>
                         <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" placeholder="Masukkan nama inovasi">
 
-                        <!-- error message untuk title -->
+                        <!-- error message untuk nama -->
                         @error('nama')
                         <div class="alert alert-danger mt-2">
                           {{ $message }}
@@ -327,6 +327,18 @@
 
     CKEDITOR.replace('hasil') 
   });
+
+  document.addEventListener('htmx:afterRequest', function (event) {
+        $('select').each(function () {
+            var selectize = $(this)[0].selectize;
+            if (selectize) {
+                selectize.destroy();
+            }
+        });
+    });
+  document.body.addEventListener('htmx:pushedIntoHistory', (evt) => {
+      localStorage.removeItem('htmx-history-cache')
+    });
 
   // $(document).ready(function () {
   //   $('select').selectize({

@@ -16,8 +16,8 @@
                         <label for="nama-profil">Nama Pemda</label>
                         <input type="text" class="form-control" name="nama" id="nama-profil" required>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama"></div>
-                        <label for="skpd">SKPD Pengampu</label>
-                        <input type="text" class="form-control" name="skpd" id="skpd" required>
+                        <label for="skpd-edit">SKPD Pengampu</label>
+                        <input type="text" class="form-control" name="skpd" id="skpd-edit" required>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-skpd"></div>
                         <label for="alamat">Alamat Pemda</label>
                         <input type="text" class="form-control" name="alamat" id="alamat" required>
@@ -50,7 +50,7 @@
                     //fill data to form
                 $('#id-profil').val(response.data.id);
                 $('#nama-profil').val(response.data.nama);
-                $('#skpd').val(response.data.skpd);
+                $('#skpd-edit').val(response.data.skpd);
                 $('#email').val(response.data.email);
                 $('#alamat').val(response.data.alamat);
                 $('#telp').val(response.data.telp);

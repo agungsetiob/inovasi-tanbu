@@ -17,7 +17,7 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
@@ -40,8 +40,22 @@ class AdminController extends Controller
             $inactiveUsers = User::where('status', '=', 'inactive')->count();
             $labelBentuk = Bentuk::whereHas('proposals')->pluck('nama')->unique();
             $labelJenis = Category::whereHas('proposals')->pluck('name')->unique();
-
-            return view ('admin.index', compact(
+            //sleep(1);
+            if ($request->header('HX-Request')) {
+                return view ('admin.index', compact(
+                    'activeUsers', 
+                    'inactiveUsers',
+                    'totalProposals',
+                    'messages',
+                    'chartBentuk',
+                    'labelBentuk',
+                    'chartJenis',
+                    'labelJenis',
+                    'totalSkpds',
+                    'backgrounds'
+                ))->fragment('admin');
+            } else {
+                return view ('admin.index', compact(
                     'activeUsers', 
                     'inactiveUsers',
                     'totalProposals',
@@ -53,6 +67,7 @@ class AdminController extends Controller
                     'totalSkpds',
                     'backgrounds'
                 ));
+            }
         } else {
             return view('cukrukuk');
         }

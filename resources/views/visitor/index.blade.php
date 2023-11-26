@@ -166,6 +166,14 @@
 <script src="js/js/scripts.js"></script>
 @include ('visitor.modal-detail-inovasi')
 <script>
+    document.addEventListener('htmx:afterSwap', function (event) {
+        var refreshValue = event.detail.responseHeaders['HX-Refresh'];
+        if (refreshValue === 'true') {
+            // Full page reload
+            window.location.reload();
+        }
+    });
+    
     $('#slider').owlCarousel({
         items: 1,
         lazyLoad: true,

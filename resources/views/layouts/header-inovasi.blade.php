@@ -13,6 +13,7 @@
     <link href="{{asset('css/styles.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
+    <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
 </head>
 <body id="page-top">
     <!-- Navigation-->
@@ -23,7 +24,7 @@
             </a>
             <a class="navbar-brand" href="#page-top">
                 @foreach ($settings as $s)
-                <img width="60" src="{{url ('storage/system', $s->logo_sistem)}}" alt="logo serasi" class="d-none d-md-inline-block">
+                <img width="60" src="{{ url('storage/system', $s->logo_sistem) }}" alt="logo serasi" class="d-none d-md-inline-block">
                 @endforeach
             </a>
             <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +54,9 @@
             </div>
         </div>
     </nav>
+    <div id="loadingIndicator" class="htmx-indicator d-flex align-items-center justify-content-center" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+      <i class="fas fa-spinner fa-spin fa-6x"></i>
+    </div>
     @yield ('content')
 </body>
 </html>

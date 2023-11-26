@@ -7,12 +7,12 @@
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-dark">Inovasi</h1>
                 <a href="{{ route('inovasi.create') }}"
-                    hx-get="{{ route('inovasi.create') }}" 
-                    hx-trigger="click" 
-                    hx-target="#app" 
-                    hx-swap="outerHTML"
-                    hx-push-url="true"
-                    hx-indicator="#loadingIndicator" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Add Proposal</a>
+                hx-get="{{ route('inovasi.create') }}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Add Proposal</a>
             </div>
             <!-- DataTables Example -->
             <div class="card shadow mb-4">

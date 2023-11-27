@@ -53,8 +53,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 
-document.body.addEventListener('htmx:afterSwap', function(evt) {
-      htmx.toggleClass(htmx.find("body"), "bg-pattern-doubs");
-
+$(document).on('click', '#buttonShow', function(e) {
+    $('#show-prop').remove();
 });
 

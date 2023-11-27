@@ -1,35 +1,8 @@
 @extends ('layouts.header-inovasi')
 @section ('content')
-<header class="masthead-carousel bg-carousel text-white text-center" hx-history="false">
+<header class="masthead-carousel bg-carousel text-white text-center">
     <div class="d-flex">
         <style>
-            @keyframes fade-in {
-                from { opacity: 0; }
-            }
-
-            @keyframes fade-out {
-                to { opacity: 0; }
-            }
-
-            @keyframes slide-from-right {
-                from { -webkit-transform: translateX(90px); transform: translateX(90px); }
-            }
-
-            @keyframes slide-to-left {
-                to { -webkit-transform: translateX(-90px); transform: translateX(-90px); }
-            }
-               .slide-it {
-                 view-transition-name: slide-it;
-               }
-
-               ::view-transition-old(slide-it) {
-                 animation: 180ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
-                 600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
-               }
-               ::view-transition-new(slide-it) {
-                 animation: 420ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
-                 600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
-               }
             .thebox {
                 display: inline-block;
                 width: 150px;
@@ -120,36 +93,58 @@
                 }
             }
         </style>
-        {{--owl carousel--}}
+        <!-- Masthead Avatar Image-->
         <div class="owlslider owl-carousel mb-0 owl-loaded owl-drag owl-theme owl-carousel-init" id="slider">
             @foreach ($carousels as $carousel)
-                <div class="item">
-                    <img src="{{url('storage/carousels/'. $carousel->image)}}" class="d-block img-fluid rounded">
-                </div>
+            <div class="item"> <img src="{{url('storage/carousels/'. $carousel->image)}}" class="d-block img-fluid rounded"> </div>
             @endforeach
         </div>
     </div>
 </header>
 <!-- Portfolio Section-->
-
 <section class="page-section bg-inovation portfolio" id="portfolio">
     <div class="container">
-        <div class="row justify-content-center slide-it" id="content-container">
-            @include('visitor.partial.proposal-item', ['proposals' => $proposals])
+        <!-- Portfolio Grid Items-->
+        <div class="row justify-content-center">
+            <!-- Portfolio Item 1-->
+            @forelse ($proposals as $prop)
+            <div class="col-md-6 col-lg-4 mb-5">
+                <div class="portfolio-item mx-auto show-inovasi" data-bs-toggle="modal" data-bs-target="#showInovasi" data-id="{{$prop->id}}">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-rocket fa-3x"></i></div>
+                    </div>
+                    @if ($prop->tahapan->nama === 'ujicoba')
+                    <img class="img-fluid" src="assets/img/portfolio/cabin.png" alt="..." />
+                    @elseif ($prop->tahapan->nama === 'inisiatif')
+                    <img class="img-fluid" src="assets/img/portfolio/cake.png" alt="..." />
+                    @elseif ($prop->tahapan->nama === 'penerapan')
+                    <img class="img-fluid" src="assets/img/portfolio/game.png" alt="..." />
+                    @endif
+                </div>
+                <div class="portfolio-caption text-center text-white mt-1">
+                    <h6>{{ $prop->nama }}</h6>
+                </div>
+            </div>
+            @empty
+            <div class="alert alert-dark text-center">
+                No data available.
+            </div>
+            @endforelse
         </div>
-        <div class="text-center mt-2" id="show-prop">
-            <button id="buttonShow" class="btn btn-xl btn-secondary btn-outline-light" 
-                    hx-get="{{ url('inovasi/all') }}" 
-                    hx-trigger="click" 
-                    hx-target="#content-container" 
-                    hx-swap="innerHtml transition:true"
-                    hx-indicator="#loadingIndicator"><i class="fa fa-atom me-2 fa-spin"></i>
-                Show All
-            </button>
+        <div class="text-center mt-2">
+            <a class="btn btn-xl btn-secondary btn-outline-light"
+            hx-get="{{url('inovasi/all')}}" 
+            hx-trigger="click" 
+            hx-target="#page-top" 
+            hx-swap="outerHTML"
+            hx-push-url="true"
+            hx-indicator="#loadingIndicator">
+            <i class="fas fa-atom me-2 fa-spin"></i>
+                Lihat semua
+            </a>
         </div>
     </div>
 </section>
-
 <!-- About Section-->
 <section class="page-section bg-primary text-white mb-0" id="about">
     <div class="container">
@@ -177,6 +172,14 @@
 <script src="js/js/scripts.js"></script>
 @include ('visitor.modal-detail-inovasi')
 <script>
+    document.addEventListener('htmx:afterSwap', function (event) {
+        var refreshValue = event.detail.responseHeaders['HX-Refresh'];
+        if (refreshValue === 'true') {
+            // Full page reload
+            window.location.reload();
+        }
+    });
+    
     $('#slider').owlCarousel({
         items: 1,
         lazyLoad: true,
@@ -184,7 +187,6 @@
         navText: false,
         loop: true,
         autoplay: true,
-        dots: false,
         responsive: {
             0: {
                 items: 1,

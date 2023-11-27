@@ -13,9 +13,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{--@vite(['resources/css/app.css', 'resources/js/app.js'])--}}
 </head>
-<body class="background relative">
+<body class="relative">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <div class="absolute top-0 left-0 p-6">
         <img src="{{ asset('img/garuda.png') }}" class="w-16 h-16">
     </div>

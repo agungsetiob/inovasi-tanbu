@@ -59,9 +59,10 @@ class VisitorController extends Controller
     */
     public function proposal()
     {
-        $proposals = Proposal::latest()->paginate(9);
+        $proposals = Proposal::latest()->get();
         $settings = Setting::all();
-        return view('visitor.all-inovasi', compact('proposals', 'settings'));
+        //sleep(1);
+        return view('visitor.partial.proposal-item', compact('proposals', 'settings'));
     }
 
     /**

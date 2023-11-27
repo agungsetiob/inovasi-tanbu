@@ -300,6 +300,7 @@ a {
 }
 a:hover {
   color: var(--bs-link-hover-color);
+  cursor: pointer;
 }
 
 .por:hover {

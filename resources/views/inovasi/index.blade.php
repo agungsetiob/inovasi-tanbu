@@ -6,7 +6,7 @@
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-dark">Inovasi</h1>
-                <a href="{{ route('inovasi.create') }}"
+                <a href=""
                 hx-get="{{ route('inovasi.create') }}" 
                 hx-trigger="click" 
                 hx-target="#app" 

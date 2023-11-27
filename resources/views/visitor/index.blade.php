@@ -132,8 +132,14 @@
             @endforelse
         </div>
         <div class="text-center mt-2">
-            <a class="btn btn-xl btn-secondary btn-outline-light" href="inovasi/all">
-                <i class="fas fa-atom me-2 fa-spin"></i>
+            <a class="btn btn-xl btn-secondary btn-outline-light"
+            hx-get="{{url('inovasi/all')}}" 
+            hx-trigger="click" 
+            hx-target="#page-top" 
+            hx-swap="outerHTML"
+            hx-push-url="true"
+            hx-indicator="#loadingIndicator">
+            <i class="fas fa-atom me-2 fa-spin"></i>
                 Lihat semua
             </a>
         </div>

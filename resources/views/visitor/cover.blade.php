@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
         <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
     </head>
-    <body id="page-top" class="bg-pattern-doubs">
+    <body id="page-top">
         <div class="container">
             <div class="row justify-content-between pt-4">
                 <img style="width:93px" class="img-fluid" src="img/garuda.png" title="garuda" alt="garuda" />
@@ -23,14 +23,14 @@
             </div>
         </div>
         <!-- Masthead-->
-        <header class="masthead text-white text-center">
+        <header class="masthead text-white text-center" style="margin-top: 0px; padding-top: 0px; padding-bottom: 0.1rem; margin-bottom: 0px;">
             @foreach ($settings as $s)
             <div class="container d-flex align-items-center justify-content-center">
                 <img style="height:193px" class="img-fluid mb-5" src="{{url('storage/system/' . $s->logo_cover)}}" title="logo" alt="logo" />
             </div>
             @endforeach
             <div class="container d-flex align-items-center flex-column">
-                <h1 class="text-uppercase mb-4">Kabupaten Tanah Bumbu</h1>
+                <h3 class="text-uppercase">Kabupaten Tanah Bumbu</h3>
                 <!-- Icon Divider-->
             </div>
 

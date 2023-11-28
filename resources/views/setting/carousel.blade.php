@@ -40,6 +40,14 @@
 		        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Picture_icon_BLACK.svg" alt="" width="150" class="mb-4">
 		    </header>
 		    <div class="row py-4">
+		    	@if (Session::has('error'))
+	    		<div class="alert alert-danger">
+	    			{{ Session::get('error') }}
+	    			@php
+	    			Session::forget('error');
+	    			@endphp
+	    		</div>
+	    		@endif
 		        <div class="col-lg-6 mx-auto">
 		        	<form action="carousel/upload" method="POST" enctype="multipart/form-data">
 		        		@csrf

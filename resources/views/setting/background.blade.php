@@ -66,6 +66,24 @@
 	    @foreach ($backgrounds as $background)
 	    <div class="card shadow">
 	    	<div class="card-body">
+	    		@if(Session::has('success'))
+	    		<div class="alert alert-success data-dismiss alert-dismissible">
+	    			{{ Session::get('success') }}
+	    			@php
+	    			Session::forget('success');
+	    			@endphp
+	    			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	    			</button>
+	    		</div>
+	    		@elseif (Session::has('error'))
+	    		<div class="alert alert-danger">
+	    			{{ Session::get('error') }}
+	    			@php
+	    			Session::forget('error');
+	    			@endphp
+	    		</div>
+	    		@endif
 		        <div id="index_{{$background->id}}" class="col-lg-12 mb-3">
 		        	<div class="image-thumbnail overflow-hidden" style="max-height: 500px;">
 		        		<img src="{{url('storage/backgrounds/' . $background->background)}}" class="img-fluid w-100" alt="background">

@@ -1,6 +1,7 @@
 @extends('layouts.header')
 @section('content')
-<div class="container-fluid" id="app">
+@fragment('detail-profil')
+<div class="container-fluid slide-it" id="app">
 <style type="text/css">
 
     nav > .nav.nav-tabs{
@@ -151,4 +152,5 @@
 @include('profile.modal-edit-profile')
 <x-logout/>
 <x-alert-modal/>
+@endfragment
 @endsection

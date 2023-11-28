@@ -17,12 +17,16 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
             $messages = Contact::all();
-            return view('admin.message', compact('messages', 'backgrounds'));
+            if ($request->header('HX-Request')) {
+                return view('admin.message', compact('messages', 'backgrounds'))->fragment('message');
+            }else{
+                return view('admin.message', compact('messages', 'backgrounds'));
+            }
         }else{
             return back()->with('error', 'Aku pasrahkan hidupku padamu Tuhan');
         }

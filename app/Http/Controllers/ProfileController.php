@@ -39,7 +39,7 @@ class ProfileController extends Controller
         }
     }
 
-    public function show(Profile $profile)
+    public function show(Profile $profile, Request $request)
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
@@ -47,7 +47,17 @@ class ProfileController extends Controller
             $buktis = Bukti::where('status', 'active')->get();
             $indikators = Indikator::where('status', 'active')->get();
             $files = Indikator::all();
-            return view('profile.detail-profil', compact(
+            if ($request->header('HX-Request')) {
+                return view('profile.detail-profil', compact(
+                'files', 
+                'profile', 
+                'buktis', 
+                'indikators', 
+                'profileId',
+                'backgrounds'
+            ))->fragment('detail-profil');
+            } else {
+                return view('profile.detail-profil', compact(
                 'files', 
                 'profile', 
                 'buktis', 
@@ -55,6 +65,7 @@ class ProfileController extends Controller
                 'profileId',
                 'backgrounds'
             ));
+            }
         } else {
             return redirect()->back()->with(['error' => 'ojo dibandingke!']);
         }
@@ -93,7 +104,7 @@ class ProfileController extends Controller
         $profile->indikators()->sync($indikatorIds);
 
         //redirect to index
-        return redirect()->back()->with(['success' => 'Profil berhasil disimpan']);
+        return redirect('data/profile')->with(['success' => 'Profil berhasil disimpan']);
     }
 
     /**

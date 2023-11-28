@@ -40,7 +40,7 @@ class AdminController extends Controller
             $inactiveUsers = User::where('status', '=', 'inactive')->count();
             $labelBentuk = Bentuk::whereHas('proposals')->pluck('nama')->unique();
             $labelJenis = Category::whereHas('proposals')->pluck('name')->unique();
-            sleep(1);
+            //sleep(1);
             if ($request->header('HX-Request')) {
                 return view ('admin.index', compact(
                     'activeUsers', 

@@ -13,17 +13,25 @@ class SettingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
             $settings = Setting::all();
             $dataExist = $settings->count() > 0;
-            return view('setting.setting', compact(
+            if ($request->header('HX-Request')) {
+                return view('setting.setting', compact(
+                'settings',
+                'dataExist',
+                'backgrounds'
+            ))->fragment('setting');
+            } else {
+                return view('setting.setting', compact(
                 'settings',
                 'dataExist',
                 'backgrounds'
             ));
+            }
         } else {
             return view('cukrukuk');
         }
@@ -105,7 +113,6 @@ class SettingController extends Controller
             $setting->tentang = $request->tentang;
             $setting->alamat = $request->alamat;
             $setting->save();
-
             return response()->json(['success' => true, 'message' => 'Berhasil update setting']);
         } else {
             return response()->json(['success' => false, 'message' => 'Permission denied']);

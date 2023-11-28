@@ -52,7 +52,7 @@
         </a>
         <div id="collapseZero" class="collapse" aria-labelledby="headingZero" data-parent="#accordionSidebar" style="z-index: 10;">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a id="inovasiIndex" class="collapse-item" href="{{url('proyek/inovasi')}}"
+                <a id="inovasiIndex" class="collapse-item"
                 hx-get="{{ url('proyek/inovasi') }}" 
                 hx-trigger="click" 
                 hx-target="#app" 
@@ -100,7 +100,12 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="z-index: 10;">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/system/setting"><i class="fas fa-fw fa-wrench"></i> Web setting</a>
+                <a class="collapse-item" hx-get="{{ url('system/setting') }}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-wrench"></i> Web setting</a>
                 <a class="collapse-item"
                 hx-get="{{ url('carousel') }}" 
                 hx-trigger="click" 
@@ -120,7 +125,7 @@
     </li>
     <hr class="sidebar-divider d-none d-md-block">
     <li class="nav-item {{ (request()->is('messages')) ? 'active ' : '' }}">
-        <a class="nav-link" href="{{url('messages')}}"
+        <a class="nav-link"
         hx-get="{{ url('messages') }}" 
         hx-trigger="click" 
         hx-target="#app" 

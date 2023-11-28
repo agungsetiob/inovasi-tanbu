@@ -1,7 +1,7 @@
 @extends('layouts.header')
 @section('content')
 @fragment('edit-proposal')
-    <div class="container-fluid" id="app">
+    <div class="container-fluid slide-it" id="app">
       <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-dark">Formulir Proposal Inovasi</h1>
       </div>
@@ -24,10 +24,10 @@
                   </div>
                 </div>
                 <div class="bs-stepper-content">
-                    <form id="edit-proposal" method="POST" enctype="multipart/form-data"
+                    <form id="edit-proposal"
                     hx-post="{{ route('inovasi.update', $inovasi->id) }}" 
                     hx-target="#app" 
-                    hx-swap="outerHTML" 
+                    hx-swap="outerHTML transition:true" 
                     hx-indicator="#loadingIndicator"
                     hx-push-url="true"
                     hx-history="false"

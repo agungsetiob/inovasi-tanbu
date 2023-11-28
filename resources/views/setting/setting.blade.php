@@ -1,6 +1,7 @@
-@extends('layouts.header')
-@section('content')
-            <div class="container-fluid">
+@extends ('layouts.header')
+@section ('content')
+@fragment ('setting')
+            <div class="container-fluid slide-it" id="app">
                 <div id="form-button" class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-dark">Pengaturan sistem</h1>
                     @if ($dataExist)
@@ -59,4 +60,5 @@
 @include ('setting.modal-edit-setting')
 <x-logout/>
 <x-alert-modal/>
+@endfragment
 @endsection

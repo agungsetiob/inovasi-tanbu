@@ -7,6 +7,7 @@
         <h1 class="h3 mb-0 text-dark">Profil Pemda</h1>
         @if ($dataExist)
         <!-- <i class="fa-solid fa-user-secret"></i> -->
+        <a href="#" class="btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#createProfile"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Create Profile</a>
         @else
         <a href="#" class="btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#createProfile"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Create Profile</a>
         @endif
@@ -19,12 +20,16 @@
         Session::forget('success');
         @endphp
     </div>
-    @elseif (Session::has('error'))
-    <div class="alert alert-danger">
-        {{ Session::get('error') }}
-        @php
-        Session::forget('error');
-        @endphp
+    @endif
+    @if ($errors->any())
+    <div class="alert alert-danger data-dismiss alert-dismissible">
+        <i class="fa fa-solid fa-bell fa-shake"></i>
+        @foreach ($errors->all() as $error)
+        {{ $error }}
+        @endforeach
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     @endif
     <div class="card shadow mb-4">
@@ -43,7 +48,13 @@
                         <tr>
                             <td>Kabupaten {{ $p->nama }} </td>
                             <td> 
-                                <a href="{{url('indikator/spd', $p->id)}}" class="btn btn-outline-primary btn-sm"><i class="fas fa-folder-closed"></i></a>
+                                <a
+                                hx-get="{{url('indikator/spd', $p->id)}}" 
+                                hx-trigger="click" 
+                                hx-target="#app" 
+                                hx-swap="outerHTML transition:true"
+                                hx-push-url="true"
+                                hx-indicator="#loadingIndicator" class="btn btn-outline-primary btn-sm"><i class="fas fa-folder-closed"></i></a>
                             </td>
                             <td class="text-center">
                                 <a href="{{url('indikator/spd', $p->id)}}" target="_blank" class="btn btn-outline-secondary btn-sm" title="detail profil"><i class="fa-solid fa-user-secret"></i></a>

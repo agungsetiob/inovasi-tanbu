@@ -1,7 +1,8 @@
 @extends('layouts.header')
 @section('content')
 <!-- Begin Page Content -->
-            <div class="container-fluid" id="app">
+@fragment('message')
+            <div class="container-fluid slide-it" id="app">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-dark">Pesan</h1>
                 </div>
@@ -95,4 +96,5 @@
 <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
 <x-delete-message/>
 <x-logout/>
+@endfragment
 @endsection

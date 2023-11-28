@@ -37,7 +37,7 @@ class CarouselController extends Controller
         Carousel::create([
             'image'    => $image->hashName()
         ]);
-        return redirect()->back()->with('success', 'Berhasil upload gambar');
+        return redirect()->back()->with('success', 'Berhasil upload gambar slider');
     }
 
     public function destroy(Carousel $carousel)
@@ -46,7 +46,7 @@ class CarouselController extends Controller
         $carousel->delete();
         return response()->json([
             'success' => true,
-            'message' => 'Berhasil menghapus gambar',
+            'message' => 'Berhasil menghapus gambar slider',
         ]);
     }
 }

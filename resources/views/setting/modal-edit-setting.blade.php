@@ -42,13 +42,29 @@
                         </div> 
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-logo_cover"></div>
                     </div>
-                    <button id="store" type="submit" class="btn btn-primary">Save</button>
+                    <button id="update" type="submit" class="btn btn-primary">Update</button>
+                    <button id="loading" type="submit" class="btn btn-primary d-none" disabled><i class="fa-solid fa-circle-notch fa-spin"></i></button>
                 </form>
             </div> 
         </div>
     </div>
 </div>
+<style>
+    .loading-spinner {
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top: 4px solid #3498db;
+        width: 20px;
+        height: 20px;
+        animation: spin 1s linear infinite;
+        margin-right: 10px;
+    }
 
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
 <script type="text/javascript">
     document.getElementById('logo-sistem-edit').onchange = function () {
         document.getElementById('uFile-edit').value = this.value;
@@ -77,6 +93,8 @@
 
     $('#editForm').submit(function (e) {
         e.preventDefault();
+        $('#update').addClass('d-none');
+        $('#loading').removeClass('d-none');
         
         var formData = new FormData(this);
 
@@ -96,7 +114,10 @@
                 $('#success-message').text(response.message);
                 setTimeout(function() {
                     $('#success-modal').modal('hide');
+                    $(".modal-backdrop").remove();
                 }, 3950);
+                $('#update').removeClass('d-none');
+                $('#loading').addClass('d-none');
             },
             error: function (error) {
                 if (error.status === 422) { 
@@ -104,9 +125,13 @@
                         let alertId = 'alert-' + field + '-edit';
                         $('#' + alertId).html(errors[0]).removeClass('d-none').addClass('d-block');
                     });
+                    $('#update').removeClass('d-none');
+                    $('#loading').addClass('d-none');
                 } else{
                     $('#error-message').text(error.status + ' ' + error.responseJSON.message);
                     $('#error-modal').modal('show');
+                    $('#update').removeClass('d-none');
+                    $('#loading').addClass('d-none');
                 }
             }
         });

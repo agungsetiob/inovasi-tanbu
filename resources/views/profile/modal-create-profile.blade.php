@@ -8,7 +8,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('profile/create') }}" method="POST">
+                <form 
+                hx-post="{{ url('profile/create') }}" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true" 
+                hx-indicator="#loadingIndicator"
+                hx-push-url="true"
+                hx-history="false"
+                hx-encoding="multipart/form-data" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="nama">Nama Pemda</label>

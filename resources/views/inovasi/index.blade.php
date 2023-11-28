@@ -21,22 +21,27 @@
                 </div>
                 <div class="card-body">
                     @if(Session::has('success'))
-                    <div class="alert alert-success data-dismiss alert-dismissible">
-                        {{ Session::get('success') }}
-                        @php
-                        Session::forget('success');
-                        @endphp
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    @elseif (Session::has('error'))
-                    <div class="alert alert-danger">
-                        {{ Session::get('error') }}
-                        @php
-                        Session::forget('error');
-                        @endphp
-                    </div>
+                        <div class="alert alert-success data-dismiss alert-dismissible">
+                            <i class="fa fa-solid fa-check"></i>
+                            {{ Session::get('success') }}
+                            @php
+                            Session::forget('success');
+                            @endphp
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger data-dismiss alert-dismissible">
+                            <i class="fa fa-solid fa-bell fa-shake"></i>
+                            @foreach ($errors->all() as $error)
+                                {{ $error }}
+                            @endforeach
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                     @endif
                     <div class="table-responsive" hx-history="false">
                         <table class="table table-borderless table-striped" id="dataTable" width="100%" cellspacing="0">
@@ -56,6 +61,7 @@
                                 <!-- server side dataTable gan -->
                             </tbody>
                             <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+                                <i class="fa fa-solid fa-check"></i>
                                 <span id="success-message"></span>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -63,6 +69,7 @@
                             </div>
 
                             <div id="error-alert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                                <i class="fa fa-solid fa-bell fa-shake"></i>
                                 <span id="error-message"></span>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>

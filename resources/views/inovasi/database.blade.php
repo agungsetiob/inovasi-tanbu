@@ -29,12 +29,14 @@
                                 <!-- server side datatable here -->
                             </tbody>
                             <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+                                <i class="fa fa-solid fa-check"></i>
                                 <span id="success-message"></span>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div id="error-alert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                                <i class="fa fa-solid fa-bell fa-shake"></i>
                                 <span id="error-message"></span>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>

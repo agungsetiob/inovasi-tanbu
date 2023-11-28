@@ -27,14 +27,20 @@
         </a>
         <div id="collapseData" class="collapse" aria-labelledby="headingData" data-parent="#accordionSidebar" style="z-index: 10">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{url('data/profile')}}"
+                <a class="collapse-item"
                 hx-get="{{ url('data/profile') }}" 
                 hx-trigger="click" 
                 hx-target="#app" 
                 hx-swap="outerHTML transition:true"
                 hx-push-url="true"
                 hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-mosque"></i> Profil Pemda</a>
-                <a class="collapse-item" href="{{ route('database') }}"><i class="fas fa-fw fa-microscope"></i> Inovasi Daerah</a>
+                <a class="collapse-item" href="{{ route('database') }}"
+                hx-get="{{ route('database') }}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-rocket"></i> Inovasi Daerah</a>
             </div>
         </div>
     </li>

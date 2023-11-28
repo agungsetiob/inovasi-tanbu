@@ -93,11 +93,16 @@ class ProposalController extends Controller
     * Display proposal with status 'sent'
     *
     */
-    public function database()
+    public function database(Request $request)
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
-            return view ('inovasi.database', compact('backgrounds'));
+            if ($request->header('HX-Request')) {
+                return view ('inovasi.partial.database', compact('backgrounds'));
+            } else {
+                return view ('inovasi.database', compact('backgrounds'));
+            }
+            
         } else {
             return redirect()->back()->with(['error' => 'wong kongene kok dibandingke']);
         }
@@ -130,7 +135,7 @@ class ProposalController extends Controller
                 ];
             });
 
-            return response()->json(['success' => true, 'data' => $results]);
+            return response()->json(['success' => true, 'data' => $results])->header('HX-Trigger', 'reloadDatabase');
         }
 
         return false;
@@ -441,6 +446,24 @@ class ProposalController extends Controller
             $inovasi->update(['status' => $status]);
 
             return response()->json(['success' => 'Berhasil mengirim proposal']);
+        } else {
+            return response()->json(['error' => 'Gagal mengirim proposal']);
+        }
+
+    }
+
+    /**
+     * Send proposal to admin
+     * 
+     */
+    public function returnProposal(Proposal $inovasi)
+    {
+        if (Auth::user()->role == 'admin' || ($inovasi->user_id === Auth::user()->id)) {
+            $status = $inovasi->status === 'sent' ? 'draft' : 'sent';
+
+            $inovasi->update(['status' => $status]);
+
+            return response()->json(['success' => 'Berhasil mengembalikan proposal']);
         } else {
             return response()->json(['error' => 'Gagal mengirim proposal']);
         }

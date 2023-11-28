@@ -38,12 +38,13 @@ aria-hidden="true">
                 success: function(response) {
                     if (response.success) {
                         $('#success-alert').removeClass('d-none').addClass('show');
-                        $('#success-message').text('Berhasil mengirim proposal');
+                        $('#success-message').text(response.success);
                         $('#error-alert').addClass('d-none');
                         $(".send-proposal[data-proposal-id='" + proposalId + "']").remove();
                         $("#edit-" + proposalId).remove();
                         $("#hapus-" + proposalId).remove();
                         $('#sendModal').modal('hide');
+                        $(".modal-backdrop").remove();
                     }
                 },
                 error: function(error) {

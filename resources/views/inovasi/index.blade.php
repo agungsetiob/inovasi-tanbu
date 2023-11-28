@@ -169,6 +169,12 @@
             }
         });
     });
+    
+    document.body.addEventListener("reloadTable", function(evt){
+        personDataTable.ajax.reload(function() {
+            htmx.process('#dataTable');
+        }, false)
+    });
 </script>
 @include ('components.modal-send-proposal')
 @include ('components.modal-delete-proposal')

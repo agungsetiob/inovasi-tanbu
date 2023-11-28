@@ -1,6 +1,4 @@
-@extends('layouts.header')
-@section('content')
-        <div class="container-fluid" id="app">
+        <div class="container-fluid slide-it" id="app">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-dark">Inovasi</h1>
@@ -12,7 +10,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive"  hx-history="false">
-                        <table class="table table-borderless table-striped" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-borderless table-striped" id="database" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th width="30%">Nama Inovasi</th>
@@ -59,7 +57,7 @@
 <x-logout/>
 @include ('components.modal-return-proposal')
 <script type="text/javascript">
-    var dataTable = $('#dataTable').DataTable({
+    var dataTable = $('#database').DataTable({
         ajax: {
             url: '/api/database/inovasi',
             dataSrc: 'data',
@@ -99,14 +97,22 @@
                 render: function (data, type, row) {
                     var buttonsHtml = '<div class="text-center">';
                     buttonsHtml += '<a href="{{url("print/report")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
-                        buttonsHtml += '<button id="return-proposal-' + row.id + '" data-proposal-id="'+ data +'" data-toggle="modal" data-target="#returnModal" data-proposal-name="' + row.proposal.nama + '" class="return-proposal btn btn-outline-warning btn-sm mt-1" title="kembalikan"><i class="fa-solid fa-ban"></i></button>';
+                        buttonsHtml += '<button id="send-proposal-' + row.id + '" data-proposal-id="'+ data +'" data-toggle="modal" data-target="#returnModal" data-proposal-name="' + row.proposal.nama + '" class="return-proposal btn btn-outline-warning btn-sm mt-1" title="kembalikan"><i class="fa-solid fa-ban"></i></button>';
 
                     buttonsHtml += '</div>';
                     return buttonsHtml;
                 }
             },
             ],
+        "initComplete": function( settings, json ) {
+            htmx.process('#database');
+        },
         // other DataTable options...
     });
+
+    document.body.addEventListener("reloadDatabase", function(evt){
+        personDataTable.ajax.reload(function() {
+            htmx.process('#database');
+        }, false)
+    });
 </script>
-@endsection

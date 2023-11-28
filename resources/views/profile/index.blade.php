@@ -1,7 +1,7 @@
 @extends('layouts.header')
 @section('content')
 @fragment('profile')
-<div class="container-fluid" id="app">
+<div class="container-fluid slide-it" id="app">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-dark">Profil Pemda</h1>

@@ -12,7 +12,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive"  hx-history="false">
-                        <table class="table table-borderless table-striped" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-borderless table-striped" id="database" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th width="30%">Nama Inovasi</th>
@@ -61,7 +61,7 @@
 <x-logout/>
 @include ('components.modal-return-proposal')
 <script type="text/javascript">
-    var dataTable = $('#dataTable').DataTable({
+    var dataTable = $('#database').DataTable({
         ajax: {
             url: '/api/database/inovasi',
             dataSrc: 'data',
@@ -93,7 +93,7 @@
             { 
                 data: 'proposal.id', className: 'text-center',
                 render: function (data, type, row) {
-                    return '<a href="{{url("bukti-dukung")}}/' + data + '" class="btn btn-outline-primary btn-sm mt-1"><i class="fas fa-folder-closed"></i></a>';
+                    return '<a hx-get="{{ url("bukti-dukung")}}/'+ data +'" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-primary btn-sm mt-1"><i class="fas fa-folder-closed"></i></a>';
                 }
             },
             { 
@@ -108,7 +108,16 @@
                 }
             },
             ],
+        "initComplete": function( settings, json ) {
+            htmx.process('#database');
+        },
         // other DataTable options...
+    });
+
+    document.body.addEventListener("reloadDatabase", function(evt){
+        personDataTable.ajax.reload(function() {
+            htmx.process('#database');
+        }, false)
     });
 </script>
 @endsection

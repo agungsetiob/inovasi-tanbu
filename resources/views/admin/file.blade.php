@@ -1,7 +1,8 @@
 @extends('layouts.header')
 @section('content')
 <!-- Begin Page Content -->
-        <div class="container-fluid" id="app">
+@fragment('bukti-dukung')
+        <div class="container-fluid slide-it" id="app">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-dark">{{ $proposal->nama }}</h1>
@@ -74,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            {{-- /.container-fluid --}}
+            {{-- container-fluid --}}
 
 <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -90,4 +91,5 @@
 @include('components.modal-edit-indikator')
 <x-alert-modal/>
 <x-logout/>
+@endfragment
 @endsection

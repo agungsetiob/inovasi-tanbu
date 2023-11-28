@@ -19,7 +19,7 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index($id, Request $request)
     {
         $backgrounds = Background::all();
         $proposalId = $id;
@@ -32,15 +32,27 @@ class FileController extends Controller
         ->pluck('bukti.bobot')
         ->sum();
         //$files = Indikator::all();
-        return view('admin.file', compact(
-            //'files', 
-            'proposal', 
-            'buktis', 
-            'indikators', 
-            'totalBobot', 
-            'proposalId',
-            'backgrounds'
-        ));
+        if ($request->header('HX-Request')) {
+            return view('admin.file', compact(
+                //'files', 
+                'proposal', 
+                'buktis', 
+                'indikators', 
+                'totalBobot', 
+                'proposalId',
+                'backgrounds'
+            ))->fragment('bukti-dukung');
+        }else{
+            return view('admin.file', compact(
+                //'files', 
+                'proposal', 
+                'buktis', 
+                'indikators', 
+                'totalBobot', 
+                'proposalId',
+                'backgrounds'
+            ));
+        }
     }
 
     public function bukti($id)

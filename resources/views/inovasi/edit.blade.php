@@ -24,14 +24,14 @@
                   </div>
                 </div>
                 <div class="bs-stepper-content">
-                    <form id="edit-proposal" action="{{ route('inovasi.update', $inovasi->id) }}" method="POST" enctype="multipart/form-data"
-                        hx-post="{{ route('inovasi.update', $inovasi->id) }}" 
-                        hx-target="#app" 
-                        hx-swap="outerHTML" 
-                        hx-indicator="#loadingIndicator"
-                        hx-push-url="true"
-                        hx-history="false"
-                        hx-encoding="multipart/form-data">
+                    <form id="edit-proposal" method="POST" enctype="multipart/form-data"
+                    hx-post="{{ route('inovasi.update', $inovasi->id) }}" 
+                    hx-target="#app" 
+                    hx-swap="outerHTML" 
+                    hx-indicator="#loadingIndicator"
+                    hx-push-url="true"
+                    hx-history="false"
+                    hx-encoding="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div id="test-l-1" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger1">

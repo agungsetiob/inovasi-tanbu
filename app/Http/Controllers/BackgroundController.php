@@ -13,13 +13,16 @@ class BackgroundController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->role === 'admin') {
             $backgrounds = Background::all();
             $dataExist = $backgrounds->count() > 0;
-            //dd($dataExist);
-            return view ('setting.background', compact('backgrounds', 'dataExist'));
+            if ($request->header('HX-Request')) {
+                return view ('setting.background', compact('backgrounds', 'dataExist'))->fragment('background');
+            } else{
+                return view ('setting.background', compact('backgrounds', 'dataExist'));
+            }
         } else {
             return ('cukrukuk');
         }
@@ -39,7 +42,7 @@ class BackgroundController extends Controller
         Background::create([
             'background'    => $background->hashName()
         ]);
-        return redirect()->back()->with('success', 'Berhasil upload gambar');
+        return redirect()->back()->with('success', 'Berhasil mengganti background');
     }
 
     /**

@@ -36,7 +36,7 @@
 	    position: relative;
 	}
 </style>
-	<div class="container-fluid py-5" id="app">
+	<div class="container-fluid py-5 slide-it" id="app">
 		<header class="text-center">
 	        <i class="fa-solid fa-panorama fa-9x"></i>
 	    </header>
@@ -66,9 +66,8 @@
 	        	<form method="POST" enctype="multipart/form-data"
 	        	hx-post="{{ url('background') }}" 
 	        	hx-target="#app" 
-	        	hx-swap="outerHTML" 
+	        	hx-swap="outerHTML transition:true" 
 	        	hx-indicator="#loadingIndicator"
-	        	hx-push-url="true"
 	        	hx-history="false"
 	        	hx-encoding="multipart/form-data">
 	        		@csrf

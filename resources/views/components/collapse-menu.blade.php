@@ -101,8 +101,20 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="z-index: 10;">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="/system/setting"><i class="fas fa-fw fa-wrench"></i> Web setting</a>
-                <a class="collapse-item" href="{{url('carousel')}}"><i class="fas fa-fw fa-image"></i> Carousel</a>
-                <a class="collapse-item" href="{{url('background')}}"><i class="fa-solid fa-panorama"></i> Background</a>
+                <a class="collapse-item"
+                hx-get="{{ url('carousel') }}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-image"></i> Carousel</a>
+                <a class="collapse-item"
+                hx-get="{{ url('background') }}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fa-solid fa-panorama"></i> Background</a>
             </div>
         </div>
     </li>

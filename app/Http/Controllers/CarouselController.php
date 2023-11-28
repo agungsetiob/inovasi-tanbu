@@ -11,12 +11,16 @@ use Illuminate\Support\Facades\Storage;
 
 class CarouselController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->role === 'admin'){
             $backgrounds = Background::all();
             $carousels = Carousel::all();
-            return view ('setting.carousel', compact('carousels', 'backgrounds'));
+            if ($request->header('HX-Request')) {
+                return view ('setting.carousel', compact('carousels', 'backgrounds'))->fragment('carousel');
+            } else {
+                return view ('setting.carousel', compact('carousels', 'backgrounds'));
+            }
         } else{
             return ('cukrukuk');
         }

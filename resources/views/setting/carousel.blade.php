@@ -1,5 +1,6 @@
 @extends ('layouts.header')
 @section ('content')
+@fragment ('carousel')
 <style type="text/css">
 	#upload {
     opacity: 0;
@@ -35,21 +36,40 @@
 	    position: relative;
 	}
 </style>
-		<div class="container-fluid py-5">
+		<div class="container-fluid py-5 slide-it" id="app">
 			<header class="text-white text-center">
 		        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Picture_icon_BLACK.svg" alt="" width="150" class="mb-4">
 		    </header>
 		    <div class="row py-4">
-		    	@if (Session::has('error'))
-	    		<div class="alert alert-danger">
-	    			{{ Session::get('error') }}
-	    			@php
-	    			Session::forget('error');
-	    			@endphp
-	    		</div>
-	    		@endif
 		        <div class="col-lg-6 mx-auto">
-		        	<form action="carousel/upload" method="POST" enctype="multipart/form-data">
+		        	@if(Session::has('success'))
+			        	<div class="alert alert-success data-dismiss alert-dismissible">
+			        		{{ Session::get('success') }}
+			        		@php
+			        		Session::forget('success');
+			        		@endphp
+			        		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			        			<span aria-hidden="true">&times;</span>
+			        		</button>
+			        	</div>
+		        	@endif
+		        	@if ($errors->any())
+					    <div class="alert alert-danger data-dismiss alert-dismissible">
+					        @foreach ($errors->all() as $error)
+					        	{{ $error }}
+					        @endforeach
+					        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			        			<span aria-hidden="true">&times;</span>
+			        		</button>
+					    </div>
+					@endif
+		        	<form method="POST" 
+		        	hx-post="{{ url('carousel/upload') }}" 
+		        	hx-target="#app" 
+		        	hx-swap="outerHTML transition:true" 
+		        	hx-indicator="#loadingIndicator"
+		        	hx-history="false"
+		        	hx-encoding="multipart/form-data">
 		        		@csrf
 			            <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
 			                <input id="upload" accept=".jpg,.png,.jpeg" name="image" type="file" onchange="readURL(this);" class="form-control border-0">
@@ -171,4 +191,5 @@ aria-hidden="true">
 		infoArea.textContent = fileName;
 	}
 </script>
+@endfragment
 @endsection

@@ -8,11 +8,11 @@
     <hr class="sidebar-divider my-0">
     @if (Auth::user()->role == 'admin')
     <li class="nav-item {{ (request()->is('admin')) ? 'active ' : '' }}">
-        <a id="adminIndex" class="nav-link" href="{{url('admin')}}"
+        <a id="adminIndex" class="nav-link"
         hx-get="{{ url('admin') }}" 
         hx-trigger="click" 
         hx-target="#app" 
-        hx-swap="outerHTML"
+        hx-swap="outerHTML transition:true"
         hx-push-url="true"
         hx-indicator="#loadingIndicator">
         <i class="fas fa-fw fa-tachometer-alt fa-xl"></i>
@@ -31,7 +31,7 @@
                 hx-get="{{ url('data/profile') }}" 
                 hx-trigger="click" 
                 hx-target="#app" 
-                hx-swap="outerHTML"
+                hx-swap="outerHTML transition:true"
                 hx-push-url="true"
                 hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-mosque"></i> Profil Pemda</a>
                 <a class="collapse-item" href="{{ route('database') }}"><i class="fas fa-fw fa-microscope"></i> Inovasi Daerah</a>
@@ -50,7 +50,7 @@
                 hx-get="{{ url('proyek/inovasi') }}" 
                 hx-trigger="click" 
                 hx-target="#app" 
-                hx-swap="outerHTML"
+                hx-swap="outerHTML transition:true"
                 hx-push-url="true"
                 hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-rocket"
                 ></i> Inovasi</a>
@@ -106,7 +106,7 @@
         hx-get="{{ url('messages') }}" 
         hx-trigger="click" 
         hx-target="#app" 
-        hx-swap="outerHTML"
+        hx-swap="outerHTML transition:true"
         hx-push-url="true"
         hx-indicator="#loadingIndicator">
             <i class="fas fa-fw fa-envelope fa-xl"></i>

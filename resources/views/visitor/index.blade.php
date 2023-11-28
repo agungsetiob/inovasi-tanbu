@@ -119,6 +119,16 @@
                     width: 30%;
                 }
             }
+
+            body {
+                opacity: 1;
+                transition: opacity 0.1s ease-in-out;
+            }
+
+            body.fade-out {
+                opacity: 0;
+            }
+
         </style>
         {{--owl carousel--}}
         <div class="owlslider owl-carousel mb-0 owl-loaded owl-drag owl-theme owl-carousel-init" id="slider">
@@ -218,5 +228,12 @@
             }
         }
     });
+
+    function navigateToAdmin() {
+        setTimeout(function() {
+            window.location.href = '/admin'; // or any admin page URL
+        }, 100);
+    }
+
 </script>
 @endsection

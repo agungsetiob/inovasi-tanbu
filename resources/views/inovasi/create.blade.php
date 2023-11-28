@@ -336,29 +336,9 @@
             }
         });
     });
-  document.body.addEventListener('htmx:pushedIntoHistory', (evt) => {
-      localStorage.removeItem('htmx-history-cache')
-    });
-
-  // $(document).ready(function () {
-  //   $('select').selectize({
-  //     sortField: 'id',
-  //     plugins: ['remove_button']
+  // document.body.addEventListener('htmx:pushedIntoHistory', (evt) => {
+  //     localStorage.removeItem('htmx-history-cache')
   //   });
-  // });
-  
-  // CKEDITOR.replace('rancang', {
-  //   contentsCss: ["{{asset('vendor/ckeditor/plugins/wordcount/css/wordcount.css')}}"],
-  //   extraPlugins: 'wordcount',
-  //   wordcount: {
-  //     showParagraphs: false,
-  //     showWordCount: true
-  //   }
-  // });
-
-  // CKEDITOR.replace('manfaat')
-
-  // CKEDITOR.replace('hasil')
 
 </script>
 @endfragment

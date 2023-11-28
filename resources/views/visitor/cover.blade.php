@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
         <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
     </head>
-    <body id="page-top">
+    <body id="page-top" class="slide-on">
         <div class="container">
             <div class="row justify-content-between pt-4">
                 <img style="width:93px" class="img-fluid" src="img/garuda.png" title="garuda" alt="garuda" />
@@ -23,7 +23,7 @@
             </div>
         </div>
         <!-- Masthead-->
-        <header class="masthead text-white text-center" style="margin-top: 0px; padding-top: 0px; padding-bottom: 0.1rem; margin-bottom: 0px;" hx-history="false">
+        <header id="wrapper" class="masthead text-white text-center" style="margin-top: 0px; padding-top: 0px; padding-bottom: 0.1rem; margin-bottom: 0px;" hx-history="false">
             @foreach ($settings as $s)
             <div class="container d-flex align-items-center justify-content-center">
                 <img style="height:193px" class="img-fluid mb-5" src="{{url('storage/system/' . $s->logo_cover)}}" title="logo" alt="logo" />
@@ -43,7 +43,7 @@
                             hx-get="{{url('inovasi')}}" 
                             hx-trigger="click" 
                             hx-target="#page-top" 
-                            hx-swap="outerHTML"
+                            hx-swap="outerHTML transition:true"
                             hx-push-url="true"
                             hx-indicator="#loadingIndicator" class="btn btn-lg btn-outline-primary btn-block masthead-subheading text-white fw-semibold mb-0" style="display: flex; justify-content: center; align-items: center;">INOVASI</a>
                         </div>

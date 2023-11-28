@@ -54,7 +54,7 @@ class BackgroundController extends Controller
         $background->delete();
         return response()->json([
             'success' => true,
-            'message' => 'Berhasil menghapus gambar',
+            'message' => 'Berhasil menghapus background',
         ]);
     }
 

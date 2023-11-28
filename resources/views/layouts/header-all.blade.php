@@ -13,7 +13,7 @@
     <link href="{{asset('css/styles.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
-    <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}" defer></script>
 </head>
 <body id="page-top">
     <!-- Navigation-->

@@ -41,25 +41,28 @@
 	        <i class="fa-solid fa-panorama fa-9x"></i>
 	    </header>
 	    <div class="row py-4">
-	    	@if(Session::has('success'))
-	    	<div class="alert alert-success data-dismiss alert-dismissible">
-	    		{{ Session::get('success') }}
-	    		@php
-	    		Session::forget('success');
-	    		@endphp
-	    		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-	    			<span aria-hidden="true">&times;</span>
-	    		</button>
-	    	</div>
-	    	@elseif (Session::has('error'))
-	    	<div class="alert alert-danger">
-	    		{{ Session::get('error') }}
-	    		@php
-	    		Session::forget('error');
-	    		@endphp
-	    	</div>
-	    	@endif
 	        <div class="col-lg-6 mx-auto">
+	        	@if(Session::has('success'))
+		        	<div class="alert alert-success data-dismiss alert-dismissible">
+		        		{{ Session::get('success') }}
+		        		@php
+		        		Session::forget('success');
+		        		@endphp
+		        		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		        			<span aria-hidden="true">&times;</span>
+		        		</button>
+		        	</div>
+	        	@endif
+	        	@if ($errors->any())
+				    <div class="alert alert-danger data-dismiss alert-dismissible">
+				        @foreach ($errors->all() as $error)
+				        	{{ $error }}
+				        @endforeach
+				        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		        			<span aria-hidden="true">&times;</span>
+		        		</button>
+				    </div>
+				@endif
 	        	<form method="POST" enctype="multipart/form-data"
 	        	hx-post="{{ url('background') }}" 
 	        	hx-target="#app" 
@@ -90,9 +93,9 @@
 	        </div>
 	    </div>
 	    @foreach ($backgrounds as $background)
-	    <div class="card shadow">
+	    <div class="card shadow" id="index_{{$background->id}}">
 	    	<div class="card-body">
-		        <div id="index_{{$background->id}}" class="col-lg-12 mb-3">
+		        <div class="col-lg-12 mb-3">
 		        	<div class="image-thumbnail overflow-hidden" style="max-height: 300px;">
 		        		<img src="{{url('storage/backgrounds/' . $background->background)}}" class="img-fluid w-100" alt="background">
 		        	</div>
@@ -104,7 +107,14 @@
 	</div>
 <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
+<script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
+<script src="{{asset('vendor/selectize/selectize.min.js')}}"></script>
+<script src="{{asset('vendor/stepper/stepper.min.js')}}"></script>
+<script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
+<script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
+<script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 <x-logout/>
 
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -150,7 +160,7 @@ aria-hidden="true">
                         $('#index_' + id).remove();
                         setTimeout(function() {
                             $('#deleteModal').modal('hide');
-                        }, 3700);
+                        }, 3000);
                     }
                     $('#text-warning').addClass('d-none');
                     let uploadButton = `

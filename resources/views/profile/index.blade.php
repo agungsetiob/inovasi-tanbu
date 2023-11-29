@@ -6,8 +6,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-dark">Profil Pemda</h1>
         @if ($dataExist)
-        <!-- <i class="fa-solid fa-user-secret"></i> -->
-        <a href="#" class="btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#createProfile"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Create Profile</a>
+        {{-- <i class="fa-solid fa-user-secret"></i> --}}
         @else
         <a href="#" class="btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#createProfile"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Create Profile</a>
         @endif

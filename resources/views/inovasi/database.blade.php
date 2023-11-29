@@ -12,7 +12,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive"  hx-history="false">
-                        <table class="table table-borderless table-striped" id="database" width="100%" cellspacing="0">
+                        <table class="table table-borderless table-striped" id="databaseInovasi" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th width="30%">Nama Inovasi</th>
@@ -61,7 +61,8 @@
 <x-logout/>
 @include ('components.modal-return-proposal')
 <script type="text/javascript">
-    var dataTable = $('#database').DataTable({
+    $(document).ready(function() {
+    var databaseTable = $('#databaseInovasi').DataTable({
         ajax: {
             url: '/api/database/inovasi',
             dataSrc: 'data',
@@ -109,15 +110,17 @@
             },
             ],
         "initComplete": function( settings, json ) {
-            htmx.process('#database');
+            htmx.process('#databaseInovasi');
         },
         // other DataTable options...
     });
 
     document.body.addEventListener("reloadDatabase", function(evt){
-        personDataTable.ajax.reload(function() {
-            htmx.process('#database');
+        databaseTable.ajax.reload(function() {
+            htmx.process('#databaseInovasi');
         }, false)
     });
+
+});
 </script>
 @endsection

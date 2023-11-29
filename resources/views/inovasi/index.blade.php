@@ -178,7 +178,7 @@
     });
     
     document.body.addEventListener("reloadTable", function(evt){
-        personDataTable.ajax.reload(function() {
+        dataTable.ajax.reload(function() {
             htmx.process('#dataTable');
         }, false)
     });

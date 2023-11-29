@@ -10,7 +10,8 @@ use App\Models\Background;
 use Illuminate\Support\Facades\Storage;
 
 class BackupController extends Controller{
-    public function index(){
+    
+    public function index(Request $request){
         $backgrounds = Background::all();
         $disk = Storage::disk(config('laravel-backup.backup.destination.disks'));
         $files = $disk->files('/public/serasi/');
@@ -27,6 +28,9 @@ class BackupController extends Controller{
            }
         }
         $backups = array_reverse($backups);
+        if ($request->header('HX-Request')) {
+            return view("admin.backups")->with(compact('backups', 'backgrounds'))->fragment('backups');
+        }
         return view("admin.backups")->with(compact('backups', 'backgrounds'));
     }
 

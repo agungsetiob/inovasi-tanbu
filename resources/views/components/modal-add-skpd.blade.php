@@ -1,6 +1,6 @@
 <!-- Add Modal -->
 <div class="modal fade" id="addCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Tambah SKPD</h5>
@@ -14,8 +14,10 @@
                     <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan nama skpd">
                     <p class="text-danger" id="alert-nama"></p>
                 </div>
-                <button id="store" type="button" class="btn btn-primary">Save</button>
             </div> 
+            <div class="modal-footer">
+                <button id="store" type="button" class="btn btn-primary">Save</button>
+            </div>
         </div>
     </div>
 </div>

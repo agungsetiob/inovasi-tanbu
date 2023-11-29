@@ -14,11 +14,14 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
             $categories = Category::all();
+            if ($request->header('HX-Request')) {
+                return view ('admin.category', compact('categories', 'backgrounds'))->fragment('jenis');
+            }
             return view ('admin.category', compact('categories', 'backgrounds'));
         } else {
             return redirect()->back()->with(['error' => 'Where there is a will there is a way']);

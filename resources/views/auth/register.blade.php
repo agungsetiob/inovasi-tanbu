@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <x-auth-card>
+    <x-register-card>
         <x-slot name="logo">
             <a href="/">
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" :setting="$setting"/>
@@ -12,71 +12,77 @@
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Name -->
+                    <div class="mb-3">
+                        <x-label for="name" :value="__('Name')" />
+                        <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                    </div>
+                </div>
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                <div class="col-md-6">
+                    <!-- Username -->
+                    <div class="mb-3">
+                        <x-label for="username" :value="__('Username')" />
+                        <x-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus />
+                    </div>
+                </div>
             </div>
 
-            <!-- skpd -->
-            <div class="mt-4">
+            <!-- SKPD -->
+            <div class="mb-3">
                 <x-label for="skpd_id" :value="__('SKPD')" />
-
                 <select name="skpd_id" id="skpd_id" class="hover:opacity-100 focus:opacity-100 opacity-50 text-gray-700 form-control @error('skpd_id') is-invalid @enderror" required>
                     <option class="opacity-100" value="" disabled selected>Pilih SKPD</option>
                     @foreach ($skpds as $s)
-                    <option class="opacity-100" value="{{ $s->id }}" {{ old('category') == $s->id ? 'selected' : ''}}>{{ $s->nama }}</option>
+                        <option class="opacity-100" value="{{ $s->id }}" {{ old('category') == $s->id ? 'selected' : ''}}>{{ $s->nama }}</option>
                     @endforeach
                 </select>
             </div>
 
-            <!-- Username -->
-            <div class="mt-4">
-                <x-label for="username" :value="__('Username')" />
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Email Address -->
+                    <div class="mb-3">
+                        <x-label for="email" :value="__('Email')" />
+                        <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                    </div>
+                </div>
 
-                <x-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus />
+                <div class="col-md-6">
+                    <!-- Role -->
+                    <div class="mb-3">
+                        <x-label for="role" :value="__('Role')" />
+                        <select id="role" name="role" class="hover:opacity-100 focus:opacity-100 opacity-50 block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-700">
+                            <option selected disabled>Choose a role</option>
+                            <option :value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>admin</option>
+                            <option :value="user" {{ old('role') == 'user' ? 'selected' : '' }}>user</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <x-label for="password" :value="__('Password')" />
+                        <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                    </div>
+                </div>
 
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <!-- Role -->
-            <div class="mt-4">
-                <x-label for="role" :value="__('Role')" />
-                <select id="role" name="role" class="hover:opacity-100 focus:opacity-100 opacity-50 block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-700">
-                    <option selected disabled>Choose a role</option>
-                    <option :value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>admin</option>
-                    <option :value="user" {{ old('role') == 'user' ? 'selected' : '' }}>user</option>
-                </select>
-            </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                type="password"
-                name="password"
-                required autocomplete="new-password" />
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                type="password"
-                name="password_confirmation" required />
+                <div class="col-md-6">
+                    <!-- Confirm Password -->
+                    <div class="mb-3">
+                        <x-label for="password_confirmation" :value="__('Confirm Password')" />
+                        <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
+                    </div>
+                </div>
             </div>
 
             <!-- Status -->
-            <div class="mt-4" hidden>
+            <div class="mb-3" hidden>
                 <x-label for="status" :value="__('Status')" />
                 <x-input id="status" class="block mt-1 w-full" type="text" name="status" value="active" disabled autofocus />
             </div>
@@ -103,7 +109,7 @@
             </a>
         </div>
         @endif
-    </x-auth-card>
+    </x-register-card>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.bootstrap4.min.css" integrity="sha512-ht3CSPjgWsxdbLti7wtKNEk5hLoGtP2J8C40muB5/PCWwNw9M/NMJpyvHdeko7ADC60SEOiCenU5pg+kJiG9lg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js" integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

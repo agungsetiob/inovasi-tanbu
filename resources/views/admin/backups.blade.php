@@ -1,7 +1,9 @@
 @extends('layouts.header')
 @section('content')
 <!-- Begin Page Content -->
-        <div class="container-fluid" id="app">
+@fragment('backups')
+        @if (Auth::user()->role === 'admin')
+        <div class="container-fluid slide-it" id="app">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-dark">Backups</h1>
@@ -79,4 +81,10 @@
 <script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
 <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 <x-logout/>
+@else
+<div id="loadingIndicator" class="d-flex align-items-center justify-content-center" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+  <i class="fas fa-compass fa-spin fa-8x"></i>
+</div>
+@endif
+@endfragment
 @endsection

@@ -37,6 +37,7 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
 
+    Route::get('api/users', [RegisteredUserController::class, 'loadUsers']);
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 

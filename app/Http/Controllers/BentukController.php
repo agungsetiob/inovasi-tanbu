@@ -13,11 +13,14 @@ class BentukController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
             $bentuks = Bentuk::all();
+            if ($request->header('HX-Request')) {
+                return view ('admin.bentuk', compact('bentuks', 'backgrounds'))->fragment('bentuk');
+            }
             return view ('admin.bentuk', compact('bentuks', 'backgrounds'));
         } else {
             return redirect()->back()->with(['error' => 'Where there is a will there is a way']);

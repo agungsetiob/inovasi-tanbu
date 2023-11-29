@@ -1,12 +1,12 @@
 @extends('layouts.header')
 @section('content')
-            <div class="container-fluid" id="app">
+@fragment('bentuk')
+            <div class="container-fluid slide-it" id="app" hx-history="false">
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-dark">Bentuk Inovasi</h1>
                     <a href="#" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addCategory"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Tambah Bentuk</a>
                 </div>
-                <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Daftar Bentuk Inovasi</h6>
@@ -110,4 +110,5 @@
         });
     });
 </script>
+@endfragment
 @endsection

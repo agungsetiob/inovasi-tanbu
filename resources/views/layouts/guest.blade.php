@@ -8,14 +8,14 @@
     <title>{{ config('app.title') }}</title>
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/gif" sizes="16x16">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/slide-it.css') }}">
 
     <!-- Scripts -->
     {{--@vite(['resources/css/app.css', 'resources/js/app.js'])--}}
 </head>
-<body class="relative">
+<body class="relative slide-it">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <div class="absolute top-0 left-0 p-6">

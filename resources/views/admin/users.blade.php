@@ -1,7 +1,8 @@
 @extends('layouts.header')
 @section('content')
 <!-- Begin Page Content -->
-            <div class="container-fluid">
+@fragment('users')
+            <div class="container-fluid slide-it" id="app">
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-dark">Users</h1>
@@ -13,8 +14,8 @@
                         <h6 class="m-0 font-weight-bold text-primary">List of Users</h6>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-borderless table-striped" id="dataTable" width="100%" cellspacing="0">
+                        <div class="table-responsive" hx-history="false">
+                            <table class="table table-borderless table-striped" id="userTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -25,7 +26,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($users as $user)
+                                    {{--@forelse ($users as $user)
                                     <tr>
                                         <td>{{ $loop->iteration }}.</td>
                                         <td> {{$user->name}} </td>
@@ -68,7 +69,7 @@
                                     <div class="alert alert-danger">
                                         Data  is not available.
                                     </div>
-                                    @endforelse
+                                    @endforelse--}}
                                     @if(Session::has('success'))
                                     <div class="alert alert-success data-dismiss">
                                         {{ Session::get('success') }}
@@ -105,4 +106,52 @@
 <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
 <x-logout/>
+<script type="text/javascript">
+    var dataTable = $('#userTable').DataTable({
+        ajax: {
+            url: '/api/users',
+            dataSrc: 'data',
+            processing: true,
+            serverSide: true,
+        },
+        columns: [
+            { 
+                render: function (data, type, row, meta) {
+                    return meta.row + 1 + '.';
+                }
+            },
+            { 
+                data: 'name' 
+            },
+            { 
+                data: 'skpd.nama' 
+            },
+            { 
+                data: 'email' 
+            },
+            {
+             
+                render: function (data, type, row) {
+                    var status = row.status;
+                    var statusClass = status == 'active' ? 'btn-outline-primary' : 'btn-outline-danger';
+
+                    return `
+                        <div class="dropdown">
+                            <button class="btn btn-sm dropdown-toggle ${statusClass}" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                ${status}
+                            </button>
+                            <div class="dropdown-menu animated--fade-in">
+                                <form method="POST" action="${status == 'inactive' ? '/activate/' : '/deactivate/'}${row.id}">
+                                    @csrf
+                                    <button class="dropdown-item">${status == 'inactive' ? 'Activate' : 'Deactivate'}</button>
+                                </form>
+                            </div>
+                        </div>`;
+                }
+            },
+        ],
+        // other DataTable options...
+    });
+</script>
+@endfragment
 @endsection

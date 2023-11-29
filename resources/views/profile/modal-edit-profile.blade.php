@@ -73,6 +73,7 @@
                 var reloadUrl = '/indikator/spd/' + id;
                 $("#profile").load(reloadUrl + " #profile");
                 $('#editProfile').modal('hide');
+                $(".modal-backdrop").remove();
                 $('#success-modal').modal('show');
                 $('#success-message').text(response.message);
                 setTimeout(function() {

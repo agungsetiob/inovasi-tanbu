@@ -43,3 +43,9 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $('body').on('click', '#store', function () {
+        $('#createProfile').modal('hide');
+        $(".modal-backdrop").remove();
+    });
+</script>

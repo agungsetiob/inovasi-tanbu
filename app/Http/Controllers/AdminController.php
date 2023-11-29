@@ -53,7 +53,7 @@ class AdminController extends Controller
                     'labelJenis',
                     'totalSkpds',
                     'backgrounds'
-                ))->fragment('admin');
+                ))->fragment('dashboard');
             } else {
                 return view ('admin.index', compact(
                     'activeUsers', 
@@ -73,7 +73,7 @@ class AdminController extends Controller
         }
     }
 
-    public function user()
+    public function user(Request $request)
     {
         if (Auth::user()->role == 'user') {
             $backgrounds = Background::all();
@@ -92,58 +92,16 @@ class AdminController extends Controller
             ->pluck('total2');
             $labelBentuk = Bentuk::whereHas('proposals')->pluck('nama')->unique();
             $labelJenis = Category::whereHas('proposals')->pluck('name')->unique();
-            return view('admin.index', compact('totalProposals', 'chartJenis', 'chartBentuk', 'labelJenis', 'labelBentuk', 'totalSkpds', 'backgrounds'));
+            //sleep(1);
+            if ($request->header('HX-Request')) {
+                return view('admin.index', compact('totalProposals', 'chartJenis', 'chartBentuk', 'labelJenis', 'labelBentuk', 'totalSkpds', 'backgrounds'))->fragment('dashboard');
+            }else{
+                return view('admin.index', compact('totalProposals', 'chartJenis', 'chartBentuk', 'labelJenis', 'labelBentuk', 'totalSkpds', 'backgrounds'));
+            }
         }else
         {
             return view('cukrukuk');
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

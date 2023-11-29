@@ -73,9 +73,27 @@
         </a>
         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar" style="z-index: 10;">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('skpd.index')}}"><i class="fas fa-fw fa-sitemap"></i> SKPD/UPTD</a>
-                <a class="collapse-item" href="{{url('master/jenis')}}"><i class="fas fa-fw fa-list"></i> Jenis</a>
-                <a class="collapse-item" href="{{url('master/bentuk')}}"><i class="fas fa-fw fa-shapes"></i> Bentuk</a>
+                <a class="collapse-item"
+                hx-get="{{ route('skpd.index') }}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-sitemap"></i> SKPD</a>
+                <a class="collapse-item"
+                hx-get="{{url('master/jenis')}}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-list"></i> Jenis</a>
+                <a class="collapse-item" href="{{url('master/bentuk')}}"
+                hx-get="{{url('master/bentuk')}}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-shapes"></i> Bentuk</a>
                 <a class="collapse-item" href="{{route('klasifikasi.index')}}"><i class="fas fa-fw fa-solid fa-hurricane"></i>Klasifikasi Urusan</a>
                 <a class="collapse-item" href="{{route('urusan.index')}}"><i class="fas fa-fw fa-info"></i> Urusan</a>
                 <a class="collapse-item" href="{{route('tematik.index')}}"><i class="fas fa-fw fa-solid fa-dragon"></i> Tematik</a>
@@ -88,9 +106,13 @@
     </li>
     <hr class="sidebar-divider d-none d-md-block">
     <li class="nav-item {{ (request()->is('users')) ? 'active ' : '' }}">
-        <a class="nav-link" href="{{url('users')}}">
-                <i class="fas fa-fw fa-user fa-xl"></i>
-            <span>Users</span></a>
+        <a class="nav-link"
+        hx-get="{{ url('users') }}" 
+        hx-trigger="click" 
+        hx-target="#app" 
+        hx-swap="outerHTML transition:true"
+        hx-push-url="true"
+        hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-user fa-xl"></i><span>Users</span></a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
     <li class="nav-item {{ (request()->is('setting/*')) ? 'active ' : '' }}">
@@ -137,26 +159,45 @@
     </li>
     <hr class="sidebar-divider d-none d-md-block">
     <li class="nav-item {{ (request()->is('backup')) ? 'active ' : '' }}">
-        <a class="nav-link" href="{{url('backup')}}">
+        <a class="nav-link"
+        hx-get="{{ url('backup') }}" 
+        hx-trigger="click" 
+        hx-target="#app" 
+        hx-swap="outerHTML transition:true"
+        hx-push-url="true"
+        hx-indicator="#loadingIndicator">
             <i class="fas fa-fw fa-database fa-xl"></i>
             <span>Backup</span></a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
     @elseif (Auth::user()->role == 'user')
     <li class="nav-item active {{ (request()->is('user/')) ? 'active ' : '' }}">
-        <a class="nav-link" href="{{url('user/')}}">
+        <a class="nav-link"
+        hx-get="{{ url('user') }}" 
+        hx-trigger="click" 
+        hx-target="#app" 
+        hx-swap="outerHTML transition:true"
+        hx-push-url="true"
+        hx-indicator="#loadingIndicator">
             <i class="fas fa-fw fa-tachometer-alt fa-xl"></i>
             <span>Dashboard</span></a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
     <li class="nav-item {{ (request()->is('proyek/*')) ? 'active ' : '' }}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseZero" aria-expanded="true" aria-controls="collapseZero">
+        <a id="navCollapseZero" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseZero" aria-expanded="true" aria-controls="collapseZero">
             <i class="fa fa-fw fa-code fa-xl"></i>
                 <span>Projects</span>
         </a>
-        <div id="collapseZero" class="collapse" aria-labelledby="headingZero" data-parent="#accordionSidebar">
+        <div id="collapseZero" class="collapse" aria-labelledby="headingZero" data-parent="#accordionSidebar" style="z-index: 10;">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{url('proyek/inovasi')}}"><i class="fas fa-fw fa-rocket"></i> Inovasi</a>
+                <a id="inovasiIndex" class="collapse-item"
+                hx-get="{{ url('proyek/inovasi') }}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-rocket"
+                ></i> Inovasi</a>
                 <a class="collapse-item" href="#"><i class="fas fa-fw fa-microscope"></i> Litbang</a>
                 <a class="collapse-item" href="#"><i class="fas fa-fw fa-atom"></i> Riset</a>
             </div>

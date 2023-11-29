@@ -18,16 +18,32 @@ use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->role === 'admin') {
             $users = User::all();
             $backgrounds = Background::all();
-            return view('admin.users', compact('users', 'backgrounds'));
+            if ($request->header('HX-Request')) {
+                return view('admin.users', compact('users', 'backgrounds'))->fragment('users');
+            }else{
+                return view('admin.users', compact('users', 'backgrounds'));
+            }
         } else{
-            return back()->with('error', 'Get out!');
+            return back()->with('error', 'Sendiko dawuh');
         }
         
+    }
+
+    /*
+    * Load skpd data in json format
+    */
+    public function loadUsers()
+    {
+        $users = User::with('skpd')->get();
+        return response()->json([
+            'success' => true,
+            'data' => $users
+        ]);
     }
 
     /**

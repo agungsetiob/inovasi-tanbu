@@ -1,4 +1,4 @@
-        <div class="container-fluid" id="createForm">
+        <div class="container-fluid" id="createForm" data-loading-class="d-none">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-dark">Inovasi</h1>

@@ -1,7 +1,7 @@
 @extends('layouts.header')
 @section('content')
 @fragment('bentuk')
-            <div class="container-fluid slide-it" id="app" hx-history="false">
+            <div class="container-fluid slide-it" id="app" data-loading-class="d-none">
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-dark">Bentuk Inovasi</h1>
@@ -12,7 +12,7 @@
                         <h6 class="m-0 font-weight-bold text-primary">Daftar Bentuk Inovasi</h6>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive" hx-history="false">
                             <table class="table table-borderless table-striped text-dark" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>

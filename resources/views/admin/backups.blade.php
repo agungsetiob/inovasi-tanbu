@@ -3,7 +3,7 @@
 <!-- Begin Page Content -->
 @fragment('backups')
         @if (Auth::user()->role === 'admin')
-        <div class="container-fluid slide-it" id="app">
+        <div class="container-fluid slide-it" id="app" data-loading-class="d-none">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-dark">Backups</h1>

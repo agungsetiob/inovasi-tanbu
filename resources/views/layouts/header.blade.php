@@ -21,9 +21,13 @@
   <link rel="stylesheet" type="text/css" href="{{asset('css/stepper.min.css')}}">
   <link rel="stylesheet" href="{{asset('css/selectize.min.css')}}"/>
   <link rel="shortcut icon" href="{{url ('assets/img/logo.png')}}" type="image/x-icon"/>
+  <script src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.9/dist/ext/head-support.js" defer></script>
+  
+
 </head>
 
-<body id="page-top" class="slide-on">
+<body id="page-top" class="slide-on" hx-ext="head-support, loading-states">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -46,31 +50,30 @@
             <div class="topbar-divider d-none d-sm-block"></div>
 
             <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow" hx-history="false">
-              <a id="userMenu"  class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-caret-down text-white mr-1"></i> 
-              <span class="mr-2 d-none d-lg-inline text-white small">{{Auth::user()->name}}</span>
-              <img class="img-profile rounded-circle"
-              src="{{url('storage/ava/'.Auth::user()->avatar)}}" alt="ava">
-            </a>
-            <!-- Dropdown - User Information -->
-            <div id="userInformation" class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-            aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="{{url('edit-profile', Auth::user()->id)}}">
-              <i class="fas fa-user fa-sm fa-fw mr-2"></i>
-              Edit Profile
-            </a>
-            <a class="dropdown-item" href="{{url('change-password')}}">
-              <i class="fas fa-key fa-sm fa-fw mr-2"></i>
-              Change password
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
-              Logout
-            </a>
-          </div>
-        </li>
+            <li class="nav-item dropdown no-arrow" id="userMenuContainer">
+              <a id="userMenu"  class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-caret-down text-white mr-1"></i> 
+                <span class="mr-2 d-none d-lg-inline text-white small">{{Auth::user()->name}}</span>
+                <img class="img-profile rounded-circle"
+                src="{{url('storage/ava/'.Auth::user()->avatar)}}" alt="ava">
+              </a>
+              <!-- Dropdown - User Information -->
+              <div id="userInformation" class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+              aria-labelledby="userDropdown">
+              <a class="dropdown-item" href="{{url('edit-profile', Auth::user()->id)}}">
+                <i class="fas fa-user fa-sm fa-fw mr-2"></i>
+                Edit Profile
+              </a>
+              <a class="dropdown-item" href="{{url('change-password')}}">
+                <i class="fas fa-key fa-sm fa-fw mr-2"></i>
+                Change password
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+                Logout
+              </a>
+            </div>
+          </li>
 
       </ul>
     </nav>

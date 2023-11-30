@@ -20,8 +20,8 @@
     </a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
-    <li class="nav-item {{ (request()->is('data/*')) ? 'active ' : '' }}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseData" aria-expanded="true" aria-controls="collapseZero">
+    <li class="nav-item {{ (request()->is('data/*')) ? 'active ' : '' }}" id="databaseMenu">
+        <a id="databaseNav" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseData" aria-expanded="true" aria-controls="collapseZero">
             <i class="fa fa-fw fa-brands fa-stack-overflow fa-xl"></i>
                 <span>Database</span>
         </a>

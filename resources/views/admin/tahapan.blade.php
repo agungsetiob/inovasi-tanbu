@@ -1,7 +1,7 @@
 @extends('layouts.header')
 @section('content')
 @fragment('tahapan')
-            <div class="container-fluid slide-it" id="app">
+            <div class="container-fluid slide-it" id="app" data-loading-class="d-none">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-dark">Tahapan Inovasi</h1>
                     <a href="#" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addCategory"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Tambah tahapan</a>

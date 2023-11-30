@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
     <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}" defer></script>
 </head>
-<body id="page-top" class="slide-on">
+<body id="page-top" class="slide-on" data-loading-class="d-none">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg bg-light text-uppercase fixed-top border-bottom" id="mainNav">
         <div class="container">

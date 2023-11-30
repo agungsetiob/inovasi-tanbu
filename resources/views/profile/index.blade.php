@@ -1,7 +1,7 @@
 @extends('layouts.header')
 @section('content')
 @fragment('profile')
-<div class="container-fluid slide-it" id="app">
+<div class="container-fluid slide-it" id="app" data-loading-class="d-none">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-dark">Profil Pemda</h1>
@@ -72,8 +72,6 @@
     </div>
     <!-- /.container-fluid -->
 
-@include ('profile.modal-create-profile')
-
 <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
@@ -84,6 +82,7 @@
 <script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
 <script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
 <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+@include ('profile.modal-create-profile')
 <x-logout/>
 @endfragment
 @endsection

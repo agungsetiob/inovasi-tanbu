@@ -70,3 +70,62 @@
   });
 
 })(jQuery); // End of use strict
+
+$(document).on('click', '.collapse-item', function() {
+  $(this).toggleClass('collapsed');
+  $(this).closest('.collapse').toggleClass('show');
+});
+
+
+$(document).ready(function() {
+        // Show dropdown on hover
+    $('#userMenuContainer').hover(
+        function() {
+            $(this).find('#userMenu, #userInformation').addClass('show');
+        },
+        function() {
+            $(this).find('#userMenu, #userInformation').removeClass('show');
+        }
+        );
+});
+
+
+// document.body.addEventListener('htmx:beforeRequest', function(evt) {
+//     htmx.addClass(htmx.find('#app'), 'd-none');
+//     console.log(evt);
+// });
+
+document.body.addEventListener('htmx:targetError', function(evt) {
+    var targetNotExist = document.getElementById("htmx-alert");
+    targetNotExist.innerText = 'Error selecting target:' + evt.detail.target;
+    targetNotExist.removeAttribute("hidden");
+    targetNotExist.classList.add('alert', 'alert-warning');
+    htmx.addClass(htmx.find('.container-fluid'), 'd-none');
+});
+
+document.body.addEventListener('htmx:afterRequest', function (evt) {
+    const errorTarget = document.getElementById("htmx-alert");
+    if (evt.detail.successful) {
+        htmx.removeClass(htmx.find('#app'), 'd-none');
+        const collapseElements = htmx.findAll('.collapse');
+        collapseElements.forEach(function (element) {
+            htmx.removeClass(element, 'show');
+        });
+        // Successful request, clear out alert
+        errorTarget.setAttribute("hidden", "true")
+        errorTarget.innerText = "";
+    } else if (evt.detail.failed && evt.detail.xhr) {
+        // Server error with response contents, equivalent to htmx:responseError
+        console.warn("Server error", evt.detail)
+        const xhr = evt.detail.xhr;
+        errorTarget.innerHTML = `Unexpected server error: ${xhr.status} - ${xhr.response}`;
+        errorTarget.removeAttribute("hidden");
+        $('#hulk-button').addClass('d-none');
+    } else {
+        // Unspecified failure, usually caused by network error
+        console.error("Unexpected htmx error", evt.detail)
+        errorTarget.innerText = "Unexpected error, check your connection and try to refresh the page.";
+        errorTarget.classList.add('alert', 'alert-warning');
+        errorTarget.removeAttribute("hidden");
+    }
+});

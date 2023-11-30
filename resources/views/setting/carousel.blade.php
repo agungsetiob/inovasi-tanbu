@@ -36,7 +36,7 @@
 	    position: relative;
 	}
 </style>
-		<div class="container-fluid py-5 slide-it" id="app" data-loading-class="d-none">
+		<div class="container-fluid py-5 slide-it" id="app">
 			<header class="text-white text-center">
 		        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Picture_icon_BLACK.svg" alt="" width="150" class="mb-4">
 		    </header>

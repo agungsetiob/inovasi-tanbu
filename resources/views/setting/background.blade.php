@@ -36,7 +36,7 @@
 	    position: relative;
 	}
 </style>
-	<div class="container-fluid py-5 slide-it" id="app" data-loading-class="d-none">
+	<div class="container-fluid py-5 slide-it" id="app">
 		<header class="text-center">
 	        <i class="fa-solid fa-panorama fa-9x"></i>
 	    </header>

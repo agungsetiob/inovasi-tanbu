@@ -1,7 +1,7 @@
 @extends('layouts.header')
 @section('content')
 @fragment('detail-profil')
-<div class="container-fluid slide-it" id="app" data-loading-class="d-none">
+<div class="container-fluid slide-it" id="app">
 <style type="text/css">
 
     nav > .nav.nav-tabs{

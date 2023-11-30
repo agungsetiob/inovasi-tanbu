@@ -38,6 +38,7 @@ aria-hidden="true">
                         $('#error-alert').addClass('d-none');
                         $('#index_' + klasifikasiId).remove();
                         $('#deleteModal').modal('hide');
+                        $('.modal-backdrop').remove();
                     }
                 },
                 error: function(response) {

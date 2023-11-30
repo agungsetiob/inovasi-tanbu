@@ -78,6 +78,7 @@
                 //clear form
                 $('#nama').val('');
                 $('#addCategory').modal('hide');
+                $('.modal-backdrop').remove();
                 
             },
             error:function(error){
@@ -91,7 +92,7 @@
                     //add message to alert
                     $('#alert-nama').html(error.responseJSON.nama[0]);
                 } else {
-                    $('#error-message').text('An error occurred.');
+                    $('#error-message').text(error.status + ' ' + error.responseJSON.message);
                     $('#error-modal').modal('show');
                 }
 

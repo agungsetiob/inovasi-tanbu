@@ -12,11 +12,14 @@ class TahapanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
             $tahapans = Tahapan::all();
+            if ($request->header('HX-Request')) {
+                return view ('admin.tahapan', compact('tahapans', 'backgrounds'))->fragment('tahapan');
+            }
             return view ('admin.tahapan', compact('tahapans', 'backgrounds'));
         } else {
             return redirect()->back()->with(['error' => 'Where there is a will there is a way']);

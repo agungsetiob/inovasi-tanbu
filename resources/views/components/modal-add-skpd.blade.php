@@ -118,6 +118,7 @@
                 $('#nama').removeClass('is-invalid');
                 setTimeout(function() {
                     $('#success-modal').modal('hide');
+                    $('.modal-backdrop').remove();
                 }, 3700);
                 
             },

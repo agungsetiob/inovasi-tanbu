@@ -12,11 +12,14 @@ class InisiatorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
             $inisiators = Inisiator::all();
+            if ($request->header('HX-Request')) {
+                return view ('admin.inisiator', compact('inisiators', 'backgrounds'))->fragment('inisiator');
+            }
             return view ('admin.inisiator', compact('inisiators', 'backgrounds'));
         } else {
             return redirect()->back()->with(['error' => 'Where there is a will there is a way']);

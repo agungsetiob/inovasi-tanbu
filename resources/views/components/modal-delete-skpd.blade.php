@@ -43,6 +43,7 @@ aria-hidden="true">
                         $('#deleteModal').modal('hide');
                         setTimeout(function() {
                             $('#success-modal').modal('hide');
+                            $('.modal-backdrop').remove();
                         }, 3700);
                     }
                 },

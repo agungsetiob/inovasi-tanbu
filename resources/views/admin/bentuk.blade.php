@@ -102,8 +102,8 @@
                         $('#success-message').text(response.message);
                     }
                 },
-                error: function(response) {
-                    $('#error-message').text('An error occurred.');
+                error: function(error) {
+                    $('#error-message').text(error.status + ' ' + error.responseJSON.message);
                     $('#error-modal').modal('show');
                 }
             });

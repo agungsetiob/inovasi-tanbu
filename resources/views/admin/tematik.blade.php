@@ -1,7 +1,8 @@
 @extends('layouts.header')
 @section('content')
 <!-- Begin Page Content -->
-<div class="container-fluid">
+@fragment('tematik')
+<div class="container-fluid slide-it" id="app">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-dark">Tematik Inovasi</h1>
@@ -13,7 +14,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Daftar tematik</h6>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive" hx-history="false">
                 <table class="table table-borderless table-striped text-dark" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -30,7 +31,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <!-- /.container-fluid -->
 <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
@@ -121,6 +121,7 @@
                     button.data('tematik-status', newStatus);
                     setTimeout(function() {
                         $('#success-modal').modal('hide');
+                        $('.modal-backdrop').remove();
                     }, 3900);
                 },
                 error: function (error) {
@@ -131,4 +132,5 @@
         });
     });
 </script>
+@endfragment
 @endsection

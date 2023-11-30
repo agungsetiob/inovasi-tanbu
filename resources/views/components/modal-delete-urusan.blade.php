@@ -41,6 +41,7 @@ aria-hidden="true">
                         });
                         row.remove().draw();
                         $('#deleteModal').modal('hide');
+                        $('.modal-backdrop').remove();
                     }
                 },
                 error: function(error) {

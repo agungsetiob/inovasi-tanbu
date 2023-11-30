@@ -96,6 +96,7 @@
                 $('#success-message').html('<p class="text-success">' + response.data.nama + '</p>' + 'berhasil disimpan');
                 setTimeout(function() {
                     $('#success-modal').modal('hide');
+                    $('.modal-backdrop').remove();
                 }, 3700);
                 
                 //clear form

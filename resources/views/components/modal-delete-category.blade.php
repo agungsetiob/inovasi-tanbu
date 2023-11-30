@@ -45,6 +45,7 @@ aria-hidden="true">
                         $('#error-alert').addClass('d-none');
                         $('#index_' + jenisId).remove();
                         $('#deleteModal').modal('hide');
+                        $('.modal-backdrop').remove();
                     }
                 },
                 error: function(error) {

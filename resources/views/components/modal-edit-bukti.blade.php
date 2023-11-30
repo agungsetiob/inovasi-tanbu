@@ -147,6 +147,7 @@
         $('#success-message').text(message);
         setTimeout(function () {
             $('#success-modal').modal('hide');
+            $('.modal-backdrop').remove();
         }, 3900);
     }
 

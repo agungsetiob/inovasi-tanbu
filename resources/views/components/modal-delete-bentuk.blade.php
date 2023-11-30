@@ -37,6 +37,7 @@ aria-hidden="true">
                         $('#success-message').text(response.message);
                         $('#index_' + bentukId).remove();
                         $('#deleteModal').modal('hide');
+                        $('.modal-backdrop').remove();
                     }
                 },
                 error: function(response) {

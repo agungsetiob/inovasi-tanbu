@@ -14,11 +14,15 @@ class KlasifikasiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
             $klasifikasis = Klasifikasi::all();
+            if ($request->header('HX-Request')) {
+                return view ('admin.klasifikasi-urusan', compact('klasifikasis', 'backgrounds'))
+                ->fragment('klasifikasi');
+            }
             return view ('admin.klasifikasi-urusan', compact('klasifikasis', 'backgrounds'));
         } else {
             return redirect()->back()->with(['error' => 'Where there is a will there is a way']);
@@ -71,30 +75,6 @@ class KlasifikasiController extends Controller
         $klasifikasi->update(['status' => $newStatus]);
 
         return response()->json(['newStatus' => $newStatus]);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Klasifikasi $klasifikasi)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Klasifikasi $klasifikasi)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Klasifikasi $klasifikasi)
-    {
-        //
     }
 
     /**

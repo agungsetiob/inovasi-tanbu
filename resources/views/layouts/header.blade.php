@@ -46,15 +46,15 @@
             <div class="topbar-divider d-none d-sm-block"></div>
 
             <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+            <li class="nav-item dropdown no-arrow" hx-history="false">
+              <a id="userMenu"  class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-caret-down text-white mr-1"></i> 
               <span class="mr-2 d-none d-lg-inline text-white small">{{Auth::user()->name}}</span>
               <img class="img-profile rounded-circle"
               src="{{url('storage/ava/'.Auth::user()->avatar)}}" alt="ava">
             </a>
             <!-- Dropdown - User Information -->
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+            <div id="userInformation" class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
             aria-labelledby="userDropdown">
             <a class="dropdown-item" href="{{url('edit-profile', Auth::user()->id)}}">
               <i class="fas fa-user fa-sm fa-fw mr-2"></i>
@@ -77,6 +77,7 @@
     <div id="loadingIndicator" class="htmx-indicator d-flex align-items-center justify-content-center" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
       <i class="fas fa-spinner fa-spin fa-6x"></i>
     </div>
+    <div id="htmx-alert" hidden class="text-center align-items-center justify-content-center text-danger" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;"></div>
     @yield ('content')
   </div>
   {{-- End of Main Content --}}

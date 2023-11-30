@@ -1,7 +1,8 @@
 @extends('layouts.header')
 @section('content')
 <!-- Begin Page Content -->
-<div class="container-fluid">
+@fragment('klasifikasi')
+<div class="container-fluid slide-it" id="app">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-dark">Klasifikasi Urusan</h1>
@@ -17,7 +18,7 @@
                 <table class="table table-borderless table-striped text-dark" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>#</th>
                             <th width="51%">Nama</th>
                             <th>Dibuat pada</th>
                             <th></th>
@@ -129,5 +130,5 @@
     });
 
 </script>
-
+@endfragment
 @endsection

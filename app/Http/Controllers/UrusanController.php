@@ -14,11 +14,14 @@ class UrusanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
             $klasifikasis = Klasifikasi::where('status', 'active')->get();
+            if ($request->header('HX-Request')) {
+                return view ('admin.urusan', compact('klasifikasis', 'backgrounds'))->fragment('urusan');
+            }
             return view ('admin.urusan', compact('klasifikasis', 'backgrounds'));
         } else {
             return redirect()->back()->with(['error' => 'Where there is a will there is a way']);

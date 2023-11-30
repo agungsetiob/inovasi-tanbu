@@ -14,7 +14,7 @@
     <div class="content">
         <img src="{{ url('storage/hulk-404.gif') }}" title="error" />
         <p><span></span>Why are you here?</p>
-        <a href="{{ url('/') }}">Back To Home</a>
+        <a id="hulk-button" href="{{ url('/') }}">Back To Home</a>
     </div>
 </body>
 </html>

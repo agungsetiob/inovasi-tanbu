@@ -12,10 +12,13 @@ class IndikatorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
+            if ($request->header('HX-Request')) {
+                return view ('admin.indikator', compact('backgrounds'))->fragment('indikator');
+            }
             return view ('admin.indikator', compact('backgrounds'));
         } else {
             return redirect()->back()->with(['error' => 'Where there is a will there is a way']);

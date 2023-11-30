@@ -131,6 +131,7 @@
                 $('#success-message').text(response.message);
                 setTimeout(function() {
                     $('#success-modal').modal('hide');
+                    $('.modal-backdrop').remove();
                 }, 3900);
                 $('#upload').removeClass('d-none');
                 $('#loading').addClass('d-none');

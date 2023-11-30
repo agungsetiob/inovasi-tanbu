@@ -87,20 +87,62 @@
                 hx-swap="outerHTML transition:true"
                 hx-push-url="true"
                 hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-list"></i> Jenis</a>
-                <a class="collapse-item" href="{{url('master/bentuk')}}"
+                <a class="collapse-item"
                 hx-get="{{url('master/bentuk')}}" 
                 hx-trigger="click" 
                 hx-target="#app" 
                 hx-swap="outerHTML transition:true"
                 hx-push-url="true"
                 hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-shapes"></i> Bentuk</a>
-                <a class="collapse-item" href="{{route('klasifikasi.index')}}"><i class="fas fa-fw fa-solid fa-hurricane"></i>Klasifikasi Urusan</a>
-                <a class="collapse-item" href="{{route('urusan.index')}}"><i class="fas fa-fw fa-info"></i> Urusan</a>
-                <a class="collapse-item" href="{{route('tematik.index')}}"><i class="fas fa-fw fa-solid fa-dragon"></i> Tematik</a>
-                <a class="collapse-item" href="{{route('indikator.index')}}"><i class="fas fa-fw fa-chart-simple"></i> Indikator</a>
-                <a class="collapse-item" href="{{route('bukti.index')}}"><i class="fas fa-fw fa-solid fa-meteor"></i> Bukti</a>
-                <a class="collapse-item" href="{{route('inisiator.index')}}"><i class="fas fa-fw fa-lightbulb"></i> Inisiator</a>
-                <a class="collapse-item" href="{{route('tahapan.index')}}"><i class="fas fa-fw fa-bars-progress"></i> Tahapan</a>
+                <a class="collapse-item"
+                hx-get="{{route('klasifikasi.index')}}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-solid fa-hurricane"></i>Klasifikasi Urusan</a>
+                <a class="collapse-item"
+                hx-get="{{route('urusan.index')}}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-info"></i> Urusan</a>
+                <a class="collapse-item"
+                hx-get="{{route('tematik.index')}}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-solid fa-dragon"></i> Tematik</a>
+                <a class="collapse-item"
+                hx-get="{{route('indikator.index')}}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-chart-simple"></i> Indikator</a>
+                <a class="collapse-item"
+                hx-get="{{route('bukti.index')}}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-solid fa-meteor"></i> Bukti</a>
+                <a class="collapse-item"
+                hx-get="{{route('inisiator.index')}}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-lightbulb"></i> Inisiator</a>
+                <a class="collapse-item"
+                hx-get="{{route('tahapan.index')}}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-bars-progress"></i> Tahapan</a>
             </div>
         </div>
     </li>

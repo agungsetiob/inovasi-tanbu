@@ -53,6 +53,7 @@ class ProposalController extends Controller
         //sleep(1);
         $backgrounds = Background::all();
         if($request->header('HX-Request')) {
+            //sleep(1);
             return view('inovasi.index', compact('backgrounds'))->fragment('inovasi');
         }
         return view('inovasi.index', compact('backgrounds'));

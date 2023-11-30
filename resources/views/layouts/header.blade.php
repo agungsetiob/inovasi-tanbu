@@ -78,7 +78,7 @@
       </ul>
     </nav>
     <div id="loadingIndicator" class="htmx-indicator d-flex align-items-center justify-content-center" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
-      <i class="fas fa-spinner fa-spin fa-6x"></i>
+      <i class="fas fa-spinner fa-spin fa-6x text-primary"></i>
     </div>
     <div id="htmx-alert" hidden class="text-center align-items-center justify-content-center text-danger" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;"></div>
     @yield ('content')

@@ -14,7 +14,7 @@
                         <h6 class="m-0 font-weight-bold text-primary">Daftar Jenis Bukti Inovasi</h6>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive" hx-history="false">
                             <table class="table table-borderless table-striped text-dark" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
@@ -45,11 +45,10 @@
 <script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
 <script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
 <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-@include ('components.modal-add-bukti')
-@include ('components.modal-edit-bukti')
+{{--<script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
+<script src="{{asset('vendor/tanbu/loading-states.js')}}"></script>--}}
 <x-alert-modal/>
 <x-logout/>
-@include ('components.modal-delete-bukti')
 <script type="text/javascript">
     var dataTable = $('#dataTable').DataTable({
         ajax: {
@@ -109,10 +108,18 @@
                 }
             },
         ],
-        // other DataTable options...
+        "initComplete": function( settings, json ) {
+            htmx.process('#dataTable');
+        },
         rowId: function (row) {
              return row.id;
         },
+    });
+
+    document.body.addEventListener("reloadBukti", function(evt){
+        dataTable.ajax.reload(function() {
+            htmx.process('#dataTable');
+        }, false)
     });
 
 
@@ -149,5 +156,8 @@
         });
     });
 </script>
+@include ('components.modal-add-bukti')
+@include ('components.modal-edit-bukti')
+@include ('components.modal-delete-bukti')
 @endfragment
 @endsection

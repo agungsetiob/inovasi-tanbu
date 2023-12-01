@@ -43,7 +43,7 @@
 <script>
     $(document).ready(function () {
         $('#indikator').selectize({
-            sortField: 'text'
+            sortField: 'id'
         });
     });
 
@@ -106,7 +106,6 @@
                          return row.id;
                     },
                 };
-
                 var newRow = $('#dataTable').DataTable().row.add(newData).draw(false).node();
 
                 // Close modal and clear input fields

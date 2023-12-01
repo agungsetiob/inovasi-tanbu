@@ -106,7 +106,7 @@ document.body.addEventListener('htmx:targetError', function(evt) {
 document.body.addEventListener('htmx:afterRequest', function (evt) {
     const errorTarget = document.getElementById("htmx-alert");
     if (evt.detail.successful) {
-        htmx.removeClass(htmx.find('#app'), 'd-none');
+        //htmx.removeClass(htmx.find('#app'), 'd-none');
         const collapseElements = htmx.findAll('.collapse');
         collapseElements.forEach(function (element) {
             htmx.removeClass(element, 'show');

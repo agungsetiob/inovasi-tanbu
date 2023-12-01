@@ -7,7 +7,13 @@
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-dark">Backups</h1>
-                <a href="/backup/only-db" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Create Backup</a>
+                <a 
+                hx-get="{{ url('/backup/only-db') }}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Create Backup</a>
             </div>
             <!-- DataTales Example -->
                 <div class="card shadow mb-4">
@@ -61,6 +67,14 @@
                                     @php
                                     Session::forget('delete');
                                     @endphp
+                                </div>
+                                @elseif (Session::has('success'))
+                                <div class="alert alert-success">
+                                    {{ Session::get('success') }}
+                                    @php
+                                    Session::forget('success');
+                                    @endphp
+                                    <i class="fa-brands fa-space-awesome"></i>
                                 </div>
                                 @endif
                             </tbody>

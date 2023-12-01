@@ -142,20 +142,20 @@
 </header>
 <!-- Portfolio Section-->
 
-<section class="page-section bg-inovation portfolio" id="portfolio">
+<section class="page-section bg-inovation portfolio" id="content">
     <div class="container">
         <div class="row justify-content-center slide-it" id="content-container">
             @include('visitor.partial.proposal-item', ['proposals' => $proposals])
         </div>
         <div class="text-center mt-2" id="show-prop">
             <button id="buttonShow" class="btn btn-xl btn-secondary btn-outline-light" 
-                    hx-get="{{ url('inovasi/all') }}" 
-                    hx-trigger="click" 
-                    hx-target="#content-container" 
-                    hx-swap="innerHtml transition:true"
-                    hx-indicator="#loadingIndicator"><i class="fa fa-atom me-2 fa-spin"></i>
-                Show All
-            </button>
+            hx-get="{{ url('inovasi/all') }}" 
+            hx-trigger="click" 
+            hx-target="#content-container" 
+            hx-swap="innerHtml transition:true"
+            hx-indicator="#loadingIndicator"><i class="fa fa-rocket me-2"></i>
+            Lihat semua
+        </button>
         </div>
     </div>
 </section>

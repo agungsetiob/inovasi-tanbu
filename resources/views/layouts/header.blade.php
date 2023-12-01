@@ -21,13 +21,11 @@
   <link rel="stylesheet" type="text/css" href="{{asset('css/stepper.min.css')}}">
   <link rel="stylesheet" href="{{asset('css/selectize.min.css')}}"/>
   <link rel="shortcut icon" href="{{url ('assets/img/logo.png')}}" type="image/x-icon"/>
-  <script src="{{asset('vendor/tanbu/loading-states.js')}}" defer></script>
-  <script src="https://unpkg.com/htmx.org@1.9.9/dist/ext/head-support.js" defer></script>
-  
+  <script src="{{asset('vendor/tanbu/loading-states.js')}}" defer></script>  
 
 </head>
 
-<body id="page-top" class="slide-on" hx-ext="head-support, loading-states">
+<body id="page-top" class="slide-on" hx-ext="loading-states">
 
   <!-- Page Wrapper -->
   <div id="wrapper">

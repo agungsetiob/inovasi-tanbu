@@ -33,7 +33,7 @@
 }
 
 .rotate-full {
-  transition: transform 1s ease 0s;
+  transition: transform 2s ease 0s;
 }
 
 :root {

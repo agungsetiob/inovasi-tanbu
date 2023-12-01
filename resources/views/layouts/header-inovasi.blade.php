@@ -41,14 +41,14 @@
                         hx-push-url="true"
                         hx-indicator="#loadingIndicator">Home</a></li>
                     @if (request()->is('inovasi'))
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Inovasi</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#content">Inovasi</a></li>
                     @elseif (request()->is('litbang'))
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Litbang</a></li>
                     @elseif (request()->is('riset'))
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Riset</a></li>
                     @endif
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">Tentang</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Kontak</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-lg btn-outline-danger" href="https://www.lapor.go.id/" target="_blank"><i class="fa fa-arrow-right fa-flip me-2" style="--fa-flip-x: 1; --fa-flip-y: 0;"></i>Lapor</a></li>
                     @if (Auth::guest())
                     <li class="nav-item mx-0 mx-lg-1">

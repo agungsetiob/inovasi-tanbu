@@ -78,7 +78,7 @@
                     
                 };
 
-                var newRow = $('#dataTable').DataTable().row.add(newData).draw().node();
+                var newRow = $('#dataTable').DataTable().row.add(newData).draw(false).node();
 
                 $('#alert-nama').removeClass('d-block').addClass('d-none');
                 $('#nama').removeClass('is-invalid');

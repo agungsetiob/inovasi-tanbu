@@ -20,6 +20,7 @@ class BuktiController extends Controller
             $indikators = Indikator::where('status', 'active')->orderBy('jenis')->get();
             if ($request->header('HX-Request')) {
                 return view ('admin.bukti', compact('indikators', 'backgrounds'))->fragment('bukti');
+                //return view ('admin.bukti', compact('indikators', 'backgrounds'));
             }
             return view ('admin.bukti', compact('indikators', 'backgrounds'));
         } else {
@@ -37,7 +38,7 @@ class BuktiController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $buktis
-            ])->header('HX-Trigger', 'reloadBukti');
+            ]);
         }
     }
 
@@ -64,7 +65,7 @@ class BuktiController extends Controller
             'message' => 'Berhasil simpan jenis bukti',
             'data' => $bukti,
             'indikator' => $indikator
-        ])->header('HX-Trigger', 'reloadAgain');
+        ]);
     }
 
     public function show(Bukti $bukti)

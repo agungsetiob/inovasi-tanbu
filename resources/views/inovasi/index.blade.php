@@ -3,7 +3,6 @@
 <!-- begin section -->
 @fragment('inovasi')
         <div class="container-fluid slide-it" id="app">
-            <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-dark">Inovasi</h1>
                 <a
@@ -14,7 +13,6 @@
                 hx-push-url="true"
                 hx-indicator="#loadingIndicator" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Add Proposal</a>
             </div>
-            <!-- DataTables Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Proposals</h6>

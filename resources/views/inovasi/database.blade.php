@@ -59,68 +59,69 @@
 <script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
 <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 <x-logout/>
-@include ('components.modal-return-proposal')
 <script type="text/javascript">
+    var databaseTable;
     $(document).ready(function() {
-    var databaseTable = $('#databaseInovasi').DataTable({
-        ajax: {
-            url: '/api/database/inovasi',
-            dataSrc: 'data',
-            processing: true,
-            serverSide: true,
-        },
-        columns: [
-            { data: 'proposal.nama' },
-            { data: 'skpd' },
-            { data: 'ujicoba' },
-            { data: 'implementasi', className: 'text-center', },
-            { data: 'skor', className: 'text-center', },
-            { 
-                data: 'tahapan', className: 'text-center',
-                render: function (data, type, row) {
-                    // Apply badge styling based on the value of tahapan
-                    var badgeClass = '';
-                    if (data == 'ujicoba') {
-                        badgeClass = 'bg-indigo fa-fade';
-                    } else if (data == 'penerapan') {
-                        badgeClass = 'bg-green fa-beat';
-                    } else if (data == 'inisiatif') {
-                        badgeClass = 'bg-orange fa-shake';
+        databaseTable = $('#databaseInovasi').DataTable({
+            ajax: {
+                url: '/api/database/inovasi',
+                dataSrc: 'data',
+                processing: true,
+                serverSide: true,
+            },
+            columns: [
+                { data: 'proposal.nama' },
+                { data: 'skpd' },
+                { data: 'ujicoba' },
+                { data: 'implementasi', className: 'text-center', },
+                { data: 'skor', className: 'text-center', },
+                { 
+                    data: 'tahapan', className: 'text-center',
+                    render: function (data, type, row) {
+                        // Apply badge styling based on the value of tahapan
+                        var badgeClass = '';
+                        if (data == 'ujicoba') {
+                            badgeClass = 'bg-indigo fa-fade';
+                        } else if (data == 'penerapan') {
+                            badgeClass = 'bg-green fa-beat';
+                        } else if (data == 'inisiatif') {
+                            badgeClass = 'bg-orange fa-shake';
+                        }
+
+                        return '<span class="badge ' + badgeClass + '">' + data + '</span>';
                     }
+                },
+                { 
+                    data: 'proposal.id', className: 'text-center',
+                    render: function (data, type, row) {
+                        return '<a hx-get="{{ url("bukti-dukung")}}/'+ data +'" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-primary btn-sm mt-1"><i class="fas fa-folder-closed"></i></a>';
+                    }
+                },
+                { 
+                    data: 'proposal.id',
+                    render: function (data, type, row) {
+                        var buttonsHtml = '<div class="text-center">';
+                        buttonsHtml += '<a href="{{url("print/report")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
+                            buttonsHtml += '<button id="return-proposal-' + row.id + '" data-proposal-id="'+ data +'" data-toggle="modal" data-target="#returnModal" data-proposal-name="' + row.proposal.nama + '" class="return-proposal btn btn-outline-warning btn-sm mt-1" title="kembalikan"><i class="fa-solid fa-ban"></i></button>';
 
-                    return '<span class="badge ' + badgeClass + '">' + data + '</span>';
-                }
+                        buttonsHtml += '</div>';
+                        return buttonsHtml;
+                    }
+                },
+                ],
+            "initComplete": function( settings, json ) {
+                htmx.process('#databaseInovasi');
             },
-            { 
-                data: 'proposal.id', className: 'text-center',
-                render: function (data, type, row) {
-                    return '<a hx-get="{{ url("bukti-dukung")}}/'+ data +'" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-primary btn-sm mt-1"><i class="fas fa-folder-closed"></i></a>';
-                }
-            },
-            { 
-                data: 'proposal.id',
-                render: function (data, type, row) {
-                    var buttonsHtml = '<div class="text-center">';
-                    buttonsHtml += '<a href="{{url("print/report")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
-                        buttonsHtml += '<button id="return-proposal-' + row.id + '" data-proposal-id="'+ data +'" data-toggle="modal" data-target="#returnModal" data-proposal-name="' + row.proposal.nama + '" class="return-proposal btn btn-outline-warning btn-sm mt-1" title="kembalikan"><i class="fa-solid fa-ban"></i></button>';
+            // other DataTable options...
+        });
 
-                    buttonsHtml += '</div>';
-                    return buttonsHtml;
-                }
-            },
-            ],
-        "initComplete": function( settings, json ) {
-            htmx.process('#databaseInovasi');
-        },
-        // other DataTable options...
+        document.body.addEventListener("reloadDatabase", function(evt){
+            databaseTable.ajax.reload(function() {
+                htmx.process('#databaseInovasi');
+            }, false)
+        });
+
     });
-
-    document.body.addEventListener("reloadDatabase", function(evt){
-        databaseTable.ajax.reload(function() {
-            htmx.process('#databaseInovasi');
-        }, false)
-    });
-
-});
 </script>
+@include ('components.modal-return-proposal')
 @endsection

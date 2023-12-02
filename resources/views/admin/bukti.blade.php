@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive" hx-history="false">
-                            <table class="table table-borderless table-striped text-dark" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-borderless table-striped text-dark" id="buktiTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th width="5%"></th>
@@ -40,17 +40,15 @@
 <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
 <script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
-<script src="{{asset('vendor/selectize/selectize.min.js')}}"></script>
 <script src="{{asset('vendor/stepper/stepper.min.js')}}"></script>
 <script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
 <script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
 <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-{{--<script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
-<script src="{{asset('vendor/tanbu/loading-states.js')}}"></script>--}}
+<script src="{{asset('vendor/selectize/selectize.min.js')}}"></script>
 <x-alert-modal/>
 <x-logout/>
 <script type="text/javascript">
-    var dataTable = $('#dataTable').DataTable({
+    var dataTable = $('#buktiTable').DataTable({
         ajax: {
             url: '/api/bukti',
             dataSrc: 'data'
@@ -109,18 +107,18 @@
             },
         ],
         "initComplete": function( settings, json ) {
-            htmx.process('#dataTable');
+            htmx.process('#buktiTable');
         },
         rowId: function (row) {
              return row.id;
         },
     });
 
-    document.body.addEventListener("reloadBukti", function(evt){
-        dataTable.ajax.reload(function() {
-            htmx.process('#dataTable');
-        }, false)
-    });
+    // document.body.addEventListener("reloadBukti", function(evt){
+    //     dataTable.ajax.reload(function() {
+    //         htmx.process('#buktiTable');
+    //     }, false)
+    // });
 
 
     $(document).ready(function() {

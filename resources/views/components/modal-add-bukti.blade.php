@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST" id="uploadForm">
+                <form action="#" method="POST" id="uploadForm" hx-disable>
                     @csrf
                     <div class="form-group">
                         <label for="name">Bukti inovasi (parameter)</label>
@@ -34,7 +34,7 @@
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-indikator"></div>
                     </div>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <button id="simpan-bukti" type="submit" class="btn btn-primary">Save</button>
+                    <button id="simpan-bukti" type="submit" hx-headers="hx-disable: true" class="btn btn-primary">Save</button>
                 </form>
             </div> 
         </div>
@@ -53,13 +53,14 @@
         var formData = new FormData(this);
 
         $.ajax({
-            url: '/master/bukti',
+            url: '/api/master/bukti',
             type: "POST",
             cache: false,
-            contentType: false,
+            contentType: json,
             data: formData,
             processData: false,
             success: function (response) {
+                var dataTable = $('#buktiTable').DataTable();
                 var newData = {
                     render: function (data, type, row, meta) {
                         return meta.row + 1 + '.';
@@ -74,7 +75,7 @@
                             data-toggle="modal" 
                             data-target="#updateModal" 
                             data-bukti-id="${response.data.id}"
-                            data-indikator-id="${response.indikator.id}"
+                            data-indikator-id="${response.data.indikator.id}"
                             data-bukti-name="${response.data.nama}"
                             data-bobot="${response.data.bobot}">
                             <i class="fas fa-pencil-alt"></i>
@@ -106,10 +107,13 @@
                          return row.id;
                     },
                 };
-                var newRow = $('#dataTable').DataTable().row.add(newData).draw(false).node();
+
+                //var newRow = $('#buktiTable').DataTable().row.add(newData).draw(false).node();
+                dataTable.ajax.reload(null, false);
 
                 // Close modal and clear input fields
                 $('#addCategory').modal('hide');
+                $('.modal-backdrop').remove();
                 $('#name').val('');
                 $('#skor').val('');
                 var indikatorSelectize = $('#indikator')[0].selectize;

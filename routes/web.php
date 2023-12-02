@@ -82,6 +82,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('indikator/change-status/{id}', [IndikatorController::class, 'changeStatus']);
 
     Route::resource('master/bukti', BuktiController::class);
+    Route::post('api/master/bukti', [BuktiController::class, 'store']);
+    Route::put('api/master/bukti/{bukti}', [BuktiController::class, 'update']);
     Route::post('bukti/change-status/{id}', [BuktiController::class, 'changeStatus']);
     Route::get('api/bukti', [BuktiController::class, 'loadBuktis']);
 

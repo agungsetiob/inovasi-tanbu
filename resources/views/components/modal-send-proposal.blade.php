@@ -9,6 +9,9 @@ aria-hidden="true">
             </button>
         </div>
         <div class="modal-body">Inovasi <span id="proposal-name-modal" style="color: #0061f2;"></span> akan dikirmi kepada admin. Tekan tombol kirim apabila anda sudah yakin.</div>
+        <div class="spinner-border text-primary" role="status" id="loadingIndicator" style="display: none;">
+            <span class="sr-only">Sending...</span>
+        </div>
         <div class="modal-footer">
             <button class="btn btn-outline-secondary" type="button" data-dismiss="modal"><i class="fa-solid fa-ban"></i> Cancel</button>
             <button id="send-proposal" class="btn btn-outline-primary" title="kirim"><i class="fa-solid fa-paper-plane"></i> Kirim</button>
@@ -17,25 +20,71 @@ aria-hidden="true">
 </div>
 </div>
 <script>
-    $(document).ready(function() {
+    // $(document).ready(function() {
+    //     var proposalId;
+
+    //     // When any button with the "send-proposal" class is clicked
+    //     $(document).on("click",".send-proposal",function() {
+    //         proposalId = $(this).data("proposal-id");
+    //         var proposalName = $(this).data("proposal-name");
+    //         $("#proposal-name-modal").text(proposalName);
+    //     });
+
+    //     // When the "Kirim" button in the modal is clicked
+    //     $("#send-proposal").click(function() {
+    //         $.ajax({
+    //             url: "/send/inovasi/" + proposalId,
+    //             type: 'PUT',
+    //             data: {
+    //                 _token: "{{ csrf_token() }}"
+    //             },
+    //             success: function(response) {
+    //                 if (response.success) {
+    //                     $('#success-alert').removeClass('d-none').addClass('show');
+    //                     $('#success-message').text(response.success);
+    //                     $('#error-alert').addClass('d-none');
+    //                     $(".send-proposal[data-proposal-id='" + proposalId + "']").remove();
+    //                     $("#edit-" + proposalId).remove();
+    //                     $("#hapus-" + proposalId).remove();
+    //                     $('#sendModal').modal('hide');
+    //                     $(".modal-backdrop").remove();
+    //                 }
+    //             },
+    //             error: function(error) {
+    //                 $('#error-message').text(error.status + ' ' + error.responseJSON.message);
+    //                 $('#error-alert').removeClass('d-none').addClass('show');
+    //             }
+    //         });
+    //     });
+    // });
+
+    $(document).ready(function () {
         var proposalId;
 
         // When any button with the "send-proposal" class is clicked
-        $(document).on("click",".send-proposal",function() {
+        $(document).on("click", ".send-proposal", function () {
             proposalId = $(this).data("proposal-id");
             var proposalName = $(this).data("proposal-name");
             $("#proposal-name-modal").text(proposalName);
+
+            // Hide any previous error messages
+            $('#error-alert').addClass('d-none').removeClass('show');
         });
 
         // When the "Kirim" button in the modal is clicked
-        $("#send-proposal").click(function() {
+        $("#send-proposal").click(function () {
+            var $button = $(this);
+
+            // Show loading spinner
+            $button.html('<i class="fas fa-spinner fa-spin"></i> Mengirim...').prop('disabled', true);
+
             $.ajax({
                 url: "/send/inovasi/" + proposalId,
                 type: 'PUT',
                 data: {
                     _token: "{{ csrf_token() }}"
                 },
-                success: function(response) {
+                success: function (response) {
                     if (response.success) {
                         $('#success-alert').removeClass('d-none').addClass('show');
                         $('#success-message').text(response.success);
@@ -47,49 +96,20 @@ aria-hidden="true">
                         $(".modal-backdrop").remove();
                     }
                 },
-                error: function(error) {
-                    $('#error-message').text(error.status + ' ' + error.responseJSON.message);
+                error: function (error) {
+                    var errorMessage = 'An error occurred while sending the proposal.';
+                    if (error.responseJSON && error.responseJSON.message) {
+                        errorMessage = error.responseJSON.message;
+                    }
+
+                    $('#error-message').text(errorMessage);
                     $('#error-alert').removeClass('d-none').addClass('show');
+                },
+                complete: function () {
+                    // Hide loading spinner and reset button text
+                    $button.html('<i class="fa-solid fa-paper-plane"></i> Kirim').prop('disabled', false);
                 }
             });
         });
     });
-
-
-    // $(document).ready(function() {
-    //     var proposalId;
-
-    //     $("button[id^='send-proposal-']").click(function() {
-    //         var buttonId = $(this).attr("id");
-    //         proposalId = buttonId.replace("send-proposal-", "");
-    //         var proposalName = $(this).data("proposal-name");
-    //         $("#proposal-name-modal").text(proposalName);
-    //     });
-
-    //     // Ketika tombol "Kirim" di modal diklik
-    //     $("#send-proposal").click(function() {
-    //         $.ajax({
-    //             url: "/send/inovasi/" + proposalId,
-    //             type: 'PUT',
-    //             data: {
-    //                 _token: "{{ csrf_token() }}"
-    //             },
-    //             success: function(response) {
-    //                 if (response.success) {
-    //                     $('#success-alert').removeClass('d-none').addClass('show');
-    //                     $('#success-message').text('Berhasil mengirim proposal');
-    //                     $('#error-alert').addClass('d-none');
-    //                     $("#" + "send-proposal-" + proposalId).remove();
-    //                     $("#edit-" + proposalId).remove();
-    //                     $("#hapus-" + proposalId).remove();
-    //                     $('#sendModal').modal('hide');
-    //                 }
-    //             },
-    //             error: function(error) {
-    //                 $('#error-message').text(error.status + ' ' + error.responseJSON.message);
-    //                 $('#error-alert').removeClass('d-none').addClass('show');
-    //             }
-    //         });
-    //     });
-    // });
 </script>

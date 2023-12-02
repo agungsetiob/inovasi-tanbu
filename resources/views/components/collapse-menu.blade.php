@@ -128,8 +128,7 @@
                 hx-target="#app" 
                 hx-swap="outerHTML transition:true"
                 hx-push-url="true"
-                hx-indicator="#loadingIndicator"
-                onclick="reloadBukti()"><i class="fas fa-fw fa-solid fa-meteor"></i> Bukti</a>
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-solid fa-meteor"></i> Bukti</a>
                 <a class="collapse-item"
                 hx-get="{{route('inisiator.index')}}" 
                 hx-trigger="click" 

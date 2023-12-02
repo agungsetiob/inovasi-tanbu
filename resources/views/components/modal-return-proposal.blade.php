@@ -17,39 +17,91 @@ aria-hidden="true">
 </div>
 </div>
 <script>
-    $(document).ready(function() {
+    // $(document).ready(function() {
+    //     var proposal_id;
+
+    //     $(document).on("click",".return-proposal",function() {
+    //         proposal_id = $(this).data("proposal-id");
+    //         var proposalName = $(this).data("proposal-name");
+    //         $("#proposal-name-modal").text(proposalName);
+    //     });
+
+    //     // Ketika tombol "Kirim" di modal diklik
+    //     $(document).on("click","#return-proposal",function() {
+    //         $.ajax({
+    //             url: "/send/inovasi/" + proposal_id,
+    //             type: 'PUT',
+    //             data: {
+    //                 _token: "{{ csrf_token() }}"
+    //             },
+    //             success: function(response) {
+    //                 if (response.success) {
+    //                     $('#success-alert').removeClass('d-none').addClass('show');
+    //                     $('#success-message').text('Berhasil mengembalikan proposal');
+    //                     $('#error-alert').addClass('d-none');
+    //                     var row = databaseTable.row(function (idx, data, node) {
+    //                         return data.proposal.id === proposal_id;
+    //                     });
+    //                     row.remove().draw(false);
+    //                     $('#returnModal').modal('hide');
+    //                     $(".modal-backdrop").remove();
+    //                 }
+    //             },
+    //             error: function(error) {
+    //                 $('#error-message').text(error.status + ' ' + error.responseJSON.message);
+    //                 $('#error-alert').removeClass('d-none').addClass('show');
+    //             }
+    //         });
+    //     });
+    // });
+
+    $(document).ready(function () {
         var proposal_id;
 
-        $(document).on("click",".return-proposal",function() {
+        $(document).on("click", ".return-proposal", function () {
             proposal_id = $(this).data("proposal-id");
             var proposalName = $(this).data("proposal-name");
             $("#proposal-name-modal").text(proposalName);
         });
 
-        // Ketika tombol "Kirim" di modal diklik
-        $(document).on("click","#return-proposal",function() {
+        $(document).on("click", "#return-proposal", function () {
+            // Show loading spinner
+            var $button = $(this);
+            $button.html('<i class="fas fa-spinner fa-spin"></i> Mengirim...').prop('disabled', true);
+
             $.ajax({
                 url: "/send/inovasi/" + proposal_id,
                 type: 'PUT',
                 data: {
                     _token: "{{ csrf_token() }}"
                 },
-                success: function(response) {
+                success: function (response) {
                     if (response.success) {
                         $('#success-alert').removeClass('d-none').addClass('show');
                         $('#success-message').text('Berhasil mengembalikan proposal');
                         $('#error-alert').addClass('d-none');
-                        var row = dataTable.row(function (idx, data, node) {
+
+                        var row = databaseTable.row(function (idx, data, node) {
                             return data.proposal.id === proposal_id;
                         });
                         row.remove().draw(false);
+
                         $('#returnModal').modal('hide');
                         $(".modal-backdrop").remove();
                     }
                 },
-                error: function(error) {
-                    $('#error-message').text(error.status + ' ' + error.responseJSON.message);
+                error: function (error) {
+                    var errorMessage = 'An error occurred while sending the proposal.';
+                    if (error.responseJSON && error.responseJSON.message) {
+                        errorMessage = error.responseJSON.message;
+                    }
+
+                    $('#error-message').text(errorMessage);
                     $('#error-alert').removeClass('d-none').addClass('show');
+                },
+                complete: function () {
+                    // Hide loading spinner and reset button text
+                    $button.html('<i class="fa-solid fa-paper-plane"></i> Kirim').prop('disabled', false);
                 }
             });
         });

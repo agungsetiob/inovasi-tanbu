@@ -442,6 +442,7 @@ class ProposalController extends Controller
     public function sendProposal(Proposal $inovasi)
     {
         if (Auth::user()->role == 'admin' || ($inovasi->user_id === Auth::user()->id)) {
+            //sleep(2);
             $status = $inovasi->status === 'sent' ? 'draft' : 'sent';
 
             $inovasi->update(['status' => $status]);
@@ -457,19 +458,19 @@ class ProposalController extends Controller
      * Send proposal to admin
      * 
      */
-    public function returnProposal(Proposal $inovasi)
-    {
-        if (Auth::user()->role == 'admin' || ($inovasi->user_id === Auth::user()->id)) {
-            $status = $inovasi->status === 'sent' ? 'draft' : 'sent';
+    // public function returnProposal(Proposal $inovasi)
+    // {
+    //     if (Auth::user()->role == 'admin' || ($inovasi->user_id === Auth::user()->id)) {
+    //         $status = $inovasi->status === 'sent' ? 'draft' : 'sent';
 
-            $inovasi->update(['status' => $status]);
+    //         $inovasi->update(['status' => $status]);
 
-            return response()->json(['success' => 'Berhasil mengembalikan proposal']);
-        } else {
-            return response()->json(['error' => 'Gagal mengirim proposal']);
-        }
+    //         return response()->json(['success' => 'Berhasil mengembalikan proposal']);
+    //     } else {
+    //         return response()->json(['error' => 'Gagal mengirim proposal']);
+    //     }
 
-    }
+    // }
 
     /**
      * Remove the specified resource from storage.

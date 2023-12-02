@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST" id="editForm">
+                <form action="#" method="POST" id="editForm" hx-disable>
                     @csrf
                     @method ('PUT')
                     <div class="form-group">
@@ -36,7 +36,7 @@
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-indikator-edit"></div>
                     </div>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <button id="edit-bukti" type="submit" class="btn btn-primary">Save</button>
+                    <button id="edit-bukti" type="submit" class="btn btn-primary" hx-headers="hx-disable: true">Save</button>
                 </form>
             </div> 
         </div>
@@ -73,14 +73,14 @@
         var formData = new FormData(this);
 
         $.ajax({
-            url: '/master/bukti/' + bukti_id,
+            url: '/api/master/bukti/' + bukti_id,
             type: "POST",
             cache: false,
             contentType: false,
             data: formData,
             processData: false,
             success: function (response) {
-                var table = $('#dataTable').DataTable();
+                var table = $('#buktiTable').DataTable();
                 var newData = {
                     render: function (data, type, row, meta, klas) {
                         return meta.row + 1 + '.';
@@ -92,7 +92,6 @@
                     indikator: response.indikator,
                     buttons: getButtonsHtml(response),
                 };
-
                 table.ajax.reload(null, false);
 
                 $('#updateModal').modal('hide');
@@ -161,6 +160,7 @@
         } else {
             $('#error-message').text(error.status + ' ' + error.responseJSON.message);
             $('#error-modal').modal('show');
+            $('#updateModal').modal('hide');
         }
     }
 

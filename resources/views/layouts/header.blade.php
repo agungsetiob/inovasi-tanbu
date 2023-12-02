@@ -21,7 +21,8 @@
   <link rel="stylesheet" type="text/css" href="{{asset('css/stepper.min.css')}}">
   <link rel="stylesheet" href="{{asset('css/selectize.min.css')}}"/>
   <link rel="shortcut icon" href="{{url ('assets/img/logo.png')}}" type="image/x-icon"/>
-    
+  <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}" defer></script>
+  <script src="{{asset('vendor/tanbu/loading-states.js')}}" defer></script>
 
 </head>
 
@@ -90,14 +91,5 @@
 <a class="scroll-to-top rounded" href="#page-top">
   <i class="fas fa-angle-up"></i>
 </a>
-<script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
-<script src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
-<script>
-  function reloadBukti() {
-        setTimeout(function() {
-            window.location.href = '/master/bukti'; // or any admin page URL
-        }, 100);
-    }
-</script>
 </body>
 </html>

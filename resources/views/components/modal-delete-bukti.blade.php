@@ -44,7 +44,7 @@ aria-hidden="true">
                         setTimeout(function() {
                             $('#success-modal').modal('hide');
                             $('.modal-backdrop').remove();
-                        }, 3900);
+                        }, 1900);
                     }
                 },
                 error: function(response) {

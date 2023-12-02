@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST" id="uploadForm" hx-disable>
+                <form action="#" method="POST" id="uploadForm">
                     @csrf
                     <div class="form-group">
                         <label for="name">Bukti inovasi (parameter)</label>
@@ -34,7 +34,7 @@
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-indikator"></div>
                     </div>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <button id="simpan-bukti" type="submit" hx-headers="hx-disable: true" class="btn btn-primary">Save</button>
+                    <button id="simpan-bukti" type="submit" class="btn btn-primary">Save</button>
                 </form>
             </div> 
         </div>
@@ -75,54 +75,8 @@
                     $('.modal-backdrop').remove();
                 }, 3900);
                 
-                var newData = {
-                    render: function (data, type, row, meta) {
-                        return meta.row + 1 + '.';
-                    },
-                    id: response.data.id,
-                    nama: response.data.nama,
-                    bobot: response.data.bobot,
-                    status: response.data.status,
-                    indikator: response.indikator,
-                    buttons: `
-                        <button type="button" class="btn btn-outline-success btn-sm edit-button" title="hapus" 
-                            data-toggle="modal" 
-                            data-target="#updateModal" 
-                            data-bukti-id="${response.data.id}"
-                            data-indikator-id="${response.data.indikator.id}"
-                            data-bukti-name="${response.data.nama}"
-                            data-bobot="${response.data.bobot}">
-                            <i class="fas fa-pencil-alt"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-danger btn-sm delete-button" 
-                            data-bukti-id="${response.data.id}"
-                            data-bukti-name="${response.data.nama}" 
-                            title="hapus">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        <div class="dropdown mb-4 d-inline">
-                            <button
-                                class="btn btn-outline-primary dropdown-toggle btn-sm"
-                                type="button"
-                                id="dropdownMenuButton"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                                data-bukti-id="${response.data.id}"
-                                data-bukti-status="${response.data.status}">
-                                ${response.data.status}
-                            </button>
-                            <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                                <button class="dropdown-item" data-action="toggle-status">change status</button>
-                            </div>
-                        </div>
-                    `,
-                    rowId: function (row) {
-                         return row.id;
-                    },
-                };
-
-                var newRow = $('#buktiTable').DataTable().row.add(newData).draw(false).node();
+                var dataTable = $('#buktiTable').DataTable();
+                dataTable.ajax.reload(null, false);
             },
             error: function (error) {
                 if (error.status === 422) {

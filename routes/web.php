@@ -56,6 +56,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('/admin', \App\Http\Controllers\AdminController::class);
     Route::get('/user', [\App\Http\Controllers\AdminController::class, 'user'])->name('user.index');
+    Route::get('/dashboard', [\App\Http\Controllers\AdminController::class, 'dashboard'])->name('dashboard');
 
     Route::resource('master/inisiator', InisiatorController::class);
     Route::put('inisiator/change-status/{id}', [InisiatorController::class, 'changeStatus']);
@@ -82,8 +83,6 @@ Route::middleware(['auth'])->group(function () {
     Route::put('indikator/change-status/{id}', [IndikatorController::class, 'changeStatus']);
 
     Route::resource('master/bukti', BuktiController::class);
-    Route::post('api/master/bukti', [BuktiController::class, 'store']);
-    Route::put('api/master/bukti/{bukti}', [BuktiController::class, 'update']);
     Route::post('bukti/change-status/{id}', [BuktiController::class, 'changeStatus']);
     Route::get('api/bukti', [BuktiController::class, 'loadBuktis']);
 

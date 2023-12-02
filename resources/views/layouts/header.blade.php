@@ -21,8 +21,15 @@
   <link rel="stylesheet" type="text/css" href="{{asset('css/stepper.min.css')}}">
   <link rel="stylesheet" href="{{asset('css/selectize.min.css')}}"/>
   <link rel="shortcut icon" href="{{url ('assets/img/logo.png')}}" type="image/x-icon"/>
-  <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}" defer></script>
-  <script src="{{asset('vendor/tanbu/loading-states.js')}}" defer></script>
+  <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+  <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+  <script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
+  <script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
+  <script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
+  <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
+  <script src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
 
 </head>
 
@@ -74,22 +81,26 @@
             </div>
           </li>
 
-      </ul>
-    </nav>
-    <div id="loadingIndicator" class="htmx-indicator d-flex align-items-center justify-content-center" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
-      <i class="fas fa-spinner fa-spin fa-6x text-primary"></i>
+        </ul>
+      </nav>
+      <div id="loadingIndicator" class="htmx-indicator d-flex align-items-center justify-content-center" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+        <i class="fas fa-spinner fa-spin fa-6x text-primary"></i>
+      </div>
+      <div id="htmx-alert" hidden class="text-center align-items-center justify-content-center text-danger" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;"></div>
+      @yield ('content')
     </div>
-    <div id="htmx-alert" hidden class="text-center align-items-center justify-content-center text-danger" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;"></div>
-    @yield ('content')
+    {{-- End of Main Content --}}
+    <x-footer/>
+    {{-- End of Footer --}}
   </div>
-  {{-- End of Main Content --}}
-  <x-footer/>
-  {{-- End of Footer --}}
-</div>
-{{-- End of Content Wrapper --}}
+  {{-- End of Content Wrapper --}}
 </div>
 <a class="scroll-to-top rounded" href="#page-top">
   <i class="fas fa-angle-up"></i>
 </a>
+<script src="{{asset('vendor/stepper/stepper.min.js')}}"></script>
+<script src="{{asset('vendor/selectize/selectize.min.js')}}"></script>
+<script src="{{asset('js/sb-admin-2.min.js')}}"></script>
+<x-logout/>
 </body>
 </html>

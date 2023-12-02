@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
     <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}" defer></script>
+    <script src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
 </head>
 <body id="page-top" class="slide-on" data-loading-class="d-none">
     <!-- Navigation-->
@@ -61,14 +62,7 @@
                         hx-indicator="#loadingIndicator">Login</a></li>
                     @elseif (auth()->user()->role === 'admin')
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded"
-                        hx-get="{{ route('admin.index') }}" 
-                        hx-trigger="click" 
-                        hx-target="#page-top" 
-                        hx-swap="outerHTML transition:true"
-                        hx-push-url="true"
-                        hx-indicator="#loadingIndicator"
-                        onclick="navigateToAdmin()">{{Auth::user()->username}}</a></li>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ route('admin.index') }}">{{Auth::user()->username}}</a></li>
                     @elseif (auth()->user()->role === 'user')
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ route('user.index') }}">{{Auth::user()->username}}</a></li>
                     @endif

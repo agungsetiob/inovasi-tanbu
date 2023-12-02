@@ -38,7 +38,7 @@ class BuktiController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $buktis
-            ]);
+            ])->header('HX-Trigger', 'reloadBukti');
         }
     }
 

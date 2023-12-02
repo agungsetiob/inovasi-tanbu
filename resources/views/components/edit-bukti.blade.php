@@ -45,7 +45,7 @@
 <script>
     $(document).ready(function () {
         $('#indikator-edit').selectize({
-            sortField: 'text'
+            sortField: 'id'
         });
     });
 
@@ -81,17 +81,6 @@
             processData: false,
             success: function (response) {
                 var table = $('#buktiTable').DataTable();
-                var newData = {
-                    render: function (data, type, row, meta, klas) {
-                        return meta.row + 1 + '.';
-                    },
-                    id: response.data.id,
-                    nama: response.data.nama,
-                    bobot: response.data.bobot,
-                    status: response.data.status,
-                    indikator: response.indikator,
-                    buttons: getButtonsHtml(response),
-                };
                 table.ajax.reload(null, false);
 
                 $('#updateModal').modal('hide');
@@ -102,43 +91,6 @@
             }
         });
     });
-
-    // Extracted the button creation logic to a separate function
-    function getButtonsHtml(response) {
-        return `
-        <button type="button" class="btn btn-outline-success btn-sm edit-button" title="hapus" 
-        data-toggle="modal" 
-        data-target="#updateModal" 
-        data-bukti-id="${response.data.id}"
-        data-indikator-id="${response.indikator.id}"
-        data-bukti-name="${response.data.nama}"
-        data-bobot="${response.data.bobot}">
-        <i class="fas fa-pencil-alt"></i>
-        </button>
-        <button type="button" class="btn btn-outline-danger btn-sm delete-button" 
-        data-bukti-id="${response.data.id}"
-        data-bukti-name="${response.data.nama}" 
-        title="hapus">
-        <i class="fas fa-trash"></i>
-        </button>
-        <div class="dropdown mb-4 d-inline">
-        <button
-        class="btn btn-outline-primary dropdown-toggle btn-sm"
-        type="button"
-        id="dropdownMenuButton"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-        data-bukti-id="${response.data.id}"
-        data-bukti-status="${response.data.status}">
-        ${response.data.status}
-        </button>
-        <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-        <button class="dropdown-item" data-action="toggle-status">change status</button>
-        </div>
-        </div>
-        `;
-    }
 
     // Extracted success modal handling to a separate function
     function showSuccessModal(message) {

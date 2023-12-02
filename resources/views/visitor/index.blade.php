@@ -229,11 +229,11 @@
         }
     });
 
-    function navigateToAdmin() {
-        setTimeout(function() {
-            window.location.href = '/admin'; // or any admin page URL
-        }, 100);
-    }
+    // function navigateToAdmin() {
+    //     setTimeout(function() {
+    //         window.location.href = '/admin'; // or any admin page URL
+    //     }, 100);
+    // }
 
 </script>
 @endsection

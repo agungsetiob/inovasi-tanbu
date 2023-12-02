@@ -1,1 +1,2 @@
-jangan lupa perbaiki bug input bukti dukung tanpa file akan error - done
+- bug: perlu refresh page setiap akan melakukan operasi data (htmx issue) - done
+  solusi: memperbaiki order script javascript eksternal

@@ -1,8 +1,8 @@
 @extends('layouts.header')
 @section('content')
-<!-- begin section -->
 @fragment('inovasi')
-        <div class="container-fluid slide-it" id="app">
+        <div class="container-fluid slide-it" id="app"
+        >
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-dark">Inovasi</h1>
                 <a
@@ -125,11 +125,11 @@
                                 // Apply badge styling based on the value of tahapan
                                 var badgeClass = '';
                                 if (data == 'ujicoba') {
-                                    badgeClass = 'bg-indigo fa-fade';
+                                    badgeClass = 'bg-indigo';
                                 } else if (data == 'penerapan') {
-                                    badgeClass = 'bg-green fa-beat';
+                                    badgeClass = 'bg-green';
                                 } else if (data == 'inisiatif') {
-                                    badgeClass = 'bg-orange fa-shake';
+                                    badgeClass = 'bg-orange';
                                 }
 
                                 return '<span class="badge ' + badgeClass + '">' + data + '</span>';
@@ -184,5 +184,4 @@
 @include ('components.modal-send-proposal')
 @include ('components.modal-delete-proposal')
 @endfragment
-<!-- endsection -->
 @endsection

@@ -44,7 +44,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($messages as $mes)
+                                    @foreach ($messages as $mes)
                                     <tr id="index_{{$mes->id}}">
                                         <td> {{$mes->name}} </td>
                                         <td> {{$mes->email}} </td>
@@ -58,11 +58,7 @@
                                             data-message-name="{{ $mes->name }}"><i class="fas fa-trash"></i></button>       
                                         </td>
                                     </tr>
-                                    @empty
-                                    <div class="alert alert-danger">
-                                        Data  is not available.
-                                    </div>
-                                    @endforelse
+                                    @endforeach
                                     <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
                                         <span id="success-message"></span>
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -92,8 +88,8 @@
 <script src="{{asset('vendor/stepper/stepper.min.js')}}"></script>
 <script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
 <script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
-<script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{asset('js/demo/datatables-demo.js')}}"></script>--}}
+<script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>--}}
+<script src="{{asset('js/demo/datatables-demo.js')}}"></script>
 <x-delete-message/>
 <x-logout/>
 @endfragment

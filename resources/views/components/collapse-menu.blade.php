@@ -45,7 +45,17 @@
         </div>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
-    <li class="nav-item {{ (request()->is('proyek/*')) ? 'active ' : '' }}">
+    <li class="nav-item {{ (request()->is('proyek/inovasi')) ? 'active ' : '' }}">
+        <a id="navCollapseZero"
+        hx-get="{{ url('proyek/inovasi') }}" 
+        hx-trigger="click" 
+        hx-target="#app" 
+        hx-swap="outerHTML transition:true"
+        hx-push-url="true"
+        hx-indicator="#loadingIndicator" class="nav-link">
+        <i class="fa fa-fw fa-rocket fa-xl"></i><span>Inovasi</span></a>
+    </li>
+    {{--<li class="nav-item {{ (request()->is('proyek/*')) ? 'active ' : '' }}">
         <a id="navCollapseZero" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseZero" aria-expanded="true" aria-controls="collapseZero">
             <i class="fa fa-fw fa-code fa-xl"></i>
                 <span>Projects</span>
@@ -64,7 +74,7 @@
                 <a class="collapse-item" href="#"><i class="fas fa-fw fa-atom"></i> Riset</a>
             </div>
         </div>
-    </li>
+    </li>--}}
     <hr class="sidebar-divider d-none d-md-block">
     <li class="nav-item {{ (request()->is('master/*')) ? 'active ' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -213,7 +223,7 @@
     </li>
     <hr class="sidebar-divider d-none d-md-block">
     @elseif (Auth::user()->role == 'user')
-    <li class="nav-item active {{ (request()->is('user/')) ? 'active ' : '' }}">
+    <li class="nav-item {{ (request()->is('user')) ? 'active ' : '' }}">
         <a class="nav-link"
         hx-get="{{ url('user') }}" 
         hx-trigger="click" 
@@ -226,24 +236,42 @@
     </li>
     <hr class="sidebar-divider d-none d-md-block">
     <li class="nav-item {{ (request()->is('proyek/*')) ? 'active ' : '' }}">
-        <a id="navCollapseZero" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseZero" aria-expanded="true" aria-controls="collapseZero">
-            <i class="fa fa-fw fa-code fa-xl"></i>
-                <span>Projects</span>
+        <a id="navCollapseZero"
+        hx-get="{{ url('proyek/inovasi') }}" 
+        hx-trigger="click" 
+        hx-target="#app" 
+        hx-swap="outerHTML transition:true"
+        hx-push-url="true"
+        hx-indicator="#loadingIndicator" class="nav-link">
+        <i class="fa fa-fw fa-rocket fa-xl"></i>
+        <span>Inovasi</span>
         </a>
-        <div id="collapseZero" class="collapse" aria-labelledby="headingZero" data-parent="#accordionSidebar" style="z-index: 10;">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a id="inovasiIndex" class="collapse-item"
-                hx-get="{{ url('proyek/inovasi') }}" 
-                hx-trigger="click" 
-                hx-target="#app" 
-                hx-swap="outerHTML transition:true"
-                hx-push-url="true"
-                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-rocket"
-                ></i> Inovasi</a>
-                <a class="collapse-item" href="#"><i class="fas fa-fw fa-microscope"></i> Litbang</a>
-                <a class="collapse-item" href="#"><i class="fas fa-fw fa-atom"></i> Riset</a>
-            </div>
-        </div>
+    </li>
+    <hr class="sidebar-divider d-none d-md-block">
+    <li class="nav-item {{ (request()->is('proyek/*')) ? 'active ' : '' }}">
+        <a id="navCollapseZero"
+        hx-get="{{ url('proyek/inovasi') }}" 
+        hx-trigger="click" 
+        hx-target="#app" 
+        hx-swap="outerHTML transition:true"
+        hx-push-url="true"
+        hx-indicator="#loadingIndicator" class="nav-link" hx-disable>
+        <i class="fa fa-fw fa-microscope fa-xl"></i>
+        <span>Litbang</span>
+        </a>
+    </li>
+    <hr class="sidebar-divider d-none d-md-block">
+    <li class="nav-item {{ (request()->is('proyek/*')) ? 'active ' : '' }}">
+        <a id="navCollapseZero"
+        hx-get="{{ url('proyek/inovasi') }}" 
+        hx-trigger="click" 
+        hx-target="#app" 
+        hx-swap="outerHTML transition:true"
+        hx-push-url="true"
+        hx-indicator="#loadingIndicator" class="nav-link" hx-disable>
+        <i class="fa fa-fw fa-atom fa-xl"></i>
+        <span>Riset</span>
+        </a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
     @endif

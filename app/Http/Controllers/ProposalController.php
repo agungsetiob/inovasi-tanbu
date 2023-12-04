@@ -30,30 +30,9 @@ class ProposalController extends Controller
      */
     public function index(Request $request)
     {
-        // $proposals = Proposal::where('user_id', Auth::user()->id)->get();
-        // $results = [];
-
-        // foreach ($proposals as $proposal) {
-        //     $skor = $proposal->files->sum(function ($file) {
-        //         return $file->bukti->bobot;
-        //     });
-
-        //     $ujicoba = Carbon::parse($proposal->ujicoba)->format('d/m/Y');
-        //     $implementasi = Carbon::parse($proposal->implementasi)->format('d/m/Y');
-        //     $tahapan = $proposal->tahapan->nama;
-
-        //     $results[] = [
-        //         'proposal' => $proposal,
-        //         'skor' => $skor,
-        //         'ujicoba' => $ujicoba,
-        //         'implementasi' => $implementasi,
-        //         'tahapan' => $tahapan,
-        //     ];
-        // }
-        //sleep(1);
         $backgrounds = Background::all();
-        if($request->header('HX-Request')) {
-            //sleep(1);
+        if ($request->header('HX-Request')) {
+            // sleep(1);
             return view('inovasi.index', compact('backgrounds'))->fragment('inovasi');
         }
         return view('inovasi.index', compact('backgrounds'));
@@ -246,7 +225,7 @@ class ProposalController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'profil'     => 'mimes:pdf|max:1536',
+            'profil'     => 'required|mimes:pdf|max:1536',
             'nama'     => 'required|unique:proposals',
             'tahapan'   => 'required',
             'inisiator'      => 'required',
@@ -455,24 +434,6 @@ class ProposalController extends Controller
     }
 
     /**
-     * Send proposal to admin
-     * 
-     */
-    // public function returnProposal(Proposal $inovasi)
-    // {
-    //     if (Auth::user()->role == 'admin' || ($inovasi->user_id === Auth::user()->id)) {
-    //         $status = $inovasi->status === 'sent' ? 'draft' : 'sent';
-
-    //         $inovasi->update(['status' => $status]);
-
-    //         return response()->json(['success' => 'Berhasil mengembalikan proposal']);
-    //     } else {
-    //         return response()->json(['error' => 'Gagal mengirim proposal']);
-    //     }
-
-    // }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Proposal $inovasi)
@@ -497,8 +458,9 @@ class ProposalController extends Controller
 
     }
 
-
-
+    /**
+    * Print proposal
+    */
     public function proposalReport($id)
     {
         $proposal = Proposal::findOrFail($id);

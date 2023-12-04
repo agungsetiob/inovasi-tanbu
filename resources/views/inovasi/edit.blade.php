@@ -233,7 +233,7 @@
                     <!-- ioiii -->
                     <div id="test-l-2" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
                       <div class="form-group">
-                            <label class="font-weight-bold" for="rancang">Rancang bangun:</label>
+                            <label class="font-weight-bold" for="rancang">Rancang bangun (minimal 300 kata):</label>
                             <textarea rows="7" id="rancang" class="editor form-control @error('rancang_bangun') is-invalid @enderror" name="rancang_bangun" rows="5" placeholder="Masukkan rancang bangun dan pokok perubahan yang dilakukan">{{ old('rancang_bangun', $inovasi->rancang_bangun) }}</textarea>
                             
                             <!-- error message untuk content -->

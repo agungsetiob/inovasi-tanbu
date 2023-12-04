@@ -1,2 +1,28 @@
 - bug: perlu refresh page setiap akan melakukan operasi data (htmx issue) - done
   solusi: memperbaiki order script javascript eksternal
+- tambah validasi profil (required)
+- rancang bangun tambahi dalam kurung (minimal 300 kata)
+- menu untuk user dalam menu project langsung aja inovasi/litbang/riset
+
+
+from porposal controller index
+  // $proposals = Proposal::where('user_id', Auth::user()->id)->get();
+        // $results = [];
+
+        // foreach ($proposals as $proposal) {
+        //     $skor = $proposal->files->sum(function ($file) {
+        //         return $file->bukti->bobot;
+        //     });
+
+        //     $ujicoba = Carbon::parse($proposal->ujicoba)->format('d/m/Y');
+        //     $implementasi = Carbon::parse($proposal->implementasi)->format('d/m/Y');
+        //     $tahapan = $proposal->tahapan->nama;
+
+        //     $results[] = [
+        //         'proposal' => $proposal,
+        //         'skor' => $skor,
+        //         'ujicoba' => $ujicoba,
+        //         'implementasi' => $implementasi,
+        //         'tahapan' => $tahapan,
+        //     ];
+        // }

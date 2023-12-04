@@ -100,7 +100,7 @@
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{Auth::user()->proposals()->count()}}</div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-clipboard-list fa-2x text-dark"></i>
+                                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>

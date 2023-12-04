@@ -34,16 +34,6 @@ class ContactController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -51,14 +41,12 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //$url = URL('/inovasi') . '#contact';
         $validator = Validator::make($request->all(), [
             'name'      => 'required',
             'email'     => 'required|email',
             'message'   => 'required|min:25'
         ]);
 
-        //create 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         } else{
@@ -68,47 +56,12 @@ class ContactController extends Controller
             'message' => addslashes($request->message)
         ]);
 
-        //redirect to index
             return response()->json([
                 'success' => true,
                 'message' => 'Pesan terkirim'
             ]);
         }
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

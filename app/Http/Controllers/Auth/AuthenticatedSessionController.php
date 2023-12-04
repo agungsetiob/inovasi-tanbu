@@ -45,7 +45,7 @@ class AuthenticatedSessionController extends Controller
 
             return back()->with('fail', 'Akun anda tidak aktif, hubungi admin untuk aktivasi');
         }
-        if (Auth::user()->role == 'admin') {
+        if (Auth::user()->role === 'admin') {
             return redirect()->intended(RouteServiceProvider::ADMIN);
         } else {
             return redirect()->intended(RouteServiceProvider::HOME);

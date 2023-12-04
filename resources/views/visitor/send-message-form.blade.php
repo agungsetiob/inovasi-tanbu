@@ -63,7 +63,7 @@
                 "_token": token,
             },
             success:function(response){
-                console.error(response);
+                console.log(response);
                 $('#success-message').text(response.message);
                 $('#success-alert').removeClass('d-none').addClass('show');
 

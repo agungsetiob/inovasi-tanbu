@@ -122,46 +122,6 @@ class ProposalController extends Controller
     }
 
 
-    /*
-    * load all sent proposal in json format
-    */
-    // public function sentProposals()
-    // {
-    //     if (Auth::user()->role == 'admin') {
-    //         $proposals = Proposal::where('status', 'sent')->get();
-    //         $results = [];
-
-    //         foreach ($proposals as $proposal) {
-    //             $skor = $proposal->files->sum(function ($file) {
-    //                 return $file->bukti->bobot;
-    //             });
-
-    //             $ujicoba = Carbon::parse($proposal->ujicoba)->format('d/m/Y');
-    //             $implementasi = Carbon::parse($proposal->implementasi)->format('d/m/Y');
-    //             $tahapan = $proposal->tahapan->nama;
-    //             $skpd = $proposal->skpd->nama;
-
-    //             $results[] = [
-    //                 'proposal' => $proposal,
-    //                 'skor' => $skor,
-    //                 'ujicoba' => $ujicoba,
-    //                 'implementasi' => $implementasi,
-    //                 'tahapan' => $tahapan,
-    //                 'skpd' => $skpd
-    //             ];
-    //         }
-
-    //         return response()->json([
-    //             'success' => true,
-    //             'data' => $results
-    //         ]);
-    //     } else{
-    //         return false;
-    //     }
-    // }
-
-
-
     /**
      * Show the form for creating a new resource.
      */

@@ -15,7 +15,6 @@ class VisitorController extends Controller
     public function index()
     {
         $settings = Setting::all();
-        //sleep(1);
         return view('visitor.cover', compact('settings'));
     }
 
@@ -30,7 +29,6 @@ class VisitorController extends Controller
             ->orderBy('created_at', 'desc')
             ->take(6)
             ->get();
-        //sleep(1);
         return view('visitor.index', compact('proposals', 'carousels', 'settings'));
     }
 
@@ -61,7 +59,6 @@ class VisitorController extends Controller
     {
         $proposals = Proposal::latest()->get();
         $settings = Setting::all();
-        //sleep(1);
         return view('visitor.partial.proposal-item', compact('proposals', 'settings'));
     }
 

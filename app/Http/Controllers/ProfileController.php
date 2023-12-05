@@ -72,16 +72,6 @@ class ProfileController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -143,7 +133,7 @@ class ProfileController extends Controller
             'telp'   => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:11',
         ]);
         if (Auth::user()->role == 'admin') {
-            $profile->update($request->all());
+            $profile->update($request->only(['nama', 'alamat', 'skpd', 'email', 'admin', 'telp']));
             $indikatorIds = Indikator::where('status', 'active')->where('jenis', 'spd')->get()->pluck('id')->toArray();
             $profile->indikators()->sync($indikatorIds);
             return response()->json(['success' => true, 'message' => 'Berhasil update profil']);

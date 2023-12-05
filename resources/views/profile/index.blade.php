@@ -59,7 +59,7 @@
                                 <a href="{{url('indikator/spd', $p->id)}}" target="_blank" class="btn btn-outline-secondary btn-sm" title="detail profil"><i class="fa-solid fa-user-secret"></i></a>
                             </tr>
                             @empty
-                            <div class="alert alert-danger">
+                            <div class="alert alert-danger text-center">
                                 Data is not available.
                             </div>
                             @endforelse

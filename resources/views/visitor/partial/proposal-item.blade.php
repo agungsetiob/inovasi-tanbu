@@ -1,4 +1,4 @@
-@foreach ($proposals as $prop)
+@forelse ($proposals as $prop)
     <div class="col-md-6 col-lg-4 mb-2">
         <div class="portfolio-item mx-auto show-inovasi " data-bs-toggle="modal" data-bs-target="#showInovasi" data-id="{{ $prop->id }}">
             @if ($prop->category->name === 'Digital')
@@ -11,4 +11,8 @@
             </div>
         </div>
     </div>
-@endforeach
+@empty
+<div class="alert alert-danger text-center">
+    No data available.
+</div>
+@endforelse

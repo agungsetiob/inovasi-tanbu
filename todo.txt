@@ -3,6 +3,7 @@
 - tambah validasi profil (required)
 - rancang bangun tambahi dalam kurung (minimal 300 kata)
 - menu untuk user dalam menu project langsung aja inovasi/litbang/riset
+-ubah isi email notifikasi vendor/laravel/framework/src/Illuminate/Auth/Notifications
 
 
 from porposal controller index

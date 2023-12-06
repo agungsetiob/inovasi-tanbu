@@ -1,8 +1,7 @@
 @extends('layouts.header')
 @section('content')
 @fragment('inovasi')
-        <div class="container-fluid slide-it" id="app"
-        >
+        <div class="container-fluid slide-it" id="app">
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-dark">Inovasi</h1>
                 <a
@@ -126,7 +125,7 @@
                                 var badgeClass = '';
                                 if (data == 'ujicoba') {
                                     badgeClass = 'bg-indigo';
-                                } else if (data == 'penerapan') {
+                                } else if (data == 'implementasi') {
                                     badgeClass = 'bg-green';
                                 } else if (data == 'inisiatif') {
                                     badgeClass = 'bg-orange';

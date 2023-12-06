@@ -155,7 +155,7 @@
             hx-swap="innerHtml transition:true"
             hx-indicator="#loadingIndicator"><i class="fa fa-rocket me-2"></i>
             Lihat semua
-        </button>
+            </button>
         </div>
     </div>
 </section>

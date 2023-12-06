@@ -171,7 +171,7 @@
                             @enderror
                           </div>
                           <div class="col">
-                            <label class="font-weight-bold" for="uploadBtn">Profil:</label>
+                            <label class="font-weight-bold" for="uploadBtn">Proposal:</label>
                             <div class="input-group "> 
                               <label class="input-group-btn">
                                 <span class="btny btn-outline-primary">

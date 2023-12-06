@@ -50,7 +50,7 @@
                                     </td>      
                                 </tr>
                                 @empty
-                                <div class="alert alert-danger">
+                                <div class="alert alert-danger text-center">
                                     No backup available.
                                 </div>
                                 @endforelse

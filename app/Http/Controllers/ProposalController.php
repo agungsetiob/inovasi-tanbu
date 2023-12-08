@@ -132,23 +132,28 @@ class ProposalController extends Controller
         $skpds = Skpd::where('status', 'active')->get();
         $bentuks = Bentuk::where('status', 'active')->get();
         $urusans = Urusan::where('status', 'active')->get();
-        $klasifikasis = Klasifikasi::where('status', 'active')->get();
         $indikators = Indikator::where('status', 'active')->where('jenis', 'sid')->get()->pluck('id');
         $tematiks = Tematik::where('status', 'active')->orderBy('id')->get();
         $tahapans = Tahapan::where('status', 'active')->get();
         $inisiators = Inisiator::where('status', 'active')->get();
-        $options = [];
-        foreach ($klasifikasis as $klasifikasi) {
-            $options[$klasifikasi->id] = [
-                'label' => $klasifikasi->nama,
-                'children' => [],
-            ];
-            foreach ($urusans as $urusan) {
-                if ($urusan->klasifikasi_id === $klasifikasi->id) {
-                    $options[$klasifikasi->id]['children'][$urusan->id] = $urusan->nama;
-                }
-            }
-        }
+        $klasifikasis = Klasifikasi::with(['urusans' => function ($query) {
+            $query->where('status', 'active');
+        }])->whereHas('urusans', function ($query) {
+            $query->where('status', 'active');
+        })->get();
+        // $options = [];
+        // foreach ($klasifikasis as $klasifikasi) {
+        //     $options[$klasifikasi->id] = [
+        //         'label' => $klasifikasi->nama,
+        //         'children' => [],
+        //     ];
+        //     foreach ($urusans as $urusan) {
+        //         if ($urusan->klasifikasi_id === $klasifikasi->id) {
+        //             $options[$klasifikasi->id]['children'][$urusan->id] = $urusan->nama;
+        //         }
+        //     }
+        // }
+
         if($request->header('HX-Request')) {
             return view('inovasi.create', compact(
                 'categories', 
@@ -157,7 +162,7 @@ class ProposalController extends Controller
                 'urusans',
                 'tematiks',
                 'klasifikasis',
-                'options',
+                //'options',
                 'indikators',
                 'tahapans',
                 'inisiators',
@@ -171,7 +176,7 @@ class ProposalController extends Controller
             'urusans',
             'tematiks',
             'klasifikasis',
-            'options',
+            //'options',
             'indikators',
             'tahapans',
             'inisiators',
@@ -258,25 +263,28 @@ class ProposalController extends Controller
         $bentuks = Bentuk::where('status', 'active')->get();
         $urusans = Urusan::where('status', 'active')->get();
         $tematiks = Tematik::where('status', 'active')->orderBy('id')->get();
-        $klasifikasis = Klasifikasi::where('status', 'active')->get();
         $tahapans = Tahapan::where('status', 'active')->get();
         $inisiators = Inisiator::where('status', 'active')->get();
-        $selectedUrusans = $inovasi->urusans;
-        $options = [];
-        foreach ($klasifikasis as $klasifikasi) {
-            $options[$klasifikasi->id] = [
-                'label' => $klasifikasi->nama,
-                'children' => [],
-            ];
-            foreach ($urusans as $urusan) {
-                if ($urusan->klasifikasi_id === $klasifikasi->id) {
-                    $options[$klasifikasi->id]['children'][$urusan->id] = $urusan->nama;
-                }
-            }
-        }
+        $klasifikasis = Klasifikasi::with(['urusans' => function ($query) {
+            $query->where('status', 'active');
+        }])->whereHas('urusans', function ($query) {
+            $query->where('status', 'active');
+        })->get();
+        $selectedUrusans = $inovasi->urusans->pluck('id')->toArray();
+        // $options = [];
+        // foreach ($klasifikasis as $klasifikasi) {
+        //     $options[$klasifikasi->id] = [
+        //         'label' => $klasifikasi->nama,
+        //         'children' => [],
+        //     ];
+        //     foreach ($urusans as $urusan) {
+        //         if ($urusan->klasifikasi_id === $klasifikasi->id) {
+        //             $options[$klasifikasi->id]['children'][$urusan->id] = $urusan->nama;
+        //         }
+        //     }
+        // }
         if (auth()->user()->id == $inovasi->user_id && $inovasi->status === 'draft') {
             if($request->header('HX-Request')) {
-                //return 'asoy';
                 return view('inovasi.edit', compact(
                     'inovasi',
                     'categories', 
@@ -284,8 +292,9 @@ class ProposalController extends Controller
                     'bentuks', 
                     'urusans',
                     'tematiks',
-                    'options',
+                    //'options',
                     'selectedUrusans',
+                    'klasifikasis',
                     'tahapans',
                     'inisiators',
                     'backgrounds'
@@ -298,8 +307,9 @@ class ProposalController extends Controller
                     'bentuks', 
                     'urusans',
                     'tematiks',
-                    'options',
+                    //'options',
                     'selectedUrusans',
+                    'klasifikasis',
                     'tahapans',
                     'inisiators',
                     'backgrounds'

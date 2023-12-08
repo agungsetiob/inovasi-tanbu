@@ -11,7 +11,7 @@
         <!-- Contact Section Form-->
         <div class="row justify-content-center">
             <div class="col-lg-8 col-xl-7">
-                <form  id="contactForm">
+                <form  id="contactForm" method="POST">
                     <div class="form-floating mb-3">
                         <input class="form-control" name="name" id="name" type="text" placeholder="Masukkan nama anda" data-sb-validations="required" autocomplete="on"/>
                         <label for="name">Nama Lengkap</label>
@@ -40,19 +40,15 @@
     </div>
 </section>
 <script type="text/javascript">
-    //action create post
     $('#submitButton').click(function(e) {
         e.preventDefault();
 
-        //define variable
         let name   = $("#name").val();
         let email   = $("#email").val();
         let message   = $("#message").val();
         let token   = $("meta[name='csrf-token']").attr("content");
         
-        //ajax
         $.ajax({
-
             url: `/send/message/`,
             type: "POST",
             cache: false,
@@ -67,12 +63,10 @@
                 $('#success-message').text(response.message);
                 $('#success-alert').removeClass('d-none').addClass('show');
 
-                // Hide error alert if it was shown
                 $('#alert-name').addClass('d-none');
                 $('#alert-email').addClass('d-none');
                 $('#alert-message').addClass('d-none');
                 
-                //clear form
                 $('#name').val('');
                 $('#email').val('');
                 $('#message').val('');               
@@ -85,7 +79,7 @@
                     $('#alert-name').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-name').html('nama wajib diisi');
+                    $('#alert-name').text('nama wajib diisi');
                 }
                 if(error.responseJSON && error.responseJSON.email && error.responseJSON.email[0]) {
                     //show alert
@@ -93,7 +87,7 @@
                     $('#alert-email').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-email').html(error.responseJSON.email[0]);
+                    $('#alert-email').text(error.responseJSON.email[0]);
                 }
                 if(error.responseJSON && error.responseJSON.message && error.responseJSON.message[0]) {
                     //show alert
@@ -101,7 +95,7 @@
                     $('#alert-message').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-message').html(error.responseJSON.message[0]);
+                    $('#alert-message').text(error.responseJSON.message[0]);
                 } else {
                     $('#error-message').text('An error occurred.');
                     $('#error-alert').removeClass('d-none').addClass('show');

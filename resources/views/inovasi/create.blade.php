@@ -123,15 +123,15 @@
                         <label class="font-weight-bold" for="urusan">Urusan inovasi daerah:</label>
                         <select name="urusans[]" id="urusan" class="form-control @error('urusan') is-invalid @enderror" required multiple>
                           <option value="" disabled selected>Pilih urusan inovasi</option>
-                          @foreach ($options as $klasifikasiId => $klasifikasiData)
-                          <optgroup class="font-weight-bold" label="{{ $klasifikasiData['label'] }}">
-                            @foreach ($klasifikasiData['children'] as $urusanId => $urusanName)
-                            <option value="{{ $urusanId }}" {{ in_array($urusanId, old('urusans', [])) ? 'selected' : '' }}>
-                              {{ $urusanName }}
-                            </option>
+                            @foreach($klasifikasis as $klasifikasi)
+                              @if($klasifikasi->urusans->isNotEmpty())
+                                  <optgroup label="{{ $klasifikasi->nama }}">
+                                      @foreach($klasifikasi->urusans as $urusan)
+                                          <option value="{{ $urusan->id }}" {{ in_array($urusan->id, old('urusans', [])) ? 'selected' : '' }}>{{ $urusan->nama }}</option>
+                                      @endforeach
+                                  </optgroup>
+                              @endif
                             @endforeach
-                          </optgroup>
-                          @endforeach
                         </select>
                         @error('urusans')
                         <div class="alert alert-danger mt-2">

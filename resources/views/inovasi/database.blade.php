@@ -81,11 +81,11 @@
                         // Apply badge styling based on the value of tahapan
                         var badgeClass = '';
                         if (data == 'ujicoba') {
-                            badgeClass = 'bg-indigo fa-fade';
-                        } else if (data == 'penerapan') {
-                            badgeClass = 'bg-green fa-beat';
+                            badgeClass = 'bg-indigo';
+                        } else if (data == 'implementasi') {
+                            badgeClass = 'bg-green';
                         } else if (data == 'inisiatif') {
-                            badgeClass = 'bg-orange fa-shake';
+                            badgeClass = 'bg-orange';
                         }
 
                         return '<span class="badge ' + badgeClass + '">' + data + '</span>';

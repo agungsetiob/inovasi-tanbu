@@ -177,7 +177,7 @@
     </div>
 </section>
 <!-- Contact Section-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 @include ('visitor.send-message-form')
 @include ('components.footer-visitor')
 <!-- Bootstrap core JS-->

@@ -8,7 +8,7 @@
     />
     <title>500 - Server Error</title>
     <link href="{{ asset('css/error.css') }}" rel="stylesheet" type="text/css"  media="all" />
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Bangers">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Bangers">
 </head>
 <body class="error-page">
     <div class="content">

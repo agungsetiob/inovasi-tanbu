@@ -18,15 +18,15 @@
     <body id="page-top" class="slide-on">
         <div class="container">
             <div class="row justify-content-between pt-4">
-                <img style="width:93px" class="img-fluid" src="img/garuda.png" title="garuda" alt="garuda" />
-                <img style="width:93px" class="img-fluid" src="assets/img/logo.png" title="tanbu" alt="tanbu" />
+                <img style="width:93px" class="img-fluid" src="assets/img/logo.png" title="garuda" alt="garuda" />
+                <img style="width:175px" class="img-fluid" src="assets/img/akhlak.png" title="tanbu" alt="tanbu" />
             </div>
         </div>
         <!-- Masthead-->
         <header id="wrapper" class="masthead text-white text-center" style="margin-top: 0px; padding-top: 0px; padding-bottom: 0.1rem; margin-bottom: 0px;" hx-history="false">
             @foreach ($settings as $s)
             <div class="container d-flex align-items-center justify-content-center">
-                <img style="height:193px" class="img-fluid mb-5" src="{{url('storage/system/' . $s->logo_cover)}}" title="logo" alt="logo" />
+                <img style="height:193px" class="img-fluid mb-2" src="{{url('storage/system/' . $s->logo_cover)}}" title="logo" alt="logo" />
             </div>
             @endforeach
             <div class="container d-flex align-items-center flex-column">
@@ -45,19 +45,19 @@
                             hx-target="#page-top" 
                             hx-swap="outerHTML transition:true"
                             hx-push-url="true"
-                            hx-indicator="#loadingIndicator" class="btn btn-lg btn-outline-primary btn-block masthead-subheading text-white fw-semibold mb-0" style="display: flex; justify-content: center; align-items: center;">INOVASI</a>
+                            hx-indicator="#loadingIndicator" class="btn btn-lg btn-outline-secondary btn-block masthead-subheading text-white fw-semibold mb-0" style="display: flex; justify-content: center; align-items: center;">INOVASI</a>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
                         <div class="portfolio-item mx-auto">
                             <img class="img-fluid menu-logo fa-flip" src="assets/img/microscope.png" alt="..." />
-                            <a href="/litbang" class="btn btn-lg btn-outline-primary btn-block masthead-subheading text-white fw-semibold mb-0" style="display: flex; justify-content: center; align-items: center;">LITBANG</a>
+                            <a href="/litbang" class="btn btn-lg btn-outline-secondary btn-block masthead-subheading text-white fw-semibold mb-0" style="display: flex; justify-content: center; align-items: center;">LITBANG</a>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
                         <div class="portfolio-item mx-auto">
                             <img class="img-fluid menu-logo-atom fa-spin-pulse" src="assets/img/atom.png" alt="..." />
-                            <a href="/riset" class="btn btn-lg btn-outline-primary btn-block masthead-subheading text-white fw-semibold mb-0" style="display: flex; justify-content: center; align-items: center;">RISET</a>
+                            <a href="/riset" class="btn btn-lg btn-outline-secondary btn-block masthead-subheading text-white fw-semibold mb-0" style="display: flex; justify-content: center; align-items: center;">RISET</a>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
         <div id="loadingIndicator" class="htmx-indicator d-flex align-items-center justify-content-center" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
           <i class="fas fa-spinner fa-spin fa-6x"></i>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
         <!-- Bootstrap core JS-->
         <script src="js/js/bootstrap.bundle.min.js"></script> 
         <script src="js/owl.carousel.min.js"></script>

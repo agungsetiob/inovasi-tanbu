@@ -42,7 +42,7 @@ Route::get('/riset', [VisitorController::class, 'riset']);
 Route::get('show/inovasi/{proposal}', [VisitorController::class, 'show']);
 Route::get('inovasi/all', [VisitorController::class, 'proposal']);
 
-Route::post('/send/message/', [ContactController::class, 'store']);
+Route::post('/send/message/', [ContactController::class, 'store'])->name('message.store');
 
 Route::get('print/report/{id}', [ProposalController::class, 'proposalReport']);
 

@@ -49,7 +49,7 @@
         let token   = $("meta[name='csrf-token']").attr("content");
         
         $.ajax({
-            url: `/send/message/`,
+            url: "{{route('message.store')}}",
             type: "POST",
             cache: false,
             data: {

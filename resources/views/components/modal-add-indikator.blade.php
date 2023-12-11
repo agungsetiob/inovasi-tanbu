@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Upload File</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah bukti dukung</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -46,8 +46,8 @@
                         <p class="text-danger d-none" id="alert-file"></p>
                     </div>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <button id="upload" type="submit" class="btn btn-primary">Upload</button>
-                    <button id="loading" type="submit" class="btn btn-primary d-none" disabled><i class="fa-solid fa-circle-notch fa-spin"></i></button>
+                    <button id="upload" type="submit" class="btn btn-primary">Save</button>
+                    <button id="loading" class="btn btn-primary d-none" disabled><i class="fa-solid fa-circle-notch fa-spin"></i> Saving...</button>
                 </form>
             </div> 
         </div>

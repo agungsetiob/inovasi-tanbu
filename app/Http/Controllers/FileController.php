@@ -94,7 +94,6 @@ class FileController extends Controller
                 $file->storeAs('public/docs', $file->hashName());
                 $fileData['file'] = $file->hashName();
             }
-
             $buktiDukung = File::create($fileData);
 
             return response()->json([

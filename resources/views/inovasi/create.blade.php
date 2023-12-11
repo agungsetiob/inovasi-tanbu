@@ -39,7 +39,6 @@
             <div class="bs-stepper-content">
               <form action="{{ route('inovasi.store') }}" method="POST" enctype="multipart/form-data"  hx-history="false">
                 @csrf
-                <div class="slide-it">
                   <div id="test-l-1" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger1">
                     <div class="form-group">
                       <label class="font-weight-bold" for="nama">Nama inovasi:</label>
@@ -279,7 +278,6 @@
                     <button type="button" class="btn btn-primary" id="prevB"><i class="fa-solid fa-backward"></i> Previous</button>
                     <button type="submit" class="btn btn-md btn-outline-primary float-right"><i class="fa fa-save"></i> Save</button>
                   </div>
-                </div>
 
               </form> 
             </div>
@@ -341,9 +339,6 @@
       }
     });
   });
-  // document.body.addEventListener('htmx:pushedIntoHistory', (evt) => {
-  //     localStorage.removeItem('htmx-history-cache')
-  //   });
 
 </script>
 @endfragment

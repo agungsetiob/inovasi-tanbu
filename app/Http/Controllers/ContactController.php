@@ -54,8 +54,7 @@ class ContactController extends Controller
             'name'    => addslashes($request->name),
             'email'   => $request->email,
             'message' => addslashes($request->message)
-        ]);
-
+            ]);
             return response()->json([
                 'success' => true,
                 'message' => 'Pesan terkirim'

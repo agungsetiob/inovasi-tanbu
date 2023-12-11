@@ -17,44 +17,6 @@ aria-hidden="true">
 </div>
 </div>
 <script>
-    // $(document).ready(function() {
-    //     var proposal_id;
-
-    //     $(document).on("click",".return-proposal",function() {
-    //         proposal_id = $(this).data("proposal-id");
-    //         var proposalName = $(this).data("proposal-name");
-    //         $("#proposal-name-modal").text(proposalName);
-    //     });
-
-    //     // Ketika tombol "Kirim" di modal diklik
-    //     $(document).on("click","#return-proposal",function() {
-    //         $.ajax({
-    //             url: "/send/inovasi/" + proposal_id,
-    //             type: 'PUT',
-    //             data: {
-    //                 _token: "{{ csrf_token() }}"
-    //             },
-    //             success: function(response) {
-    //                 if (response.success) {
-    //                     $('#success-alert').removeClass('d-none').addClass('show');
-    //                     $('#success-message').text('Berhasil mengembalikan proposal');
-    //                     $('#error-alert').addClass('d-none');
-    //                     var row = databaseTable.row(function (idx, data, node) {
-    //                         return data.proposal.id === proposal_id;
-    //                     });
-    //                     row.remove().draw(false);
-    //                     $('#returnModal').modal('hide');
-    //                     $(".modal-backdrop").remove();
-    //                 }
-    //             },
-    //             error: function(error) {
-    //                 $('#error-message').text(error.status + ' ' + error.responseJSON.message);
-    //                 $('#error-alert').removeClass('d-none').addClass('show');
-    //             }
-    //         });
-    //     });
-    // });
-
     $(document).ready(function () {
         var proposal_id;
 

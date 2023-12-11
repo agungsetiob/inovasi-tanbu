@@ -235,12 +235,22 @@ class ProposalController extends Controller
             $anggaran->storeAs('public/anggaran', $anggaran->hashName());
             $data['anggaran'] = $anggaran->hashName();
         }
-        $proposal = Proposal::create($data);
-        $indikatorIds = Indikator::where('status', 'active')->where('jenis', 'sid')->get()->pluck('id')->toArray();
-        $proposal->urusans()->sync($request->urusans);
-        $proposal->indikators()->sync($indikatorIds);
-        return redirect()->intended('proyek/inovasi')->with(['success' => 'Berhasil simpan inovasi']);
-        
+        // $proposal = Proposal::create($data);
+        // $indikatorIds = Indikator::where('status', 'active')->where('jenis', 'sid')->get()->pluck('id')->toArray();
+        // $proposal->urusans()->sync($request->urusans);
+        // $proposal->indikators()->sync($indikatorIds);
+        // return redirect()->intended('proyek/inovasi')->with(['success' => 'Berhasil simpan inovasi']);
+        try {
+            $proposal = Proposal::create($data);
+            $indikatorIds = Indikator::where('status', 'active')->where('jenis', 'sid')->get()->pluck('id')->toArray();
+            
+            $proposal->urusans()->sync($request->urusans);
+            $proposal->indikators()->sync($indikatorIds);
+
+            return redirect()->intended('proyek/inovasi')->with(['success' => 'Berhasil simpan inovasi']);
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+        }   
     }
 
     /**

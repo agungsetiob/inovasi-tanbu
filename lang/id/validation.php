@@ -146,5 +146,7 @@ return [
     */
 
     'attributes' => [
+        'profil' => 'proposal',
+        'message' => 'pesan'
     ],
 ];

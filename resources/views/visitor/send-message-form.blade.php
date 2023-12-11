@@ -33,7 +33,7 @@
                     <div id="error-alert" class="alert alert-danger d-none">
                         <span id="error-message"></span>
                     </div>
-                    <button class="btn btn-primary btn-xl" id="submitButton" type="submit">Send</button>
+                    <button class="btn btn-primary btn-xl" id="submitButton" type="submit">Kirim</button>
                 </form>
             </div>
         </div>
@@ -42,6 +42,8 @@
 <script type="text/javascript">
     $('#submitButton').click(function(e) {
         e.preventDefault();
+        var $button = $(this);
+        $button.html('<i class="fas fa-spinner fa-spin"></i> Mengirim...').prop('disabled', true);
 
         let name   = $("#name").val();
         let email   = $("#email").val();
@@ -104,6 +106,10 @@
                 // Hide success alert if it was shown
                 $('#success-alert').addClass('d-none');
 
+            },
+            complete: function () {
+                // Hide loading spinner and reset button text
+                $button.html('Kirim').prop('disabled', false);
             }
         });
     });

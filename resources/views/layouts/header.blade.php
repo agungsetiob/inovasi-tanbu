@@ -25,7 +25,7 @@
   <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
   <script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
   <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-  <script src="{{asset('vendor/stepper/stepper.min.js')}}"></script>
+  <script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
   <script src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
   <script src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
 
@@ -57,8 +57,11 @@
             <li class="nav-item dropdown no-arrow" id="userMenuContainer">
               <a id="userMenu"  class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-caret-down text-white mr-1"></i> 
                 <span class="mr-2 d-none d-lg-inline text-white small">{{Auth::user()->name}}</span>
-                <img class="img-profile rounded-circle"
-                src="{{url('storage/ava/'.Auth::user()->avatar)}}" alt="ava">
+                @if (Auth::user()->avatar)
+                <img class="img-profile rounded-circle" src="{{url('storage/ava/'.Auth::user()->avatar)}}" alt="ava">
+                @else
+                <img class="img-profile rounded-circle" src="{{url('storage/ava/avas.png')}}" alt="ava">
+                @endif
               </a>
               <!-- Dropdown - User Information -->
               <div id="userInformation" class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -96,7 +99,7 @@
 <a class="scroll-to-top rounded" href="#page-top">
   <i class="fas fa-angle-up"></i>
 </a>
-<script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
+<script src="{{asset('vendor/stepper/stepper.min.js')}}"></script>
 <script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
 <script src="{{asset('vendor/selectize/selectize.min.js')}}"></script>
 <script src="{{asset('js/sb-admin-2.min.js')}}"></script>

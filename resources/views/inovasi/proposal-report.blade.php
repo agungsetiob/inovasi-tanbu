@@ -70,9 +70,9 @@
 				<p><span style="font-size: 12pt; font-weight: 700;">1.13. Waktu Implementasi</span></p>
 				<p><span style="font-size: 12pt;">{{$proposal->implementasi}}</span></p>
 				<p><span style="font-size: 12pt; font-weight: 700;">1.14. Anggaran</span></p>
-				<p><span style="font-size: 12pt;"><a href="{{URL::to('anggaran/'. $proposal->anggaran )}}" target="_blank">{{$proposal->anggaran}}</a></span></p>
+				<p><span style="font-size: 12pt;"><a href="{{URL::to('storage/anggaran/'. $proposal->anggaran )}}" target="_blank">{{$proposal->anggaran}}</a></span></p>
 				<p><span style="font-size: 12pt; font-weight: 700;">1.15. Profil</span></p>
-				<p><span style="font-size: 12pt;"><a href="{{URL::to('/profil/'. $proposal->profil )}}" target="_blank">{{$proposal->profil}}</a></span></p>
+				<p><span style="font-size: 12pt;"><a href="{{URL::to('storage/profil/'. $proposal->profil )}}" target="_blank">{{$proposal->profil}}</a></span></p>
 				</div>
 			</div>
 	</div>

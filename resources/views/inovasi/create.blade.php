@@ -37,6 +37,14 @@
               </div>
             </div>
             <div class="bs-stepper-content">
+              {{--<form id="edit-proposal"
+              hx-post="{{ route('inovasi.store') }}" 
+              hx-target="#app" 
+              hx-swap="outerHTML transition:true" 
+              hx-indicator="#loadingIndicator"
+              hx-push-url="true"
+              hx-encoding="multipart/form-data"
+              hx-history="false">--}}
               <form action="{{ route('inovasi.store') }}" method="POST" enctype="multipart/form-data"  hx-history="false">
                 @csrf
                   <div id="test-l-1" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger1">

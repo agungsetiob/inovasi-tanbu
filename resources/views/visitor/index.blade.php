@@ -172,6 +172,11 @@
         </div>
         <div class="row">
             <div class="col-lg-12 ms-auto"><p class="lead">{{$s->tentang}}</p></div>
+            <div class="col-lg-12 ms-auto text-center bg-pattern-doubs rounded">
+                <strong class="lead">
+                    <a class="text-secondary" href="{{ url('assets/manual-book-serasi.pdf') }}" target="_blank">Download manual book SERASI</a>
+                </strong>
+            </div>
         </div>
         @endforeach
     </div>
@@ -228,12 +233,5 @@
             }
         }
     });
-
-    // function navigateToAdmin() {
-    //     setTimeout(function() {
-    //         window.location.href = '/admin'; // or any admin page URL
-    //     }, 100);
-    // }
-
 </script>
 @endsection

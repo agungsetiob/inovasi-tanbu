@@ -160,7 +160,7 @@
                     </div>
                     <div class="form-group">
                       <label class="font-weight-bold" for="tujuan">Tujuan inovasi:</label>
-                      <input id="tujuan" type="text" class="editor form-control @error('tujuan') is-invalid @enderror" name="tujuan" value="{{ old('tujuan') }}" placeholder="Masukkan tujuan pembuatan inovasi Daerah">
+                      <textarea id="tujuan" type="text" class="editor form-control @error('tujuan') is-invalid @enderror" name="tujuan" placeholder="Masukkan tujuan pembuatan inovasi Daerah">{{ old('tujuan') }}</textarea>
                       @error('tujuan')
                       <div class="alert alert-danger mt-2">
                         {{ $message }}
@@ -334,9 +334,11 @@
       }
     });
 
-    CKEDITOR.replace('manfaat')
+    CKEDITOR.replace('manfaat');
 
-    CKEDITOR.replace('hasil') 
+    CKEDITOR.replace('hasil');
+
+    CKEDITOR.replace('tujuan') 
   });
 
   document.addEventListener('htmx:afterRequest', function (event) {

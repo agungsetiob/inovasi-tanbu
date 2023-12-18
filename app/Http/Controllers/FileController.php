@@ -75,12 +75,12 @@ class FileController extends Controller
         $this->validate($request, [
             'informasi' => 'required',
             'bukti' => 'required',
-            'file' => 'nullable|mimes:pdf,jpg,jpeg,png|max:3072',
+            'file' => 'required|mimes:pdf,jpg,jpeg,png|max:3072',
         ]);
 
-        $proposal = Proposal::find($request->proposal_id);
+        $proposal = Proposal::findOrFail($request->proposal_id);
 
-        if ($proposal && $proposal->status === 'draft' && auth()->user()->id === $proposal->user_id) {
+        if ($proposal->status === 'draft' && auth()->user()->id === $request->proposal_user_id) {
             $fileData = [
                 'informasi' => addslashes($request->informasi),
                 'user_id' => auth()->user()->id,
@@ -116,7 +116,7 @@ class FileController extends Controller
         $this->validate($request, [
             'informasi' => 'required',
             'bukti' => 'required',
-            'file' => 'nullable|mimes:pdf|max:3072',
+            'file' => 'required|mimes:pdf|max:3072',
         ]);
 
             if ($request->hasFile('file')) {

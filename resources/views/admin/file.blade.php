@@ -41,7 +41,7 @@
                                         <td>@foreach ($indikator->files()->where('proposal_id', $proposalId)->get() as $item) {{$item->bukti->nama}} @endforeach</td>
                                         <td class="text-center">@foreach ($indikator->files()->where('proposal_id', $proposalId)->get() as $item) {{$item->bukti->bobot}} @endforeach</td>
                                         <td class="text-center">
-                                            @if ($proposal->status === 'draft')
+                                            @if ($proposal->status === 'draft' && Auth::user()->id === $proposal->user_id)
                                                 @forelse ($indikator->files()->where('proposal_id', $proposalId)->get() as $item)
                                                     <a class="btn-edit btn btn-outline-secondary btn-sm" title="edit" href="javascript:void(0)" data-toggle="modal" data-target="#editModal"
                                                     data-indikator-id="{{$indikator->id}}"

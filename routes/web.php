@@ -37,7 +37,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/', [VisitorController::class, 'index']);
 Route::get('/inovasi', [VisitorController::class, 'inovasi']);
-Route::get('/litbang', [VisitorController::class, 'litbang']);
+Route::get('/evaluasi', [VisitorController::class, 'evaluasi']);
 Route::get('/riset', [VisitorController::class, 'riset']);
 Route::get('show/inovasi/{proposal}', [VisitorController::class, 'show']);
 Route::get('inovasi/all', [VisitorController::class, 'proposal']);

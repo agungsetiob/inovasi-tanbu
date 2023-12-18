@@ -35,8 +35,8 @@
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">Home</a></li>
                     @if (request()->is('inovasi/*'))
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Inovasi</a></li>
-                    @elseif (request()->is('litbang/*'))
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Litbang</a></li>
+                    @elseif (request()->is('evaluasi/*'))
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Evaluasi</a></li>
                     @elseif (request()->is('riset/*'))
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Riset</a></li>
                     @endif
@@ -58,5 +58,8 @@
       <i class="fas fa-spinner fa-spin fa-6x"></i>
     </div>
     @yield ('content')
+    <noscript>
+      @include('errors.noscript')
+    </noscript>
 </body>
 </html>

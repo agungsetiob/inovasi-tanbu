@@ -6,7 +6,7 @@
     <h1 class="h3 mb-0 text-dark">Formulir Proposal Inovasi</h1>
   </div>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 slide-it">
       <div class="card border-0 shadow rounded mb-4">
         <div class="card-body">
           @if ($errors->any())

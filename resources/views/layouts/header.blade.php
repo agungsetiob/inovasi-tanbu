@@ -16,7 +16,6 @@
   rel="stylesheet">
   <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
   <link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
-  <!-- tanbu -->
   <link rel="stylesheet" type="text/css" href="{{asset('css/stepper.min.css')}}">
   <link rel="stylesheet" href="{{asset('css/selectize.min.css')}}"/>
   <link rel="shortcut icon" href="{{url ('assets/img/logo.png')}}" type="image/x-icon"/>
@@ -32,7 +31,6 @@
 </head>
 
 <body id="page-top" class="slide-on" hx-ext="loading-states">
-
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -88,6 +86,9 @@
         <i class="fas fa-spinner fa-spin fa-6x text-primary"></i>
       </div>
       <div id="htmx-alert" hidden class="text-center align-items-center justify-content-center text-danger" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;"></div>
+      <noscript>
+        @include('errors.noscript')
+      </noscript>
       @yield ('content')
     </div>
     {{-- End of Main Content --}}

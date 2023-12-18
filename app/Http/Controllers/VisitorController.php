@@ -35,7 +35,7 @@ class VisitorController extends Controller
     /**
      * Display a listing of the inovation resource.
      */
-    public function litbang()
+    public function evaluasi()
     {
         $carousels = Carousel::all();
         $settings = Setting::all();

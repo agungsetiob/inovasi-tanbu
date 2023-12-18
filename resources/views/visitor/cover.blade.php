@@ -16,6 +16,9 @@
         <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
     </head>
     <body id="page-top" class="slide-on">
+        <noscript>
+          @include('errors.noscript')
+        </noscript>
         <div class="container">
             <div class="row justify-content-between pt-4">
                 <img style="width:93px" class="img-fluid" src="assets/img/logo.png" title="garuda" alt="garuda" />
@@ -51,7 +54,7 @@
                     <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
                         <div class="portfolio-item mx-auto">
                             <img class="img-fluid menu-logo fa-flip" src="assets/img/microscope.png" alt="..." />
-                            <a href="/litbang" class="btn btn-lg btn-outline-secondary btn-block masthead-subheading text-white fw-semibold mb-0" style="display: flex; justify-content: center; align-items: center;">LITBANG</a>
+                            <a href="/evaluasi" class="btn btn-lg btn-outline-secondary btn-block masthead-subheading text-white fw-semibold mb-0" style="display: flex; justify-content: center; align-items: center;">EVALUASI</a>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">

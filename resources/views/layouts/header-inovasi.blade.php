@@ -43,8 +43,8 @@
                         hx-indicator="#loadingIndicator">Home</a></li>
                     @if (request()->is('inovasi'))
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#content">Inovasi</a></li>
-                    @elseif (request()->is('litbang'))
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Litbang</a></li>
+                    @elseif (request()->is('evaluasi'))
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Evaluasi</a></li>
                     @elseif (request()->is('riset'))
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Riset</a></li>
                     @endif

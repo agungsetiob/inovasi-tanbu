@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
         <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
     </head>
-    <body id="page-top" class="slide-on">
+    <body id="page-top" class="slide-on rotating-element rotate-and-zoom-out">
         <noscript>
           @include('errors.noscript')
         </noscript>

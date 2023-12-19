@@ -40,7 +40,7 @@ class ProposalController extends Controller
 
 
     /*
-    * load all proposal in json format
+    * load proposal in json format
     */
     public function loadProposals()
     {
@@ -67,6 +67,46 @@ class ProposalController extends Controller
             'success' => true,
             'data' => $results,
         ])->header('HX-Trigger', 'reloadTable');
+    }
+
+    /*
+    * all inovations/proposals
+    */
+    public function all(Request $request)
+    {
+        $backgrounds = Background::all();
+        if ($request->header('HX-Request')) {
+            return view('inovasi.all', compact('backgrounds'))->fragment('all-inovations');
+        }
+        return view('inovasi.all', compact('backgrounds'));
+    }
+
+    /*
+    * load all proposal in json format
+    */
+    public function allProposals()
+    {
+        $proposals = Proposal::with(['files', 'tahapan', 'category'])->get();
+
+        $results = $proposals->map(function ($proposal) {
+            $skor = $proposal->files->sum(function ($file) {
+                return $file->bukti->bobot;
+            });
+
+            return [
+                'proposal' => $proposal,
+                'skor' => $skor,
+                'ujicoba' => optional(Carbon::parse($proposal->ujicoba))->format('d/m/Y'),
+                'implementasi' => optional(Carbon::parse($proposal->implementasi))->format('d/m/Y'),
+                'tahapan' => optional($proposal->tahapan)->nama,
+                'category' => optional($proposal->category)->name,
+            ];
+        });
+
+        return response()->json([
+            'success' => true,
+            'data' => $results,
+        ])->header('HX-Trigger', 'reloadAll');
     }
 
     /**

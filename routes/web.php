@@ -130,5 +130,10 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
+Route::middleware(['role:super-admin'])->group(function () {
+    Route::get('all/inovations', [ProposalController::class, 'all']);
+    Route::get('api/inovasi/all', [ProposalController::class, 'allProposals']);
+});
+
 
 require __DIR__.'/auth.php';

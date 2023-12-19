@@ -20,10 +20,10 @@
   <link rel="stylesheet" href="{{asset('css/selectize.min.css')}}"/>
   <link rel="shortcut icon" href="{{url ('assets/img/logo.png')}}" type="image/x-icon"/>
   <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
-  <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
   <script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
   <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+  <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
   <script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
   <script src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
   <script src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
@@ -86,9 +86,9 @@
         <i class="fas fa-spinner fa-spin fa-6x text-primary"></i>
       </div>
       <div id="htmx-alert" hidden class="text-center align-items-center justify-content-center text-danger" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;"></div>
-      <noscript>
+      {{--<noscript>
         @include('errors.noscript')
-      </noscript>
+      </noscript>--}}
       @yield ('content')
     </div>
     {{-- End of Main Content --}}

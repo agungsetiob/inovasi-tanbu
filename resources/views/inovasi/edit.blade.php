@@ -152,9 +152,7 @@
                   </div>
                   <div class="form-group">
                     <label class="font-weight-bold" for="tujuan">Tujuan inovasi:</label>
-                    <input id="tujuan" type="text" class="editor form-control @error('tujuan') is-invalid @enderror" name="tujuan" value="{{ old('tujuan', $inovasi->tujuan) }}" placeholder="Masukkan tujuan pembuatan inovasi Daerah">
-
-                    <!-- error message untuk title -->
+                    <textarea id="tujuan" type="text" class="editor form-control @error('tujuan') is-invalid @enderror" name="tujuan" placeholder="Masukkan tujuan pembuatan inovasi Daerah">{{ old('tujuan', $inovasi->tujuan) }}</textarea>
                     @error('tujuan')
                     <div class="alert alert-danger mt-2">
                         {{ $message }}
@@ -167,7 +165,6 @@
                         <div class="col">
                             <label class="font-weight-bold" for="ujicoba">Waktu ujicoba:</label>
                             <input id="ujicoba" type="date" class="form-control @error('ujicoba') is-invalid @enderror" name="ujicoba" value="{{ old('ujicoba', $inovasi->ujicoba) }}" placeholder="Masukkan waktu uji coba inovasi">
-                            <!-- error message untuk title -->
                             @error('ujicoba')
                             <div class="alert alert-danger mt-2">
                                 {{ $message }}
@@ -177,7 +174,6 @@
                         <div class="col">
                             <label class="font-weight-bold" for="implementasi">Waktu implementasi:</label>
                             <input id="implementasi" type="date" class="form-control @error('implementasi') is-invalid @enderror" name="implementasi" value="{{ old('implementasi', $inovasi->implementasi) }}" placeholder="Masukkan waktu implementasi inovasi">
-                            <!-- error message untuk title -->
                             @error('implementasi')
                             <div class="alert alert-danger mt-2">
                                 {{ $message}}
@@ -342,9 +338,11 @@
         }
     });
 
-        CKEDITOR.replace('manfaat')
+        CKEDITOR.replace('manfaat');
 
-        CKEDITOR.replace('hasil') 
+        CKEDITOR.replace('hasil');
+
+        CKEDITOR.replace('tujuan'); 
     });
 
 </script>

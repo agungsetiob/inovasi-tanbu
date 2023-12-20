@@ -13,9 +13,14 @@
         <link href="{{asset('css/styles.css')}}" rel="stylesheet" />
         <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
         <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
+        <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+        <script src="js/js/bootstrap.bundle.min.js"></script> 
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous" defer></script>
+        <script src="js/js/scripts.js"></script>
         <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
     </head>
-    <body id="page-top" class="slide-on rotating-element rotate-and-zoom-out">
+    <body id="page-top" class="slide-on rotate-and-zoom-out">
         <noscript>
           @include('errors.noscript')
         </noscript>
@@ -69,12 +74,11 @@
         <div id="loadingIndicator" class="htmx-indicator d-flex align-items-center justify-content-center" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
           <i class="fas fa-spinner fa-spin fa-6x"></i>
         </div>
-        <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
-        <!-- Bootstrap core JS-->
+        {{--<script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
         <script src="js/js/bootstrap.bundle.min.js"></script> 
         <script src="js/owl.carousel.min.js"></script>
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <script src="js/js/scripts.js"></script>
+        <script src="js/js/scripts.js"></script>--}}
         <script>
             $('#slider').owlCarousel({
                 items: 1,

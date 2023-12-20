@@ -45,15 +45,8 @@
   }
 }
 
-.rotating-element {
-  /* Set initial rotation to 0 degrees and scale to 1 */
-  transform: rotate(0deg) scale(1);
-  transform-origin: center center;
-  transition: transform 1s ease; /* Smooth transition for initial state */
-}
-
 .rotate-and-zoom-out {
-  animation: rotateAndZoomOut 1s linear; /* Adjust the duration as needed */
+  animation: rotateAndZoomOut 1s linear;
 }
 
 :root {

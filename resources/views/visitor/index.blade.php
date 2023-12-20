@@ -144,7 +144,7 @@
 
 <section class="page-section bg-inovation portfolio" id="content">
     <div class="container">
-        <div class="row justify-content-center slide-it" id="content-container">
+        <div class="row justify-content-center" id="content-container">
             @include('visitor.partial.proposal-item', ['proposals' => $proposals])
         </div>
         <div class="text-center mt-2" id="show-prop">
@@ -182,14 +182,8 @@
     </div>
 </section>
 <!-- Contact Section-->
-<script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 @include ('visitor.send-message-form')
 @include ('components.footer-visitor')
-<!-- Bootstrap core JS-->
-<script src="js/js/bootstrap.bundle.min.js"></script> 
-<script src="js/owl.carousel.min.js"></script>
-<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-<script src="js/js/scripts.js"></script>
 @include ('visitor.modal-detail-inovasi')
 <script>
     $('#slider').owlCarousel({

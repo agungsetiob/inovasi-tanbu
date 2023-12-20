@@ -57,7 +57,7 @@ class VisitorController extends Controller
     */
     public function proposal()
     {
-        $proposals = Proposal::latest()->get();
+        $proposals = Proposal::where('status', 'sent')->get();
         $settings = Setting::all();
         return view('visitor.partial.proposal-item', compact('proposals', 'settings'));
     }

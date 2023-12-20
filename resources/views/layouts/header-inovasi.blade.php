@@ -13,6 +13,11 @@
     <link href="{{asset('css/styles.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
+    <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+    <script src="js/js/bootstrap.bundle.min.js"></script> 
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous" defer></script>
+    <script src="js/js/scripts.js"></script>
     <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
     <script src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
 </head>

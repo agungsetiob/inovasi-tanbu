@@ -50,7 +50,7 @@ class BackupController extends Controller{
               Artisan::call('backup:run --only-db');
                $output = Artisan::output();
                Log::info("Backpack\BackupManager -- new backup started \r\n" . $output);
-               return redirect()->intended('backup')->with(['success' => 'backup successfull sir']);
+               return redirect()->intended('backup')->with(['success' => $output]);
           } catch (Exception $e) {
                session()->flash('error', $e->getMessage());
                return redirect()->back();

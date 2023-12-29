@@ -22,6 +22,9 @@
     <script src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
 </head>
 <body id="page-top" class="slide-on" data-loading-class="d-none">
+    <noscript>
+        @include('errors.noscript')
+    </noscript>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg bg-light text-uppercase fixed-top border-bottom" id="mainNav">
         <div class="container">

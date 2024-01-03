@@ -15,7 +15,7 @@
     font-weight: 300;
     text-shadow: 2px 2px 0 #5d8529;
 }
-.container {
+/* .container {
     display: none;
 }
 header {
@@ -32,5 +32,5 @@ footer {
 }
 .copyright {
     display: none;
-}
+} */
 </style>

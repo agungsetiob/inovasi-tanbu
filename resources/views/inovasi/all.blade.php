@@ -2,16 +2,6 @@
 @section('content')
 @fragment('all-inovations')
         <div class="container-fluid slide-it" id="app">
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-dark">Inovasi</h1>
-                <a
-                hx-get="{{ route('inovasi.create') }}" 
-                hx-trigger="click" 
-                hx-target="#app" 
-                hx-swap="outerHTML"
-                hx-push-url="true"
-                hx-indicator="#loadingIndicator" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Add Proposal</a>
-            </div>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Proposals</h6>
@@ -123,7 +113,7 @@
                             data: 'proposal.id', className: 'text-center',
                             render: function (data, type, row) {
                                 // Create a link for "Bukti Dukung" based on the proposal id
-                                return '<a hx-get="{{ url("bukti-dukung")}}/'+ data +'" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-primary btn-sm mt-1"><i class="fas fa-folder-closed"></i></a>';
+                                return '<a href="{{ url("bukti-dukung")}}/'+ data +'" hx-get="{{ url("bukti-dukung")}}/'+ data +'" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-primary btn-sm mt-1"><i class="fas fa-folder-closed"></i></a>';
                             }
                         },
                         { 
@@ -150,14 +140,12 @@
             }
         });
     });
-    
+
     document.body.addEventListener("reloadAll", function(evt){
         dataTable.ajax.reload(function() {
             htmx.process('#dataTable');
         }, false)
     });
 </script>
-@include ('components.modal-send-proposal')
-@include ('components.modal-delete-proposal')
 @endfragment
 @endsection

@@ -38,6 +38,10 @@ class Proposal extends Model
     public function indikators(){
         return $this->belongsToMany(Indikator::class);
     }
+
+    public function notes(){
+        return $this->hasMany(Note::class);
+    }
     protected $guarded = [];
     protected $casts = [
         'proposals' => 'array'

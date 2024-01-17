@@ -17,7 +17,6 @@ class FileController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index($id, Request $request)
     {
@@ -95,7 +94,7 @@ class FileController extends Controller
                 $fileData['file'] = $file->hashName();
             }
             $buktiDukung = File::create($fileData);
-
+            
             return response()->json([
                 'success' => true,
                 'message' => 'Data Berhasil Disimpan!',

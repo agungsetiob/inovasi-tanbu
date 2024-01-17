@@ -41,6 +41,13 @@
                 hx-swap="outerHTML transition:true"
                 hx-push-url="true"
                 hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-rocket"></i> Inovasi Daerah</a>
+                <a class="collapse-item" href="{{ url('all/inovations') }}"
+                hx-get="{{ url('all/inovations') }}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-warehouse"></i> Semua Inovasi</a>
             </div>
         </div>
     </li>
@@ -271,6 +278,19 @@
         hx-indicator="#loadingIndicator" class="nav-link" hx-disable>
         <i class="fa fa-fw fa-atom fa-xl"></i>
         <span>Riset</span>
+        </a>
+    </li>
+    <hr class="sidebar-divider d-none d-md-block">
+    <li class="nav-item {{ (request()->is('notes')) ? 'active ' : '' }}">
+        <a id="navCollapseZero"
+        hx-get="{{ url('note') }}" 
+        hx-trigger="click" 
+        hx-target="#app" 
+        hx-swap="outerHTML transition:true"
+        hx-push-url="true"
+        hx-indicator="#loadingIndicator" class="nav-link" hx-disable>
+        <i class="fa fa-fw fa-clipboard fa-xl"></i>
+        <span>Notes</span>
         </a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">

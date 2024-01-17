@@ -146,6 +146,7 @@
                             render: function (data, type, row) {
                                 var buttonsHtml = '<div class="text-center">';
                                 buttonsHtml += '<a href="{{url("print/report")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
+                                buttonsHtml += '<button id="note-' + data + '" class="note-button btn btn-outline-warning btn-sm mr-1 mt-1" title="Catatan" data-toggle="modal" data-target="#noteModal" data-proposal-id="' + data + '" data-proposal-name="' + row.proposal.nama + '"><i class="fas fa-newspaper"></i></button>';
                                 if (row.proposal.status === 'draft') {
                                     buttonsHtml += '<button id="hapus-' + data + '" class="delete-button btn btn-outline-danger btn-sm mr-1 mt-1" title="Hapus" data-toggle="modal" data-target="#deleteModal" data-proposal-id="' + data + '" data-proposal-name="' + row.proposal.nama + '"><i class="fas fa-trash"></i></button>';
                                     buttonsHtml += '<a id="edit-' + data + '" hx-get="{{ url("proyek/inovasi")}}/'+ data +'/edit" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-success btn-sm mr-1 mt-1" title="Edit"><i class="fas fa-pencil-alt" alt="edit"></i></a>';
@@ -182,5 +183,6 @@
 </script>
 @include ('components.modal-send-proposal')
 @include ('components.modal-delete-proposal')
+@include ('components.notes-modal')
 @endfragment
 @endsection

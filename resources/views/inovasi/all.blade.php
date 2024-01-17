@@ -55,10 +55,8 @@
                         <table class="table table-borderless table-striped" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th width="38%">Nama Inovasi</th>
-                                    <th width="10%">Jenis</th>
-                                    <th>Uji Coba</th>
-                                    <th>Implementasi</th>
+                                    <th width="35%">Nama Inovasi</th>
+                                    <th>SKPD/UPTD</th>
                                     <th>Skor</th>
                                     <th width="8%">Tahapan</th>
                                     <th width="4%">Bukti Dukung</th>
@@ -94,7 +92,7 @@
     var dataTable;
     $(document).ready(function () {
         $.ajax({
-            url: '/api/inovasi/all',
+            url: '/api/all/inovations',
             type: 'GET',
             dataType: 'json',
             success: function (response) {
@@ -103,21 +101,7 @@
                     data: response.data,
                     columns: [
                         { data: 'proposal.nama' },
-                        { 
-                            data: 'category',
-                            render: function (data, type, row) {
-                                var badgeCategory = '';
-                                if (data == 'Digital') {
-                                    badgeCategory = 'bg-gradient-warning';
-                                } else if (data == 'Non Digital') {
-                                    badgeCategory = 'bg-gradient-dark';
-                                }
-
-                                return '<span class="badge ' + badgeCategory + '">' + data + '</span>';
-                            }
-                        },
-                        { data: 'ujicoba' },
-                        { data: 'implementasi' },
+                        { data: 'skpd' },
                         { data: 'skor', className: 'text-center', },
                         { 
                             data: 'tahapan', className: 'text-center',
@@ -147,14 +131,6 @@
                             render: function (data, type, row) {
                                 var buttonsHtml = '<div class="text-center">';
                                 buttonsHtml += '<a href="{{url("print/report")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
-                                if (row.proposal.status === 'draft') {
-                                    buttonsHtml += '<button id="hapus-' + data + '" class="delete-button btn btn-outline-danger btn-sm mr-1 mt-1" title="Hapus" data-toggle="modal" data-target="#deleteModal" data-proposal-id="' + data + '" data-proposal-name="' + row.proposal.nama + '"><i class="fas fa-trash"></i></button>';
-                                    buttonsHtml += '<a id="edit-' + data + '" hx-get="{{ url("proyek/inovasi")}}/'+ data +'/edit" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-success btn-sm mr-1 mt-1" title="Edit"><i class="fas fa-pencil-alt" alt="edit"></i></a>';
-                                    if (row.skor > 0) {
-                                        buttonsHtml += '<button id="send-proposal-' + data + '" data-toggle="modal" data-target="#sendModal" data-proposal-name="' + row.proposal.nama + '" data-proposal-id="' + data + '" class="send-proposal btn btn-outline-dark btn-sm mr-1 mt-1" title="Kirim"><i class="fas fa-paper-plane"></i></button>';
-                                    }
-                                }
-
                                 buttonsHtml += '</div>';
 
                                 return buttonsHtml;

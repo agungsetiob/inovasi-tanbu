@@ -5,32 +5,15 @@
 </div>
 
 <style type="text/css">
-.content p{
-    margin: 18px 0px 45px 0px;
-}
-.content p{
-    color: #200E3A;
-    font-family: Bangers, "Helvetica";
-    font-size: 48px;
-    font-weight: 300;
-    text-shadow: 2px 2px 0 #5d8529;
-}
-/* .container {
-    display: none;
-}
-header {
-    display: none;
-}
-.navbar {
-    display: none;
-}
-section {
-    display: none;
-}
-footer {
-    display: none;
-}
-.copyright {
-    display: none;
-} */
+    .content p {
+        margin: 18px 0px 45px 0px;
+    }
+
+    .content p {
+        color: #200E3A;
+        font-family: Bangers, "Helvetica";
+        font-size: 48px;
+        font-weight: 300;
+        text-shadow: 2px 2px 0 #5d8529;
+    }
 </style>

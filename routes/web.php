@@ -15,7 +15,8 @@ use App\Http\Controllers\{
     TahapanController,
     CarouselController,
     SettingController,
-    BackgroundController
+    BackgroundController,
+    NotesController
 };
 use App\Http\Controllers\BentukController;
 use App\Http\Controllers\InisiatorController;
@@ -53,6 +54,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('send/inovasi/{inovasi}', [ProposalController::class, 'sendProposal']);
     Route::get('api/inovasi', [ProposalController::class, 'loadProposals']);
     Route::get('api/database/inovasi', [ProposalController::class, 'sentProposals']);
+    Route::get('all/inovations', [ProposalController::class,'all']);
+    Route::get('api/all/inovations', [ProposalController::class,'allProposals']);
 
     Route::resource('/admin', \App\Http\Controllers\AdminController::class);
     Route::get('/user', [\App\Http\Controllers\AdminController::class, 'user'])->name('user.index');
@@ -127,13 +130,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('background', BackgroundController::class);
 
+    Route::get('notes/{id}', [NotesController::class,'index']);
+
 
 });
 
-Route::middleware(['role:super-admin'])->group(function () {
-    Route::get('all/inovations', [ProposalController::class, 'all']);
-    Route::get('api/inovasi/all', [ProposalController::class, 'allProposals']);
-});
+// Route::middleware(['role:super-admin'])->group(function () {
+//     Route::get('all/inovations', [ProposalController::class, 'all']);
+//     Route::get('api/inovasi/all', [ProposalController::class, 'allProposals']);
+// });
 
 
 require __DIR__.'/auth.php';

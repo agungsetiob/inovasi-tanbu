@@ -70,7 +70,7 @@
             type: "GET",
             cache: false,
             success:function(response){
-                    //fill data to form
+                //fill data to form
                 $('#indikator_id').val(response.data.id);
                 $('#indikator').val(response.data.nama);
                 $('#bukti').empty();
@@ -126,6 +126,7 @@
 
                 $('.text-danger').addClass('d-none').empty();
                 $('.is-invalid').removeClass('is-invalid');
+                console.log(response);
             },
             error: function (error) {
                 if (error.status === 422) { 

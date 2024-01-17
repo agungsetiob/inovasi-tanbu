@@ -16,6 +16,7 @@ use App\Models\Tematik;
 use App\Models\Klasifikasi;
 use App\Models\Tahapan;
 use App\Models\Inisiator;
+use App\Models\Note;
 use Barryvdh\DomPDF\Facade\PDF;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -85,7 +86,7 @@ class ProposalController extends Controller
     */
     public function allProposals()
     {
-        $proposals = Proposal::with(['files', 'tahapan', 'category'])->get();
+        $proposals = Proposal::with(['files', 'tahapan', 'skpd'])->get();
 
         $results = $proposals->map(function ($proposal) {
             $skor = $proposal->files->sum(function ($file) {
@@ -95,8 +96,7 @@ class ProposalController extends Controller
             return [
                 'proposal' => $proposal,
                 'skor' => $skor,
-                'ujicoba' => optional(Carbon::parse($proposal->ujicoba))->format('d/m/Y'),
-                'implementasi' => optional(Carbon::parse($proposal->implementasi))->format('d/m/Y'),
+                'skpd' => $proposal->skpd->nama,
                 'tahapan' => optional($proposal->tahapan)->nama,
                 'category' => optional($proposal->category)->name,
             ];
@@ -437,13 +437,20 @@ class ProposalController extends Controller
      * Send proposal to admin
      * 
      */
-    public function sendProposal(Proposal $inovasi)
+    public function sendProposal(Proposal $inovasi, Request $request)
     {
         if (Auth::user()->role == 'admin' || ($inovasi->user_id === Auth::user()->id)) {
             //sleep(2);
             $status = $inovasi->status === 'sent' ? 'draft' : 'sent';
 
             $inovasi->update(['status' => $status]);
+
+            if ($status === 'draft' && $request->filled('desc')) {
+                Note::create([
+                    'proposal_id' => $inovasi->id,
+                    'desc' => $request->desc,
+                ]);
+            }
 
             return response()->json(['success' => 'Berhasil mengirim proposal']);
         } else {

@@ -117,7 +117,17 @@
                         },
                         { data: 'ujicoba' },
                         { data: 'implementasi' },
-                        { data: 'skor', className: 'text-center', },
+                        {
+                            data: 'skor',
+                            className: 'text-center',
+                            render: function(data, type, full, meta) {
+                                if (type === 'display') {
+                                    var colorClass = (data < 70) ? 'text-danger' : '';
+                                    return '<span class="' + colorClass + '">' + data + '</span>';
+                                }
+                                return data; // For other types, return the original data
+                            }
+                        },
                         { 
                             data: 'tahapan', className: 'text-center',
                             render: function (data, type, row) {

@@ -133,10 +133,12 @@ class ProposalController extends Controller
     public function sentProposals()
     {
         $user = Auth::user();
+        $year = now()->year;
 
         if ($user->role == 'admin') {
             $proposals = Proposal::with(['files', 'tahapan', 'skpd'])
                 ->where('status', 'sent')
+                ->whereYear('updated_at', $year)
                 ->get();
 
             $results = $proposals->map(function ($proposal) {

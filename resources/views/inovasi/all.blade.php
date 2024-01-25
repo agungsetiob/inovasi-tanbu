@@ -58,7 +58,7 @@
                                     <th width="35%">Nama Inovasi</th>
                                     <th>SKPD/UPTD</th>
                                     <th>Skor</th>
-                                    <th width="8%">Tahapan</th>
+                                    <th width="8%">Dibuat pada</th>
                                     <th width="4%">Bukti Dukung</th>
                                     <th width="17%"></th>
                                 </tr>
@@ -102,21 +102,25 @@
                     columns: [
                         { data: 'proposal.nama' },
                         { data: 'skpd' },
-                        { data: 'skor', className: 'text-center', },
-                        { 
-                            data: 'tahapan', className: 'text-center',
-                            render: function (data, type, row) {
-                                // Apply badge styling based on the value of tahapan
-                                var badgeClass = '';
-                                if (data == 'ujicoba') {
-                                    badgeClass = 'bg-indigo';
-                                } else if (data == 'implementasi') {
-                                    badgeClass = 'bg-green';
-                                } else if (data == 'inisiatif') {
-                                    badgeClass = 'bg-orange';
+                        {
+                            data: 'skor',
+                            className: 'text-center',
+                            render: function(data, type, full, meta) {
+                                if (type === 'display') {
+                                    var colorClass = (data < 70) ? 'text-danger' : '';
+                                    return '<span class="' + colorClass + '">' + data + '</span>';
                                 }
-
-                                return '<span class="badge ' + badgeClass + '">' + data + '</span>';
+                                return data; // For other types, return the original data
+                            }
+                        },
+                        { 
+                            data: 'proposal.created_at', className: 'text-center',
+                            render: function(data, type, full, meta) {
+                                if (type === 'display') {
+                                    // Display only the year
+                                    return new Date(data).getFullYear();
+                                }
+                                return data; // For other types, return the original data
                             }
                         },
                         { 

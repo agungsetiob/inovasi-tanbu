@@ -12,9 +12,9 @@
                 <table class="table table-borderless table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Catatan</th>
-                            <th scope="col">Tanggal</th>
+                            <th with="5%" scope="col">No</th>
+                            <th with="80%" scope="col">Catatan</th>
+                            <th with="15%" scope="col">Tanggal</th>
                         </tr>
                     </thead>
                     <tbody id="notes">

@@ -18,7 +18,7 @@
                     <div class="form-group">
                         <input type="text" id="indikator" class="form-control" readonly>
                     </div>
-                    <label for="informasi">Deskripsi bukti</label>
+                    <label id="des" for="informasi">Deskripsi bukti</label>
                     <div class="form-group">
                         <input type="text" name="informasi" id="informasi" class="form-control">
                         <p class="text-danger d-none" id="alert-informasi"></p>
@@ -33,8 +33,8 @@
                         </select>
                         <p class="text-danger d-none" id="alert-bukti"></p>
                     </div>
-                    <label for="bFile">File bukti</label>
-                    <div class="form-group">
+                    <div id="formFile" class="form-group">
+                        <label for="bFile">File bukti</label>
                         <div class="input-group">
                             <label class="input-group-btn">
                                 <span class="btny btn-outline-primary">
@@ -73,6 +73,13 @@
                 //fill data to form
                 $('#indikator_id').val(response.data.id);
                 $('#indikator').val(response.data.nama);
+                if (response.data.nama == "Kualitas Inovasi Daerah*"){
+                    $('#des').text('URL/Link Video');
+                    $('#formFile').hide();
+                } else{
+                    $('#des').text('Deskripsi bukti')
+                    $('#formFile').show();
+                }
                 $('#bukti').empty();
                 $('#bukti').append('<option value="">Pilih bukti</option>');
                 $.each(response.bukti, function (index, bukti) {

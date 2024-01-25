@@ -86,7 +86,9 @@ class ProposalController extends Controller
     */
     public function allProposals()
     {
-        $proposals = Proposal::with(['files', 'tahapan', 'skpd'])->get();
+        $proposals = Proposal::with(['files', 'tahapan', 'skpd'])
+            ->where('status', 'draft')
+            ->get();
 
         $results = $proposals->map(function ($proposal) {
             $skor = $proposal->files->sum(function ($file) {

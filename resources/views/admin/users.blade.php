@@ -26,50 +26,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{--@forelse ($users as $user)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}.</td>
-                                        <td> {{$user->name}} </td>
-                                        <td> {{$user->skpd->nama}} </td>
-                                        <td> {{$user->email}} </td>
-                                        <td>
-                                            <div class="dropdown">
-                                                @if ($user->status == 'active')
-                                                <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button"
-                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                {{$user->status}}
-                                                </button>
-                                                @elseif ($user->status == 'inactive')
-                                                <button class="btn btn-outline-danger btn-sm dropdown-toggle" type="button"
-                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                {{$user->status}}
-                                                </button>
-                                                @endif
-                                                @if ($user->status == 'inactive')
-                                                <form method="POST" action="{{url('activate/'. $user->id)}}">
-                                                    @csrf
-                                                    <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                                                        <button class="dropdown-item">Activate</button>
-                                                    </div>
-                                                </form>
-                                                @elseif ($user->status == 'active')
-                                                <form method="POST" action="{{url('deactivate/'. $user->id)}}">
-                                                    @csrf
-                                                    <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                                                        <button class="dropdown-item">Deactivate</button>
-                                                    </div>
-                                                </form>
-                                                @endif
-                                            </div>
-                                        </td>       
-                                    </tr>
-                                    @empty
-                                    <div class="alert alert-danger">
-                                        Data  is not available.
-                                    </div>
-                                    @endforelse--}}
                                     @if(Session::has('success'))
                                     <div class="alert alert-success data-dismiss">
                                         {{ Session::get('success') }}

@@ -7,7 +7,6 @@
                     <h1 class="h3 mb-0 text-dark">Pesan</h1>
                 </div>
                 <div class="col-md-12">
-
                     <div class="form-group">
                         <div class="row g-3">
                             <div class="col">
@@ -21,7 +20,6 @@
                             <div class="col" style="padding-top: 2rem;" >
                                 <a href="" onclick="this.href='messages/laporan/'+ document.getElementById('startdate').value + '/' +document.getElementById('enddate').value" class=" d-sm-inline-block btn btn-danger shadow-sm" target="_blank"><i class="fas fa-print text-white"></i> Cetak</a>
                             </div>
-
                         </div>
                     </div>
                 </div>   

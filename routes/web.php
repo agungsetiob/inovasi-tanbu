@@ -56,6 +56,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('api/database/inovasi', [ProposalController::class, 'sentProposals']);
     Route::get('all/inovations', [ProposalController::class,'all']);
     Route::get('api/all/inovations', [ProposalController::class,'allProposals']);
+    Route::get('cetak/laporan/{startdate}/{enddate}', [ProposalController::class, 'report']);
 
     Route::resource('/admin', \App\Http\Controllers\AdminController::class);
     Route::get('/user', [\App\Http\Controllers\AdminController::class, 'user'])->name('user.index');

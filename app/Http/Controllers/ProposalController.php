@@ -136,13 +136,11 @@ class ProposalController extends Controller
     {
         $user = Auth::user();
         $year = now()->year;
-        //$previousYear = $year - 1;
 
         if ($user->role == 'admin') {
             $proposals = Proposal::with(['files', 'tahapan', 'skpd'])
                 ->where('status', 'sent')
                 ->whereYear('updated_at', $year)
-                //->whereYear('updated_at', $previousYear)
                 ->get();
 
             $results = $proposals->map(function ($proposal) {
@@ -500,5 +498,19 @@ class ProposalController extends Controller
         $pdf = PDF::loadview('inovasi.proposal-report',compact('proposal', 'files'))->setPaper('A4', 'portrait');
         set_time_limit(300);
         return $pdf->stream('proposal-inovasi'.$id.'.pdf');
+    }
+
+    /**
+    * Print proposals report
+    */
+    public function report($startdate, $enddate)
+    {
+        $inovations = Proposal::whereBetween('created_at',[$startdate, $enddate])
+        ->orderBy('skpd_id')
+        ->get();
+        //$total = Proposal::all()->count();
+        $pdf = PDF::loadview('admin.inovation-report',['inovations' => $inovations])->setPaper('A4', 'portrait');
+        set_time_limit(300);
+        return $pdf->stream(now().'-report.pdf');
     }
 }

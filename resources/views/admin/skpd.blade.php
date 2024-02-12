@@ -22,6 +22,7 @@
                                         <th></th>
                                         <th width="51%">Nama</th>
                                         <th>Dibuat pada</th>
+                                        <th>Jumlah</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -34,17 +35,6 @@
                 </div>
             </div>
 <!-- /.container-fluid -->
-
-{{--<script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-<script src="{{asset('js/sb-admin-2.min.js')}}"></script>
-<script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
-<script src="{{asset('vendor/selectize/selectize.min.js')}}"></script>
-<script src="{{asset('vendor/stepper/stepper.min.js')}}"></script>
-<script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
-<script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
-<script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>--}}
 @include ('components.modal-add-skpd')
 @include ('components.modal-delete-skpd')
 <x-alert-modal/>
@@ -64,7 +54,12 @@
                 }
             },
             { 
-                data: 'nama' 
+                data: 'nama',
+                render: function (data, type, row) {
+                    var hasProposals = row.proposal_count > 0;
+                    var proposalText = hasProposals ? `<span class="badge badge-success">${row.proposal_count} inovasi</span>` : '<span class="badge badge-danger">kosong</span>';
+                    return data + ' ' + proposalText;
+                }
             },
             { 
                 data: 'created_at' 

@@ -136,11 +136,13 @@ class ProposalController extends Controller
     {
         $user = Auth::user();
         $year = now()->year;
+        //$previousYear = $year - 1;
 
         if ($user->role == 'admin') {
             $proposals = Proposal::with(['files', 'tahapan', 'skpd'])
                 ->where('status', 'sent')
                 ->whereYear('updated_at', $year)
+                //->whereYear('updated_at', $previousYear)
                 ->get();
 
             $results = $proposals->map(function ($proposal) {

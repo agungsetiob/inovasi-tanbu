@@ -79,7 +79,7 @@ class FileController extends Controller
 
         $proposal = Proposal::findOrFail($request->proposal_id);
 
-        if ($proposal->status === 'draft' && auth()->user()->id === $request->proposal_user_id) {
+        if (strtolower($proposal->status) === 'draft' && strtolower(auth()->user()->id) === strtolower($request->proposal_user_id)) {
             $fileData = [
                 'informasi' => addslashes($request->informasi),
                 'user_id' => auth()->user()->id,

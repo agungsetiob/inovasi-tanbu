@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Background;
 use App\Models\Skpd;
+use App\Models\Proposal;   
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -30,7 +32,17 @@ class SkpdController extends Controller
     */
     public function loadSkpds()
     {
-        $skpds = Skpd::all();
+        $currentYear = Carbon::now()->year;
+        $previousYear = $currentYear - 1;
+        $skpds = Skpd::with(['proposals' => function ($query) use ($currentYear, $previousYear) {
+            $query->whereYear('created_at', '>=', $previousYear)
+                ->whereYear('created_at', '<=', $currentYear);
+        }])->get();
+
+        $skpds->each(function ($skpd) {
+            $skpd->proposal_count = $skpd->proposals->count();
+        });
+        
         return response()->json([
             'success' => true,
             'data' => $skpds

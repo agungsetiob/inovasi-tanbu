@@ -32,6 +32,10 @@
   z-index: 1060;
 }
 
+[data-loading] {
+  display: none;
+}
+
 .fa-rocket:hover {  
   transform: rotate(360deg);
 }

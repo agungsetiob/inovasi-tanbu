@@ -8,7 +8,7 @@ aria-hidden="true">
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-        <div class="modal-body">Inovasi <span id="proposal-name-modal" style="color: #0061f2;"></span> akan dikirmi kepada admin. Tekan tombol kirim apabila anda sudah yakin.</div>
+        <div class="modal-body">Inovasi <span id="proposal-name-modal" style="color: #0061f2;"></span> akan dikirim kepada admin. Tekan tombol kirim apabila anda sudah yakin.</div>
         <div class="spinner-border text-primary" role="status" id="loadingIndicator" style="display: none;">
             <span class="sr-only">Sending...</span>
         </div>

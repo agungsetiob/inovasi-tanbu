@@ -155,9 +155,10 @@ class RegisteredUserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        $skpds = Skpd::all();
         if (Auth::user()->id == $user->id ) {
             $setting = Setting::latest()->value('logo_cover');
-            return view('auth.edit-profile', compact('user', 'setting'));
+            return view('auth.edit-profile', compact('user', 'setting', 'skpds'));
         }
 
     }
@@ -179,6 +180,7 @@ class RegisteredUserController extends Controller
             $user->update([
                 'name' => $request->name,
                 'username' => $request->username,
+                'skpd_id' => $request->skpd_id,
                 'avatar' => $image->hashName(),
             ]);
 
@@ -186,6 +188,7 @@ class RegisteredUserController extends Controller
             $user->update([
                 'name' => $request->name,
                 'username' => $request->username,
+                'skpd_id' => $request->skpd_id,
             ]);
         }
 

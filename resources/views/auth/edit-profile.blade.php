@@ -47,6 +47,17 @@
                 <x-input id="username" class="block mt-1 w-full" type="text" name="username" value="{{ old('username', $user->username) }}" required autofocus />
             </div>
 
+            <!-- skpd uptd -->
+                <div class="mt-4">
+                    <x-label for="skpd_id" :value="__('SKPD/UPTD')" />
+                    <select name="skpd_id" id="skpd_id" class="hover:opacity-100 focus:opacity-100 opacity-50 text-gray-700 form-control @error('skpd_id') is-invalid @enderror" required>
+                        <option class="opacity-100" value="" disabled selected>Pilih SKPD/UPTD</option>
+                        @foreach ($skpds as $s)
+                        <option class="opacity-100" value="{{ $s->id }}" @selected($user->skpd_id == $s->id)>{{ $s->nama }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
             <!-- profile photo -->
             <div class="form-group mt-4">
                 <x-label for="username" :value="__('Profile photo')" />
@@ -78,4 +89,15 @@
             </div>
         </form>
     </x-auth-card>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.bootstrap5.min.css" integrity="sha512-Ars0BmSwpsUJnWMw+KoUKGKunT7+T8NGK0ORRKj+HT8naZzLSIQoOSIIM3oyaJljgLxFi0xImI5oZkAWEFARSA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js" integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript">
+        $('#skpd_id').selectize({
+            sortField: 'text'
+        });
+        $('.selectize-control').click(function() {
+            $('.selectize-dropdown').removeClass('opacity-50');
+        });
+    </script>
 </x-guest-layout>

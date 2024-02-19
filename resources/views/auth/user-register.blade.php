@@ -54,7 +54,7 @@
                     <div class="mb-3">
                         <x-label for="skpd_id" :value="__('SKPD')" />
                         <select name="skpd_id" id="skpd_id" class="hover:opacity-100 focus:opacity-100 opacity-50 text-gray-700 form-control @error('skpd_id') is-invalid @enderror" required>
-                            <option class="opacity-100" value="" disabled selected>Pilih SKPD</option>
+                            <option class="opacity-100" value="" disabled selected>Pilih SKPD/UPTD</option>
                             @foreach ($skpds as $s)
                             <option class="opacity-100" value="{{ $s->id }}" {{ old('category') == $s->id ? 'selected' : ''}}>{{ $s->nama }}</option>
                             @endforeach

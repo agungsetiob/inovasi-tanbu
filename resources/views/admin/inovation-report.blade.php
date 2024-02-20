@@ -175,16 +175,18 @@
                 <tr>
                     <td class="text-center text-uppercase" style="width: 2%">No</td>
                     <td class="text-center text-uppercase" style="width: 30%">SKPD/UPTD</td>
-                    <td class="text-center text-uppercase" style="width: 63%">INOVASI</td>
+                    <td class="text-center text-uppercase" style="width: 58%">INOVASI</td>
+                    <td class="text-center text-uppercase" style="width: 5%">SKOR</td>
                     <td class="text-center text-uppercase" style="width: 5%">TAHUN</td>
                 </tr>
             <tbody>
-              @foreach ($inovations as $item)
+              @foreach ($inovations as $inovation)
               <tr>
-                  <td class="text-center align-middle">{{ $loop->iteration }}</td>
-                  <td class="text-center align-middle">{{ $item->skpd->nama }}</td>
-                  <td class="text-center align-middle">{{ $item->nama }}</td>
-                  <td class="text-center align-middle">{{ $item->created_at->format('Y')}}</td>
+                    <td class="text-center align-middle">{{ $loop->iteration }}</td>
+                    <td>{{ $inovation['skpd'] }}</td>
+                    <td>{{ $inovation['proposal'] }}</td>
+                    <td class="text-center">{{ $inovation['skor'] }}</td>
+                    <td class="text-center">{{ $inovation['tahun'] }}</td>
               </tr>
               @endforeach
             </tbody>

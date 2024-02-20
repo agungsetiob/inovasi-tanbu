@@ -12,7 +12,7 @@ class NotesController extends Controller
      */
     public function index($id)
     {
-        $notes = Note::where('proposal_id' , $id)->get();
+        $notes = Note::where('proposal_id' , $id)->select('desc')->distinct()->get();
         return response()->json($notes);
     }
 }

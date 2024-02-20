@@ -9,9 +9,6 @@ aria-hidden="true">
             </button>
         </div>
         <div class="modal-body">Inovasi <span id="proposal-name-modal" style="color: #0061f2;"></span> akan dikirim kepada admin. Tekan tombol kirim apabila anda sudah yakin.</div>
-        <div class="spinner-border text-primary" role="status" id="loadingIndicator" style="display: none;">
-            <span class="sr-only">Sending...</span>
-        </div>
         <div class="modal-footer">
             <button class="btn btn-outline-secondary" type="button" data-dismiss="modal"><i class="fa-solid fa-ban"></i> Cancel</button>
             <button id="send-proposal" class="btn btn-outline-primary" title="kirim"><i class="fa-solid fa-paper-plane"></i> Kirim</button>

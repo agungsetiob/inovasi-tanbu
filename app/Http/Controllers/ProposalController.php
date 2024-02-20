@@ -444,23 +444,30 @@ class ProposalController extends Controller
     public function sendProposal(Proposal $inovasi, Request $request)
     {
         if (Auth::user()->role == 'admin' || ($inovasi->user_id === Auth::user()->id)) {
-            //sleep(2);
+            //sleep(5);
             $status = $inovasi->status === 'sent' ? 'draft' : 'sent';
 
             $inovasi->update(['status' => $status]);
-
-            if ($status === 'draft' && $request->filled('desc')) {
-                Note::create([
-                    'proposal_id' => $inovasi->id,
-                    'desc' => $request->desc,
-                ]);
-            }
 
             return response()->json(['success' => 'Berhasil mengirim proposal']);
         } else {
             return response()->json(['error' => 'Gagal mengirim proposal']);
         }
 
+    }
+
+    /**
+     * Create note if triggered
+     * 
+     */
+    public function note(Request $request)
+    {
+        $note = Note::create([
+            'proposal_id' => $request->input('proposal_id'),
+            'desc' => $request->input('desc'),
+        ]);
+
+        return response()->json(['success' => true, 'note' => $note], 200);
     }
 
     /**
@@ -505,12 +512,28 @@ class ProposalController extends Controller
     */
     public function report($startdate, $enddate)
     {
-        $inovations = Proposal::whereBetween('created_at',[$startdate, $enddate])
-        ->orderBy('skpd_id')
-        ->get();
-        //$total = Proposal::all()->count();
-        $pdf = PDF::loadview('admin.inovation-report',['inovations' => $inovations])->setPaper('A4', 'portrait');
+        $inovations = Proposal::with(['files', 'tahapan', 'skpd'])
+            ->whereBetween('created_at', [$startdate, $enddate])
+            //->orderBy('skpd_id')
+            ->get();
+
+        $results = $inovations->map(function ($proposal) {
+            $skor = $proposal->files->sum(function ($file) {
+                return $file->bukti->bobot;
+            });
+
+            return [
+                'proposal' => $proposal->nama,
+                'skor' => $skor,
+                'skpd' => $proposal->skpd->nama,
+                'tahun' => $proposal->created_at->format('Y'),
+            ];
+        });
+        $results = $results->sortByDesc('skor')->values();
+
+        $pdf = PDF::loadview('admin.inovation-report', ['inovations' => $results])->setPaper('A4', 'portrait');
         set_time_limit(300);
-        return $pdf->stream(now().'-report.pdf');
+        return $pdf->stream(now() . '-report.pdf');
     }
+
 }

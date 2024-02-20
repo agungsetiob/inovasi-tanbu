@@ -1,5 +1,4 @@
-<div class="modal fade" id="returnModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="returnModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" hx-history="false">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,9 +10,9 @@
             <div class="modal-body">Inovasi <span id="proposal-name-modal" style="color: #0061f2;"></span> akan
                 dikembalikan kepada pengirim. Tekan tombol kirim apabila anda sudah yakin.</div>
             <div class="modal-body">
-                <label for="informasi_edit">Catatan</label>
+                <label for="desc">Catatan</label>
                 <div class="form-group">
-                    <input type="text" name="desc" id="desc" class="form-control">
+                    <input type="text" name="desc" id="desc" class="form-control" hx-history="false">
                     <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-desc"></div>
                 </div>
             </div>
@@ -26,7 +25,7 @@
         </div>
     </div>
 </div>
-<script>
+<script hx-history="false">
     $(document).ready(function () {
         var proposal_id;
 
@@ -46,11 +45,30 @@
                 url: "/send/inovasi/" + proposal_id,
                 type: 'PUT',
                 data: {
-                    "desc": desc,
+                    desc: "desc",
                     _token: "{{ csrf_token() }}"
                 },
                 success: function (response) {
                     if (response.success) {
+
+                        if (desc) {
+                            $.ajax({
+                                url: "{{url('note/create')}}",
+                                type: 'POST',
+                                data: {
+                                    "proposal_id": proposal_id,
+                                    "desc": desc,
+                                    _token: "{{ csrf_token() }}"
+                                },
+                                success: function (notesResponse) {
+                                    console.log("Notes successfully posted:", notesResponse);
+                                },
+                                error: function (notesError) {
+                                    console.error("Error posting notes:", notesError);
+                                }
+                            });
+                        }
+
                         $('#success-alert').removeClass('d-none').addClass('show');
                         $('#success-message').text('Berhasil mengembalikan proposal');
                         $('#error-alert').addClass('d-none');

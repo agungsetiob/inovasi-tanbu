@@ -123,7 +123,7 @@
                             data: 'proposal.id', className: 'text-center',
                             render: function (data, type, row) {
                                 // Create a link for "Bukti Dukung" based on the proposal id
-                                return '<a href="{{ url("bukti-dukung" )}}/' +  data + '" hx-get="{{ url("bukti-dukun g")}}/'  + data + '" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-primary btn-sm mt-1"><i class="fas fa-folder-closed"></i></a>';
+                                return '<a href="{{ url("bukti-dukung" )}}/' +  data + '" hx-get="{{ url("bukti-dukung")}}/'  + data + '" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-primary btn-sm mt-1"><i class="fas fa-folder-closed"></i></a>';
                             }
                         },
                        {

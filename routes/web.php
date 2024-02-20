@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all/inovations', [ProposalController::class,'all']);
     Route::get('api/all/inovations', [ProposalController::class,'allProposals']);
     Route::get('cetak/laporan/{startdate}/{enddate}', [ProposalController::class, 'report']);
+    Route::post('note/create', [ProposalController::class, 'note']);
 
     Route::resource('/admin', \App\Http\Controllers\AdminController::class);
     Route::get('/user', [\App\Http\Controllers\AdminController::class, 'user'])->name('user.index');

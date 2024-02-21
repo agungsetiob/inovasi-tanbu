@@ -18,7 +18,7 @@
                     <div class="form-group">
                         <input type="text" id="indikator_edit" class="form-control" readonly>
                     </div>
-                    <label for="informasi_edit">Deskripsi bukti</label>
+                    <label id="des-edit" for="informasi_edit">Deskripsi bukti</label>
                     <div class="form-group">
                         <input type="text" name="informasi" id="informasi_edit" class="form-control">
                         <p class="text-danger d-none" id="alert-informasi-edit"></p>
@@ -30,23 +30,25 @@
                         </select>
                         <p class="text-danger d-none" id="alert-bukti-edit"></p>
                     </div>
-                    <label for="editFile">File bukti</label>
-                    <div class="form-group">
+                    <div id="fileEdit" class="form-group">
+                        <label for="editFile">File bukti</label>
                         <div class="input-group">
                             <label class="input-group-btn">
                                 <span class="btny btn-outline-primary">
-                                    Browse<input accept=".png, .jpg, .jpeg, .pdf" id="editFile" type="file" style="display: none;" name="file">
+                                    Browse<input accept=".png, .jpg, .jpeg, .pdf" id="editFile" type="file"
+                                        style="display: none;" name="file">
                                 </span>
                             </label>
                             <input id="file_edit" type="text" class="form-control" readonly placeholder="Choose a file">
-                        </div> 
-                        <p class="text-danger d-none" id="alert-file-edit"></p> 
+                        </div>
+                        <p class="text-danger d-none" id="alert-file-edit"></p>
                     </div>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <button id="upload" type="submit" class="btn btn-primary">Upload</button>
-                    <button id="loading" type="submit" class="btn btn-primary d-none" disabled><i class="fa-solid fa-circle-notch fa-spin"></i></button>
+                    <button id="loading" type="submit" class="btn btn-primary d-none" disabled><i
+                            class="fa-solid fa-circle-notch fa-spin"></i></button>
                 </form>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -71,6 +73,14 @@
         $('#indikator_edit').val(indikator_nama);
         $('#informasi_edit').val(informasi);
         $('#file_id').val(file_id);
+
+        if (indikator_nama == "Kualitas Inovasi Daerah*") {
+            $('#des-edit').text('URL/Link Video');
+            $('#fileEdit').hide();
+        } else {
+            $('#des').text('Deskripsi bukti')
+            $('#fileEdit').show();
+        }
 
         var buktiEditSelect = $('#bukti_edit');
         buktiEditSelect.empty();
@@ -129,7 +139,7 @@
 
                 $('#success-modal').modal('show');
                 $('#success-message').text(response.message);
-                setTimeout(function() {
+                setTimeout(function () {
                     $('#success-modal').modal('hide');
                     $('.modal-backdrop').remove();
                 }, 3900);

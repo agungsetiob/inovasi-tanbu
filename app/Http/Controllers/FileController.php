@@ -211,7 +211,7 @@ class FileController extends Controller
      */
     public function update(Request $request, File $file)
     {
-        if ($file->user_id === Auth::user()->id && $file->proposal->status === 'draft') {
+        if (strtolower($file->user_id) === strtolower(Auth::user()->id) && strtolower($file->proposal->status) === 'draft') {
             $this->validate($request, [
                 'informasi' => 'required',
                 'bukti' => 'required',

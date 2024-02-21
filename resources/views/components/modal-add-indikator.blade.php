@@ -73,7 +73,8 @@
                 //fill data to form
                 $('#indikator_id').val(response.data.id);
                 $('#indikator').val(response.data.nama);
-                if (response.data.nama == "Kualitas Inovasi Daerah*"){
+                var indikatorValue = $('#indikator').val();
+                if ( indikatorValue == "Kualitas Inovasi Daerah*"){
                     $('#des').text('URL/Link Video');
                     $('#formFile').hide();
                 } else{

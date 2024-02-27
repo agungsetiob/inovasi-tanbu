@@ -24,6 +24,12 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login', compact('setting'));
     }
 
+    public function createRiset()
+    {
+        $setting = Setting::latest()->value('logo_cover');
+        return view('auth.login-riset', compact('setting'));
+    }
+
     /**
      * Handle an incoming authentication request.
      *
@@ -52,6 +58,29 @@ class AuthenticatedSessionController extends Controller
         }
         
     }
+
+    public function storeRiset(LoginRequest $request)
+    {
+
+        $request->authenticate();
+        $request->session()->regenerate();
+        if (Auth::user()->status != 'active') {
+
+            Auth::guard('web')->logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            return back()->with('fail', 'Akun anda tidak aktif, hubungi admin untuk aktivasi');
+        }
+        if (Auth::user()->role === 'admin') {
+            return redirect('/dashboard/riset');
+        } else {
+            return redirect('/dashboard/user/riset');
+        }
+        
+    }
     
     /**
      * Destroy an authenticated session.
@@ -67,6 +96,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/');
     }
 }

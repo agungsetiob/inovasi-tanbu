@@ -16,7 +16,8 @@ use App\Http\Controllers\{
     CarouselController,
     SettingController,
     BackgroundController,
-    NotesController
+    NotesController,
+    RisetController
 };
 use App\Http\Controllers\BentukController;
 use App\Http\Controllers\InisiatorController;
@@ -61,7 +62,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('/admin', \App\Http\Controllers\AdminController::class);
     Route::get('/user', [\App\Http\Controllers\AdminController::class, 'user'])->name('user.index');
-    Route::get('/dashboard', [\App\Http\Controllers\AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard/riset', [\App\Http\Controllers\AdminController::class, 'dashboard']);
+    Route::get('/dashboard/user/riset', [\App\Http\Controllers\AdminController::class, 'dashboardUser']);
 
     Route::resource('master/inisiator', InisiatorController::class);
     Route::put('inisiator/change-status/{id}', [InisiatorController::class, 'changeStatus']);
@@ -134,13 +136,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('notes/{id}', [NotesController::class,'index']);
 
-
+    Route::resource('pengajuan-riset', RisetController::class);
 });
-
-// Route::middleware(['role:super-admin'])->group(function () {
-//     Route::get('all/inovations', [ProposalController::class, 'all']);
-//     Route::get('api/inovasi/all', [ProposalController::class, 'allProposals']);
-// });
-
 
 require __DIR__.'/auth.php';

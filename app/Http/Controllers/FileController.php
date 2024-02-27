@@ -101,6 +101,10 @@ class FileController extends Controller
                 'data' => $buktiDukung
             ]);
         }
+        return response()->json([
+            'success' => false,
+            'message' => 'failed'
+        ]);
     }
 
 
@@ -236,6 +240,10 @@ class FileController extends Controller
                 'data' => $file,
             ]);
         }
+        return response()->json([
+            'success' => false,
+            'message' => 'failed'
+        ]);
     }
 
     /**
@@ -277,18 +285,6 @@ class FileController extends Controller
                 'success' => false
         ]);
         }
-    }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\File  $file
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     // public function update(Request $request, File $file)

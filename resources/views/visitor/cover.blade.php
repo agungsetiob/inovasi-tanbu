@@ -60,18 +60,18 @@
                 </div>
                 <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
                     <div class="portfolio-item mx-auto">
-                        <img class="img-fluid menu-logo fa-flip" src="assets/img/microscope.png" alt="..." />
-                        <a href="/evaluasi"
-                            class="btn btn-lg btn-outline-secondary btn-block masthead-subheading text-white fw-semibold mb-0"
-                            style="display: flex; justify-content: center; align-items: center;">EVALUASI</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
-                    <div class="portfolio-item mx-auto">
                         <img class="img-fluid menu-logo-atom fa-spin-pulse" src="assets/img/atom.png" alt="..." />
                         <a href="/riset"
                             class="btn btn-lg btn-outline-secondary btn-block masthead-subheading text-white fw-semibold mb-0"
                             style="display: flex; justify-content: center; align-items: center;">RISET</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
+                    <div class="portfolio-item mx-auto">
+                        <img class="img-fluid menu-logo fa-flip" src="assets/img/microscope.png" alt="..." />
+                        <a href="/evaluasi"
+                            class="btn btn-lg btn-outline-secondary btn-block masthead-subheading text-white fw-semibold mb-0"
+                            style="display: flex; justify-content: center; align-items: center;">EVALUASI</a>
                     </div>
                 </div>
             </div>

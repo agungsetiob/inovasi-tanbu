@@ -104,4 +104,34 @@ class AdminController extends Controller
         }
     }
 
+    public function dashboard(Request $request)
+    {
+        if (Auth::user()->role == 'admin') {
+            $backgrounds = Background::all();
+            if ($request->header('HX-Request')) {
+                return view('riset.index', compact('backgrounds'))->fragment('dashboard');
+            }else{
+                return view('riset.index', compact('backgrounds'));
+            }
+        }else
+        {
+            return view('cukrukuk');
+        }
+    }
+
+    public function dashboardUser(Request $request)
+    {
+        if (Auth::user()->role == 'user') {
+            $backgrounds = Background::all();
+            if ($request->header('HX-Request')) {
+                return view('riset.index', compact('backgrounds'))->fragment('dashboard');
+            }else{
+                return view('riset.index', compact('backgrounds'));
+            }
+        }else
+        {
+            return view('cukrukuk');
+        }
+    }
+
 }

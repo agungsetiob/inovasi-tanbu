@@ -45,7 +45,7 @@
                             <thead>
                                 <tr>
                                     <th width="5%">#</th>
-                                    <th width="75%"></th>
+                                    <th width="75%">Judul Riset</th>
                                     <th width="20%"></th>
                                 </tr>
                             </thead>
@@ -73,94 +73,38 @@
             </div>
         </div>
         <!-- /.container-fluid -->
-<x-logout/>
 <script>
     var dataTable;
     $(document).ready(function () {
         $.ajax({
-            url: '/api/inovasi',
+            url: '/riset/all',
             type: 'GET',
             dataType: 'json',
             success: function (response) {
                 // Initialize DataTable with the fetched data
-                dataTable = $('#dataTable').DataTable({
+                dataTable = $('#tabel-riset').DataTable({
                     data: response.data,
                     columns: [
-                        { data: 'proposal.nama' },
                         { 
-                            data: 'category',
-                            render: function (data, type, row) {
-                                var badgeCategory = '';
-                                if (data == 'Digital') {
-                                    badgeCategory = 'bg-gradient-warning';
-                                } else if (data == 'Non Digital') {
-                                    badgeCategory = 'bg-gradient-dark';
-                                }
-
-                                return '<span class="badge ' + badgeCategory + '">' + data + '</span>';
+                            render: function (data, type, row, meta) {
+                                return meta.row + 1 + '.';
                             }
                         },
-                        { data: 'ujicoba' },
-                        { data: 'implementasi' },
-                        {
-                            data: 'skor',
-                            className: 'text-center',
-                            render: function(data, type, full, meta) {
-                                if (type === 'display') {
-                                    var colorClass = (data < 70) ? 'text-danger' : '';
-                                    return '<span class="' + colorClass + '">' + data + '</span>';
-                                }
-                                return data; // For other types, return the original data
-                            }
-                        },
+                        { data: 'judul' },
                         { 
-                            data: 'tahapan', className: 'text-center',
-                            render: function (data, type, row) {
-                                // Apply badge styling based on the value of tahapan
-                                var badgeClass = '';
-                                if (data == 'ujicoba') {
-                                    badgeClass = 'bg-indigo';
-                                } else if (data == 'implementasi') {
-                                    badgeClass = 'bg-green';
-                                } else if (data == 'inisiatif') {
-                                    badgeClass = 'bg-orange';
-                                }
-
-                                return '<span class="badge ' + badgeClass + '">' + data + '</span>';
-                            }
-                        },
-                        { 
-                            data: 'proposal.id', className: 'text-center',
-                            render: function (data, type, row) {
-                                // Create a link for "Bukti Dukung" based on the proposal id
-                                return '<a hx-get="{{ url("bukti-dukung")}}/'+ data +'" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-primary btn-sm mt-1"><i class="fas fa-folder-closed"></i></a>';
-                            }
-                        },
-                        { 
-                            data: 'proposal.id',
+                            data: 'id',
                             render: function (data, type, row) {
                                 var buttonsHtml = '<div class="text-center">';
                                 buttonsHtml += '<a href="{{url("print/report")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
-                                buttonsHtml += '<button id="note-' + data + '" class="note-button btn btn-outline-warning btn-sm mr-1 mt-1" title="Catatan" data-toggle="modal" data-target="#noteModal" data-proposal-id="' + data + '" data-proposal-name="' + row.proposal.nama + '"><i class="fas fa-newspaper"></i></button>';
-                                if (row.proposal.status === 'draft') {
-                                    buttonsHtml += '<button id="hapus-' + data + '" class="delete-button btn btn-outline-danger btn-sm mr-1 mt-1" title="Hapus" data-toggle="modal" data-target="#deleteModal" data-proposal-id="' + data + '" data-proposal-name="' + row.proposal.nama + '"><i class="fas fa-trash"></i></button>';
-                                    buttonsHtml += '<a id="edit-' + data + '" hx-get="{{ url("proyek/inovasi")}}/'+ data +'/edit" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-success btn-sm mr-1 mt-1" title="Edit"><i class="fas fa-pencil-alt" alt="edit"></i></a>';
-                                    if (row.skor > 0) {
-                                        buttonsHtml += '<button id="send-proposal-' + data + '" data-toggle="modal" data-target="#sendModal" data-proposal-name="' + row.proposal.nama + '" data-proposal-id="' + data + '" class="send-proposal btn btn-outline-dark btn-sm mr-1 mt-1" title="Kirim"><i class="fas fa-paper-plane"></i></button>';
-                                    }
-                                }
-
+                                buttonsHtml += '<button id="hapus-' + data + '" class="delete-button btn btn-outline-danger btn-sm mr-1 mt-1" title="Hapus" data-toggle="modal" data-target="#deleteModal" data-riset-id="' + data + '" data-riset-judul="' + row.judul + '"><i class="fas fa-trash"></i></button>';
+                                buttonsHtml += '<a id="edit-' + data + '" hx-get="{{ url("riset")}}/'+ data +'/edit" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-success btn-sm mr-1 mt-1" title="Edit"><i class="fas fa-pencil-alt" alt="edit"></i></a>';
                                 buttonsHtml += '</div>';
-
                                 return buttonsHtml;
                             }
                         },
                     ],
                     "initComplete": function( settings, json ) {
-                        htmx.process('#dataTable');
-                    },
-                    rowId: function (row) {
-                        return 'index_' + row.proposal.id;
+                        htmx.process('#tabel-riset');
                     },
                 });
             },
@@ -172,7 +116,7 @@
     
     document.body.addEventListener("reloadTable", function(evt){
         dataTable.ajax.reload(function() {
-            htmx.process('#dataTable');
+            htmx.process('#tabel-riset');
         }, false)
     });
 </script>

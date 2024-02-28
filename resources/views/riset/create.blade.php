@@ -41,14 +41,26 @@
                                 <span class="bs-stepper-circle">3</span>
                                 </button>
                             </div>
+                            <div class="bs-stepper-line"></div>
+                            <div class="step" data-target="#test-l-4">
+                                <button type="button" class="step-trigger" role="tab" id="stepper1trigger4" aria-controls="test-l-4">
+                                <span class="bs-stepper-circle">4</span>
+                                </button>
+                            </div>
+                            <div class="bs-stepper-line"></div>
+                            <div class="step" data-target="#test-l-5">
+                                <button type="button" class="step-trigger" role="tab" id="stepper1trigger5" aria-controls="test-l-5">
+                                <span class="bs-stepper-circle">5</span>
+                                </button>
+                            </div>
                         </div>
                         <div class="bs-stepper-content">
                             <form action="{{ route('pengajuan-riset.store') }}" method="POST" enctype="multipart/form-data"  hx-history="false">
                                 @csrf
                                 <div id="test-l-1" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger1">
                                     <div class="form-group">
-                                        <label class="font-weight-bold" for="nama">Judul Kajian:</label>
-                                        <input id="judul" type="text" class="form-control @error('judul') is-invalid @enderror" name="judul" value="{{ old('judul') }}" placeholder="Masukkan judul kajian">
+                                        <label class="font-weight-bold" for="judul">Judul Kajian:</label>
+                                        <textarea id="judul" type="text" class="form-control @error('judul') is-invalid @enderror" name="judul">{{ old('judul') }}</textarea>
                                         @error('judul')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -73,15 +85,15 @@
                                         </div>
                                         @enderror
                                     </div>
-                                    <button type="button" class="btn btn-primary" id="nextB">Next <i class="fa-solid fa-forward"></i></button>
+                                    <button type="button" class="btn btn-primary next">Next <i class="fa-solid fa-forward"></i></button>
                                 </div>
 
-                            <!-- part two -->
+                            {{-- part two --}}
                                 <div id="test-l-2" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
                                     <div class="form-group">
-                                        <label class="font-weight-bold" for="manfaat">Manfaat yang diperoleh:</label>
-                                        <textarea id="manfaat" rows="3" class="editor form-control @error('manfaat') is-invalid @enderror" name="manfaat" placeholder="Masukkan manfaat dari inovasi yang dilakukan">{{ old('manfaat') }}</textarea>
-                                        @error('manfaat')
+                                        <label class="font-weight-bold" for="maksud">Maksud dan Tujuan:</label>
+                                        <textarea id="maksud" class="editor form-control @error('maksud') is-invalid @enderror" name="maksud">{{ old('maksud') }}</textarea>
+                                        @error('maksud')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
                                         </div>
@@ -89,50 +101,77 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="font-weight-bold" for="hasil">Hasil inovasi:</label>
-                                        <textarea id="hasil" rows="3" class="editor form-control @error('hasil') is-invalid @enderror" name="hasil" placeholder="Masukkan hasil dari inovasi yang dilakukan">{{ old('hasil') }}</textarea>
-                                        @error('hasil')
+                                        <label class="font-weight-bold" for="ruang_lingkup">Ruang Lingkup Kajian:</label>
+                                        <textarea id="ruang_lingkup" class="editor form-control @error('ruang_lingkup') is-invalid @enderror" name="ruang_lingkup">{{ old('ruang_lingkup') }}</textarea>
+                                        @error('ruang_lingkup')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
                                         </div>
                                         @enderror
                                     </div>
-
                                     <div class="form-group">
-                                        <div class="row g-3">
-                                            <div class="col d-none">
-                                                <label class="font-weight-bold" for="skpd">Dibuat oleh:</label>
-                                                <select name="skpd" id="skpd" class="form-control @error('skpd') is-invalid @enderror" required>
-                                                    <option value="{{Auth::user()->skpd->id}}" selected>{{Auth::user()->skpd->nama}}</option>
-                                                </select>
-                                                @error('skpd')
-                                                <div class="alert alert-danger mt-2">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
-                                            </div>
+                                        <label class="font-weight-bold" for="target">Target dan Sasaran:</label>
+                                        <textarea id="target" class="editor form-control @error('target') is-invalid @enderror" name="target">{{ old('target') }}</textarea>
+                                        @error('target')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
                                         </div>
+                                        @enderror
                                     </div>
-                                    <button type="button" class="btn btn-primary" id="nextC">Next <i class="fa-solid fa-forward"></i></button>
                                     <button type="button" class="btn btn-primary prev"><i class="fa-solid fa-backward"></i> Previous</button>
-                                    <button type="submit" class="btn btn-md btn-outline-primary float-right"><i class="fa fa-save"></i> Save</button>
+                                    <button type="button" class="btn btn-primary next">Next <i class="fa-solid fa-forward"></i></button>
                                 </div>
-
+                                {{-- part 3 --}}
                                 <div id="test-l-3" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
                                     <div class="form-group">
-                                        <label class="font-weight-bold" for="manfaat">Manfaat yang diperoleh:</label>
-                                        <textarea id="manfaat" rows="3" class="editor form-control @error('manfaat') is-invalid @enderror" name="manfaat" placeholder="Masukkan manfaat dari inovasi yang dilakukan">{{ old('manfaat') }}</textarea>
+                                        <label class="font-weight-bold" for="output">Output Kajian:</label>
+                                        <textarea id="output" class="editor form-control @error('output') is-invalid @enderror" name="output">{{ old('output') }}</textarea>
+                                        @error('output')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="font-weight-bold" for="manfaat">Manfaat Kajian:</label>
+                                        <textarea id="manfaat" class="editor form-control @error('manfaat') is-invalid @enderror" name="manfaat">{{ old('manfaat') }}</textarea>
                                         @error('manfaat')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
                                         </div>
                                         @enderror
                                     </div>
-
                                     <div class="form-group">
-                                        <label class="font-weight-bold" for="hasil">Hasil inovasi:</label>
-                                        <textarea id="hasil" rows="3" class="editor form-control @error('hasil') is-invalid @enderror" name="hasil" placeholder="Masukkan hasil dari inovasi yang dilakukan">{{ old('hasil') }}</textarea>
-                                        @error('hasil')
+                                        <label class="font-weight-bold" for="dana">Sumber Pendanaan:</label>
+                                        <textarea id="dana" class="editor form-control @error('dana') is-invalid @enderror" name="dana">{{ old('dana') }}</textarea>
+                                        @error('dana')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <button type="button" class="btn btn-primary prev"><i class="fa-solid fa-backward"></i> Previous</button>
+                                    <button type="button" class="btn btn-primary next">Next <i class="fa-solid fa-forward"></i></button>
+                                </div>
+                                {{-- part 4 --}}
+                                <div id="test-l-4" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger4">
+                                    <div class="form-group">
+                                        <label for="uploadAnggaran" class="font-weight-bold">Rencana Anggaran Biaya:</label>
+                                        <div class="input-group "> 
+                                            <label class="input-group-btn">
+                                            <span class="btny btn-outline-primary">
+                                                Browse<input accept="application/pdf" id="uploadAnggaran" type="file" style="display: none;" name="anggaran">
+                                            </span>
+                                            </label>
+                                            <input id="fileAnggaran" type="text" class="form-control @error('anggaran') is-invalid @enderror" readonly placeholder="Choose a file">
+                                        </div>
+                                        <script type="text/javascript">
+                                            document.getElementById("uploadAnggaran").onchange = function (){
+                                            document.getElementById("fileAnggaran").value = this.value;
+                                            }
+                                        </script>
+                                        @error('anggaran')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
                                         </div>
@@ -140,8 +179,70 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label class="font-weight-bold" for="peneliti">Spesifikasi Peneliti/Tenaga Ahli:</label>
+                                        <textarea id="peneliti" class="editor form-control @error('peneliti') is-invalid @enderror" name="peneliti">{{ old('peneliti') }}</textarea>
+                                        @error('peneliti')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold" for="tahapan">Tahapan Kegiatan:</label>
+                                        <textarea id="tahapan" class="editor form-control @error('tahapan') is-invalid @enderror" name="tahapan">{{ old('tahapan') }}</textarea>
+                                        @error('tahapan')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold" for="jangka">Jangka Waktu Pelaksanaan:</label>
+                                        <textarea id="jangka" class="editor form-control @error('jangka') is-invalid @enderror" name="jangka">{{ old('jangka') }}</textarea>
+                                        @error('jangka')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <button type="button" class="btn btn-primary prev"><i class="fa-solid fa-backward"></i> Previous</button>
+                                    <button type="button" class="btn btn-primary next">Next <i class="fa-solid fa-forward"></i></button>
+                                </div>
+                                {{-- part 5 --}}
+                                <div id="test-l-5" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger5">
+                                    <h4>Metodologi</h4>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold" for="jenis_sumber_data">A. Jenis Sumber Data:</label>
+                                        <textarea id="jenis_sumber_data" class="editor form-control @error('jenis_sumber_data') is-invalid @enderror" name="jenis_sumber_data">{{ old('jenis_sumber_data') }}</textarea>
+                                        @error('jenis_sumber_data')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="font-weight-bold" for="teknik">B. Teknik Pengumpulan Data:</label>
+                                        <textarea id="teknik" class="editor form-control @error('teknik') is-invalid @enderror" name="teknik">{{ old('teknik') }}</textarea>
+                                        @error('teknik')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold" for="analisa">C. Teknik Analisa Data:</label>
+                                        <textarea id="analisa" class="editor form-control @error('analisa') is-invalid @enderror" name="analisa">{{ old('analisa') }}</textarea>
+                                        @error('analisa')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    {{--<div class="form-group" hidden>
                                         <div class="row g-3">
-                                            <div class="col d-none">
+                                            <div class="col">
                                                 <label class="font-weight-bold" for="skpd">Dibuat oleh:</label>
                                                 <select name="skpd" id="skpd" class="form-control @error('skpd') is-invalid @enderror" required>
                                                     <option value="{{Auth::user()->skpd->id}}" selected>{{Auth::user()->skpd->nama}}</option>
@@ -153,7 +254,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>--}}
                                     <button type="button" class="btn btn-primary prev"><i class="fa-solid fa-backward"></i> Previous</button>
                                     <button type="submit" class="btn btn-md btn-outline-primary float-right"><i class="fa fa-save"></i> Save</button>
                                 </div>
@@ -165,47 +266,34 @@
         </div>
     </div>
 </div>
-<!-- Footer -->
 <x-logout/>
 <script type="text/javascript">
   $(document).ready(function () {
     var stepper = new Stepper($('#stepper1')[0],{
       linear: false
     });
-    $("#nextB").click(function () {
+    $(".next").click(function () {
       stepper.next();
-    });
-    $("#nextC").click(function () {
-      stepper.next();
-    });
-    $("#prevB").click(function () {
-      stepper.previous();
     });
     $(".prev").click(function () {
       stepper.previous();
     });
 
-    $('select').selectize({
-      sortField: 'id',
-      plugins: ['remove_button']
-    });
-
+    CKEDITOR.replace('judul');
     CKEDITOR.replace('hukum');
-
+    CKEDITOR.replace('maksud');
+    CKEDITOR.replace('ruang_lingkup');
+    CKEDITOR.replace('latar');
+    CKEDITOR.replace('target');
+    CKEDITOR.replace('output');
     CKEDITOR.replace('manfaat');
-
-    CKEDITOR.replace('hasil');
-
-    CKEDITOR.replace('latar') 
-  });
-
-  document.addEventListener('htmx:afterRequest', function (event) {
-    $('select').each(function () {
-      var selectize = $(this)[0].selectize;
-      if (selectize) {
-        selectize.destroy();
-      }
-    });
+    CKEDITOR.replace('dana');
+    CKEDITOR.replace('peneliti');
+    CKEDITOR.replace('tahapan');
+    CKEDITOR.replace('jangka');
+    CKEDITOR.replace('jenis_sumber_data');
+    CKEDITOR.replace('teknik');
+    CKEDITOR.replace('analisa');
   });
 
 </script>

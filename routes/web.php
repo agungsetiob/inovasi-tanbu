@@ -137,6 +137,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('notes/{id}', [NotesController::class,'index']);
 
     Route::resource('pengajuan-riset', RisetController::class);
+    Route::get('riset/all', [RisetController::class, 'all']);
 });
 
 require __DIR__.'/auth.php';

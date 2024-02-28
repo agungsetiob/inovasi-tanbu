@@ -41,7 +41,6 @@ class InisiatorController extends Controller
     {
         $this->validate($request, [
             'nama'     => 'required|unique:inisiators',
-
         ]);
         $inisiator = new Inisiator();
         $inisiator->nama = $request->nama;

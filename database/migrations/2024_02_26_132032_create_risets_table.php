@@ -30,6 +30,7 @@ return new class extends Migration
             $table->text('analisa');
             $table->text('teknik');
             $table->foreignId('skpd_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

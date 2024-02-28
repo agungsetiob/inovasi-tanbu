@@ -83,6 +83,7 @@ class RisetController extends Controller
             'analisa' => $request->analisa,
             'teknik' => $request->teknik,
             'skpd_id' => auth()->user()->skpd_id,
+            'user_id' => auth()->user()->id,
         ]);
 
         // Save the Riset instance to the database
@@ -95,9 +96,14 @@ class RisetController extends Controller
     /**
     * Display all riset proposal
     */
-    public function all()
+    public function loadRiset()
     {
-        $risets = Riset::with('skpd')->get();
+        if(auth()->user()->role == 'admin'){
+            $risets = Riset::with('skpd')->get();
+        } else {
+            $risets = Riset::with('skpd')->where('user_id', auth()->user()->id)->get();
+        }
+        
         return response()->json([
             'data' => $risets,
             'message'=>'success',
@@ -115,9 +121,24 @@ class RisetController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Riset $riset)
+    public function edit(Riset $riset, Request $request)
     {
-        //
+        $backgrounds = Background::all();
+        if(Auth::user()->id == '8') {
+            if($request->header('HX-Request')) {
+                return view('riset.edit', compact(
+                    'riset',
+                    'backgrounds'
+                ))->fragment('edit-riset');
+            } else{
+                return view('riset.edit', compact(
+                    'riset',
+                    'backgrounds'
+                ));
+            }
+        } else {
+            return redirect()->back()->with('error', 'kebaikan akan menghasilkan kebaikan');
+        }
     }
 
     /**

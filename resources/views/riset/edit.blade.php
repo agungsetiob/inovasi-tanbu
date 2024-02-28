@@ -1,6 +1,6 @@
 @extends('layouts.riset-menus')
 @section('content')
-@fragment('create-riset')
+@fragment('edit-riset')
 <div class="container-fluid slide-it" id="app">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-dark">Formulir Pengajuan Riset</h1>
@@ -55,12 +55,13 @@
                             </div>
                         </div>
                         <div class="bs-stepper-content">
-                            <form action="{{ route('riset.store') }}" method="POST" enctype="multipart/form-data"  hx-history="false">
+                            <form action="{{ route('riset.update', ['riset' => $riset->id]) }}" method="POST" enctype="multipart/form-data"  hx-history="false">
                                 @csrf
+                                @method ('PUT')
                                 <div id="test-l-1" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger1">
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="judul">Judul Kajian:</label>
-                                        <textarea id="judul" type="text" class="form-control @error('judul') is-invalid @enderror" name="judul">{{ old('judul') }}</textarea>
+                                        <textarea id="judul" type="text" class="form-control @error('judul') is-invalid @enderror" name="judul">{{ old('judul', $riset->judul) }}</textarea>
                                         @error('judul')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -69,7 +70,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="latar">Latar Belakang Kajian:</label>
-                                        <textarea id="latar" type="text" class="editor form-control @error('latar') is-invalid @enderror" name="latar">{{ old('latar') }}</textarea>
+                                        <textarea id="latar" type="text" class="editor form-control @error('latar') is-invalid @enderror" name="latar">{{ old('latar', $riset->latar) }}</textarea>
                                         @error('latar')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -78,7 +79,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="hukum">Dasar Hukum:</label>
-                                        <textarea rows="3" id="hukum" class="editor form-control @error('hukum') is-invalid @enderror" name="hukum">{{ old('hukum') }}</textarea>
+                                        <textarea rows="3" id="hukum" class="editor form-control @error('hukum') is-invalid @enderror" name="hukum">{{ old('hukum', $riset->hukum) }}</textarea>
                                         @error('hukum')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -239,22 +240,6 @@
                                         </div>
                                         @enderror
                                     </div>
-
-                                    {{--<div class="form-group" hidden>
-                                        <div class="row g-3">
-                                            <div class="col">
-                                                <label class="font-weight-bold" for="skpd">Dibuat oleh:</label>
-                                                <select name="skpd" id="skpd" class="form-control @error('skpd') is-invalid @enderror" required>
-                                                    <option value="{{Auth::user()->skpd->id}}" selected>{{Auth::user()->skpd->nama}}</option>
-                                                </select>
-                                                @error('skpd')
-                                                <div class="alert alert-danger mt-2">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>--}}
                                     <button type="button" class="btn btn-primary prev"><i class="fa-solid fa-backward"></i> Previous</button>
                                     <button type="submit" class="btn btn-md btn-outline-primary float-right"><i class="fa fa-save"></i> Save</button>
                                 </div>

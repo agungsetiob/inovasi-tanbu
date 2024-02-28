@@ -9,29 +9,34 @@
         <div class="col-md-12">
           <div class="card border-0 shadow rounded mb-4">
             <div class="card-body">
-              <div id="stepper1" class="bs-stepper">
-                <div class="bs-stepper-header" role="tablist">
-                  <div class="step" data-target="#test-l-1">
-                    <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-controls="test-l-1">
-                      <span class="bs-stepper-circle">1</span>
-                  </button>
-              </div>
-              <div class="bs-stepper-line"></div>
-              <div class="step" data-target="#test-l-2">
-                <button type="button" class="step-trigger" role="tab" id="stepper1trigger2" aria-controls="test-l-2">
-                  <span class="bs-stepper-circle">2</span>
-              </button>
-          </div>
+                @if ($errors->any())
+                <div class="alert alert-danger data-dismiss alert-dismissible">
+                    <i class="fa fa-solid fa-bell fa-shake"></i>
+                    @foreach ($errors->all() as $error)
+                    <li>
+                    {{ $error }}
+                    </li>
+                    @endforeach
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
+                <div id="stepper1" class="bs-stepper">
+                    <div class="bs-stepper-header" role="tablist">
+                    <div class="step" data-target="#test-l-1">
+                        <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-controls="test-l-1">
+                        <span class="bs-stepper-circle">1</span>
+                    </button>
+                </div>
+                <div class="bs-stepper-line"></div>
+                <div class="step" data-target="#test-l-2">
+                    <button type="button" class="step-trigger" role="tab" id="stepper1trigger2" aria-controls="test-l-2">
+                        <span class="bs-stepper-circle">2</span>
+                    </button>
+            </div>
       </div>
           <div class="bs-stepper-content">
-            {{-- <form id="edit-proposal"
-            hx-post="{{ route('inovasi.update', $inovasi->id) }}" 
-            hx-target="#app" 
-            hx-swap="outerHTML transition:true" 
-            hx-indicator="#loadingIndicator"
-            hx-push-url="true"
-            hx-history="false"
-            hx-encoding="multipart/form-data"> --}}
             <form action="{{ route('inovasi.update', $inovasi->id) }}" method="POST" enctype="multipart/form-data"  hx-history="false">
                 @csrf
                 @method('PUT')
@@ -49,7 +54,7 @@
                         <div class="row g-3">
                             <div class="col">
                                 <label class="font-weight-bold" for="tahapan">Tahapan inovasi:</label>
-                                <select name="tahapan" id="tahapan" class="form-control @error('tahapan') is-invalid @enderror" required>
+                                <select name="tahapan" id="tahapan" class="form-control @error('tahapan') is-invalid @enderror" title="Select Tahapan" required>
                                     <option value="" disabled selected>Pilih tahapan</option>
                                     @foreach ($tahapans as $tahap)
                                     <option value="{{ $tahap->id }}" @selected($inovasi->tahapan_id == $tahap->id)>{{ $tahap->nama }}</option>
@@ -63,7 +68,7 @@
                             </div>
                             <div class="col">
                                 <label class="font-weight-bold" for="inisiator">Inisiator inovasi:</label>
-                                <select name="inisiator" id="inisiator" class="form-control @error('inisiator') is-invalid @enderror" required>
+                                <select name="inisiator" id="inisiator" class="form-control @error('inisiator') is-invalid @enderror" title="Select Inisiator" required>
                                     <option value="">Pilih inisiator</option>
                                     @foreach ($inisiators as $inisiator)
                                     <option value="{{ $inisiator->id }}" @selected($inovasi->inisiator_id == $inisiator->id)>{{ $inisiator->nama }}</option>
@@ -77,7 +82,7 @@
                             </div>
                             <div class="col">
                                 <label class="font-weight-bold" for="tematik">Tematik:</label>
-                                <select name="tematik" id="tematik" class="form-control @error('tematik') is-invalid @enderror" required>
+                                <select name="tematik" id="tematik" class="form-control @error('tematik') is-invalid @enderror" title="Select Tematik" required>
                                     <option value="" disabled selected>Pilih tematik</option>
                                     @foreach ($tematiks as $tema)
                                     <option value="{{ $tema->id }}" @selected($inovasi->tematik_id == $tema->id)>{{ $tema->nama }}</option>
@@ -95,7 +100,7 @@
                         <div class="row g-3">
                             <div class="col-md-4">
                                 <label class="font-weight-bold" for="category">Jenis inovasi:</label>
-                                <select name="category" id="category" class="form-control @error('category') is-invalid @enderror" required>
+                                <select name="category" id="category" class="form-control @error('category') is-invalid @enderror" title="Select Jenis" required>
                                     <option value="" disabled selected>Pilih jenis inovasi</option>
                                     @foreach ($categories as $cat)
                                     <option value="{{ $cat->id }}" @selected($inovasi->category_id == $cat->id)>{{ $cat->name }}</option>
@@ -109,7 +114,7 @@
                             </div>
                             <div class="col">
                                 <label class="font-weight-bold" for="bentuk">Bentuk inovasi:</label>
-                                <select name="bentuk" id="bentuk" class="form-control @error('bentuk') is-invalid @enderror" required>
+                                <select name="bentuk" id="bentuk" class="form-control @error('bentuk') is-invalid @enderror" title="Select Bentuk" required>
                                     <option value="" disabled selected>Pilih bentuk inovasi</option>
                                     @foreach ($bentuks as $ben)
                                     <option value="{{ $ben->id }}" @selected($inovasi->bentuk_id == $ben->id)>{{ $ben->nama }}</option>
@@ -125,7 +130,7 @@
                     </div>
                     <div class="form-group">
                         <label class="font-weight-bold" for="urusan">Urusan inovasi daerah:</label>
-                        <select name="urusans[]" id="urusan" class="form-control @error('urusan') is-invalid @enderror"required multiple>
+                        <select name="urusans[]" id="urusan" class="form-control @error('urusan') is-invalid @enderror" title="Select Urusan" required multiple>
                             <option value="">Pilih urusan inovasi</option>
                             {{--@foreach ($options as $klasifikasiId => $klasifikasiData)
                             <optgroup class="font-weight-bold" label="{{ $klasifikasiData['label'] }}">
@@ -275,7 +280,7 @@
                 <div class="row g-3">
                     <div class="col d-none">
                         <label class="font-weight-bold" for="skpd">Dibuat oleh:</label>
-                        <select name="skpd" id="skpd" class="form-control @error('skpd') is-invalid @enderror" required>
+                        <select name="skpd" id="skpd" class="form-control @error('skpd') is-invalid @enderror" title="Select SKPD" required>
                             <option value="{{Auth::user()->skpd->id}}" selected>{{Auth::user()->skpd->nama}}</option>
                         </select>
 
@@ -299,8 +304,6 @@
 </div>
 </div>
 </div>
-<!-- Footer -->
-
 {{--<script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
@@ -311,7 +314,6 @@
 <script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
 <script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
 <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>--}}
-<x-logout/>
 <script type="text/javascript">
     $(document).ready(function () {
         var stepper = new Stepper($('#stepper1')[0],{

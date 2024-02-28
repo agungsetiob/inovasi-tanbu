@@ -5,7 +5,7 @@
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-dark">Riset</h1>
                 <a
-                hx-get="{{ route('pengajuan-riset.create') }}" 
+                hx-get="{{ route('riset.create') }}" 
                 hx-trigger="click" 
                 hx-target="#app" 
                 hx-swap="outerHTML"
@@ -28,13 +28,13 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                    @endif
-                    @if ($errors->any())
+                    @elseif(Session::has('error'))
                         <div class="alert alert-danger data-dismiss alert-dismissible">
                             <i class="fa fa-solid fa-bell fa-shake"></i>
-                            @foreach ($errors->all() as $error)
-                                {{ $error }}
-                            @endforeach
+                            {{ Session::get('error') }}
+                            @php
+                            Session::forget('error');
+                            @endphp
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -45,7 +45,7 @@
                             <thead>
                                 <tr>
                                     <th width="5%">#</th>
-                                    <th width="75%">Judul Riset</th>
+                                    <th width="75%">Judul Kajian</th>
                                     <th width="20%"></th>
                                 </tr>
                             </thead>
@@ -72,12 +72,11 @@
                 </div>
             </div>
         </div>
-        <!-- /.container-fluid -->
 <script>
     var dataTable;
     $(document).ready(function () {
         $.ajax({
-            url: '/riset/all',
+            url: '/pengajuan-riset',
             type: 'GET',
             dataType: 'json',
             success: function (response) {

@@ -6,6 +6,7 @@
         <div class="sidebar-brand-text mx-3">Hi {{ Auth::user()->username }}</div>
     </a>
     <hr class="sidebar-divider my-0">
+    @if (Auth::user()->role == 'admin')
     <li class="nav-item {{ (request()->is('dashboard/riset')) ? 'active ' : '' }}">
         <a id="adminIndex" class="nav-link"
         hx-get="{{ url('dashboard/riset') }}" 
@@ -19,10 +20,9 @@
         </a>
     </li>    
     <hr class="sidebar-divider d-none d-md-block">
-    @if (Auth::user()->role == 'admin')
-    <li class="nav-item {{ (request()->is('pengajuan-riset')) ? 'active ' : '' }}">
+    <li class="nav-item {{ (request()->is('riset')) ? 'active ' : '' }}">
         <a id="navCollapseZero"
-        hx-get="{{ url('pengajuan-riset') }}" 
+        hx-get="{{ url('riset') }}" 
         hx-trigger="click" 
         hx-target="#app" 
         hx-swap="outerHTML transition:true"
@@ -32,9 +32,9 @@
     </li>
     <hr class="sidebar-divider d-none d-md-block">
     @elseif (Auth::user()->role == 'user')
-    {{--<li class="nav-item {{ (request()->is('dashboard/riset/user')) ? 'active ' : '' }}">
+    <li class="nav-item {{ (request()->is('dashboard/user/riset')) ? 'active ' : '' }}">
         <a class="nav-link"
-        hx-get="{{ url('dashboard/riset/user') }}" 
+        hx-get="{{ url('dashboard/user/riset') }}" 
         hx-trigger="click" 
         hx-target="#app" 
         hx-swap="outerHTML transition:true"
@@ -44,27 +44,14 @@
             <span>Dashboard</span></a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
-    <li class="nav-item {{ (request()->is('proyek/*')) ? 'active ' : '' }}">
+    <li class="nav-item {{ (request()->is('riset')) ? 'active ' : '' }}">
         <a id="navCollapseZero"
-        hx-get="{{ url('proyek/inovasi') }}" 
+        hx-get="{{ url('riset') }}" 
         hx-trigger="click" 
         hx-target="#app" 
         hx-swap="outerHTML transition:true"
         hx-push-url="true"
         hx-indicator="#loadingIndicator" class="nav-link">
-        <i class="fa fa-fw fa-rocket fa-xl"></i>
-        <span>Inovasi</span>
-        </a>
-    </li>
-    <hr class="sidebar-divider d-none d-md-block">--}}
-    <li class="nav-item {{ (request()->is('pengajuan-riset')) ? 'active ' : '' }}">
-        <a id="navCollapseZero"
-        hx-get="{{ url('pengajuan-riset') }}" 
-        hx-trigger="click" 
-        hx-target="#app" 
-        hx-swap="outerHTML transition:true"
-        hx-push-url="true"
-        hx-indicator="#loadingIndicator" class="nav-link" hx-disable>
         <i class="fa fa-fw fa-atom fa-xl"></i>
         <span>Riset</span>
         </a>

@@ -12,5 +12,9 @@ class Riset extends Model
     public function skpd(){
         return $this->belongsTo(Skpd::class);
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
     protected $guarded = [];
 }

@@ -40,7 +40,7 @@ class RisetController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'judul' => 'required',
+            'judul' => 'required|unique:risets',
             'latar' => 'required',
             'hukum' => 'required',
             'maksud' => 'required',
@@ -90,7 +90,7 @@ class RisetController extends Controller
         $riset->save();
 
         // Optionally, you can redirect the user or return a response
-        return redirect()->route('pengajuan-riset.index')->with('success', 'Riset created successfully');
+        return redirect()->route('riset.index')->with('success', 'Riset created successfully');
     }
 
     /**
@@ -124,7 +124,7 @@ class RisetController extends Controller
     public function edit(Riset $riset, Request $request)
     {
         $backgrounds = Background::all();
-        if(Auth::user()->id == '8') {
+        if(Auth::user()->id == $riset->user_id) {
             if($request->header('HX-Request')) {
                 return view('riset.edit', compact(
                     'riset',
@@ -146,8 +146,54 @@ class RisetController extends Controller
      */
     public function update(Request $request, Riset $riset)
     {
-        //
+        $rules = [
+            'judul' => 'required|unique:risets,judul,' . $riset->id,
+            'latar' => 'required',
+            'hukum' => 'required',
+            'maksud' => 'required',
+            'ruang_lingkup' => 'required',
+            'target' => 'required',
+            'output' => 'required',
+            'manfaat' => 'required',
+            'dana' => 'required',
+            'anggaran' => 'nullable|file|mimes:pdf|max:2048',
+            'peneliti' => 'required',
+            'tahapan' => 'required',
+            'jangka' => 'required',
+            'jenis_sumber_data' => 'required',
+            'analisa' => 'required',
+            'teknik' => 'required',
+        ];
+
+        $request->validate($rules);
+
+        $riset->judul = $request->judul;
+        $riset->latar = $request->latar;
+        $riset->hukum = $request->hukum;
+        $riset->maksud = $request->maksud;
+        $riset->ruang_lingkup = $request->ruang_lingkup;
+        $riset->target = $request->target;
+        $riset->output = $request->output;
+        $riset->manfaat = $request->manfaat;
+        $riset->dana = $request->dana;
+        $riset->peneliti = $request->peneliti;
+        $riset->tahapan = $request->tahapan;
+        $riset->jangka = $request->jangka;
+        $riset->jenis_sumber_data = $request->jenis_sumber_data;
+        $riset->analisa = $request->analisa;
+        $riset->teknik = $request->teknik;
+
+        if ($request->hasFile('anggaran') && $request->file('anggaran')->isValid()) {
+            Storage::disk('public')->delete($riset->anggaran);
+
+            $riset->anggaran = $request->file('anggaran')->store('rab', 'public');
+        }
+
+        $riset->save(); //save can be used for creating new resource or update it, update is specially for updating
+
+        return redirect()->route('riset.index')->with('success', 'Riset updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.

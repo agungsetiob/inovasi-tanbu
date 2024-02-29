@@ -8,9 +8,9 @@
                     <h1 class="h3 mb-0 text-dark">Dashboard Riset</h1>
                 </div>
                 <!-- Content Row -->
-                <ul class="list-group mb-4 bg-info">
+                <ul class="list-group mb-4">
                     <li class="list-group-item">
-                        <h4 class="mb-2"><a href="#">Python is a versatile, high-level programming</a></h4>
+                        <h4 class="mb-2"><a class="text-warning" href="#">Python is a versatile, high-level programming</a></h4>
                         <p>Python is a versatile, high-level programming language known for its readability and ease of use. It is widely used in web development, data science, artificial intelligence, and more.</p>
                     </li>
                     <li class="list-group-item">

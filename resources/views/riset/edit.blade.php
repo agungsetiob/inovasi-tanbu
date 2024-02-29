@@ -93,7 +93,7 @@
                                 <div id="test-l-2" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="maksud">Maksud dan Tujuan:</label>
-                                        <textarea id="maksud" class="editor form-control @error('maksud') is-invalid @enderror" name="maksud">{{ old('maksud') }}</textarea>
+                                        <textarea id="maksud" class="editor form-control @error('maksud') is-invalid @enderror" name="maksud">{{ old('maksud', $riset->maksud) }}</textarea>
                                         @error('maksud')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -103,7 +103,7 @@
 
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="ruang_lingkup">Ruang Lingkup Kajian:</label>
-                                        <textarea id="ruang_lingkup" class="editor form-control @error('ruang_lingkup') is-invalid @enderror" name="ruang_lingkup">{{ old('ruang_lingkup') }}</textarea>
+                                        <textarea id="ruang_lingkup" class="editor form-control @error('ruang_lingkup') is-invalid @enderror" name="ruang_lingkup">{{ old('ruang_lingkup', $riset->ruang_lingkup) }}</textarea>
                                         @error('ruang_lingkup')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -112,7 +112,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="target">Target dan Sasaran:</label>
-                                        <textarea id="target" class="editor form-control @error('target') is-invalid @enderror" name="target">{{ old('target') }}</textarea>
+                                        <textarea id="target" class="editor form-control @error('target') is-invalid @enderror" name="target">{{ old('target', $riset->target) }}</textarea>
                                         @error('target')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -126,7 +126,7 @@
                                 <div id="test-l-3" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="output">Output Kajian:</label>
-                                        <textarea id="output" class="editor form-control @error('output') is-invalid @enderror" name="output">{{ old('output') }}</textarea>
+                                        <textarea id="output" class="editor form-control @error('output') is-invalid @enderror" name="output">{{ old('output', $riset->output) }}</textarea>
                                         @error('output')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -136,7 +136,7 @@
 
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="manfaat">Manfaat Kajian:</label>
-                                        <textarea id="manfaat" class="editor form-control @error('manfaat') is-invalid @enderror" name="manfaat">{{ old('manfaat') }}</textarea>
+                                        <textarea id="manfaat" class="editor form-control @error('manfaat') is-invalid @enderror" name="manfaat">{{ old('manfaat', $riset->manfaat) }}</textarea>
                                         @error('manfaat')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -145,7 +145,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="dana">Sumber Pendanaan:</label>
-                                        <textarea id="dana" class="editor form-control @error('dana') is-invalid @enderror" name="dana">{{ old('dana') }}</textarea>
+                                        <textarea id="dana" class="editor form-control @error('dana') is-invalid @enderror" name="dana">{{ old('dana', $riset->dana) }}</textarea>
                                         @error('dana')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -181,7 +181,7 @@
 
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="peneliti">Spesifikasi Peneliti/Tenaga Ahli:</label>
-                                        <textarea id="peneliti" class="editor form-control @error('peneliti') is-invalid @enderror" name="peneliti">{{ old('peneliti') }}</textarea>
+                                        <textarea id="peneliti" class="editor form-control @error('peneliti') is-invalid @enderror" name="peneliti">{{ old('peneliti', $riset->peneliti) }}</textarea>
                                         @error('peneliti')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -190,7 +190,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="tahapan">Tahapan Kegiatan:</label>
-                                        <textarea id="tahapan" class="editor form-control @error('tahapan') is-invalid @enderror" name="tahapan">{{ old('tahapan') }}</textarea>
+                                        <textarea id="tahapan" class="editor form-control @error('tahapan') is-invalid @enderror" name="tahapan">{{ old('tahapan', $riset->tahapan) }}</textarea>
                                         @error('tahapan')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -199,7 +199,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="jangka">Jangka Waktu Pelaksanaan:</label>
-                                        <textarea id="jangka" class="editor form-control @error('jangka') is-invalid @enderror" name="jangka">{{ old('jangka') }}</textarea>
+                                        <textarea id="jangka" class="editor form-control @error('jangka') is-invalid @enderror" name="jangka">{{ old('jangka', $riset->jangka) }}</textarea>
                                         @error('jangka')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -214,7 +214,7 @@
                                     <h4>Metodologi</h4>
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="jenis_sumber_data">A. Jenis Sumber Data:</label>
-                                        <textarea id="jenis_sumber_data" class="editor form-control @error('jenis_sumber_data') is-invalid @enderror" name="jenis_sumber_data">{{ old('jenis_sumber_data') }}</textarea>
+                                        <textarea id="jenis_sumber_data" class="editor form-control @error('jenis_sumber_data') is-invalid @enderror" name="jenis_sumber_data">{{ old('jenis_sumber_data', $riset->jenis_sumber_data) }}</textarea>
                                         @error('jenis_sumber_data')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -224,7 +224,7 @@
 
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="teknik">B. Teknik Pengumpulan Data:</label>
-                                        <textarea id="teknik" class="editor form-control @error('teknik') is-invalid @enderror" name="teknik">{{ old('teknik') }}</textarea>
+                                        <textarea id="teknik" class="editor form-control @error('teknik') is-invalid @enderror" name="teknik">{{ old('teknik', $riset->teknik) }}</textarea>
                                         @error('teknik')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -233,7 +233,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-bold" for="analisa">C. Teknik Analisa Data:</label>
-                                        <textarea id="analisa" class="editor form-control @error('analisa') is-invalid @enderror" name="analisa">{{ old('analisa') }}</textarea>
+                                        <textarea id="analisa" class="editor form-control @error('analisa') is-invalid @enderror" name="analisa">{{ old('analisa', $riset->analisa) }}</textarea>
                                         @error('analisa')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}

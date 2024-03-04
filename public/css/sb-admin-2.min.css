@@ -159,3 +159,19 @@
   z-index: 999;
 }
 
+.bg-draft {
+  background-color: #f8ccc8;
+}
+
+.bg-sent {
+  background-color: #bff0de;
+}
+
+.bg-sent:hover {
+  background-color: #aaebd3;
+}
+
+.bg-draft:hover {
+  background-color: #f5b7b1;
+}
+

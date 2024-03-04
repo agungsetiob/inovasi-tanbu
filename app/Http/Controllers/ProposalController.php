@@ -87,7 +87,7 @@ class ProposalController extends Controller
     public function allProposals()
     {
         $proposals = Proposal::with(['files', 'tahapan', 'skpd'])
-            ->where('status', 'draft')
+            //->where('status', 'draft')
             ->get();
 
         $results = $proposals->map(function ($proposal) {
@@ -441,7 +441,7 @@ class ProposalController extends Controller
      */
     public function sendProposal(Proposal $inovasi, Request $request)
     {
-        if (Auth::user()->role == 'admin' || ($inovasi->user_id === Auth::user()->id)) {
+        if (Auth::user()->role == 'admin' || ($inovasi->user_id == Auth::user()->id)) {
             //sleep(5);
             $status = $inovasi->status === 'sent' ? 'draft' : 'sent';
 
@@ -512,7 +512,6 @@ class ProposalController extends Controller
     {
         $inovations = Proposal::with(['files', 'tahapan', 'skpd'])
             ->whereBetween('created_at', [$startdate, $enddate])
-            //->orderBy('skpd_id')
             ->get();
 
         $results = $inovations->map(function ($proposal) {

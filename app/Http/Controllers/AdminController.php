@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Background;
 use App\Models\{Category, Contact, Bentuk, Skpd};
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Auth;
 use DB;
 

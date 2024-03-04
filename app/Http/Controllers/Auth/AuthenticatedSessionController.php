@@ -9,7 +9,6 @@ use App\Models\Setting;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 class AuthenticatedSessionController extends Controller
 {

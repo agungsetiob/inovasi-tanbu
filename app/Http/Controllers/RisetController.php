@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Riset;
 use App\Models\Background;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -200,6 +201,16 @@ class RisetController extends Controller
      */
     public function destroy(Riset $riset)
     {
-        //
+        if(Auth::user()->id == $riset->user_id) {
+            Storage::disk('public')->delete($riset->anggaran);
+            $riset->delete();
+            return response()->json([
+                'success'=> true
+            ]);
+        } else {
+            return response()->json([
+                'success'=>false
+            ]);
+        }
     }
 }

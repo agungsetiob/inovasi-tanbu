@@ -1,3 +1,4 @@
+{{--inovasi yang telah dikirim ke admin--}}
 @extends('layouts.header')
 @section('content')
         <div class="container-fluid slide-it" id="app">

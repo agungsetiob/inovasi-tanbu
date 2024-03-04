@@ -92,11 +92,18 @@
             type: 'GET',
             dataType: 'json',
             success: function (response) {
-                // Initialize DataTable with the fetched data
                 dataTable = $('#dataTable').DataTable({
                     data: response.data,
                     columns: [
-                        { data: 'proposal.nama' },
+                        { 
+                            data: 'proposal.nama',
+                            render: function (data, type, full, meta) {
+                                // Check if proposal.status is 'draft' and add a badge
+                                var badgeClass = (full.proposal.status === 'draft') ? 'badge rounded-pill badge-warning' : 'badge rounded-pill badge-success';
+                                var badgeText = (full.proposal.status === 'draft') ? 'draft' : 'sent'; // Customize the badge text
+                                return data + ' <span class="' + badgeClass + '">' + badgeText + '</span>';
+                            },
+                        },
                         { data: 'skpd' },
                         {
                             data: 'skor',
@@ -106,23 +113,21 @@
                                     var colorClass = (data < 70) ? 'text-danger' : '';
                                     return '<span class="' + colorClass + '">' + data + '</span>';
                                 }
-                                return data; // For other types, return the original data
+                                return data;
                             }
                         },
                        {
                             data: 'proposal.created_at', className: 'text-center',
                             render: function (data, type, full, meta) {
                                 if (type === 'display') {
-                                    // Display only the year
                                     return new Date(data).getFullYear();
                                 }
-                                return data; // For other types, return the original data
+                                return data;
                             }
                         },
                        {
                             data: 'proposal.id', className: 'text-center',
                             render: function (data, type, row) {
-                                // Create a link for "Bukti Dukung" based on the proposal id
                                 return '<a href="{{ url("bukti-dukung" )}}/' +  data + '" hx-get="{{ url("bukti-dukung")}}/'  + data + '" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-primary btn-sm mt-1"><i class="fas fa-folder-closed"></i></a>';
                             }
                         },
@@ -143,6 +148,13 @@
                     rowId: function (row) {
                         return 'index_' + row.proposal.id;
                     },
+                    // createdRow: function (row, data, dataIndex) {
+                    //     if (data.proposal.status === 'draft') {
+                    //         $(row).addClass('bg-draft');
+                    //     } else {
+                    //         $(row).addClass('bg-sent');
+                    //     }
+                    // },
                 });
             },
             error: function (error) {

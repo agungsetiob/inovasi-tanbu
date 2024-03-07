@@ -29,6 +29,10 @@
                         <h4 class="mb-2"><a href="#">Ruby is a dynamic, object-oriented programming</a></h4>
                         <p>Ruby is a dynamic, object-oriented programming language designed for simplicity and productivity. It is commonly used for web development with the Ruby on Rails framework, known for its elegant syntax and conventions.</p>
                     </li>
+                    <li class="list-group-item">
+                        <h4 class="mb-2"><a href="#">Ruby is a dynamic, object-oriented programming</a></h4>
+                        <p>Ruby is a dynamic, object-oriented programming language designed for simplicity and productivity. It is commonly used for web development with the Ruby on Rails framework, known for its elegant syntax and conventions.</p>
+                    </li>
                 </ul>
             </div>
 @endfragment

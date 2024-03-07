@@ -6,11 +6,9 @@ use App\Models\Background;
 use App\Models\Proposal;
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Models\User;
 use App\Models\Skpd;
 use App\Models\Bentuk;
 use App\Models\Urusan;
-use App\Models\File;
 use App\Models\Indikator;
 use App\Models\Tematik;
 use App\Models\Klasifikasi;
@@ -22,7 +20,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class ProposalController extends Controller
 {
@@ -136,7 +133,7 @@ class ProposalController extends Controller
     {
         $user = Auth::user();
         $year = now()->year;
-
+        //sleep(3);
         if ($user->role == 'admin') {
             $proposals = Proposal::with(['files', 'tahapan', 'skpd'])
                 ->where('status', 'sent')

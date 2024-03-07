@@ -22,13 +22,14 @@ return new class extends Migration
             $table->text('output');
             $table->text('manfaat');
             $table->text('dana');
-            $table->string('anggaran');//rab
+            $table->string('rab');//rab
             $table->text('peneliti');
             $table->text('tahapan');
             $table->text('jangka');
-            $table->text('jenis_sumber_data');
-            $table->text('analisa');
-            $table->text('teknik');
+            $table->text('jenis_sumber_data')->nullable();
+            $table->text('analisa')->nullable();
+            $table->text('teknik')->nullable();
+            $table->string('url')->nullable();
             $table->foreignId('skpd_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->timestamps();

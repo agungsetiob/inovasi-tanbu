@@ -53,7 +53,7 @@
                             <th width="35%">Nama Inovasi</th>
                             <th>SKPD/UPTD</th>
                             <th>Skor</th>
-                            <th width="8%">Dibuat pada</th>
+                            <th width="8%">Tahun</th>
                             <th width="4%">Bukti Dukung</th>
                             <th width="17%"></th>
                         </tr>
@@ -82,9 +82,8 @@
     </div>
 </div>
 <!-- /.container-fluid -->
-<x-logout/>
 @include('components.cetak-laporan-inovasi')
-<script>
+{{-- <script>
     var dataTable;
     $(document).ready(function () {
         $.ajax({
@@ -145,9 +144,9 @@
                     "initComplete":  function (setting, json) {
                         htmx.process('#dataTable');
                     },
-                    rowId: function (row) {
-                        return 'index_' + row.proposal.id;
-                    },
+                    // rowId: function (row) {
+                    //     return 'index_' + row.proposal.id;
+                    // },
                     // createdRow: function (row, data, dataIndex) {
                     //     if (data.proposal.status === 'draft') {
                     //         $(row).addClass('bg-draft');
@@ -161,6 +160,84 @@
                 console.error('Error fetching proposals:', error);
             }
         });
+    });
+
+    document.body.addEventListener("reloadAll", function (evt) {
+        dataTable.ajax.reload (function () {
+            htmx.process('#dataTable');
+        }, false)
+    });
+</script> --}}
+<script type="text/javascript">
+    var dataTable = $('#dataTable').DataTable({
+        ajax: {
+            url: '/api/all/inovations',
+            dataSrc: 'data',
+            processing: true,
+            serverSide: true,
+        },
+        columns: [
+            { 
+                data: 'proposal.nama',
+                render: function (data, type, full, meta) {
+                    // Check if proposal.status is 'draft' and add a badge
+                    var badgeClass = (full.proposal.status === 'draft') ? 'badge rounded-pill badge-warning' : 'badge rounded-pill badge-success';
+                    var badgeText = (full.proposal.status === 'draft') ? 'draft' : 'sent'; // Customize the badge text
+                    return data + ' <span class="' + badgeClass + '">' + badgeText + '</span>';
+                },
+            },
+            { 
+                data: 'skpd' 
+            },
+            { 
+                data: 'skor',
+                className: 'text-center',
+                render: function (data, type, full, meta) {
+                    if (type === 'display') {
+                        var colorClass = (data < 70) ? 'text-danger' : '';
+                        return '<span class="' + colorClass + '">' + data + '</span>';
+                    }
+                    return data;
+                }
+            },
+            {
+                data: 'proposal.created_at',
+                className: 'text-center',
+                render: function (data, type, full, meta) {
+                    if (type === 'display') {
+                        return new Date(data).getFullYear();
+                    }
+                    return data;
+                }
+            },
+            {
+                data: 'proposal.id',
+                className: 'text-center',
+                render: function (data, type, row) {
+                    return '<a href="{{ url("bukti-dukung" )}}/' +  data + '" hx-get="{{ url("bukti-dukung")}}/'  + data + '" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-primary btn-sm mt-1"><i class="fas fa-folder-closed"></i></a>';
+                }
+            },
+            {
+                data: 'proposal.id',
+                render: function (data, type, row) {
+                    var buttonsHtml = '<div class="text-center">';
+                    buttonsHtml += '<a href="{{url("print/report")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
+                    buttonsHtml += '</div>';
+
+                    return buttonsHtml;
+                }
+            },
+        ],
+        "initComplete": function( settings, json ) {
+            htmx.process('#dataTable');
+        },
+        "error": function(xhr, error, thrown) {
+            console.error('DataTables error:', error, thrown);
+            alert('Error loading data. Please try again later.');
+        },
+        rowId: function (row) {
+            return 'index_' + row.proposal.id;
+        },
     });
 
     document.body.addEventListener("reloadAll", function (evt) {

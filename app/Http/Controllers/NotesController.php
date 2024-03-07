@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
-use Illuminate\Http\Request;
 
 class NotesController extends Controller
 {
@@ -12,7 +11,7 @@ class NotesController extends Controller
      */
     public function index($id)
     {
-        $notes = Note::where('proposal_id' , $id)->select('desc')->distinct()->get();
+        $notes = Note::where('proposal_id' , $id)->select('desc', 'created_at')->distinct()->get();
         return response()->json($notes);
     }
 }

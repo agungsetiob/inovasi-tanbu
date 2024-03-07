@@ -3,12 +3,12 @@ aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin?</h5>
+            <h5 class="modal-title" id="exampleModalLabel"><span id="judul-riset" style="color: #0061f2;"></span></h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-        <div class="modal-body">Pengajuan riset  <span id="judul-riset" style="color: #0061f2;"></span> akan dihapus. Tekan tombol hapus apabila anda sudah yakin.</div>
+        <div class="modal-body">Pengajuan riset akan dihapus, tekan tombol hapus apabila anda sudah yakin.</div>
         <div class="modal-footer">
             <button class="btn btn-outline-secondary" type="button" data-dismiss="modal" title="cancel"><i class="fa-solid fa-ban"></i> Cancel</button>
             <button id="delete-riset" class="btn btn-outline-danger" title="hapus"><i class="fa-solid fa-trash"></i> Hapus</button>
@@ -23,7 +23,7 @@ aria-hidden="true">
         $(document).on("click",".delete-button",function() {
             risetId = $(this).data("riset-id");
             var judulRiset = $(this).data("riset-judul");
-            $("#judul-riset").text(judulRiset);
+            $("#judul-riset").html(judulRiset);
 
         });
 

@@ -162,17 +162,17 @@
                                         <div class="input-group "> 
                                             <label class="input-group-btn">
                                             <span class="btny btn-outline-primary">
-                                                Browse<input accept="application/pdf" id="uploadAnggaran" type="file" style="display: none;" name="anggaran">
+                                                Browse<input accept="application/pdf" id="uploadAnggaran" type="file" style="display: none;" name="rab">
                                             </span>
                                             </label>
-                                            <input id="fileAnggaran" type="text" class="form-control @error('anggaran') is-invalid @enderror" readonly placeholder="Choose a file">
+                                            <input id="fileAnggaran" type="text" class="form-control @error('rab') is-invalid @enderror" readonly placeholder="Choose a file">
                                         </div>
                                         <script type="text/javascript">
                                             document.getElementById("uploadAnggaran").onchange = function (){
                                             document.getElementById("fileAnggaran").value = this.value;
                                             }
                                         </script>
-                                        @error('anggaran')
+                                        @error('rab')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
                                         </div>

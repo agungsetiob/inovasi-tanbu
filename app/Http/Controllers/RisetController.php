@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Riset;
 use App\Models\Background;
+use Barryvdh\DomPDF\Facade\PDF;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use illuminate\Support\Facades\Auth;
@@ -50,20 +51,20 @@ class RisetController extends Controller
             'output' => 'required',
             'manfaat' => 'required',
             'dana' => 'required',
-            'anggaran' => 'required|file|mimes:pdf|max:2048',
+            'rab' => 'required|file|mimes:pdf|max:2048',
             'peneliti' => 'required',
             'tahapan' => 'required',
             'jangka' => 'required',
-            'jenis_sumber_data' => 'required',
-            'analisa' => 'required',
-            'teknik' => 'required',
+            // 'jenis_sumber_data' => 'required',
+            // 'analisa' => 'required',
+            // 'teknik' => 'required',
         ];
 
         // Validate the request data
         $request->validate($rules);
 
-        // Process 'anggaran' file upload
-        $anggaranPath = $request->file('anggaran')->store('rab', 'public');
+        // Process 'rab' file upload
+        $rabPath = $request->file('rab')->store('rab', 'public');
 
         // Create a new Riset instance
         $riset = new Riset([
@@ -76,7 +77,7 @@ class RisetController extends Controller
             'output' => $request->output,
             'manfaat' => $request->manfaat,
             'dana' => $request->dana,
-            'anggaran' => $anggaranPath,
+            'rab' => $rabPath,
             'peneliti' => $request->peneliti,
             'tahapan' => $request->tahapan,
             'jangka' => $request->jangka,
@@ -157,13 +158,13 @@ class RisetController extends Controller
             'output' => 'required',
             'manfaat' => 'required',
             'dana' => 'required',
-            'anggaran' => 'nullable|file|mimes:pdf|max:2048',
+            'rab' => 'nullable|file|mimes:pdf|max:2048',
             'peneliti' => 'required',
             'tahapan' => 'required',
             'jangka' => 'required',
-            'jenis_sumber_data' => 'required',
-            'analisa' => 'required',
-            'teknik' => 'required',
+            // 'jenis_sumber_data' => 'required',
+            // 'analisa' => 'required',
+            // 'teknik' => 'required',
         ];
 
         $request->validate($rules);
@@ -184,10 +185,10 @@ class RisetController extends Controller
         $riset->analisa = $request->analisa;
         $riset->teknik = $request->teknik;
 
-        if ($request->hasFile('anggaran') && $request->file('anggaran')->isValid()) {
-            Storage::disk('public')->delete($riset->anggaran);
+        if ($request->hasFile('rab') && $request->file('rab')->isValid()) {
+            Storage::disk('public')->delete($riset->rab);
 
-            $riset->anggaran = $request->file('anggaran')->store('rab', 'public');
+            $riset->rab = $request->file('rab')->store('rab', 'public');
         }
 
         $riset->save(); //save can be used for creating new resource or update it, update is specially for updating
@@ -202,7 +203,7 @@ class RisetController extends Controller
     public function destroy(Riset $riset)
     {
         if(Auth::user()->id == $riset->user_id) {
-            Storage::disk('public')->delete($riset->anggaran);
+            Storage::disk('public')->delete($riset->rab);
             $riset->delete();
             return response()->json([
                 'success'=> true
@@ -212,5 +213,16 @@ class RisetController extends Controller
                 'success'=>false
             ]);
         }
+    }
+
+    /**
+    * Print proposal
+    */
+    public function risetReport($id)
+    {
+        $riset = Riset::findOrFail($id);
+        $pdf = PDF::loadview('riset.pengajuan-riset-report',compact('riset'))->setPaper('A4', 'portrait');
+        set_time_limit(300);
+        return $pdf->stream('proposal-riset'.$id.'.pdf');
     }
 }

@@ -94,7 +94,10 @@
                             data: 'id',
                             render: function (data, type, row) {
                                 var buttonsHtml = '<div class="text-center">';
-                                buttonsHtml += '<a href="{{url("print/report")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
+                                if ({{auth()->user()->role == 'admin'}}){
+                                    buttonsHtml += '<button id="url-' + data + '" class="url-button btn btn-outline-warning btn-sm mr-1 mt-1" title="url" data-toggle="modal" data-target="#urlModal" data-riset-id="' + data + '" data-riset-judul="' + row.judul + '"><i class="fas fa-link"></i></button>';
+                                }
+                                buttonsHtml += '<a href="{{url("print/riset")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
                                 if (row.user_id == {{ auth()->user()->id }}) {
                                     buttonsHtml += '<button id="hapus-' + data + '" class="delete-button btn btn-outline-danger btn-sm mr-1 mt-1" title="Hapus" data-toggle="modal" data-target="#deleteModal" data-riset-id="' + data + '" data-riset-judul="' + row.judul + '"><i class="fas fa-trash"></i></button>';
                                     buttonsHtml += '<a id="edit-' + data + '" hx-get="{{ url("riset")}}/'+ data +'/edit" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-success btn-sm mr-1 mt-1" title="Edit"><i class="fas fa-pencil-alt" alt="edit"></i></a>';

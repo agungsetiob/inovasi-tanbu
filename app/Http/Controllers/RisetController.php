@@ -55,9 +55,6 @@ class RisetController extends Controller
             'peneliti' => 'required',
             'tahapan' => 'required',
             'jangka' => 'required',
-            // 'jenis_sumber_data' => 'required',
-            // 'analisa' => 'required',
-            // 'teknik' => 'required',
         ];
 
         // Validate the request data
@@ -162,9 +159,6 @@ class RisetController extends Controller
             'peneliti' => 'required',
             'tahapan' => 'required',
             'jangka' => 'required',
-            // 'jenis_sumber_data' => 'required',
-            // 'analisa' => 'required',
-            // 'teknik' => 'required',
         ];
 
         $request->validate($rules);
@@ -225,4 +219,31 @@ class RisetController extends Controller
         set_time_limit(300);
         return $pdf->stream('proposal-riset'.$id.'.pdf');
     }
+
+    public function updateUrl(Request $request, $id)
+    {
+        $request->validate([
+            'url' => 'required|url',
+        ]);
+
+        try {
+            if (Auth::user()->role == 'admin'){
+                $riset = Riset::findOrFail($id);
+                $riset->update([
+                    'url' => $request->input('url'),
+                ]);
+            } else {
+                return response()->json(['error' => 'omaigad'], 500);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'URL updated successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success'=>false,
+                'error' => $e->getMessage()], 500);
+        }
+    }
+
 }

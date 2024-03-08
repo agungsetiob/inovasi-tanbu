@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Proposal;
 use Illuminate\Http\Request;
 use App\Models\Background;
-use App\Models\{Category, Contact, Bentuk, Skpd};
+use App\Models\{Category, Contact, Bentuk, Skpd, Riset};
 use App\Models\User;
 use Auth;
 use DB;
@@ -106,10 +106,11 @@ class AdminController extends Controller
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
+            $risets = Riset::whereNotNull('url')->get();
             if ($request->header('HX-Request')) {
-                return view('riset.index', compact('backgrounds'))->fragment('dashboard');
+                return view('riset.index', compact('backgrounds', 'risets'))->fragment('dashboard');
             }else{
-                return view('riset.index', compact('backgrounds'));
+                return view('riset.index', compact('backgrounds', 'risets'));
             }
         }else
         {
@@ -121,10 +122,11 @@ class AdminController extends Controller
     {
         if (Auth::user()->role == 'user') {
             $backgrounds = Background::all();
+            $risets = Riset::whereNotNull('url')->get();
             if ($request->header('HX-Request')) {
-                return view('riset.index', compact('backgrounds'))->fragment('dashboard');
+                return view('riset.index', compact('backgrounds', 'risets'))->fragment('dashboard');
             }else{
-                return view('riset.index', compact('backgrounds'));
+                return view('riset.index', compact('backgrounds', 'risets'));
             }
         }else
         {

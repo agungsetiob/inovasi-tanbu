@@ -139,6 +139,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('riset', RisetController::class);
     Route::get('pengajuan-riset', [RisetController::class, 'loadRiset']);
     Route::get('print/riset/{id}', [RisetController::class, 'risetReport']);
+    Route::put('riset/url/{id}', [RisetController::class, 'updateUrl']);
 });
 
 require __DIR__.'/auth.php';

@@ -239,22 +239,6 @@
                                         </div>
                                         @enderror
                                     </div>
-
-                                    {{--<div class="form-group" hidden>
-                                        <div class="row g-3">
-                                            <div class="col">
-                                                <label class="font-weight-bold" for="skpd">Dibuat oleh:</label>
-                                                <select name="skpd" id="skpd" class="form-control @error('skpd') is-invalid @enderror" required>
-                                                    <option value="{{Auth::user()->skpd->id}}" selected>{{Auth::user()->skpd->nama}}</option>
-                                                </select>
-                                                @error('skpd')
-                                                <div class="alert alert-danger mt-2">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>--}}
                                     <button type="button" class="btn btn-primary prev"><i class="fa-solid fa-backward"></i> Previous</button>
                                     <button type="submit" class="btn btn-md btn-outline-primary float-right"><i class="fa fa-save"></i> Save</button>
                                 </div>

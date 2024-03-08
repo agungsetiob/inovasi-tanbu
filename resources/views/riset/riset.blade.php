@@ -45,7 +45,9 @@
                             <thead>
                                 <tr>
                                     <th width="5%">#</th>
-                                    <th width="75%">Judul Kajian</th>
+                                    <th width="50%">Judul Kajian</th>
+                                    <th width="20%">SKPD</th>
+                                    <th width="5%">Tahun</th>
                                     <th width="20%"></th>
                                 </tr>
                             </thead>
@@ -80,7 +82,6 @@
             type: 'GET',
             dataType: 'json',
             success: function (response) {
-                // Initialize DataTable with the fetched data
                 dataTable = $('#tabel-riset').DataTable({
                     data: response.data,
                     columns: [
@@ -89,13 +90,25 @@
                                 return meta.row + 1 + '.';
                             }
                         },
-                        { data: 'judul' },
+                        { data: 'judul'},
+                        { data: 'skpd.nama'},
+                        { 
+                            data: 'created_at',
+                            className: 'text-center',
+                            render: function (data, type, full, meta) {
+                                if (type === 'display') {
+                                    return new Date(data).getFullYear();
+                                }
+                                return data;
+                            }
+                        },
                         { 
                             data: 'id',
                             render: function (data, type, row) {
+                                var urlButtonColor = row.url ? 'btn-outline-primary' : 'btn-outline-warning';
                                 var buttonsHtml = '<div class="text-center">';
                                 if ({{auth()->user()->role == 'admin'}}){
-                                    buttonsHtml += '<button id="url-' + data + '" class="url-button btn btn-outline-warning btn-sm mr-1 mt-1" title="url" data-toggle="modal" data-target="#urlModal" data-riset-id="' + data + '" data-riset-judul="' + row.judul + '"><i class="fas fa-link"></i></button>';
+                                    buttonsHtml += '<button id="url-' + data + '" class="url-button btn ' + urlButtonColor + ' btn-sm mr-1 mt-1" title="url" data-toggle="modal" data-target="#addUrl" data-riset-id="' + data + '" data-riset-judul="' + row.judul + '"><i class="fas fa-link"></i></button>';
                                 }
                                 buttonsHtml += '<a href="{{url("print/riset")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
                                 if (row.user_id == {{ auth()->user()->id }}) {
@@ -124,6 +137,8 @@
         }, false)
     });
 </script>
+<x-alert-modal/>
 @include('components.modal-delete-pengajuan-riset')
+@include('components.modal-url-riset')
 @endfragment
 @endsection

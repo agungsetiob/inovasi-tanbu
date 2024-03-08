@@ -17,58 +17,16 @@ aria-hidden="true">
 </div>
 </div>
 <script>
-    // $(document).ready(function() {
-    //     var proposalId;
-
-    //     // When any button with the "send-proposal" class is clicked
-    //     $(document).on("click",".send-proposal",function() {
-    //         proposalId = $(this).data("proposal-id");
-    //         var proposalName = $(this).data("proposal-name");
-    //         $("#proposal-name-modal").text(proposalName);
-    //     });
-
-    //     // When the "Kirim" button in the modal is clicked
-    //     $("#send-proposal").click(function() {
-    //         $.ajax({
-    //             url: "/send/inovasi/" + proposalId,
-    //             type: 'PUT',
-    //             data: {
-    //                 _token: "{{ csrf_token() }}"
-    //             },
-    //             success: function(response) {
-    //                 if (response.success) {
-    //                     $('#success-alert').removeClass('d-none').addClass('show');
-    //                     $('#success-message').text(response.success);
-    //                     $('#error-alert').addClass('d-none');
-    //                     $(".send-proposal[data-proposal-id='" + proposalId + "']").remove();
-    //                     $("#edit-" + proposalId).remove();
-    //                     $("#hapus-" + proposalId).remove();
-    //                     $('#sendModal').modal('hide');
-    //                     $(".modal-backdrop").remove();
-    //                 }
-    //             },
-    //             error: function(error) {
-    //                 $('#error-message').text(error.status + ' ' + error.responseJSON.message);
-    //                 $('#error-alert').removeClass('d-none').addClass('show');
-    //             }
-    //         });
-    //     });
-    // });
-
     $(document).ready(function () {
         var proposalId;
 
-        // When any button with the "send-proposal" class is clicked
         $(document).on("click", ".send-proposal", function () {
             proposalId = $(this).data("proposal-id");
             var proposalName = $(this).data("proposal-name");
             $("#proposal-name-modal").text(proposalName);
-
-            // Hide any previous error messages
             $('#error-alert').addClass('d-none').removeClass('show');
         });
 
-        // When the "Kirim" button in the modal is clicked
         $("#send-proposal").click(function () {
             var $button = $(this);
 
@@ -103,7 +61,6 @@ aria-hidden="true">
                     $('#error-alert').removeClass('d-none').addClass('show');
                 },
                 complete: function () {
-                    // Hide loading spinner and reset button text
                     $button.html('<i class="fa-solid fa-paper-plane"></i> Kirim').prop('disabled', false);
                 }
             });

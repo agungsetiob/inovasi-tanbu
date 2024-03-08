@@ -93,7 +93,6 @@
                     $('#error-alert').removeClass('d-none').addClass('show');
                 },
                 complete: function () {
-                    // Hide loading spinner and reset button text
                     $button.html('<i class="fa-solid fa-paper-plane"></i> Kirim').prop('disabled', false);
                 }
             });

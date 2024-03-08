@@ -180,7 +180,6 @@
             { 
                 data: 'proposal.nama',
                 render: function (data, type, full, meta) {
-                    // Check if proposal.status is 'draft' and add a badge
                     var badgeClass = (full.proposal.status === 'draft') ? 'badge rounded-pill badge-warning' : 'badge rounded-pill badge-success';
                     var badgeText = (full.proposal.status === 'draft') ? 'draft' : 'sent'; // Customize the badge text
                     return data + ' <span class="' + badgeClass + '">' + badgeText + '</span>';

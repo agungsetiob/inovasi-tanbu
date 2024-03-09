@@ -79,7 +79,6 @@
                 { 
                     data: 'tahapan', className: 'text-center',
                     render: function (data, type, row) {
-                        // Apply badge styling based on the value of tahapan
                         var badgeClass = '';
                         if (data == 'ujicoba') {
                             badgeClass = 'bg-indigo';

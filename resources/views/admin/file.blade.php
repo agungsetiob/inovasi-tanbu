@@ -63,6 +63,8 @@
                                                 @foreach ($indikator->files()->where('proposal_id', $proposalId)->get() as $item)
                                                     @if ($item->file)
                                                         <a class="btn btn-outline-success btn-sm" title="download" href="{{url('/storage/docs/'. $item->file )}}" target="_blank"><i class="fa-solid fa-download"></i></a>
+                                                    @elseif (!$item->file && $item->informasi)
+                                                        <a class="text-danger" title="open video" href="{{$item->informasi}}" target="_blank"><i class="fa-brands fa-youtube fa-2x"></i></i></a>
                                                     @endif
                                                 @endforeach
                                             @endif

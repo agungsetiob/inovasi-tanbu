@@ -184,18 +184,6 @@
                                     <div class="progress-bar bg-danger custom-progress-bar" role="progressbar" style="width: {{$inovasi}}%;" aria-valuenow="{{$totalProposals}}" aria-valuemin="0" aria-valuemax="{{$totalSkpds}}">{{$inovasi}}%</div>
                                 </div>
                                 @endif
-                                {{-- Progress item 2
-                                <div class="d-flex align-items-center justify-content-between small mb-1">
-                                    <div class="fw-bold">Litbang</div>
-                                    <div class="small">50</div>
-                                </div>
-                                <div class="progress mb-3"><div class="progress-bar bg-warning" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div></div>
-                                <!-- Progress item 3-->
-                                <div class="d-flex align-items-center justify-content-between small mb-1">
-                                    <div class="fw-bold">Riset</div>
-                                    <div class="small">75</div>
-                                </div>
-                                <div class="progress mb-3"><div class="progress-bar bg-primary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div></div> --}}
                             </div>
                         </div>
                     </div>
@@ -218,7 +206,6 @@
     '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = "#858796";
 
-// Pie Chart
     var ctx = document.getElementById("bentuk");
     var myPieChart = new Chart(ctx, {
         type: "doughnut",
@@ -252,7 +239,11 @@
                 caretPadding: 10
             },
             legend: {
-                display: false
+                display: true,
+                position: 'bottom',
+                labels: {
+                    fontColor: "black"
+                }
             },
             cutoutPercentage: 80
         }
@@ -266,14 +257,12 @@
         datasets: [{
           data:  <?php echo json_encode($chartJenis); ?>,
           backgroundColor: [
-            "rgba(0, 97, 242, 1)",
-            "rgba(0, 172, 105, 1)",
-            "rgba(88, 0, 232, 1)"
+            "rgba(239, 58, 13, 0.8)",
+            "rgba(184, 191, 8, 0.8)",
             ],
           hoverBackgroundColor: [
-            "rgba(0, 97, 242, 0.9)",
-            "rgba(0, 172, 105, 0.9)",
-            "rgba(88, 0, 232, 0.9)"
+            "rgba(191, 45, 8, 0.8)",
+            "rgba(149, 154, 7, 0.8)",
             ],
           hoverBorderColor: "rgba(234, 236, 244, 1)"
       }],
@@ -291,11 +280,16 @@
           caretPadding: 10,
       },
       legend: {
-          display: false
+          display: true,
+          position: 'bottom',
+          labels: {
+              fontColor: "black"
+          }
       },
       cutoutPercentage: 80,
      },
     });
 </script>
+
 @endfragment
 @endsection

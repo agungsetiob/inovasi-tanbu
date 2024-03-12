@@ -37,13 +37,6 @@
             right: 17px;
             z-index: 1000;
         }
-
-        .floating-wa-button a {
-            display: block;
-            background-color: #25d366;
-            padding: 8px;
-            border-radius: 10%;
-        }
     </style>
 </head>
 
@@ -106,11 +99,9 @@
                 </noscript>
                 @yield ('content')
             </div>
-            <div class="floating-wa-button">
-                <a class="text-white" href="https://wa.me/082225976594" target="_blank" title="Chat with us on WhatsApp">
-                    <i class="fa-brands fa-whatsapp fa-2x"></i>
+                <a class="text-success floating-wa-button" href="https://wa.me/082225976594" target="_blank" title="Chat with us on WhatsApp">
+                    <i class="fa-brands fa-square-whatsapp fa-3x"></i>
                 </a>
-            </div>
             <x-footer />
         </div>
     </div>

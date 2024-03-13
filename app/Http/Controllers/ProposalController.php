@@ -374,7 +374,7 @@ class ProposalController extends Controller
     public function update(Request $request, Proposal $inovasi)
     {
         $this->validate($request, [
-            'profil'     => 'mimes:pdf|max:1536',
+            'profil'     => 'mimes:pdf|max:5120',
             'nama'     => 'required',
             'tahapan'   => 'required',
             'inisiator'      => 'required',
@@ -384,7 +384,7 @@ class ProposalController extends Controller
             'hasil' => 'required',
             'ujicoba' => 'required',
             'implementasi' => 'required',
-            'anggaran' => 'mimes:pdf|max:1024',
+            'anggaran' => 'mimes:pdf|max:2048',
             'bentuk' => 'required',
             'category' => 'required',
             'urusans' => 'required',

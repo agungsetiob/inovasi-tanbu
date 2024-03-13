@@ -37,14 +37,6 @@
               </div>
             </div>
             <div class="bs-stepper-content">
-              {{--<form id="edit-proposal"
-              hx-post="{{ route('inovasi.store') }}" 
-              hx-target="#app" 
-              hx-swap="outerHTML transition:true" 
-              hx-indicator="#loadingIndicator"
-              hx-push-url="true"
-              hx-encoding="multipart/form-data"
-              hx-history="false">--}}
               <form action="{{ route('inovasi.store') }}" method="POST" enctype="multipart/form-data"  hx-history="false">
                 @csrf
                   <div id="test-l-1" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger1">
@@ -190,46 +182,46 @@
                           @enderror
                         </div>
                         <div class="col">
-                          <label class="font-weight-bold" for="uploadBtn">Proposal:</label>
-                          <div class="input-group "> 
-                            <label class="input-group-btn">
-                              <span class="btny btn-outline-primary">
-                                Browse<input accept="application/pdf" id="uploadBtn" type="file" style="display: none;" name="profil">
-                              </span>
-                            </label>
-                            <input id="uploadFile" type="text" class="form-control @error('profil') is-invalid @enderror" readonly placeholder="Choose a file">
-                          </div>
-                          @error('profil')
-                          <div class="alert alert-danger mt-2">
-                            {{ $message }}
-                          </div>
-                          @enderror
-                          <script type="text/javascript">
-                            document.getElementById("uploadBtn").onchange = function (){
-                              document.getElementById("uploadFile").value = this.value;
-                            }
-                          </script>
+                            <label class="font-weight-bold" for="uploadBtn">Proposal:</label>
+                            <div class="input-group "> 
+                                <label class="input-group-btn">
+                                    <span class="btny btn-outline-primary">
+                                        Browse<input accept="application/pdf" id="uploadBtn" type="file" style="display: none;" name="profil">
+                                    </span>
+                                </label>
+                                <input id="uploadFile" type="text" class="form-control @error('profil') is-invalid @enderror" readonly placeholder="Choose a file">
+                            </div>
+                            @error('profil')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                            <script type="text/javascript">
+                                document.getElementById("uploadBtn").onchange = function (){
+                                    document.getElementById("uploadFile").value = this.value;
+                                }
+                            </script>
                         </div>
                         <div class="col">
-                          <label for="uploadAnggaran" class="font-weight-bold">Anggaran:</label>
-                          <div class="input-group "> 
-                            <label class="input-group-btn">
-                              <span class="btny btn-outline-primary">
-                                Browse<input accept="application/pdf" id="uploadAnggaran" type="file" style="display: none;" name="anggaran">
-                              </span>
-                            </label>
-                            <input id="fileAnggaran" type="text" class="form-control @error('anggaran') is-invalid @enderror" readonly placeholder="Choose a file">
-                          </div>
-                          <script type="text/javascript">
-                            document.getElementById("uploadAnggaran").onchange = function (){
-                              document.getElementById("fileAnggaran").value = this.value;
-                            }
-                          </script>
-                          @error('anggaran')
-                          <div class="alert alert-danger mt-2">
-                            {{ $message }}
-                          </div>
-                          @enderror
+                            <label for="uploadAnggaran" class="font-weight-bold">Anggaran:</label>
+                            <div class="input-group "> 
+                                <label class="input-group-btn">
+                                    <span class="btny btn-outline-primary">
+                                        Browse<input accept="application/pdf" id="uploadAnggaran" type="file" style="display: none;" name="anggaran">
+                                    </span>
+                                </label>
+                                <input id="fileAnggaran" type="text" class="form-control @error('anggaran') is-invalid @enderror" readonly placeholder="Choose a file">
+                            </div>
+                            @error('anggaran')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                            <script type="text/javascript">
+                                document.getElementById("uploadAnggaran").onchange = function (){
+                                    document.getElementById("fileAnggaran").value = this.value;
+                                }
+                            </script>
                         </div>
                       </div>
                     </div>
@@ -267,7 +259,6 @@
                       </div>
                       @enderror
                     </div>
-
                     <div class="form-group">
                       <div class="row g-3">
                         <div class="col d-none">
@@ -286,7 +277,6 @@
                     <button type="button" class="btn btn-primary" id="prevB"><i class="fa-solid fa-backward"></i> Previous</button>
                     <button type="submit" class="btn btn-md btn-outline-primary float-right"><i class="fa fa-save"></i> Save</button>
                   </div>
-
               </form> 
             </div>
           </div>
@@ -295,19 +285,6 @@
     </div>
   </div>
 </div>
-<!-- Footer -->
-
-{{--<script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-<script src="{{asset('js/sb-admin-2.min.js')}}"></script>
-<script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
-<script src="{{asset('vendor/selectize/selectize.min.js')}}"></script>
-<script src="{{asset('vendor/stepper/stepper.min.js')}}"></script>
-<script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
-<script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
-<script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>--}}
-<x-logout/>
 <script type="text/javascript">
   $(document).ready(function () {
     var stepper = new Stepper($('#stepper1')[0],{

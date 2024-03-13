@@ -22,7 +22,7 @@
                             <i class="fa fa-solid fa-check"></i>
                             {{ Session::get('success') }}
                             @php
-                            Session::forget('success');
+                                Session::forget('success');
                             @endphp
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -107,9 +107,9 @@
                             render: function (data, type, row) {
                                 var urlButtonColor = row.url ? 'btn-outline-primary' : 'btn-outline-warning';
                                 var buttonsHtml = '<div class="text-center">';
-                                if ({{auth()->user()->role == 'admin'}}){
+                                @if (auth()->user()->role == 'admin')
                                     buttonsHtml += '<button id="url-' + data + '" class="url-button btn ' + urlButtonColor + ' btn-sm mr-1 mt-1" title="url" data-toggle="modal" data-target="#addUrl" data-riset-id="' + data + '" data-riset-judul="' + row.judul + '"><i class="fas fa-link"></i></button>';
-                                }
+                                @endif
                                 buttonsHtml += '<a href="{{url("print/riset")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
                                 if (row.user_id == {{ auth()->user()->id }}) {
                                     buttonsHtml += '<button id="hapus-' + data + '" class="delete-button btn btn-outline-danger btn-sm mr-1 mt-1" title="Hapus" data-toggle="modal" data-target="#deleteModal" data-riset-id="' + data + '" data-riset-judul="' + row.judul + '"><i class="fas fa-trash"></i></button>';
@@ -127,7 +127,7 @@
             },
             error: function (error) {
                 console.error('Error fetching proposals:', error);
-            }
+            },
         });
     });
     

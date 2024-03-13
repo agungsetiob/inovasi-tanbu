@@ -106,7 +106,7 @@ class AdminController extends Controller
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
-            $risets = Riset::whereNotNull('url')->get();
+            $risets = Riset::whereNotNull('url')->paginate(3);
             if ($request->header('HX-Request')) {
                 return view('riset.index', compact('backgrounds', 'risets'))->fragment('dashboard');
             }else{
@@ -122,7 +122,7 @@ class AdminController extends Controller
     {
         if (Auth::user()->role == 'user') {
             $backgrounds = Background::all();
-            $risets = Riset::whereNotNull('url')->get();
+            $risets = Riset::whereNotNull('url')->paginate(3);
             if ($request->header('HX-Request')) {
                 return view('riset.index', compact('backgrounds', 'risets'))->fragment('dashboard');
             }else{

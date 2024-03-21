@@ -87,12 +87,6 @@
         style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1090;">
         <i class="fas fa-circle-notch fa-spin fa-4x"></i>
     </div>
-    {{--
-    <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
-    <script src="js/js/bootstrap.bundle.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <script src="js/js/scripts.js"></script>--}}
     <script>
         $('#slider').owlCarousel({
             items: 1,

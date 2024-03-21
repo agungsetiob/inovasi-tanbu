@@ -249,9 +249,9 @@
                                             @enderror
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group" hidden>
                                             <div class="row g-3">
-                                                <div class="col d-none">
+                                                <div class="col">
                                                     <label class="font-weight-bold" for="skpd">Dibuat oleh:</label>
                                                     <select name="skpd" id="skpd" class="form-control @error('skpd') is-invalid @enderror" title="Select SKPD" required>
                                                         <option value="{{Auth::user()->skpd->id}}" selected>{{Auth::user()->skpd->nama}}</option>

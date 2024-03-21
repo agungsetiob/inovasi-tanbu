@@ -19,7 +19,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="store" type="button" class="btn btn-primary">Save</button>
+                <button id="store" type="button" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Save</button>
             </div>
         </div>
     </div>
@@ -33,18 +33,15 @@ $(document).ready(function() {
         $("#judul-riset-url").html(judulRiset);
 
     });
-    //action create post
     $('#store').click(function(e) {
         e.preventDefault();
 
         var $button = $(this);
         $button.html('<i class="fas fa-spinner fa-spin"></i> Saving...').prop('disabled', true);
 
-        //define variable
         let url   = $("#url").val();
         let token   = $("meta[name='csrf-token']").attr("content");
         
-        //ajax
         $.ajax({
 
             url: `/riset/url/${risetId}`,
@@ -72,13 +69,9 @@ $(document).ready(function() {
             },
             error:function(error){
 
-                if(error.status === 422) {
-
-                    //show alert
+                if(error.status == 422) {
                     $('#alert-url').removeClass('d-none');
                     $('#alert-url').addClass('d-block');
-
-                    //add message to alert
                     $('#alert-url').html(error.responseJSON.errors.url[0]);
                 } else {
                     $('#error-message').text(error.status + ' ' + error.responseJSON.message);
@@ -87,7 +80,7 @@ $(document).ready(function() {
                 }
             },
             complete: function () {
-                $button.html('<i class="fa-solid fa-paper-plane"></i> Kirim').prop('disabled', false);
+                $button.html('<i class="fa-solid fa-paper-plane"></i> Save').prop('disabled', false);
             }
         });
     });

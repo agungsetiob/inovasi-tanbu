@@ -24,7 +24,6 @@ use App\Http\Controllers\InisiatorController;
 use App\Http\Controllers\UrusanController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------

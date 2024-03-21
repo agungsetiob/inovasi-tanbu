@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Carousel;
 use App\Models\Proposal;
 use App\Models\Setting;
-use Illuminate\Http\Request;
-
+use App\Models\Riset;
 class VisitorController extends Controller
 {
     /**
@@ -39,7 +38,7 @@ class VisitorController extends Controller
     {
         $carousels = Carousel::all();
         $settings = Setting::all();
-        return view('visitor.litbang', compact('carousels', 'settings'));
+        return view('visitor.evaluasi', compact('carousels', 'settings'));
     }
 
     /**
@@ -49,7 +48,8 @@ class VisitorController extends Controller
     {
         $carousels = Carousel::all();
         $settings = Setting::all();
-        return view('visitor.riset', compact('carousels', 'settings'));
+        $risets = Riset::whereNotNull('url')->take(6)->get();
+        return view('visitor.riset', compact('carousels', 'settings', 'risets'));
     }
 
     /**

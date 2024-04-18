@@ -91,10 +91,28 @@
 	<tbody>
 		@foreach ($proposal->indikators()->get() as $item)
 		<tr>
-			<td class="text-center align-middle"> {{$loop->iteration}} </td>
-			<td class="text-center align-middle"> {{$item->nama}} </td>
-			<td class="text-center align-middle"> @foreach ($item->files()->where('proposal_id', $proposal->id)->get() as $file){{$file->bukti->nama}} @endforeach</td>
-			<td class="text-center align-middle">@foreach ($item->files()->where('proposal_id', $proposal->id)->get() as $file){{$file->informasi}} @endforeach</td>
+			<td class="text-center align-middle" style="width: 2%"> {{$loop->iteration}} </td>
+			<td class="text-center align-middle" style="width: 11%"> {{$item->nama}} </td>
+			<td class="text-center align-middle" style="width: 20%"> @foreach ($item->files()->where('proposal_id', $proposal->id)->get() as $file){{$file->bukti->nama}} @endforeach</td>
+			<td class="text-center align-middle" style="max-width: 40%">
+				@foreach ($item->files()->where('proposal_id', $proposal->id)->get() as $file)
+					@if ($file->file)
+						{{$file->informasi}}
+					@elseif (!$file->file)
+						@php
+							$informasi = $file->informasi;
+							$maxLength = 50; // Adjust as needed
+							$brokenUrl = substr($informasi, 0, $maxLength);
+							$remainingUrl = substr($informasi, $maxLength);
+							while(strlen($remainingUrl) > 0){
+								$brokenUrl .= "\n" . substr($remainingUrl, 0, $maxLength);
+								$remainingUrl = substr($remainingUrl, $maxLength);
+							}
+						@endphp
+						<p style="color:blue;">{{$brokenUrl}}</p>
+					@endif
+				@endforeach
+			</td>
 		</tr>
 		@endforeach
 	</tbody>

@@ -6,6 +6,7 @@ use App\Models\Carousel;
 use App\Models\Proposal;
 use App\Models\Setting;
 use App\Models\Riset;
+use Carbon\Carbon;
 class VisitorController extends Controller
 {
     /**
@@ -25,6 +26,7 @@ class VisitorController extends Controller
         $carousels = Carousel::all();
         $settings = Setting::all();
         $totalProposals = Proposal::all()->count();
+        $currentYearProposals = Proposal::whereYear('created_at', Carbon::now()->year)->count();
         $inisiatif = Proposal::where('tahapan_id', 1)->count();
         $ujicoba = Proposal::where('tahapan_id', 2)->count();
         $implementasi = Proposal::where('tahapan_id', 3)->count();
@@ -39,7 +41,8 @@ class VisitorController extends Controller
             'totalProposals',
             'inisiatif',
             'ujicoba',
-            'implementasi'
+            'implementasi',
+            'currentYearProposals'
         ));
     }
 

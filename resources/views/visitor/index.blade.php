@@ -134,13 +134,12 @@
         <div class="owlslider owl-carousel mb-0 owl-loaded owl-drag owl-theme owl-carousel-init" id="slider">
             @foreach ($carousels as $carousel)
                 <div class="item">
-                    <img src="{{url('storage/carousels/' . $carousel->image)}}" class="d-block img-fluid">
+                    <img src="{{url('storage/carousels/' . $carousel->image)}}" class="d-block img-fluid" alt="slider-{{$carousel->id}}">
                 </div>
             @endforeach
         </div>
     </div>
 </header>
-<!-- Portfolio Section-->
 
 <section class="page-section bg-inovation portfolio" id="inovasi-info">
     <div class="container">
@@ -183,6 +182,14 @@
             <div class="divider-custom-line"></div>
             <div class="divider-custom-line"></div>
         </div>
+        <div class="row justify-content-center" id="content-container">
+            <div class="col-lg-3 col-xl-3 col-md-12 col-sm-12 d-flex justify-content-center align-items-center pb-2">
+                <button class="btn btn-outline-light btn-lg btn-block text-uppercase fw-semibold fs-5 w-100 position-relative">Total Inovasi {{ now()->year }} <br> 
+                    <span class="fs-1 fw-bold">{{$currentYearProposals}}</span> 
+                    <i class="fas fa-layer-group fa-xl bottom-0 end-0 p-1 position-absolute"></i>
+                </button>
+            </div>
+        </div>
         {{--<div class="text-center mt-2" id="show-prop">
             <button id="buttonShow" class="btn btn-xl btn-secondary btn-outline-light" 
             hx-get="{{ url('inovasi/all') }}" 
@@ -222,7 +229,6 @@
 <!-- Contact Section-->
 @include('visitor.send-message-form')
 @include('components.footer-visitor')
-@include('visitor.modal-detail-inovasi')
 <script>
     $('#slider').owlCarousel({
         items: 1,

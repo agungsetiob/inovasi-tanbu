@@ -1,5 +1,5 @@
 <footer class="footer text-center">
-    <div class="container">
+    {{--<div class="container">
         <div class="row">
             <!-- Footer Location-->
             <div class="col-lg-4 mb-5 mb-lg-0">
@@ -27,9 +27,10 @@
                 </p>
             </div>
         </div>
-    </div>
+    </div>--}}
+    <img alt="logo-1" class="footer_logo" src="{{asset('assets/tias.png')}}">
+    <img src="{{asset('assets/bottom_img2.png')}}" class="d-block img-fluid mx-auto" alt="footer-img">
 </footer>
-<!-- Copyright Section-->
 <div class="copyright py-4 text-center text-white">
     <div class="container"><small>Copyright &copy; Bappedalitbang Tanah Bumbu 2023 - {{ now()->year }}</small></div>
 </div>

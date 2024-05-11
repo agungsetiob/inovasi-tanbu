@@ -24,11 +24,23 @@ class VisitorController extends Controller
     {
         $carousels = Carousel::all();
         $settings = Setting::all();
-        $proposals = Proposal::where('status', 'sent')
-            ->orderBy('created_at', 'desc')
-            ->take(6)
-            ->get();
-        return view('visitor.index', compact('proposals', 'carousels', 'settings'));
+        $totalProposals = Proposal::all()->count();
+        $inisiatif = Proposal::where('tahapan_id', 1)->count();
+        $ujicoba = Proposal::where('tahapan_id', 2)->count();
+        $implementasi = Proposal::where('tahapan_id', 3)->count();
+        // $proposals = Proposal::where('status', 'sent')
+        //     ->orderBy('created_at', 'desc')
+        //     ->take(6)
+        //     ->get();
+        return view('visitor.index', compact(
+            // 'proposals', 
+            'carousels', 
+            'settings', 
+            'totalProposals',
+            'inisiatif',
+            'ujicoba',
+            'implementasi'
+        ));
     }
 
     /**

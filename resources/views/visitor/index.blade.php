@@ -134,7 +134,7 @@
         <div class="owlslider owl-carousel mb-0 owl-loaded owl-drag owl-theme owl-carousel-init" id="slider">
             @foreach ($carousels as $carousel)
                 <div class="item">
-                    <img src="{{url('storage/carousels/'. $carousel->image)}}" class="d-block img-fluid rounded">
+                    <img src="{{url('storage/carousels/' . $carousel->image)}}" class="d-block img-fluid">
                 </div>
             @endforeach
         </div>
@@ -142,12 +142,48 @@
 </header>
 <!-- Portfolio Section-->
 
-<section class="page-section bg-inovation portfolio" id="content">
+<section class="page-section bg-inovation portfolio" id="inovasi-info">
     <div class="container">
-        <div class="row justify-content-center" id="content-container">
-            @include('visitor.partial.proposal-item', ['proposals' => $proposals])
+        <h4 class="page-section-heading text-center text-uppercase text-white">Data Inovasi Daerah</h4>
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-rocket fa-bounce"></i></div>
+            <div class="divider-custom-line"></div>
         </div>
-        <div class="text-center mt-2" id="show-prop">
+        <div class="row justify-content-center" id="content-container">
+            {{--@include('visitor.partial.proposal-item', ['proposals' => $proposals])--}}
+            <div class="col-lg-3 col-xl-3 col-md-12 col-sm-12 d-flex justify-content-center align-items-center pb-2">
+                <button class="btn btn-outline-light btn-lg btn-block text-uppercase fw-semibold fs-5 w-100 position-relative">Total Inovasi <br> 
+                    <span class="fs-1 fw-bold">{{$totalProposals}}</span> 
+                    <i class="fas fa-layer-group fa-xl bottom-0 end-0 p-1 position-absolute"></i>
+                </button>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-xl-4 col-md-12 col-sm-12 d-flex justify-content-center align-items-center p-2">
+                <button class="btn btn-outline-light btn-lg btn-block text-uppercase fw-semibold fs-5 w-100 position-relative">Inovasi inisiatif<br> 
+                    <span class="fs-1 fw-bold">{{$inisiatif}}</span> 
+                    <i class="fas fa-layer-group fa-xl position-absolute bottom-0 end-0 p-1"></i>
+                </button>
+            </div>
+            <div class="col-lg-4 col-xl-4 col-md-12 col-sm-12 d-flex justify-content-center align-items-center p-2">
+                <button class="btn btn-outline-light btn-lg btn-block text-uppercase fw-semibold fs-5 w-100 position-relative">Inovasi Ujicoba<br> 
+                    <span class="fs-1 fw-bold">{{$ujicoba}}</span> 
+                    <i class="fas fa-layer-group fa-xl position-absolute bottom-0 end-0 p-1"></i>
+                </button>
+            </div>
+            <div class="col-lg-4 col-xl-4 col-md-12 col-sm-12 d-flex justify-content-center align-items-center p-2">
+                <button class="btn btn-outline-light btn-lg btn-block text-uppercase fw-semibold fs-5 w-100 position-relative">Inovasi Ujicoba<br> 
+                    <span class="fs-1 fw-bold">{{$implementasi}}</span> 
+                    <i class="fas fa-layer-group fa-xl position-absolute bottom-0 end-0 p-1"></i>
+                </button>
+            </div>
+        </div>
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        {{--<div class="text-center mt-2" id="show-prop">
             <button id="buttonShow" class="btn btn-xl btn-secondary btn-outline-light" 
             hx-get="{{ url('inovasi/all') }}" 
             hx-trigger="click" 
@@ -156,15 +192,17 @@
             hx-indicator="#loadingIndicator"><i class="fa fa-rocket me-2"></i>
             Lihat semua
             </button>
-        </div>
+        </div>--}}
     </div>
 </section>
+
+@include('visitor.partial.winner')
 
 <!-- About Section-->
 <section class="page-section bg-primary text-white mb-0" id="about">
     <div class="container">
         @foreach ($settings as $s)        
-        <h2 class="page-section-heading text-center text-uppercase text-white">{{$s->nama_sistem}}</h2>
+        <h4 class="page-section-heading text-center text-uppercase text-white">{{$s->nama_sistem}}</h4>
         <div class="divider-custom divider-light">
             <div class="divider-custom-line"></div>
             <div class="divider-custom-icon"><i class="fas fa-mosque fa-fade"></i></div>
@@ -182,9 +220,9 @@
     </div>
 </section>
 <!-- Contact Section-->
-@include ('visitor.send-message-form')
-@include ('components.footer-visitor')
-@include ('visitor.modal-detail-inovasi')
+@include('visitor.send-message-form')
+@include('components.footer-visitor')
+@include('visitor.modal-detail-inovasi')
 <script>
     $('#slider').owlCarousel({
         items: 1,

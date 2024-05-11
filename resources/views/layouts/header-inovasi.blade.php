@@ -29,14 +29,14 @@
         @include('errors.noscript')
     </noscript>
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg bg-light text-uppercase fixed-top border-bottom" id="mainNav">
+    <nav class="navbar navbar-expand-lg bg-nav text-uppercase fixed-top border-bottom" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="#page-top">
                 <img width="200" src="{{asset('assets/logo.png')}}" alt="logo pemkab">
             </a>
             <a class="navbar-brand" href="#page-top">
                 @foreach ($settings as $s)
-                <img width="60" src="{{ url('storage/system', $s->logo_sistem) }}" alt="logo serasi"
+                <img width="57" src="{{ url('storage/system', $s->logo_sistem) }}" alt="logo serasi"
                     class="d-none d-md-inline-block">
                 @endforeach
             </a>
@@ -53,22 +53,24 @@
                             hx-indicator="#loadingIndicator">Home</a>
                     </li>
                     @if (request()->is('inovasi'))
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="#content">Inovasi</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3"
+                            href="#inovasi-info">Inovasi</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3"
+                            href="#winner">TIA</a></li>
                     @elseif (request()->is('evaluasi'))
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3"
                             href="#portfolio">Evaluasi</a></li>
                     @elseif (request()->is('risets'))
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3"
                             href="#portfolio">Riset</a></li>
                     @endif
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3"
                             href="#about">Tentang</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3"
                             href="#contact">Kontak</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-lg btn-outline-danger"
+                    <!-- <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-lg btn-outline-danger"
                             href="https://www.lapor.go.id/" target="_blank"><i class="fa fa-arrow-right fa-flip me-2"
-                                style="--fa-flip-x: 1; --fa-flip-y: 0;"></i>Lapor</a></li>
+                                style="--fa-flip-x: 1; --fa-flip-y: 0;"></i>Lapor</a></li> -->
                     @if (Auth::guest())
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded" hx-get="{{url('/login')}}" hx-trigger="click"

@@ -22,7 +22,7 @@
     <script src="js/js/scripts.js"></script>
     <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
-<body id="page-top" class="slide-on rotate-and-zoom-out" hx-ext="loading-states">
+<body id="page-top" class="slide-on rotate-and-zoom-out" style="background-image: url('../img/cover.gif');" hx-ext="loading-states">
     <noscript>
         @include('errors.noscript')
     </noscript>

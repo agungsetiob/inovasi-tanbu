@@ -1,7 +1,7 @@
-<section class="page-section bg-white" id="contact">
+<section class="page-section bg-contact" id="contact">
     <div class="container">
         <!-- Contact Section Heading-->
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Kirim Pesan</h2>
+        <h4 class="page-section-heading text-center text-uppercase text-secondary mb-0">Kirim Pesan</h4>
         <!-- Icon Divider-->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
@@ -13,17 +13,17 @@
             <div class="col-lg-8 col-xl-7">
                 <form  id="contactForm" method="POST">
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="name" id="name" type="text" placeholder="Masukkan nama anda" data-sb-validations="required" autocomplete="on"/>
+                        <input class="form-control" name="name" id="name" type="text" placeholder="Masukkan nama anda" data-sb-validations="required" autocomplete="on" style="background-color: rgb(228, 231, 233);"/>
                         <label for="name">Nama Lengkap</label>
                         <div class="text-danger mt-2 d-none" role="alert" id="alert-name"></div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="email" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" autocomplete="on"/>
+                        <input class="form-control" name="email" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" autocomplete="on" style="background-color: rgb(228, 231, 233);"/>
                         <label for="email">Email</label>
                         <div class="text-danger mt-2 d-none" role="alert" id="alert-email"></div>
                     </div>
                     <div class="form-floating mb-3">
-                        <textarea class="form-control" name="message" id="message" type="text" placeholder="Masukkan pesan anda" style="height: 10rem" data-sb-validations="required"></textarea>
+                        <textarea class="form-control" name="message" id="message" type="text" placeholder="Masukkan pesan anda" style="height: 10rem; background-color: rgb(228, 231, 233);" data-sb-validations="required"></textarea>
                         <label for="message">Pesan</label>
                         <div class="text-danger mt-2 d-none" role="alert" id="alert-message"></div>
                     </div>

@@ -38,9 +38,12 @@ class Proposal extends Model
     public function indikators(){
         return $this->belongsToMany(Indikator::class);
     }
-
     public function notes(){
         return $this->hasMany(Note::class);
+    }
+    public function winner()
+    {
+        return $this->hasOne(Winner::class);
     }
     protected $guarded = [];
     protected $casts = [

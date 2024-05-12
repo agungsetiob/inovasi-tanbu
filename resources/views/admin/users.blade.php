@@ -8,7 +8,7 @@
                     <h1 class="h3 mb-0 text-dark">Users</h1>
                     <a href="{{route('register')}}" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Add User</a>
                 </div>
-                <!-- DataTales Example -->
+                <!-- DataTales -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">List of Users</h6>
@@ -47,19 +47,6 @@
                     </div>
                 </div>
             </div>
-<!-- /.container-fluid -->
-        
-
-{{--<script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-<script src="{{asset('js/sb-admin-2.min.js')}}"></script>
-<script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
-<script src="{{asset('vendor/selectize/selectize.min.js')}}"></script>
-<script src="{{asset('vendor/stepper/stepper.min.js')}}"></script>
-<script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
-<script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
-<script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>--}}
 <x-logout/>
 <script type="text/javascript">
     var dataTable = $('#userTable').DataTable({

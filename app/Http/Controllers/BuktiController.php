@@ -20,7 +20,6 @@ class BuktiController extends Controller
             $indikators = Indikator::where('status', 'active')->orderBy('jenis')->get();
             if ($request->header('HX-Request')) {
                 return view ('admin.bukti', compact('indikators', 'backgrounds'))->fragment('bukti');
-                //return view ('admin.bukti', compact('indikators', 'backgrounds'));
             }
             return view ('admin.bukti', compact('indikators', 'backgrounds'));
         } else {

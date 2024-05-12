@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="content">
-        <img src="{{ url('assets/cukrukuk.svg') }}" title="error" width="550px" />
+        <img src="{{ url('assets/cukrukuk.svg') }}" title="mohon maaf suhu, tolong jangan ya" width="550px" alt="mohon maaf suhu, tolong jangan ya"/>
         <p>Jangan puh sepuh</p>
     </div>
 </body>

@@ -51,6 +51,13 @@
                 hx-swap="outerHTML transition:true"
                 hx-push-url="true"
                 hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-warehouse"></i> Semua Inovasi</a>
+                <a class="collapse-item" href="{{ url('winners') }}"
+                hx-get="{{ url('winners') }}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML transition:true"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator"><i class="fas fa-fw fa-trophy"></i> Pemenang</a>
             </div>
         </div>
     </li>

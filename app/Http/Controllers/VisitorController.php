@@ -6,7 +6,9 @@ use App\Models\Carousel;
 use App\Models\Proposal;
 use App\Models\Setting;
 use App\Models\Riset;
+use App\Models\Winner;
 use Carbon\Carbon;
+use DB;
 class VisitorController extends Controller
 {
     /**
@@ -30,6 +32,12 @@ class VisitorController extends Controller
         $inisiatif = Proposal::where('tahapan_id', 1)->count();
         $ujicoba = Proposal::where('tahapan_id', 2)->count();
         $implementasi = Proposal::where('tahapan_id', 3)->count();
+        $years = DB::table('winners')
+        ->distinct()
+        ->get(['tahun']);
+        $winners = Winner::select('tahun', 'kategori', 'pengusul', 'proposal_id')
+        ->groupBy('tahun', 'kategori', 'pengusul', 'proposal_id')
+        ->get();
         // $proposals = Proposal::where('status', 'sent')
         //     ->orderBy('created_at', 'desc')
         //     ->take(6)
@@ -42,7 +50,9 @@ class VisitorController extends Controller
             'inisiatif',
             'ujicoba',
             'implementasi',
-            'currentYearProposals'
+            'currentYearProposals',
+            'years',
+            'winners'
         ));
     }
 

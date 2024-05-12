@@ -17,7 +17,8 @@ use App\Http\Controllers\{
     SettingController,
     BackgroundController,
     NotesController,
-    RisetController
+    RisetController,
+    WinnerController
 };
 use App\Http\Controllers\BentukController;
 use App\Http\Controllers\InisiatorController;
@@ -139,6 +140,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('pengajuan-riset', [RisetController::class, 'loadRiset']);
     Route::get('print/riset/{id}', [RisetController::class, 'risetReport']);
     Route::put('riset/url/{id}', [RisetController::class, 'updateUrl']);
+
+    Route::get('winners', [WinnerController::class, 'index']);
+    Route::get('api/winner', [WinnerController::class, 'loadWinner']);
+    Route::post('winner/store', [WinnerController::class, 'store']);
 });
 
 require __DIR__.'/auth.php';

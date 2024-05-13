@@ -60,7 +60,7 @@
                             href="#portfolio">Evaluasi</a></li>
                     @elseif (request()->is('risets'))
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="#portfolio">Riset</a></li>
+                            href="#riset-list">Riset</a></li>
                     @endif
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                             href="#about">Tentang</a></li>

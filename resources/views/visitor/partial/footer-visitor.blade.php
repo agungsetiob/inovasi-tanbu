@@ -28,7 +28,11 @@
             </div>
         </div>
     </div>--}}
+    @if (request()->is('inovasi'))
     <img alt="logo-1" class="footer_logo" src="{{asset('assets/tias.png')}}">
+    @else
+    <img alt="logo-2" class="footer_logo" src="{{asset('assets/img/avenga.png')}}">
+    @endif
     <img src="{{asset('assets/bottom_img2.png')}}" class="d-block img-fluid mx-auto" alt="footer-img">
 </footer>
 <div class="copyright py-4 text-center text-white">

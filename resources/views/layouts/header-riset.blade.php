@@ -29,7 +29,7 @@
         @include('errors.noscript')
     </noscript>
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg bg-light text-uppercase fixed-top border-bottom" id="mainNav">
+    <nav class="navbar navbar-expand-lg bg-nav text-uppercase fixed-top border-bottom" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="#page-top">
                 <img width="200" src="{{asset('assets/logo.png')}}" alt="logo pemkab">

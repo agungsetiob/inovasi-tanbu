@@ -132,8 +132,8 @@
     </div>
 </section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-@include ('visitor.send-message-form')
-@include ('components.footer-visitor')
+@include('visitor.partial.send-message-form')
+@include('visitor.partial.footer-visitor')
 <script src="js/js/bootstrap.bundle.min.js"></script> 
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/js/scripts.js"></script>

@@ -143,8 +143,8 @@
 @include('visitor.partial.data-inovasi')
 @include('visitor.partial.winner')
 @include('visitor.partial.about')
-@include('visitor.send-message-form')
-@include('components.footer-visitor')
+@include('visitor.partial.send-message-form')
+@include('visitor.partial.footer-visitor')
 <script>
     $('#slider').owlCarousel({
         items: 1,

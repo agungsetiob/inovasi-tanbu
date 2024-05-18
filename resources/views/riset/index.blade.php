@@ -7,10 +7,11 @@
             </div>
             <ul class="list-group mb-4">
                 @forelse($risets as $riset)
-                    <li class="list-group-item bg-gradient-light">
-                        <h4><a class="text-warning" href="{{$riset->url}}" target="_blank">{!!$riset->judul!!}</a></h4>
+                    <li class="list-group-item bg-light">
+                        <h4><a href="{{$riset->url}}" target="_blank">{!!$riset->judul!!}</a></h4>
                         <p>{!!$riset->peneliti!!}</p>
-                        <p class="float-right">{{$riset->created_at}}</p>
+                        <p class="float-right">Tahun kajian: {{$riset->tahun}}</p>
+                        <p>{{$riset->created_at}}</p>
                     </li>
                 @empty
                     <li class="list-group-item text-center">

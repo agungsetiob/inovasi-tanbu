@@ -40,7 +40,7 @@
                     class="d-none d-md-inline-block">
                 @endforeach
             </a>
-            <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button"
+            <button class="navbar-toggler text-uppercase font-weight-bold text-white rounded" type="button"
                 data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
@@ -78,11 +78,11 @@
                     @elseif (auth()->user()->role === 'admin')
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="{{ route('admin.index') }}">{{Auth::user()->username}}</a>
+                            href="{{ route('riset.index') }}">{{Auth::user()->username}}</a>
                     </li>
                     @elseif (auth()->user()->role === 'user')
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="{{ route('user.index') }}">{{Auth::user()->username}}</a></li>
+                            href="{{ route('riset.index') }}">{{Auth::user()->username}}</a></li>
                     @endif
                 </ul>
             </div>

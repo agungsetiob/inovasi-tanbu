@@ -45,9 +45,12 @@
                 $background->background)}}'); background-position: center; background-repeat: no-repeat; background-size:
                 cover;" @endforeach>
                 <nav class="navbar navbar-expand navbar-light bg-gradient-primary topbar mb-4 shadow">
-                    <button title="bars" id="sidebarToggleTop" class="btn btn-link rounded mr-3">
+                    <button title="bars" id="sidebarToggleTop" class="btn btn-link rounded">
                         <i class="fa fa-bars text-dark"></i>
                     </button>
+                    <a class="btn btn-outline-light" href="{{ url('/') }}"><i class="fa fa-home text-success"></i>
+                        Home
+                    </a>
                     <ul class="navbar-nav ml-auto">
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <!-- Nav Item - User Information -->

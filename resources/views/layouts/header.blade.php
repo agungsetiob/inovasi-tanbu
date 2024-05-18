@@ -9,7 +9,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="htmx-config" content='{"refreshOnHistoryMiss":"true"}' />
     <title>{{ config('app.title') }}</title>
-
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
           integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
@@ -46,9 +45,12 @@
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content" @foreach ($backgrounds as $background) style="background: url('{{url("storage/backgrounds/" . $background->background)}}'); background-position: center; background-repeat: no-repeat; background-size: cover;" @endforeach>
                 <nav class="navbar navbar-expand navbar-light bg-gradient-primary topbar mb-4 shadow">
-                    <button title="bars" id="sidebarToggleTop" class="btn btn-link rounded mr-3">
+                    <button title="bars" id="sidebarToggleTop" class="btn btn-link rounded">
                         <i class="fa fa-bars text-dark"></i>
                     </button>
+                    <a class="btn btn-outline-light" href="{{ url('/') }}"><i class="fa fa-home text-success"></i>
+                        Home
+                    </a>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item no-arrow">
                             <a class="nav-link text-warning" href="{{ url('assets/manual-book-serasi.pdf') }}" target="_blank">

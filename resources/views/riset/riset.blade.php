@@ -118,7 +118,7 @@
                                     if (row.user_id == {{ auth()->user()->id }}) {
                                         buttonsHtml += '<button id="hapus-' + data + '" class="delete-button btn btn-outline-danger btn-sm mr-1 mt-1" title="Hapus" data-toggle="modal" data-target="#deleteModal" data-riset-id="' + data + '" data-riset-judul="' + row.judul + '"><i class="fas fa-trash"></i></button>';
                                         buttonsHtml += '<a id="edit-' + data + '" hx-get="{{ url("riset")}}/'+ data +'/edit" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-info btn-sm mr-1 mt-1" title="Edit"><i class="fas fa-pencil-alt" alt="edit"></i></a>';
-                                        if (row.user_id !== 1) {
+                                        if (row.user_id != 1) {
                                             buttonsHtml += '<button class="btn ' + (row.status === 'pending' ? 'btn-warning' : row.status === 'approved' ? 'btn-success' : 'btn-danger') + ' btn-sm mr-1 mt-1" title="status">'+ row.status +'</button>';
                                         }
                                     }

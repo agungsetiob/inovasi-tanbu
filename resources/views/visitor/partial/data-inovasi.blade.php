@@ -29,7 +29,7 @@
                 </button>
             </div>
             <div class="col-lg-4 col-xl-4 col-md-12 col-sm-12 d-flex justify-content-center align-items-center p-2">
-                <button class="btn btn-outline-light btn-lg btn-block text-uppercase fw-semibold fs-5 w-100 position-relative">Inovasi Ujicoba<br> 
+                <button class="btn btn-outline-light btn-lg btn-block text-uppercase fw-semibold fs-5 w-100 position-relative">Inovasi Implementasi<br> 
                     <span class="fs-1 fw-bold">{{$implementasi}}</span> 
                     <i class="fas fa-layer-group fa-xl position-absolute bottom-0 end-0 p-1"></i>
                 </button>
@@ -40,9 +40,15 @@
             <div class="divider-custom-line"></div>
         </div>
         <div class="row justify-content-center" id="content-container">
-            <div class="col-lg-3 col-xl-3 col-md-12 col-sm-12 d-flex justify-content-center align-items-center pb-2">
-                <button class="btn btn-outline-light btn-lg btn-block text-uppercase fw-semibold fs-5 w-100 position-relative">Total Inovasi {{ now()->year }} <br> 
-                    <span class="fs-1 fw-bold">{{$currentYearProposals}}</span> 
+            <div class="col-lg-5 col-xl-5 col-md-12 col-sm-12 d-flex justify-content-center align-items-center pb-2">
+                <button class="btn btn-outline-light btn-lg btn-block text-uppercase fw-semibold fs-5 w-100 position-relative">Inovasi Masyarakat dan Sekolah<br> 
+                    <span class="fs-1 fw-bold">{{$masyarakatProposals}}</span> 
+                    <i class="fas fa-layer-group fa-xl bottom-0 end-0 p-1 position-absolute"></i>
+                </button>
+            </div>
+            <div class="col-lg-5 col-xl-5 col-md-12 col-sm-12 d-flex justify-content-center align-items-center pb-2">
+                <button class="btn btn-outline-light btn-lg btn-block text-uppercase fw-semibold fs-5 w-100 position-relative">Inovasi SKPD <br> 
+                    <span class="fs-1 fw-bold">{{$skpdProposals}}</span> 
                     <i class="fas fa-layer-group fa-xl bottom-0 end-0 p-1 position-absolute"></i>
                 </button>
             </div>

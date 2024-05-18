@@ -16,6 +16,10 @@
                         <input type="text" class="form-control" name="url" id="url" placeholder="url publikasi">
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-url"></div>
                     </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="universitas" id="universitas" placeholder="Masukkan nama universitas">
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-universitas"></div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -40,6 +44,7 @@ $(document).ready(function() {
         $button.html('<i class="fas fa-spinner fa-spin"></i> Saving...').prop('disabled', true);
 
         let url   = $("#url").val();
+        let universitas   = $("#universitas").val();
         let token   = $("meta[name='csrf-token']").attr("content");
         
         $.ajax({
@@ -49,11 +54,13 @@ $(document).ready(function() {
             cache: false,
             data: {
                 "url": url,
+                "universitas": universitas,
                 "_token": token,
             },
             success:function(response){
                 if (response.success){
                     $('#alert-url').addClass('d-none').removeClass('d-block');
+                    $('#alert-universitas').addClass('d-none').removeClass('d-block');
                     $('#success-alert').removeClass('d-none').addClass('show');
                     $('#success-message').text(response.message);
                     $('#error-alert').addClass('d-none');
@@ -70,9 +77,11 @@ $(document).ready(function() {
             error:function(error){
 
                 if(error.status == 422) {
-                    $('#alert-url').removeClass('d-none');
-                    $('#alert-url').addClass('d-block');
-                    $('#alert-url').html(error.responseJSON.errors.url[0]);
+                    $.each(error.responseJSON.errors, function (field, errors) {
+                        let alertId = 'alert-' + field;
+                        $('#' + alertId).html(errors[0]).removeClass('d-none').addClass('d-block');
+                        $('#' + field).html(errors[0]).addClass('is-invalid');
+                    });
                 } else {
                     $('#error-message').text(error.status + ' ' + error.responseJSON.message);
                     $('#error-alert').removeClass('d-none').addClass('show');

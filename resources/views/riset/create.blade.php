@@ -210,6 +210,28 @@
                                     </div>
                                     {{-- part 5 --}}
                                     <div id="test-l-5" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger5">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold" for="tahun">Tahun:</label>
+                                                    <select name="tahun" id="tahun" class="form-control" required>
+                                                        <option value="" selected>--pilih tahun--</option>
+                                                        @php
+                                                            $currentYear = date('Y');
+                                                        @endphp
+                                                        <option value="{{ $currentYear }}">{{ $currentYear }}</option>
+                                                        <option value="{{ $currentYear - 1 }}">{{ $currentYear - 1 }}</option>
+                                                        <option value="{{ $currentYear - 2 }}">{{ $currentYear - 2 }}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold" for="universitas">Universitas:</label>
+                                                    <input type="text" id="universitas" class="form-control" name="universitas" placeholder="Masukkan nama universitas">
+                                                </div>
+                                            </div>
+                                        </div>
                                         <h4>Metodologi</h4>
                                         <div class="form-group">
                                             <label class="font-weight-bold" for="jenis_sumber_data">A. Jenis Sumber Data:</label>
@@ -220,7 +242,6 @@
                                             </div>
                                             @enderror
                                         </div>
-
                                         <div class="form-group">
                                             <label class="font-weight-bold" for="teknik">B. Teknik Pengumpulan Data:</label>
                                             <textarea id="teknik" class="editor form-control @error('teknik') is-invalid @enderror" name="teknik">{{ old('teknik') }}</textarea>

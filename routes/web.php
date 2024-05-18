@@ -140,6 +140,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('pengajuan-riset', [RisetController::class, 'loadRiset']);
     Route::get('print/riset/{id}', [RisetController::class, 'risetReport']);
     Route::put('riset/url/{id}', [RisetController::class, 'updateUrl']);
+    Route::put('/riset/update-status/{id}', [RisetController::class, 'updateStatus'])->name('riset.updateStatus');
 
     Route::get('winners', [WinnerController::class, 'index']);
     Route::get('api/winner', [WinnerController::class, 'loadWinner']);

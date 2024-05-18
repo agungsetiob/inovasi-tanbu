@@ -2550,7 +2550,7 @@ textarea.form-control-lg {
 }
 .form-floating > .form-control,
 .form-floating > .form-control-plaintext {
-  padding: 1.5rem 0;
+  padding: 0.5rem 0;
 }
 .form-floating > .form-control::-moz-placeholder, .form-floating > .form-control-plaintext::-moz-placeholder {
   color: transparent;
@@ -11102,7 +11102,7 @@ html {
 }
 .form-floating input.form-control,
 .form-floating textarea.form-control {
-  font-size: 1.5rem;
+  font-size: 1rem;
   border-left: 0;
   border-right: 0;
   border-top: 0;
@@ -11114,7 +11114,7 @@ html {
   box-shadow: none;
 }
 .form-floating label {
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #6c757d;
 }
 

@@ -45,10 +45,10 @@
                                 <thead>
                                     <tr>
                                         <th width="5%">#</th>
-                                        <th width="50%">Judul Kajian</th>
+                                        <th width="45%">Judul Kajian</th>
                                         <th width="20%">SKPD</th>
                                         <th width="5%">Tahun</th>
-                                        <th width="20%"></th>
+                                        <th width="25%"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -92,28 +92,35 @@
                             },
                             { data: 'judul'},
                             { data: 'skpd.nama'},
-                            { 
-                                data: 'created_at',
-                                className: 'text-center',
-                                render: function (data, type, full, meta) {
-                                    if (type === 'display') {
-                                        return new Date(data).getFullYear();
-                                    }
-                                    return data;
-                                }
-                            },
+                            { data: 'tahun', className: 'text-center' },
                             { 
                                 data: 'id',
                                 render: function (data, type, row) {
                                     var urlButtonColor = row.url ? 'btn-outline-primary' : 'btn-outline-warning';
+                                    var statusOptions = ['pending', 'approved', 'rejected'];
                                     var buttonsHtml = '<div class="text-center">';
                                     @if (auth()->user()->role == 'admin')
                                         buttonsHtml += '<button id="url-' + data + '" class="url-button btn ' + urlButtonColor + ' btn-sm mr-1 mt-1" title="url" data-toggle="modal" data-target="#addUrl" data-riset-id="' + data + '" data-riset-judul="' + row.judul + '"><i class="fas fa-link"></i></button>';
+                                        buttonsHtml += '<div class="btn-group mr-1 mt-1">';
+                                        buttonsHtml += '<button type="button" class="btn btn-sm ' + (row.status === 'pending' ? 'btn-warning' : row.status === 'approved' ? 'btn-success' : 'btn-danger') + ' dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+                                        buttonsHtml += row.status.charAt(0).toUpperCase() + row.status.slice(1);
+                                        buttonsHtml += '</button>';
+                                        buttonsHtml += '<div class="dropdown-menu">';
+                                        statusOptions.forEach(function(status) {
+                                            if (status !== row.status) {
+                                                buttonsHtml += '<a class="dropdown-item change-status" href="#" data-id="' + data + '" data-status="' + status + '">' + status.charAt(0).toUpperCase() + status.slice(1) + '</a>';
+                                            }
+                                        });
+                                        buttonsHtml += '</div>';
+                                        buttonsHtml += '</div>';
                                     @endif
                                     buttonsHtml += '<a href="{{url("print/riset")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
                                     if (row.user_id == {{ auth()->user()->id }}) {
                                         buttonsHtml += '<button id="hapus-' + data + '" class="delete-button btn btn-outline-danger btn-sm mr-1 mt-1" title="Hapus" data-toggle="modal" data-target="#deleteModal" data-riset-id="' + data + '" data-riset-judul="' + row.judul + '"><i class="fas fa-trash"></i></button>';
-                                        buttonsHtml += '<a id="edit-' + data + '" hx-get="{{ url("riset")}}/'+ data +'/edit" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-success btn-sm mr-1 mt-1" title="Edit"><i class="fas fa-pencil-alt" alt="edit"></i></a>';
+                                        buttonsHtml += '<a id="edit-' + data + '" hx-get="{{ url("riset")}}/'+ data +'/edit" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-info btn-sm mr-1 mt-1" title="Edit"><i class="fas fa-pencil-alt" alt="edit"></i></a>';
+                                        if (row.user_id !== 1) {
+                                            buttonsHtml += '<button class="btn ' + (row.status === 'pending' ? 'btn-warning' : row.status === 'approved' ? 'btn-success' : 'btn-danger') + ' btn-sm mr-1 mt-1" title="status">'+ row.status +'</button>';
+                                        }
                                     }
                                     buttonsHtml += '</div>';
                                     return buttonsHtml;
@@ -134,7 +141,45 @@
         document.body.addEventListener("reloadTable", function(evt){
             dataTable.ajax.reload(function() {
                 htmx.process('#tabel-riset');
-            }, false)
+            }, false);
+        });
+
+        // Event listener for status change
+        $(document).on('click', '.change-status', function (e) {
+            e.preventDefault();
+            var link = $(this);
+            var id = link.data('id');
+            var status = link.data('status');
+            var buttonGroup = link.closest('.btn-group');
+            var dropdownButton = buttonGroup.find('.dropdown-toggle');
+
+            // Show loading animation
+            dropdownButton.html('<i class="fas fa-spinner fa-spin"></i> Processing...');
+            dropdownButton.prop('disabled', true);
+
+            $.ajax({
+                url: '/riset/update-status/' + id,
+                type: 'PUT',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    status: status
+                },
+                success: function (response) {
+                    // Update button text and class based on new status
+                    var newClass = status === 'approved' ? 'btn-success' : status === 'rejected' ? 'btn-danger' : 'btn-warning';
+                    dropdownButton.removeClass('btn-warning btn-success btn-danger').addClass(newClass);
+                    dropdownButton.text(status.charAt(0).toUpperCase() + status.slice(1));
+                },
+                error: function (error) {
+                    console.error('Error updating status:', error);
+                    // Show error message and re-enable button
+                    dropdownButton.html('<i class="fas fa-times"></i> Error');
+                },
+                complete: function () {
+                    // Re-enable button after request completes
+                    dropdownButton.prop('disabled', false);
+                }
+            });
         });
     </script>
     @include('components.modal-delete-pengajuan-riset')

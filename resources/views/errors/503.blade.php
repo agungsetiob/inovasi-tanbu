@@ -12,15 +12,15 @@
       href="{{url ('storage/logors.png')}}"
       type="image/x-icon"
     />
-    <title>503 - Service Unavailable</title>
+    <title>503 - Service Unavailable - Under Maintainance</title>
     <link href="{{ asset('css/error.css') }}" rel="stylesheet" type="text/css"  media="all" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Bangers">
 </head>
 <body class="error-page">
     <div class="content">
         <img src="{{ url('storage/hulk-404.gif') }}" title="error" />
-        <p><span></span>Service Unavailable</p>
-        <a id="hulk-button" href="{{ url('/') }}">Back To Home</a>
+        <p><span></span>Under Maintainance</p>
+        {{--<a id="hulk-button" href="{{ url('/') }}">Back To Home</a>--}}
     </div>
 </body>
 </html>

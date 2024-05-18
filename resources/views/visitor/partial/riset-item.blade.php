@@ -1,12 +1,13 @@
 <div class="list-group">
     @forelse ($risets as $riset)
-        <div class="list-group-item list-group-item-action">
+        <a href="{{$riset->url}}" target="_blank" class="list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1"><a href="{{$riset->url}}" target="_blank">{!!$riset->judul!!}</a></h5>
+                <h5 class="mb-1 text-primary">{!!$riset->judul!!}</h5>
             </div>
             <p class="mb-1">{!! $riset->peneliti !!}</p>
+            <p class="mb-1 text-end">Tahun Kajian: {{ $riset->tahun }}</p>
             <small>{{ $riset->updated_at }}</small>
-        </div>
+        </a>
     @empty
         <div class="alert alert-danger text-center">
             No data available.

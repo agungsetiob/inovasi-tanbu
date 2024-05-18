@@ -55,6 +55,7 @@ class RisetController extends Controller
             'peneliti' => 'required',
             'tahapan' => 'required',
             'jangka' => 'required',
+            'tahun' => 'required',
         ];
 
         // Validate the request data
@@ -83,6 +84,9 @@ class RisetController extends Controller
             'teknik' => $request->teknik,
             'skpd_id' => auth()->user()->skpd_id,
             'user_id' => auth()->user()->id,
+            'tahun' => $request->tahun,
+            'status' => 'pending',
+            'universitas' => $request->universitas,
         ]);
 
         // Save the Riset instance to the database
@@ -224,6 +228,7 @@ class RisetController extends Controller
     {
         $request->validate([
             'url' => 'required|url',
+            'universitas' => 'required'
         ]);
 
         try {
@@ -231,6 +236,7 @@ class RisetController extends Controller
                 $riset = Riset::findOrFail($id);
                 $riset->update([
                     'url' => $request->input('url'),
+                    'universitas' => $request->input('universitas'),
                 ]);
             } else {
                 return response()->json(['error' => 'omaigad'], 500);
@@ -238,12 +244,29 @@ class RisetController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'URL updated successfully'], 200);
+                'message' => 'data published'], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'success'=>false,
                 'error' => $e->getMessage()], 500);
         }
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        // Validate the request
+        $request->validate([
+            'status' => 'required|string|in:pending,approved,rejected',
+        ]);
+
+        // Find the riset record by ID
+        $riset = Riset::findOrFail($id);
+
+        // Update the status
+        $riset->status = $request->input('status');
+        $riset->save();
+
+        return response()->json(['message' => 'Status updated successfully.']);
     }
 
 }

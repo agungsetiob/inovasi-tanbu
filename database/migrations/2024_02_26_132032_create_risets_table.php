@@ -30,6 +30,9 @@ return new class extends Migration
             $table->text('analisa')->nullable();
             $table->text('teknik')->nullable();
             $table->string('url')->nullable();
+            $table->string('tahun')->nullable(); // Added tahun column
+            $table->string('universitas')->nullable(); //added uni coplumn
+            $table->string('status');
             $table->foreignId('skpd_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->timestamps();

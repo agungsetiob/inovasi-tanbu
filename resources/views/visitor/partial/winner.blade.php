@@ -21,7 +21,7 @@
                     @foreach ($winners as $index => $w )
                         <div class="tab-pane fade {{$index === 0 ? 'active' : ''}} show p-2" id="content-{{$w->tahun}}" role="tabpanel" aria-labelledby="tab-{{$w->tahun}}">
                             <div class="row">
-                                <div class="col-4" role="tablist">
+                                <div class="col-lg-4 col-xl-4 col-md-4 col-sm-8" role="tablist">
                                     <div class="col-12">
                                         <button class="btn btn-secondary active btn-md btn-block text-uppercase mb-2 w-100" id="skpd-winner{{$w->tahun}}" data-bs-toggle="pill" data-bs-target="#winner-skpd-{{$w->tahun}}"
                                             type="button" role="tab" aria-controls="winner-skpd-{{$w->tahun}}" aria-selected="true">Kategori SKPD</button>
@@ -31,7 +31,7 @@
                                             type="button" role="tab" aria-controls="winner-nonskpd-{{$w->tahun}}" aria-selected="false">Kategori non SKPD</button>
                                     </div>
                                 </div>
-                                <div class="col-8">
+                                <div class="col-lg-8 col-xl-8 col-md-8 col-sm-8">
                                     <div class="tab-content">
                                         <div class="tab-pane fade active show" id="winner-skpd-{{$w->tahun}}" role="tabpanel" aria-labelledby="skpd-winner{{$w->tahun}}">
                                             <h5 class="fw-bold">Daftar Pemenang TIA Kategori SKPD {{$w->tahun}}</h5>

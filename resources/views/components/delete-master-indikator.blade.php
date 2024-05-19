@@ -11,7 +11,7 @@ aria-hidden="true">
         <div class="modal-body">Indikator inovasi <span id="indikator-name" style="color: #0061f2;"></span> akan dihapus. <br>Tekan tombol hapus apabila anda sudah yakin.</div>
         <div class="modal-footer">
             <button class="btn btn-outline-secondary" type="button" data-dismiss="modal"><i class="fa-solid fa-ban"></i> Cancel</button>
-            <button id="delete-indikator" class="btn btn-outline-danger" title="kirim"><i class="fa-solid fa-trash"></i> Hapus</button>
+            <button id="delete-indikator" class="btn btn-outline-danger" title="hapus"><i class="fa-solid fa-trash"></i> Hapus</button>
         </div>
     </div>
 </div>
@@ -29,7 +29,7 @@ aria-hidden="true">
 
         $("#delete-indikator").click(function() {
             $.ajax({
-                url: '/master/indikator/' + indikatorId, // Correct the URL path
+                url: '/master/indikator/' + indikatorId,
                 type: 'DELETE',
                 headers: { 'X-CSRF-TOKEN': "{{ csrf_token() }}" }, // Use headers to send CSRF token
                 success: function(response) {

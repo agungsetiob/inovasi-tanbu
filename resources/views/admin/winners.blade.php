@@ -17,9 +17,10 @@
                                 <thead>
                                     <tr>
                                         <th width="5%"></th>
-                                        <th width="40%">Pengusul</th>
+                                        <th width="35%">Pengusul</th>
                                         <th width="40%">Inovasi</th>
                                         <th width="10%">Kategori</th>
+                                        <th width="5%">Tahun</th>
                                         <th width="5%"></th>
                                     </tr>
                                 </thead>
@@ -36,7 +37,7 @@
 <script type="text/javascript">
     var dataTable = $('#winnerTable').DataTable({
         ajax: {
-            url: '/api/winner',
+            url: '/api/winners',
             dataSrc: 'data'
         },
         columns: [
@@ -55,36 +56,77 @@
                 data: 'kategori' 
             },
             { 
+                data: 'tahun' 
+            },
+            { 
                 render: function (data, type, row) {
                     return `
-                        <button type="button" class="btn btn-outline-success btn-sm edit-button" title="edit" 
-                            data-toggle="modal" 
-                            data-target="#updateModal" 
-                            data-winner-id="${row.id}"
-                            data-proposal-id="${row.proposal.id}"
-                            data-bukti-pengusul="${row.pengusul}">
-                            <i class="fas fa-pencil-alt"></i>
-                        </button>
+                        <form method="POST" action="/winners/${row.id}" class="delete-form">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-outline-danger btn-sm delete-button" title="delete" 
+                                data-winner-id="${row.id}"
+                                data-proposal-id="${row.proposal.id}"
+                                data-bukti-pengusul="${row.pengusul}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
                     `;
                 }
             },
         ],
-        "initComplete": function( settings, json ) {
+        "initComplete": function(settings, json) {
             htmx.process('#winnerTable');
         },
-        rowId: function (row) {
-             return row.id;
+        rowId: function(row) {
+            return row.id;
         },
     });
 
     document.body.addEventListener("reloadWinner", function(evt){
         dataTable.ajax.reload(function() {
             htmx.process('#winnerTable');
-        }, false)
+        }, false);
+    });
+
+    // Attach the event listener using event delegation
+    document.addEventListener('submit', function(event) {
+        if (event.target.matches('.delete-form')) {
+            event.preventDefault();
+
+            const form = event.target;
+            const button = form.querySelector('button');
+            button.disabled = true;
+            button.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+
+            const formData = new FormData(form);
+            const action = form.getAttribute('action');
+            const method = form.getAttribute('method');
+
+            fetch(action, {
+                method: method,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const rowId = `#${form.closest('tr').id}`;
+                    dataTable.row(rowId).remove().draw(false); // Remove row from DataTable
+                } else {
+                    alert('Failed to delete the winner');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while deleting the winner');
+            });
+        }
     });
 </script>
+
 @include('components.winner-modal.modal-add-winner')
-{{--@include ('components.edit-bukti')
-@include ('components.modal-delete-bukti')--}}
 @endfragment
 @endsection

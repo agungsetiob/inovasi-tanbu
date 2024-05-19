@@ -25,6 +25,7 @@
 <script type="text/javascript">
     $('#store').click(function(e) {
         e.preventDefault();
+        $('#store').prop('disabled', true).html('<i class="fas fa-circle-notch fa-spin"></i> Saving...');
 
         //define variable
         let nama   = $("#nama").val();
@@ -41,6 +42,7 @@
             },
             success:function(response){
                 //data skpd
+                $('#store').prop('disabled', false).html('Save');
                 $('#success-modal').modal('show');
                 $('#success-message').html(response.message + '<p class="text-success">' + response.data.nama + '</p>');
                 var newData = {
@@ -129,6 +131,7 @@
                         let alertId = 'alert-' + field;
                         $('#' + alertId).html(errors[0]).removeClass('d-none').addClass('d-block');
                         $('#' + field).addClass('is-invalid');
+                        $('#store').prop('disabled', false).html('Save');
                     });
                 } else {
                     $('#addCategory').modal('hide');

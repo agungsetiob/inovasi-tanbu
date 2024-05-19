@@ -49,7 +49,7 @@ class WinnerController extends Controller
     {
         $this->validate($request, [
             'pengusul'     => 'required|min:10',
-            'proposal'     => 'required|exists:proposals,id',
+            'proposal'     => 'required|exists:proposals,id|unique:winners,proposal_id',
             'kategori'   => 'required',
         ]);
 
@@ -68,23 +68,6 @@ class WinnerController extends Controller
         ]);
     }
 
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Winner $winner)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Winner $winner)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
@@ -96,8 +79,11 @@ class WinnerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Winner $winner)
+    public function destroy($id)
     {
-        //
+        $winner = Winner::findOrFail($id);
+        $winner->delete();
+
+        return response()->json(['success' => 'Winner deleted successfully']);
     }
 }

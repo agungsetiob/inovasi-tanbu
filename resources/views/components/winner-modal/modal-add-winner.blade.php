@@ -56,7 +56,7 @@
         var formData = new FormData(this);
 
         $.ajax({
-            url: '/winner/store',
+            url: '/winners/store',
             type: "POST",
             cache: false,
             contentType: false,
@@ -87,23 +87,26 @@
                     id: response.data.id,
                     pengusul: response.data.pengusul,
                     proposal: response.proposal,
-                    kategori:response.data.kategori,
+                    kategori: response.data.kategori,
+                    tahun: response.data.tahun,
                     buttons: `
-                        <button type="button" class="btn btn-outline-success btn-sm edit-button" title="edit" 
-                            data-toggle="modal" 
-                            data-target="#updateModal" 
-                            data-winner-id="${response.data.id}"
-                            data-proposal-id="${response.data.proposal.id}"
-                            data-bukti-name="${response.data.pengusul}">
-                            <i class="fas fa-pencil-alt"></i>
-                        </button>
+                        <form method="POST" action="/winners/${response.data.id}" class="delete-form">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-outline-danger btn-sm delete-button" title="delete" 
+                                data-winner-id="${response.data.id}"
+                                data-proposal-id="${response.data.proposal}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
                     `,
                     rowId: function (row) {
                          return row.id;
                     },
                 };
-                //table.ajax.reload(null, false);
                 var newRow = $('#winnerTable').DataTable().row.add(newData).draw(false).node();
+                // var dataTable = $('#winnerTable').DataTable();
+                //     dataTable.ajax.reload();
             },
             error: function (error) {
                 if (error.status === 422) {

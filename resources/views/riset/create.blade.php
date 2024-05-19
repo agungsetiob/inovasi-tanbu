@@ -215,13 +215,13 @@
                                                 <div class="form-group">
                                                     <label class="font-weight-bold" for="tahun">Tahun:</label>
                                                     <select name="tahun" id="tahun" class="form-control" required>
-                                                        <option value="" selected>--pilih tahun--</option>
+                                                        <option value="" selected disabled>--  pilih tahun --</option>
                                                         @php
-                                                            $currentYear = date('Y');
+                                                            $year = date('Y');
                                                         @endphp
-                                                        <option value="{{ $currentYear }}">{{ $currentYear }}</option>
-                                                        <option value="{{ $currentYear - 1 }}">{{ $currentYear - 1 }}</option>
-                                                        <option value="{{ $currentYear - 2 }}">{{ $currentYear - 2 }}</option>
+                                                        <option value="{{ $year }}">{{ $year }}</option>
+                                                        <option value="{{ $year - 1 }}">{{ $year - 1 }}</option>
+                                                        <option value="{{ $year - 2 }}">{{ $year - 2 }}</option>
                                                     </select>
                                                 </div>
                                             </div>

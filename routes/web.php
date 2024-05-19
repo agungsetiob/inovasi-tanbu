@@ -143,8 +143,10 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/riset/update-status/{id}', [RisetController::class, 'updateStatus'])->name('riset.updateStatus');
 
     Route::get('winners', [WinnerController::class, 'index']);
-    Route::get('api/winner', [WinnerController::class, 'loadWinner']);
-    Route::post('winner/store', [WinnerController::class, 'store']);
+    Route::get('api/winners', [WinnerController::class, 'loadWinner']);
+    Route::post('winners/store', [WinnerController::class, 'store']);
+    Route::delete('/winners/{id}', [WinnerController::class, 'destroy'])->name('winners.destroy');
+
 });
 
 require __DIR__.'/auth.php';

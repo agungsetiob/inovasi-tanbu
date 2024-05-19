@@ -6,7 +6,7 @@
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-dark">Indikator Inovasi</h1>
-                    <a href="#" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addCategory"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Tambah Indikator</a>
+                    <a href="#" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addIndicator"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Tambah Indikator</a>
                 </div>
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
@@ -32,9 +32,8 @@
                     </div>
                 </div>
             </div>
-    <!-- /.container-fluid -->
 <!-- Add jenis indikator modal -->
-<div class="modal fade" id="addCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addIndicator" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -64,17 +63,6 @@
         </div>
     </div>
 </div>
-
-{{--<script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-<script src="{{asset('js/sb-admin-2.min.js')}}"></script>
-<script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
-<script src="{{asset('vendor/selectize/selectize.min.js')}}"></script>
-<script src="{{asset('vendor/stepper/stepper.min.js')}}"></script>
-<script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
-<script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
-<script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>--}}
 <x-delete-master-indikator/>
 <x-alert-modal/>
 <x-logout/>
@@ -131,6 +119,7 @@
 
     $('#store').click(function(e) {
         e.preventDefault();
+        $('#store').prop('disabled', true).html('<i class="fas fa-circle-notch fa-spin"></i> Saving...');
 
         //define variable
         let nama   = $("#nama").val();
@@ -151,6 +140,7 @@
                 //data indikator
                 $('#success-modal').modal('show');
                 $('#success-message').text(response.message);
+                $('#store').prop('disabled', false).html('Save');
 
                 var newData = {
                     render: function (data, type, row, meta, klas) {
@@ -192,7 +182,7 @@
                 //clear form
                 $('#nama').val('');
                 $('#jenis').val('');
-                $('#addCategory').modal('hide');
+                $('#addIndicator').modal('hide');
                 $.each(error.responseJSON.errors, function (field, errors) {
                     let alertId = 'alert-' + field;
                     $('#' + alertId).html(errors[0]).removeClass('d-block').addClass('d-none');
@@ -207,6 +197,7 @@
                         let alertId = 'alert-' + field;
                         $('#' + alertId).html(errors[0]).removeClass('d-none').addClass('d-block');
                         $('#' + field).addClass('is-invalid');
+                        $('#store').prop('disabled', false).html('Save');
                     });
                 } else {
                     $('#error-message').text(error.status + ' ' + error.responseJSON.message);

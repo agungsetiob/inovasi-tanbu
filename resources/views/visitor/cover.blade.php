@@ -67,6 +67,7 @@
                         hx-target="#page-top" 
                         hx-swap="outerHTML transition:true"
                         hx-push-url="true"
+                        hx-indicator="#loadingIndicator"
                         class="btn btn-lg btn-outline-secondary btn-block masthead-subheading text-white fw-semibold mb-0"
                         style="display: flex; justify-content: center; align-items: center;">RISET</a>
                     </div>
@@ -82,11 +83,7 @@
             </div>
         </div>
     </header>
-    <div data-loading-class="loading-overlay"></div>
-    <div id="loadingIndicator" class="htmx-indicator text-primary d-flex align-items-center justify-content-center"
-        style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1090;">
-        <i class="fas fa-circle-notch fa-spin fa-4x"></i>
-    </div>
+    @include('visitor.partial.htmx-indicator')
     <script>
         $('#slider').owlCarousel({
             items: 1,

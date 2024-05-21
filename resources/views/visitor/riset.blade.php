@@ -1,19 +1,7 @@
-@extends ('layouts.header-riset')
-@section ('content')
+@extends('layouts.header-riset')
+@section('content')
 @include('visitor.partial.carousels')
-<section class="page-section bg-inovation portfolio" id="riset-list">
-    <div class="container">
-        <div class="row justify-content-center">
-            @include('visitor.partial.riset-item')
-        </div>
-        <div class="text-center mt-4">
-            <a class="btn btn-xl btn-secondary btn-outline-light" href="#">
-                <i class="fas fa-atom me-2 fa-spin"></i>
-                Lihat semua
-            </a>
-        </div>
-    </div>
-</section>
+@include('visitor.partial.riset-item')
 @include('visitor.partial.about')
 @include('visitor.partial.send-message-form')
 @include('visitor.partial.footer-visitor')

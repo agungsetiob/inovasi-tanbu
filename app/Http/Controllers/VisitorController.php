@@ -9,6 +9,7 @@ use App\Models\Riset;
 use App\Models\Winner;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Http\Request;
 class VisitorController extends Controller
 {
     /**
@@ -77,7 +78,10 @@ class VisitorController extends Controller
     {
         $carousels = Carousel::all();
         $settings = Setting::all();
-        $risets = Riset::whereNotNull('url')->take(6)->get();
+        $risets = Riset::whereNotNull('url')->paginate(2);
+        // if ($request->header('HX-Request')) {
+        //     return view('visitor.partial.riset-item', compact('carousels', 'settings', 'risets'));
+        // }
         return view('visitor.riset', compact('carousels', 'settings', 'risets'));
     }
 

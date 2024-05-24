@@ -73,6 +73,19 @@
         <i class="fa fa-fw fa-rocket fa-xl"></i><span>Inovasi</span></a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
+    <li class="nav-item {{ (request()->is('proyek/*')) ? 'active ' : '' }}">
+        <a id="navCollapseZero"
+        hx-get="{{ url('/riset') }}" 
+        hx-trigger="click" 
+        hx-target="#app" 
+        hx-swap="outerHTML transition:true"
+        hx-push-url="true"
+        hx-indicator="#loadingIndicator" class="nav-link">
+        <i class="fa fa-fw fa-atom fa-xl"></i>
+        <span>Riset</span>
+        </a>
+    </li>
+    <hr class="sidebar-divider d-none d-md-block">
     <li class="nav-item {{ (request()->is('master/*')) ? 'active ' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
             <i class="fa fa-fw fa-filter fa-xl"></i>
@@ -245,7 +258,7 @@
         </a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
-    <li class="nav-item {{ (request()->is('proyek/*')) ? 'active ' : '' }}">
+    <!-- <li class="nav-item {{ (request()->is('proyek/*')) ? 'active ' : '' }}">
         <a id="navCollapseZero"
         hx-get="{{ url('proyek/inovasi') }}" 
         hx-trigger="click" 
@@ -257,15 +270,15 @@
         <span>Litbang</span>
         </a>
     </li>
-    <hr class="sidebar-divider d-none d-md-block">
+    <hr class="sidebar-divider d-none d-md-block"> -->
     <li class="nav-item {{ (request()->is('proyek/*')) ? 'active ' : '' }}">
         <a id="navCollapseZero"
-        hx-get="{{ url('proyek/inovasi') }}" 
+        hx-get="{{ url('/riset') }}" 
         hx-trigger="click" 
         hx-target="#app" 
         hx-swap="outerHTML transition:true"
         hx-push-url="true"
-        hx-indicator="#loadingIndicator" class="nav-link" hx-disable>
+        hx-indicator="#loadingIndicator" class="nav-link">
         <i class="fa fa-fw fa-atom fa-xl"></i>
         <span>Riset</span>
         </a>

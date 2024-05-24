@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('output');
             $table->text('manfaat');
             $table->text('dana');
-            $table->string('rab');
+            $table->string('rab')->nullable();
             $table->text('peneliti');
             $table->text('tahapan');
             $table->text('jangka');

@@ -51,7 +51,7 @@ class RisetController extends Controller
             'output' => 'required',
             'manfaat' => 'required',
             'dana' => 'required',
-            'rab' => 'required|file|mimes:pdf|max:2048',
+            'rab' => 'file|mimes:pdf|max:2048',
             'peneliti' => 'required',
             'tahapan' => 'required',
             'jangka' => 'required',
@@ -61,8 +61,13 @@ class RisetController extends Controller
         // Validate the request data
         $request->validate($rules);
 
+        // Initialize the $rabPath variable
+        $rabPath = null;
+
         // Process 'rab' file upload
-        $rabPath = $request->file('rab')->store('rab', 'public');
+        if ($request->hasFile('rab') && $request->file('rab')->isValid()) {
+            $rabPath = $request->file('rab')->store('rab', 'public');
+        }
 
         // Create a new Riset instance
         $riset = new Riset([
@@ -118,7 +123,9 @@ class RisetController extends Controller
      */
     public function show(Riset $riset)
     {
-        
+        return response()->json([
+            'data' => $riset
+        ]);
     }
 
     /**
@@ -127,7 +134,7 @@ class RisetController extends Controller
     public function edit(Riset $riset, Request $request)
     {
         $backgrounds = Background::all();
-        if(Auth::user()->id == $riset->user_id) {
+        if(Auth::user()->id == $riset->user_id && $riset->status !== 'approved') {
             if($request->header('HX-Request')) {
                 return view('riset.edit', compact(
                     'riset',
@@ -140,7 +147,7 @@ class RisetController extends Controller
                 ));
             }
         } else {
-            return redirect()->back()->with('error', 'kebaikan akan menghasilkan kebaikan');
+            return redirect()->back()->with('error', 'Pengajuan yang sudah disetujui tidak dapat diubah');
         }
     }
 
@@ -184,15 +191,20 @@ class RisetController extends Controller
         $riset->teknik = $request->teknik;
 
         if ($request->hasFile('rab') && $request->file('rab')->isValid()) {
-            Storage::disk('public')->delete($riset->rab);
+            // Delete the old 'rab' file if it exists
+            if ($riset->rab) {
+                Storage::disk('public')->delete($riset->rab);
+            }
 
+            // Store the new 'rab' file
             $riset->rab = $request->file('rab')->store('rab', 'public');
         }
 
-        $riset->save(); //save can be used for creating new resource or update it, update is specially for updating
+        $riset->save();
 
         return redirect()->route('riset.index')->with('success', 'Riset updated successfully');
     }
+
 
 
     /**
@@ -200,7 +212,7 @@ class RisetController extends Controller
      */
     public function destroy(Riset $riset)
     {
-        if(Auth::user()->id == $riset->user_id) {
+        if(Auth::user()->id == $riset->user_id && $riset->status !== 'approved') {
             Storage::disk('public')->delete($riset->rab);
             $riset->delete();
             return response()->json([
@@ -208,8 +220,9 @@ class RisetController extends Controller
             ]);
         } else {
             return response()->json([
-                'success'=>false
-            ]);
+                'success'=>false,
+                'message' => 'riset sudah disetujui tidak dapat dihapus'
+            ], 403);
         }
     }
 
@@ -228,7 +241,8 @@ class RisetController extends Controller
     {
         $request->validate([
             'url' => 'required|url',
-            'universitas' => 'required'
+            'universitas' => 'required',
+            'peneliti' => 'required'
         ]);
 
         try {
@@ -237,6 +251,7 @@ class RisetController extends Controller
                 $riset->update([
                     'url' => $request->input('url'),
                     'universitas' => $request->input('universitas'),
+                    'peneliti' =>$request->input('peneliti'),
                 ]);
             } else {
                 return response()->json(['error' => 'omaigad'], 500);

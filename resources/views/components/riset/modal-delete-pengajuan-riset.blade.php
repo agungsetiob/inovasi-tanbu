@@ -8,7 +8,8 @@ aria-hidden="true">
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-        <div class="modal-body">Pengajuan riset akan dihapus, tekan tombol hapus apabila anda sudah yakin.</div>
+        <div id="modal-body-delete" class="modal-body">Pengajuan riset akan dihapus, tekan tombol hapus apabila anda sudah yakin.
+            <p class="text-danger d-none" id="error-message-2"></p></div>
         <div class="modal-footer">
             <button class="btn btn-outline-secondary" type="button" data-dismiss="modal" title="cancel"><i class="fa-solid fa-ban"></i> Cancel</button>
             <button id="delete-riset" class="btn btn-outline-danger" title="hapus"><i class="fa-solid fa-trash"></i> Hapus</button>
@@ -51,8 +52,10 @@ aria-hidden="true">
                     }
                 },
                 error: function(error) {
-                    $('#error-message').text(error.status + ' ' + error.responseJSON.message);
                     $('#error-alert').removeClass('d-none').addClass('show');
+                    $('#error-message').text(error.status + ' ' + error.responseJSON.message);
+                    $('#error-message-2').removeClass('d-none').addClass('show');
+                    $('#error-message-2').html('Err status:' + error.status  + ' - ' + error.responseJSON.message); 
                 }
             });
         });

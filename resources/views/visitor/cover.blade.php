@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes" />
@@ -126,6 +125,33 @@
             }
         });
     </script>
+    <style>
+        .flying-object {
+            animation: flyAround 8s infinite;
+            transform-origin: center;
+        }
+
+        @keyframes flyAround {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            20% {
+                transform: translate(calc(-30vw + 50%), calc(-50vh + 50%)) rotate(-45deg);
+            }
+            40% {
+                transform: translate(calc(30vw - 50%), calc(-50vh + 50%)) rotate(-135deg);
+            }
+            60% {
+                transform: translate(calc(30vw - 50%), calc(50vh - 50%)) rotate(135deg);
+            }
+            80% {
+                transform: translate(calc(-30vw + 50%), calc(50vh - 50%)) rotate(45deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+        }
+    </style>
 </body>
 
 </html>

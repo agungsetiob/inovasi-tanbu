@@ -7,9 +7,7 @@ use App\Models\Proposal;
 use App\Models\Setting;
 use App\Models\Riset;
 use App\Models\Winner;
-use Carbon\Carbon;
 use DB;
-use Illuminate\Http\Request;
 class VisitorController extends Controller
 {
     /**

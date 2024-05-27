@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Background;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Artisan;
 use Log;
-use Session;
-use App\Models\Background;
-use Illuminate\Support\Facades\Storage;
+use Exception;
 
 class BackupController extends Controller{
     
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $backgrounds = Background::all();
         $disk = Storage::disk(config('laravel-backup.backup.destination.disks'));
         $files = $disk->files('/public/serasi/');
@@ -57,27 +58,29 @@ class BackupController extends Controller{
           }
     }
 
-    public function download($file_name) {
-        $file = config('laravel-backup.backup.name') .'public/serasi/'. $file_name;
+    public function download($file_name)
+    {
+        $file = config('laravel-backup.backup.name') . 'public/RSUD/' . $file_name;
         $disk = Storage::disk(config('laravel-backup.backup.destination.disks'));
 
         if ($disk->exists($file)) {
-            $fs = Storage::disk(config('laravel-backup.backup.destination.disks'))->getDriver();
-            $stream = $fs->readStream($file);
+            $stream = $disk->readStream($file);
 
-            return \Response::stream(function () use ($stream) {
+            return response()->stream(function () use ($stream) {
                 fpassthru($stream);
             }, 200, [
-                "Content-Type" => $fs->getMimetype($file),
-                "Content-Length" => $fs->getSize($file),
-                "Content-disposition" => "attachment; filename=\"" . basename($file) . "\"",
+                "Content-Type" => $disk->mimeType($file),
+                "Content-Length" => $disk->size($file),
+                "Content-Disposition" => "attachment; filename=\"" . basename($file) . "\"",
             ]);
         } else {
             abort(404, "Backup file doesn't exist.");
         }
     }
 
-     public function delete($file_name){
+
+     public function delete($file_name)
+     {
           $disk = Storage::disk(config('laravel-backup.backup.destination.disks'));
           if ($disk->exists(config('laravel-backup.backup.name') . 'public/serasi/' . $file_name)) {
                $disk->delete(config('laravel-backup.backup.name') . 'public/serasi/' . $file_name);

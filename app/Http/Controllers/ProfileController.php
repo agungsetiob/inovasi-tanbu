@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Background;
-use App\Models\Profile;
-use App\Models\File;
-use App\Models\Proposal;
 use App\Models\Bukti;
+use App\Models\Profile;
 use App\Models\Indikator;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Auth;
 

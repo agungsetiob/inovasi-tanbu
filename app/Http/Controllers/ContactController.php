@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Background;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use App\Models\Contact;
 use Barryvdh\DomPDF\Facade\PDF;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Support\Facades\Validator;
 use Auth;
 use URL;
 
@@ -15,9 +16,9 @@ class ContactController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
@@ -28,7 +29,7 @@ class ContactController extends Controller
                 return view('admin.message', compact('messages', 'backgrounds'));
             }
         }else{
-            return back()->with('error', 'Aku pasrahkan hidupku padamu Tuhan');
+            abort(403, 'You are not permitted');
         }
         
     }

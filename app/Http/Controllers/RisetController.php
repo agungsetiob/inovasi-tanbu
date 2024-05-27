@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Riset;
 use App\Models\Background;
 use Barryvdh\DomPDF\Facade\PDF;
-use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;

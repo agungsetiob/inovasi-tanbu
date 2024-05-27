@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Background;
 use App\Models\Category;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
@@ -24,27 +27,17 @@ class CategoryController extends Controller
             }
             return view ('admin.category', compact('categories', 'backgrounds'));
         } else {
-            return redirect()->back()->with(['error' => 'Where there is a will there is a way']);
+            abort(403, 'Not Permitted');
         }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse;
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $category = new Category();
         $category->name = $request->name;
@@ -52,40 +45,6 @@ class CategoryController extends Controller
         $category->save();
 
         return redirect()->back()->with('success','Berhasil menambah data');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Background;
 use App\Models\Skpd;
-use App\Models\Proposal;   
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Auth;

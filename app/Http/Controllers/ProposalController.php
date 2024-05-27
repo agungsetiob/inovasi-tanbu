@@ -18,7 +18,6 @@ use App\Models\Note;
 use Barryvdh\DomPDF\Facade\PDF;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use illuminate\Support\Facades\Auth;
 
 class ProposalController extends Controller

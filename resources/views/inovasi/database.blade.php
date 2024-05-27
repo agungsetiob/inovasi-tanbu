@@ -2,11 +2,9 @@
 @extends('layouts.header')
 @section('content')
         <div class="container-fluid slide-it" id="app">
-            <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-dark">Inovasi</h1>
             </div>
-            <!-- DataTables Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Proposals</h6>
@@ -101,7 +99,9 @@
             "initComplete": function( settings, json ) {
                 htmx.process('#databaseInovasi');
             },
-            // other DataTable options...
+            "drawCallback": function(settings) {
+                htmx.process('#databaseInovasi');
+            }
         });
 
         document.body.addEventListener("reloadDatabase", function(evt){

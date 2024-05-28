@@ -70,6 +70,19 @@ class VisitorController extends Controller
     }
 
     /**
+    * Display all riset proposal
+    */
+    public function loadRiset()
+    {
+        $risets = Riset::with('skpd')->whereNotNull('url')->get();
+        sleep(1);
+        return response()->json([
+            'data' => $risets,
+            'message'=>'success',
+        ])->header('HX-Trigger', 'reloadTable');;
+    }
+
+    /**
      * Display a listing of the inovation resource.
      */
     public function riset()

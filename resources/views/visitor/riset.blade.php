@@ -1,7 +1,7 @@
 @extends('layouts.header-riset')
 @section('content')
 @include('visitor.partial.carousels')
-@include('visitor.partial.riset-item')
+@include('visitor.partial.data-riset')
 @include('visitor.partial.about')
 @include('visitor.partial.send-message-form')
 @include('visitor.partial.footer-visitor')

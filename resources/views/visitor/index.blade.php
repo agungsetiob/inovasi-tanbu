@@ -48,9 +48,5 @@
             }
         }
     });
-
-    // document.body.addEventListener('htmx:afterSwap', function(event) {
-    //     htmx.removeClass(htmx.find('#loading-overlay'), 'loading-overlay');
-    // });
 </script>
 @endsection

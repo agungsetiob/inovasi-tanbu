@@ -15,6 +15,7 @@
     <link href="{{asset('css/styles.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
+    <link href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css" rel="stylesheet">
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="js/js/bootstrap.bundle.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
@@ -22,6 +23,10 @@
     <script src="js/js/scripts.js"></script>
     <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
     <script src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/use-bootstrap-select@2.1.1/dist/use-bootstrap-select.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/use-bootstrap-select@2.1.1/dist/use-bootstrap-select.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
 </head>
 
 <body id="page-top" class="slide-on" hx-ext="loading-states">
@@ -36,11 +41,11 @@
             </a>
             <a class="navbar-brand" href="#page-top">
                 @foreach ($settings as $s)
-                <img width="57" src="{{ url('storage/system', $s->logo_sistem) }}" alt="logo serasi"
+                <img width="60" src="{{ url('storage/system', $s->logo_sistem) }}" alt="logo serasi"
                     class="d-none d-md-inline-block">
                 @endforeach
             </a>
-            <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button"
+            <button class="navbar-toggler text-uppercase font-weight-bold text-white rounded" type="button"
                 data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
@@ -52,31 +57,29 @@
                             hx-target="#page-top" hx-swap="outerHTML transition:true" hx-push-url="true"
                             hx-indicator="#loadingIndicator">Home</a>
                     </li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3"
-                            href="#inovasi-info">Inovasi</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3"
-                            href="#winner">TIA</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3"
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                            href="#evaluasi-list">Evaluasi</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                             href="#about">Tentang</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3"
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                             href="#contact">Kontak</a></li>
-                    <!-- <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-lg btn-outline-danger"
+                    <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-lg btn-outline-danger"
                             href="https://www.lapor.go.id/" target="_blank"><i class="fa fa-arrow-right fa-flip me-2"
-                                style="--fa-flip-x: 1; --fa-flip-y: 0;"></i>Lapor</a></li> -->
+                                style="--fa-flip-x: 1; --fa-flip-y: 0;"></i>Lapor</a></li>
                     @if (Auth::guest())
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" hx-get="{{url('/login')}}" hx-trigger="click"
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" hx-get="{{url('/login-riset')}}" hx-trigger="click"
                             hx-target="#page-top" hx-swap="outerHTML transition:true" hx-push-url="true"
                             hx-indicator="#loadingIndicator">Login</a>
                     </li>
                     @elseif (auth()->user()->role === 'admin')
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="{{ route('admin.index') }}">{{Auth::user()->username}}</a>
+                            href="{{ route('riset.index') }}">{{Auth::user()->username}}</a>
                     </li>
                     @elseif (auth()->user()->role === 'user')
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="{{ route('user.index') }}">{{Auth::user()->username}}</a></li>
+                            href="{{ route('riset.index') }}">{{Auth::user()->username}}</a></li>
                     @endif
                 </ul>
             </div>

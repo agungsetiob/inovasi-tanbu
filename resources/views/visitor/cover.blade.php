@@ -14,13 +14,19 @@
     <link href="{{asset('css/styles.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
+    <link href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css" rel="stylesheet">
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="js/js/bootstrap.bundle.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous" defer></script>
     <script src="js/js/scripts.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/use-bootstrap-select@2.1.1/dist/use-bootstrap-select.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/use-bootstrap-select@2.1.1/dist/use-bootstrap-select.min.js"></script>
     <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
+</head>
 <body id="page-top" class="slide-on rotate-and-zoom-out" style="background-image: url('../img/cover.gif');" hx-ext="loading-states">
     <noscript>
         @include('errors.noscript')
@@ -60,7 +66,7 @@
                 <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
                     <div class="portfolio-item mx-auto">
                         <img class="img-fluid menu-logo-atom fa-spin-pulse" src="assets/img/atom.png" alt="..." />
-                        <a href="#"
+                        <a
                         hx-get="{{url('risets')}}" 
                         hx-trigger="click" 
                         hx-target="#page-top" 
@@ -74,9 +80,14 @@
                 <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
                     <div class="portfolio-item mx-auto">
                         <img class="img-fluid menu-logo fa-flip" src="assets/img/microscope.png" alt="..." />
-                        <a href="#/evaluasi"
-                            class="btn btn-lg btn-outline-secondary btn-block masthead-subheading text-white fw-semibold mb-0"
-                            style="display: flex; justify-content: center; align-items: center;">EVALUASI</a>
+                        <a 
+                        hx-get="{{ url('evaluasi') }}"
+                        hx-trigger="click"
+                        hx-target="#page-top"
+                        hx-swap="outerHTML transition:true"
+                        hx-push-url="true"
+                        hx-indicator="#loadingIndicator"
+                        class="btn btn-lg btn-outline-secondary btn-block masthead-subheading text-white fw-semibold mb-0" style="display: flex; justify-content: center; align-items: center;">EVALUASI</a>
                     </div>
                 </div>
             </div>

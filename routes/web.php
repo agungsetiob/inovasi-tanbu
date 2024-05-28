@@ -43,6 +43,7 @@ Route::get('/evaluasi', [VisitorController::class, 'evaluasi']);
 Route::get('/risets', [VisitorController::class, 'riset']);
 Route::get('show/inovasi/{proposal}', [VisitorController::class, 'show']);
 Route::get('inovasi/all', [VisitorController::class, 'proposal']);
+Route::get('api/riset', [VisitorController::class, 'loadRiset']);
 
 Route::post('/send/message/', [ContactController::class, 'store'])->name('message.store');
 

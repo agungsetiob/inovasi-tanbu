@@ -18,13 +18,15 @@ use App\Http\Controllers\{
     BackgroundController,
     NotesController,
     RisetController,
-    WinnerController
+    WinnerController,
+    EvaluasiController
 };
 use App\Http\Controllers\BentukController;
 use App\Http\Controllers\InisiatorController;
 use App\Http\Controllers\UrusanController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Tugas\TugasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,10 @@ use App\Http\Controllers\ProfileController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/pengolahan-data-dashboard', [TugasController::class, 'index']);
+Route::get('database/inovasi', [TugasController::class, 'export'])->name('inovasi.export');
+
 
 Route::get('/', [VisitorController::class, 'index']);
 Route::get('/inovasi', [VisitorController::class, 'inovasi']);
@@ -147,6 +153,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('api/winners', [WinnerController::class, 'loadWinner']);
     Route::post('winners/store', [WinnerController::class, 'store']);
     Route::delete('/winners/{id}', [WinnerController::class, 'destroy'])->name('winners.destroy');
+
+    Route::resource('/list/evaluasi', EvaluasiController::class);
+    Route::get('api/evaluasi', [EvaluasiController::class, 'loadEvaluasi']);
 
 });
 

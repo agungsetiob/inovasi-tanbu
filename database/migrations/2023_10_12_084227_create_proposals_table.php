@@ -22,7 +22,7 @@ return new class extends Migration
             $table->date('implementasi');
             $table->string('profil')->nullable();
             $table->string('anggaran')->nullable();
-            $table->string('status')->default('draft');//add this on 11 october 2023
+            $table->string('status')->default('draft');
             $table->unsignedBigInteger('bentuk_id');
             $table->foreign('bentuk_id')->references('id')->on('bentuks');
             $table->unsignedBigInteger('category_id');

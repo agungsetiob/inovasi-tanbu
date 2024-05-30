@@ -22,7 +22,7 @@
                             <i class="fa fa-solid fa-check"></i>
                             {{ Session::get('success') }}
                             @php
-    Session::forget('success');
+                                Session::forget('success');
                             @endphp
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>

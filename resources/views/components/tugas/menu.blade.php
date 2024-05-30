@@ -4,12 +4,11 @@
             <div class="sidebar-brand-icon">
                 <img class="img-profile rounded-circle" style="width: 52px; height: 52px;" src="{{asset('assets/img/avenga.png')}}" alt="logo">
             </div>
-            <div class="sidebar-brand-text mx-3">Hi {{ Auth::user()->username }}</div>
+            <div class="sidebar-brand-text mx-3">Hi Admin</div>
         </a>
     </li>
     
     <hr class="sidebar-divider my-0">
-    @if (Auth::user()->role == 'admin')
     <li class="nav-item {{ (request()->is('admin')) ? 'active ' : '' }}">
         <a id="adminIndex" class="nav-link"
         hx-get="{{ url('admin') }}" 
@@ -245,57 +244,4 @@
             <span>Backup</span></a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
-    @elseif (Auth::user()->role == 'user')
-    <li class="nav-item {{ (request()->is('user')) ? 'active ' : '' }}">
-        <a class="nav-link"
-        hx-get="{{ url('user') }}" 
-        hx-trigger="click" 
-        hx-target="#app" 
-        hx-swap="outerHTML transition:true"
-        hx-push-url="true"
-        hx-indicator="#loadingIndicator">
-            <i class="fas fa-fw fa-tachometer-alt fa-xl"></i>
-            <span>Dashboard</span></a>
-    </li>
-    <hr class="sidebar-divider d-none d-md-block">
-    <li class="nav-item {{ (request()->is('proyek/*')) ? 'active ' : '' }}">
-        <a id="navCollapseZero"
-        hx-get="{{ url('proyek/inovasi') }}" 
-        hx-trigger="click" 
-        hx-target="#app" 
-        hx-swap="outerHTML transition:true"
-        hx-push-url="true"
-        hx-indicator="#loadingIndicator" class="nav-link">
-        <i class="fa fa-fw fa-rocket fa-xl"></i>
-        <span>Inovasi</span>
-        </a>
-    </li>
-    <hr class="sidebar-divider d-none d-md-block">
-    <li class="nav-item {{ (request()->is('proyek/*')) ? 'active ' : '' }}">
-        <a id="navCollapseZero"
-        hx-get="{{ url('/riset') }}" 
-        hx-trigger="click" 
-        hx-target="#app" 
-        hx-swap="outerHTML transition:true"
-        hx-push-url="true"
-        hx-indicator="#loadingIndicator" class="nav-link">
-        <i class="fa fa-fw fa-atom fa-xl"></i>
-        <span>Riset</span>
-        </a>
-    </li>
-    <hr class="sidebar-divider d-none d-md-block">
-    <li class="nav-item {{ (request()->is('notes')) ? 'active ' : '' }}">
-        <a id="navCollapseZero"
-        hx-get="{{ url('note') }}" 
-        hx-trigger="click" 
-        hx-target="#app" 
-        hx-swap="outerHTML transition:true"
-        hx-push-url="true"
-        hx-indicator="#loadingIndicator" class="nav-link" hx-disable>
-        <i class="fa fa-fw fa-clipboard fa-xl"></i>
-        <span>Notes</span>
-        </a>
-    </li>
-    <hr class="sidebar-divider d-none d-md-block">
-    @endif
 </ul>

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Riset;
 use App\Models\Background;
+use App\Models\Riset;
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Http\Request;
 use illuminate\Support\Facades\Auth;
@@ -114,7 +114,7 @@ class RisetController extends Controller
         return response()->json([
             'data' => $risets,
             'message'=>'success',
-        ])->header('HX-Trigger', 'reloadTable');;
+        ])->header('HX-Trigger', 'reloadTable');
     }
 
     /**
@@ -268,19 +268,22 @@ class RisetController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        // Validate the request
-        $request->validate([
-            'status' => 'required|string|in:pending,approved,rejected',
-        ]);
+        if(auth()->user()->role == 'admin'){
+            $request->validate([
+                'status' => 'required|string|in:pending,approved,rejected',
+            ]);
 
-        // Find the riset record by ID
-        $riset = Riset::findOrFail($id);
+            // Find the riset record by ID
+            $riset = Riset::findOrFail($id);
 
-        // Update the status
-        $riset->status = $request->input('status');
-        $riset->save();
+            // Update the status
+            $riset->status = $request->input('status');
+            $riset->save();
 
-        return response()->json(['message' => 'Status updated successfully.']);
+            return response()->json(['message' => 'Status updated successfully.']);
+        } else{
+            abort(403, 'Not Permitted');
+        }
     }
 
 }

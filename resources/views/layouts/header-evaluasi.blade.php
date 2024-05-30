@@ -68,18 +68,18 @@
                                 style="--fa-flip-x: 1; --fa-flip-y: 0;"></i>Lapor</a></li>
                     @if (Auth::guest())
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" hx-get="{{url('/login-riset')}}" hx-trigger="click"
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" hx-get="{{url('/login')}}" hx-trigger="click"
                             hx-target="#page-top" hx-swap="outerHTML transition:true" hx-push-url="true"
                             hx-indicator="#loadingIndicator">Login</a>
                     </li>
                     @elseif (auth()->user()->role === 'admin')
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="{{ route('riset.index') }}">{{Auth::user()->username}}</a>
+                            href="{{ route('admin.index') }}">{{Auth::user()->username}}</a>
                     </li>
                     @elseif (auth()->user()->role === 'user')
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="{{ route('riset.index') }}">{{Auth::user()->username}}</a></li>
+                            href="{{ route('admin.index') }}">{{Auth::user()->username}}</a></li>
                     @endif
                 </ul>
             </div>
@@ -87,6 +87,7 @@
     </nav>
     @include('visitor.partial.htmx-indicator')
     @yield('content')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 </html>

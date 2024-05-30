@@ -1,7 +1,7 @@
 @extends('layouts.header-evaluasi')
 @section('content')
 @include('visitor.partial.carousels')
-@include('visitor.partial.data-riset')
+@include('visitor.partial.data-evaluasi')
 @include('visitor.partial.about')
 @include('visitor.partial.send-message-form')
 @include('visitor.partial.footer-visitor')

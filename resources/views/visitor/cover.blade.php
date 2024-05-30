@@ -136,33 +136,7 @@
             }
         });
     </script>
-    <style>
-        .flying-object {
-            animation: flyAround 8s infinite;
-            transform-origin: center;
-        }
-
-        @keyframes flyAround {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            20% {
-                transform: translate(calc(-30vw + 50%), calc(-50vh + 50%)) rotate(-45deg);
-            }
-            40% {
-                transform: translate(calc(30vw - 50%), calc(-50vh + 50%)) rotate(-135deg);
-            }
-            60% {
-                transform: translate(calc(30vw - 50%), calc(50vh - 50%)) rotate(135deg);
-            }
-            80% {
-                transform: translate(calc(-30vw + 50%), calc(50vh - 50%)) rotate(45deg);
-            }
-            100% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 </html>

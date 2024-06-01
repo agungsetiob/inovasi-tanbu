@@ -8,6 +8,7 @@ use App\Models\Setting;
 use App\Models\Riset;
 use App\Models\Winner;
 use App\Models\{Category, Contact, Bentuk, Skpd, Tematik, Tahapan};
+use Illuminate\Http\Request;
 use DB;
 class VisitorController extends Controller
 {

@@ -111,7 +111,7 @@
                     </div>
                     <div class="card-body">
                         <div class="chart-pie pt-4">
-                            <canvas id="skpd"></canvas>
+                            <canvas id="jenis"></canvas>
                         </div>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
 
         <div class="row">
             <!-- bar Chart -->
-            <div class="col-xl-12 col-lg-12">
+            <div class="col-12">
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3">
@@ -129,7 +129,7 @@
                     <!-- Card Body -->
                     <div class="card-body">
                         <div class="chart-bar pt-4">
-                            <canvas id="tematik" style="height: 200px;"></canvas>
+                            <canvas id="tematik" style="height: 300px;"></canvas>
                         </div>
                     </div>
                 </div>
@@ -138,7 +138,7 @@
 
         <div class="row">
         <!-- Line Chart -->
-            <div class="col-6">
+            <div class="col-xl-6 col-lg-6">
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3">
@@ -146,14 +146,14 @@
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
-                        <div class="chart-line pt-4">
+                        <div class="chart-line pt-3">
                             <canvas id="implementasiYear" style="height: 400px;"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-xl-6 col-lg-6">
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3">
@@ -161,7 +161,7 @@
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
-                        <div class="chart-radar pt-4">
+                        <div class="chart-radar pt-3">
                             <canvas id="tahapan" style="height: 400px;"></canvas>
                         </div>
                     </div>
@@ -174,7 +174,7 @@
                 <!-- Project tracker card example-->
                 <div class="card card-header-actions mb-4">
                     <div class="card-header text-primary font-weight-bold">
-                        Inovasi
+                        Presentase Capaian Inovasi
                     </div>
                     <div class="card-body">
                         <!-- Progress item 1-->
@@ -233,7 +233,7 @@
             });
 
             // Doughnut chart for "skpd"
-            var ctxSkpd = document.getElementById("skpd").getContext('2d');
+            var ctxSkpd = document.getElementById("jenis").getContext('2d');
             var skpdChart = new Chart(ctxSkpd, {
                 type: 'doughnut',
                 data: {

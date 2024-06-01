@@ -22,6 +22,7 @@
     <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous" defer></script>
     <script src="js/js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/use-bootstrap-select@2.1.1/dist/use-bootstrap-select.min.css">
     <script src="https://cdn.jsdelivr.net/npm/use-bootstrap-select@2.1.1/dist/use-bootstrap-select.min.js"></script>
     <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
@@ -136,7 +137,6 @@
             }
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 </html>

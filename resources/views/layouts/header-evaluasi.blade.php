@@ -8,7 +8,7 @@
     <meta name="author" content="" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.title') }}</title>
-    <link rel="icon" type="image/x-icon" href="assets/img/logo.png" />
+    <link rel="icon" type="image/x-icon" href="{{asset('assets/img/logo.png')}}" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
         type="text/css" />
@@ -17,16 +17,17 @@
     <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
     <link href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css" rel="stylesheet">
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
-    <script src="js/js/bootstrap.bundle.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
+    <script src="{{asset('js/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('js/owl.carousel.min.js')}}"></script>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous" defer></script>
-    <script src="js/js/scripts.js"></script>
-    <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
-    <script src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
+    <script src="{{asset('js/js/scripts.js')}}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/use-bootstrap-select@2.1.1/dist/use-bootstrap-select.min.css">
     <script src="https://cdn.jsdelivr.net/npm/use-bootstrap-select@2.1.1/dist/use-bootstrap-select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
+    <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
+    <script src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
 </head>
 
 <body id="page-top" class="slide-on" hx-ext="loading-states">
@@ -60,6 +61,8 @@
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                             href="#evaluasi-list">Evaluasi</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                            href="#infografis">Infografis</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                             href="#about">Tentang</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                             href="#contact">Kontak</a></li>
@@ -87,7 +90,6 @@
     </nav>
     @include('visitor.partial.htmx-indicator')
     @yield('content')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 </html>

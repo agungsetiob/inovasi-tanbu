@@ -7,7 +7,7 @@
             <div class="divider-custom-line"></div>
         </div>
         <div class="row mb-3">
-            <div class="col-md-9 p-1">
+            <div class="col-lg-9 col-md-12 p-1">
                 <div class="table-responsive bg-white p-3 rounded shadow" hx-history="false">
                     <table class="table table-borderless table-hover table-striped" id="tabel-riset" width="100%" cellspacing="0">
                         <thead class="bg-primary">
@@ -23,7 +23,7 @@
                     </table>
                 </div>
             </div>
-            <div class="col-md-3 p-1">
+            <div class="col-lg-3 col-md-12 p-1">
                 <div class="p-3 bg-white rounded shadow">
                     <div class="mb-3">
                         <input type="text" id="searchInput" class="form-control" placeholder="Keywords">

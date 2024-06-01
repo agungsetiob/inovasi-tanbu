@@ -2,6 +2,7 @@
 @section('content')
 @include('visitor.partial.carousels')
 @include('visitor.partial.data-evaluasi')
+@include('visitor.partial.infografis')
 @include('visitor.partial.about')
 @include('visitor.partial.send-message-form')
 @include('visitor.partial.footer-visitor')

@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="description" content="SERASI Tanah Bumbu" />
+    <meta name="author" content="Tanah Bumbu" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.title') }}</title>
     <link rel="icon" type="image/x-icon" href="assets/img/logo.png" />

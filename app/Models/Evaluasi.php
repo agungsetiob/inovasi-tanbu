@@ -13,6 +13,8 @@ class Evaluasi extends Model
         'judul',
         'deskripsi',
         'foto',
+        'link',
+        'slug',
         'skpd_id',
         'user_id'
 
@@ -31,4 +33,17 @@ class Evaluasi extends Model
         return \Carbon\Carbon::parse($this->attributes['created_at'])
         ->isoFormat('D MMMM Y');
     }
+
+    // protected static function boot()
+    // {
+    //     parent::boot();
+
+    //     static::creating(function ($model) {
+    //         $model->slug = Str::slug($model->judul, '-');
+    //     });
+
+    //     static::updating(function ($model) {
+    //         $model->slug = Str::slug($model->judul, '-');
+    //     });
+    // }
 }

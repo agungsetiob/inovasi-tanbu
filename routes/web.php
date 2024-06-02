@@ -55,6 +55,8 @@ Route::post('/send/message/', [ContactController::class, 'store'])->name('messag
 
 Route::get('print/report/{id}', [ProposalController::class, 'proposalReport']);
 
+Route::get('api/evaluasi', [EvaluasiController::class, 'loadEvaluasi']);
+
 Route::middleware(['auth'])->group(function () {
 
     Route::resource('proyek/inovasi', ProposalController::class);
@@ -155,7 +157,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/winners/{id}', [WinnerController::class, 'destroy'])->name('winners.destroy');
 
     Route::resource('/list/evaluasi', EvaluasiController::class);
-    Route::get('api/evaluasi', [EvaluasiController::class, 'loadEvaluasi']);
 
 });
 

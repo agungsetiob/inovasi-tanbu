@@ -17,29 +17,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Proposals</h6>
                 </div>
                 <div class="card-body">
-                    @if(Session::has('success'))
-                        <div class="alert alert-success data-dismiss alert-dismissible">
-                            <i class="fa fa-solid fa-check"></i>
-                            {{ Session::get('success') }}
-                            @php
-                                Session::forget('success');
-                            @endphp
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    @endif
-                    @if ($errors->any())
-                        <div class="alert alert-danger data-dismiss alert-dismissible">
-                            <i class="fa fa-solid fa-bell fa-shake"></i>
-                            @foreach ($errors->all() as $error)
-                                {{ $error }}
-                            @endforeach
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    @endif
+                    @include('components.alerts.alerts')
                     <div class="table-responsive" hx-history="false">
                         <table class="table table-borderless table-striped" id="dataTable" width="100%" cellspacing="0">
                             <thead>

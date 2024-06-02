@@ -7,31 +7,25 @@
             <div class="divider-custom-line"></div>
         </div>
         <div class="row mb-3">
-            <div class="col-md-9 p-1">
+            <div class="col-lg-9 col-md-12 p-1">
                 <div class="table-responsive bg-white p-3 rounded shadow" hx-history="false">
-                    <table class="table table-borderless table-hover table-striped" id="tabel-evaluasi" width="100%" cellspacing="0">
+                    <table class="table table-borderless table-hover table-striped" id="tabel-evaluasi" width="100%"
+                        cellspacing="0">
                         <tbody>
                             <!-- Server-side dataTable gan -->
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="col-md-3 p-1">
+            <div class="col-lg-3 col-md-12 p-1">
                 <div class="p-3 bg-white rounded shadow">
                     <div class="mb-3">
                         <input type="text" id="searchInput" class="form-control" placeholder="Keywords">
                     </div>
                     <div class="mb-3">
                         <label for="yearFilter" class="form-label">Tahun:</label>
-                        <select id="yearFilter" class="form-select">
+                        <select id="yearFilter" class="form-select" data-searchable="true">
                             <option value="">-- Semua Tahun --</option>
-                            <!-- Dynamically populated options will go here -->
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="skpdFilter" class="form-label">SKPD:</label>
-                        <select id="skpdFilter" class="form-select" data-searchable="true">
-                            <option value="">-- Semua SKPD --</option>
                             <!-- Dynamically populated options will go here -->
                         </select>
                     </div>
@@ -43,32 +37,42 @@
 <script>
     var dataTable = $('#tabel-evaluasi').DataTable({
         ajax: {
-            url: "{{url('api/riset')}}",
+            url: "{{url('api/evaluasi')}}",
             dataSrc: 'data',
             processing: true,
             serverSide: true,
         },
         columns: [
             {
+                data: 'combined_column',
+                orderable: false,
                 render: function (data, type, row) {
-                    return '<img class="overflow-hidden" width="170" src="https://inovasi-tanbu.test/storage/system/T7oio7RZj3LtEPDzj2ECrAnLnNPg835S6LXgb8iV.png" alt="logo serasi" class="d-none d-md-inline-block">';
-                } 
-            },
-            {
-                data: 'judul',
-                render: function (data, type, row) {
-                    var truncatedLatar = row.latar.length > 199 ? row.latar.substring(0, 199) + '...' : row.latar;
-                    return '<a class="text-primary" href="' + row.url + '">' + data + '</a>' + '<p>' + truncatedLatar + '</p>' + '<small>' + row.created_at + '</small>';
+                    var truncatedDesc = row.deskripsi.length > 199 ? row.deskripsi.substring(0, 199) + '...' : row.deskripsi;
+                    var imageUrl = row.foto ? "{{ asset('storage/') }}/" + row.foto : "{{ asset('img/image.svg') }}"; // Ganti 'default-image.jpg' dengan path gambar default kamu
+                    return '<div class="row">' +
+                        '<div class="col-auto">' +
+                        '<img class="overflow-hidden" width="170" src="' + imageUrl + '" alt="foto evaluasi">' +
+                        '</div>' +
+                        '<div class="col">' +
+                        '<h5><a class="text-primary" href="{{ url('evaluasi') }}/'+ row.slug +'">' + row.judul + '</a></h5>' +
+                        '<p>' + truncatedDesc + '</p>' +
+                        '<small>' + row.created_at + '</small>' +
+                        '</div>' +
+                        '</div>';
                 }
             },
+            {
+                data: 'id',
+                visible:false
+            }
         ],
         pageLength: 5,
-        ordering: false,
+        order: [[1, 'desc']],
         initComplete: function (settings, json) {
             htmx.process('#tabel-evaluasi');
             populateFilters(json.data);
         },
-        error: function(xhr, error, thrown) {
+        error: function (xhr, error, thrown) {
             console.error('DataTables error:', error, thrown);
             alert('Error loading data. Please try again later.');
         },
@@ -77,40 +81,30 @@
     $('.dt-search').addClass('d-none');
     $('.dt-length').addClass('d-none');
 
-    document.body.addEventListener("reloadTable", function(evt) {
-        dataTable.ajax.reload(function() {
+    document.body.addEventListener("reloadTable", function (evt) {
+        dataTable.ajax.reload(function () {
             htmx.process('#tabel-evaluasi');
         }, false);
     });
 
     function populateFilters(data) {
         var years = new Set();
-        var skpds = new Set();
 
         data.forEach(function (item) {
-            years.add(item.tahun);
-            skpds.add(item.skpd.nama);  // Correctly access 'skpd.nama'
+            var year = new Date(item.created_at).getFullYear();
+            years.add(year);
         });
 
         years.forEach(function (year) {
             $('#yearFilter').append(new Option(year, year));
         });
 
-        skpds.forEach(function (skpd) {
-            $('#skpdFilter').append(new Option(skpd, skpd));
-        });
-
-        const skpdFilter = new UseBootstrapSelect(document.getElementById('skpdFilter'));
         const yearFilter = new UseBootstrapSelect(document.getElementById('yearFilter'));
     }
 
     // Event listeners for filters
     $('#yearFilter').on('change', function () {
-        dataTable.column(2).search(this.value).draw();
-    });
-
-    $('#skpdFilter').on('change', function () {
-        dataTable.column(1).search(this.value).draw();
+        dataTable.column(0).search(this.value).draw(); // Adjust column index if necessary
     });
 
     $('#searchInput').on('keyup', function () {

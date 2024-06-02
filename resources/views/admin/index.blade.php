@@ -196,7 +196,7 @@
 
         var ctx = document.getElementById("bentuk");
         var myPieChart = new Chart(ctx, {
-            type: "doughnut",
+            type: "pie",
             data: {
                 labels: <?php echo json_encode($labelBentuk); ?>,
                 datasets: [{
@@ -233,7 +233,6 @@
                         fontColor: "black"
                     }
                 },
-                cutoutPercentage: 80
             }
         });
 
@@ -274,7 +273,7 @@
                         fontColor: "black"
                     }
                 },
-                cutoutPercentage: 80,
+                cutoutPercentage: 70,
             },
         });
     </script>

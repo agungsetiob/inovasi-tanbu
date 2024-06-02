@@ -54,8 +54,8 @@
                         '<img class="overflow-hidden" width="170" src="' + imageUrl + '" alt="foto evaluasi">' +
                         '</div>' +
                         '<div class="col">' +
-                        '<h5><a class="text-primary" href="{{ url('evaluasi') }}/'+ row.slug +'">' + row.judul + '</a></h5>' +
-                        '<p>' + truncatedDesc + '</p>' +
+                        '<h5><a class="text-primary show-evaluasi" href="#{{ url('evaluasi') }}/'+ row.slug +'" data-id="'+ row.id +'" data-bs-toggle="modal" data-bs-target="#showEvaluasi">' + row.judul + '</a></h5>' +
+                        '<a class="show-evaluasi text-decoration-none" data-id="'+ row.id +'" data-bs-toggle="modal" data-bs-target="#showEvaluasi"><p>' + truncatedDesc + '</p></a>' +
                         '<small>' + row.created_at + '</small>' +
                         '</div>' +
                         '</div>';

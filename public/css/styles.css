@@ -338,6 +338,12 @@ a {
   color: var(--bs-link-color);
   text-decoration: none;
 }
+
+a p{
+  color: #212529;
+  text-decoration: none;
+}
+
 a:hover {
   color: var(--bs-link-hover-color);
   cursor: pointer;

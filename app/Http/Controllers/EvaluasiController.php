@@ -91,7 +91,12 @@ class EvaluasiController extends Controller
      */
     public function show(Evaluasi $evaluasi)
     {
-        //
+        $skpd = $evaluasi->skpd->nama;
+        return response()->json([
+            'success' => true,
+            'data' => $evaluasi,
+            'skpd' => $skpd
+        ]);
     }
 
     /**

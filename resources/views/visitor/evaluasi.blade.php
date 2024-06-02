@@ -53,4 +53,5 @@
     //     htmx.removeClass(htmx.find('#loading-overlay'), 'loading-overlay');
     // });
 </script>
+@include('visitor.partial.evaluasi-detail')
 @endsection

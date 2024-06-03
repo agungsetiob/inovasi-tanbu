@@ -3,7 +3,7 @@
         <h4 class="page-section-heading text-center text-uppercase text-white">Berita Riset dan Inovasi</h4>
         <div class="divider-custom divider-light">
             <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon"><i class="fas fa-atom fa-spin"></i></div>
+            <div class="divider-custom-icon"><i class="fas fa-file-signature"></i></div>
             <div class="divider-custom-line"></div>
         </div>
         <div class="row mb-3">
@@ -50,10 +50,10 @@
                     var truncatedDesc = row.deskripsi.length > 199 ? row.deskripsi.substring(0, 199) + '...' : row.deskripsi;
                     var imageUrl = row.foto ? "{{ asset('storage/') }}/" + row.foto : "{{ asset('img/image.svg') }}"; // Ganti 'default-image.jpg' dengan path gambar default kamu
                     return '<div class="row">' +
-                        '<div class="col-auto">' +
-                        '<img class="overflow-hidden" width="170" src="' + imageUrl + '" alt="foto evaluasi">' +
+                        '<div class="col-lg-3 col-md-12 col-sm-12">' +
+                        '<img class="overflow-hidden w-100" src="' + imageUrl + '" alt="foto evaluasi">' +
                         '</div>' +
-                        '<div class="col">' +
+                        '<div class="col-lg-9 col-md-12 col-sm-12">' +
                         '<h5><a class="text-primary show-evaluasi" href="#{{ url('evaluasi') }}/'+ row.slug +'" data-id="'+ row.id +'" data-bs-toggle="modal" data-bs-target="#showEvaluasi">' + row.judul + '</a></h5>' +
                         '<a class="show-evaluasi text-decoration-none" data-id="'+ row.id +'" data-bs-toggle="modal" data-bs-target="#showEvaluasi"><p>' + truncatedDesc + '</p></a>' +
                         '<small>' + row.created_at + '</small>' +

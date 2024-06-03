@@ -10,6 +10,9 @@
                         <div class="col-lg-11">
                             <h6 class="text-secondary text-uppercase mb-0" id="evaluasi-judul"></h6>
                             Oleh : <p class="mb-4 text-success" id="skpd"></p>
+                            <a id="slug" href="javascript:void(0)" class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard">
+                                <i class="fas fa-copy"></i> <span id="slug-detail"></span>
+                            </a>
                             <div class="divider-custom">
                                 <div class="divider-custom-line"></div>
                                 <div class="divider-custom-icon"><i class="fas fa-star text-yellow"></i></div>
@@ -27,6 +30,7 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript">
     function stripHTML(html) {
         var temp = document.createElement('div');
@@ -34,12 +38,34 @@
         return temp.textContent || temp.innerText;
     }
 
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+            var tooltipTrigger = document.getElementById('slug');
+            var tooltip = bootstrap.Tooltip.getInstance(tooltipTrigger);
+            tooltip.setContent({ '.tooltip-inner': 'Copied!' });
+            setTimeout(() => tooltip.setContent({ '.tooltip-inner': 'Copy to clipboard' }), 2000);
+        }, function(err) {
+            console.error('Async: Could not copy text: ', err);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        document.getElementById('slug').addEventListener('click', function () {
+            copyToClipboard(document.getElementById('slug-detail').textContent);
+        });
+    });
+
     $('body').on('click', '.show-evaluasi', function (e) {
         e.preventDefault();
         let id = $(this).data('id');
 
         $.ajax({
-            url: `/list/evaluasi/${id}`,
+            url: `/api/evaluasi/${id}`,
             type: "GET",
             cache: false,
             success: function(response) {
@@ -48,6 +74,7 @@
                 $('#skpd').text(response.skpd);
                 $('#link').attr('href', response.data.link);
                 $('#link-detail').text(response.data.link);
+                $('#slug-detail').text(response.slugUrl);
                 var imageUrl = response.data.foto ? "{{ asset('storage/') }}/" + response.data.foto : "{{ asset('img/image.svg') }}";
                 $('#foto').attr('src', imageUrl);
             },

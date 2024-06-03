@@ -92,10 +92,13 @@ class EvaluasiController extends Controller
     public function show(Evaluasi $evaluasi)
     {
         $skpd = $evaluasi->skpd->nama;
+        $slug = $evaluasi->slug;
+        $slugUrl = url("/list/evaluasi/{$slug}");
         return response()->json([
             'success' => true,
             'data' => $evaluasi,
-            'skpd' => $skpd
+            'skpd' => $skpd,
+            'slugUrl' => $slugUrl
         ]);
     }
 

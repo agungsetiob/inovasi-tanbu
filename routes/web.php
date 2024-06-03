@@ -56,6 +56,7 @@ Route::post('/send/message/', [ContactController::class, 'store'])->name('messag
 Route::get('print/report/{id}', [ProposalController::class, 'proposalReport']);
 
 Route::get('api/evaluasi', [EvaluasiController::class, 'loadEvaluasi']);
+Route::get('api/evaluasi/{evaluasi}', [EvaluasiController::class, 'show']);
 
 Route::middleware(['auth'])->group(function () {
 

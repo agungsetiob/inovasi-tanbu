@@ -49,7 +49,7 @@
         });
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    function copyUrl() {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl);
@@ -58,7 +58,7 @@
         document.getElementById('slug').addEventListener('click', function () {
             copyToClipboard(document.getElementById('slug-detail').textContent);
         });
-    });
+    }
 
     $('body').on('click', '.show-evaluasi', function (e) {
         e.preventDefault();
@@ -82,5 +82,7 @@
                 console.error("AJAX Error:", error);
             }
         });
+        copyUrl();
     });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>

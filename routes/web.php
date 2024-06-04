@@ -57,6 +57,7 @@ Route::get('print/report/{id}', [ProposalController::class, 'proposalReport']);
 
 Route::get('api/evaluasi', [EvaluasiController::class, 'loadEvaluasi']);
 Route::get('api/evaluasi/{evaluasi}', [EvaluasiController::class, 'show']);
+Route::get('/list/evaluasi/{slug}', [EvaluasiController::class, 'showSlug']);
 
 Route::middleware(['auth'])->group(function () {
 

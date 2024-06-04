@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Models\Background;
 use App\Models\Evaluasi;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -103,6 +104,16 @@ class EvaluasiController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function showSlug($slug)
+    {
+        $evaluasi = Evaluasi::where('slug', $slug)->firstOrFail();
+        $settings = Setting::all();
+        return view('evaluasi.show', compact('evaluasi', 'settings'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Request $request, Evaluasi $evaluasi)
@@ -155,12 +166,12 @@ class EvaluasiController extends Controller
     {
         if (Auth::user()->role == 'admin') {
             $evaluasi->delete();
-        
-        return response()->json([
-            'success' => true,
-            'message' => 'Berhasil menghapus data'
-        ]);
-        } else{
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil menghapus data'
+            ]);
+        } else {
             return response()->json([
                 'message' => 'Not authorized!'
             ]);

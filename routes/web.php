@@ -27,6 +27,8 @@ use App\Http\Controllers\UrusanController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Tugas\TugasController;
+use App\Http\Controllers\Salat\SholatController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,8 +41,11 @@ use App\Http\Controllers\Tugas\TugasController;
 |
 */
 
+// main-main aja nyobain
 Route::get('/pengolahan-data-dashboard', [TugasController::class, 'index']);
 Route::get('database/inovasi', [TugasController::class, 'export'])->name('inovasi.export');
+Route::get('/sholat/jadwal', [SholatController::class, 'getJadwalSholat'])->name('sholat.jadwal');
+// sampai sini
 
 
 Route::get('/', [VisitorController::class, 'index']);

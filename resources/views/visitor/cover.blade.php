@@ -28,7 +28,7 @@
     <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
 </head>
-<body id="page-top" class="slide-on rotate-and-zoom-out" style="background-image: url('../img/cover.gif');" hx-ext="loading-states">
+<body id="page-top" class="slide-on rotate-and-zoom-out" style="background-image: url('../img/background.svg');" hx-ext="loading-states">
     <noscript>
         @include('errors.noscript')
     </noscript>
@@ -48,7 +48,7 @@
         </div>
         @endforeach
         <div class="container d-flex align-items-center flex-column">
-            <h3 class="text-uppercase">Kabupaten Tanah Bumbu</h3>
+            <h3 class="text-uppercase text-dark">Kabupaten Tanah Bumbu</h3>
             <!-- Icon Divider-->
         </div>
 
@@ -60,7 +60,7 @@
                             alt="..." />
                         <a hx-get="{{url('inovasi')}}" hx-trigger="click" hx-target="#page-top"
                             hx-swap="outerHTML transition:true" hx-push-url="true" hx-indicator="#loadingIndicator"
-                            class="btn btn-lg btn-outline-secondary btn-block masthead-subheading text-white fw-semibold mb-0"
+                            class="btn btn-lg btn-outline-secondary btn-block masthead-subheading fw-semibold mb-0"
                             style="display: flex; justify-content: center; align-items: center;">INOVASI</a>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                         hx-swap="outerHTML transition:true"
                         hx-push-url="true"
                         hx-indicator="#loadingIndicator"
-                        class="btn btn-lg btn-outline-secondary btn-block masthead-subheading text-white fw-semibold mb-0"
+                        class="btn btn-lg btn-outline-secondary btn-block masthead-subheading fw-semibold mb-0"
                         style="display: flex; justify-content: center; align-items: center;">RISET</a>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                         hx-swap="outerHTML transition:true"
                         hx-push-url="true"
                         hx-indicator="#loadingIndicator"
-                        class="btn btn-lg btn-outline-secondary btn-block masthead-subheading text-white fw-semibold mb-0" style="display: flex; justify-content: center; align-items: center;">EVALUASI</a>
+                        class="btn btn-lg btn-outline-secondary btn-block masthead-subheading fw-semibold mb-0" style="display: flex; justify-content: center; align-items: center;">EVALUASI</a>
                     </div>
                 </div>
             </div>

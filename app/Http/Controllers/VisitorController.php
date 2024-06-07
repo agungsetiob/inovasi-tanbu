@@ -153,11 +153,11 @@ class VisitorController extends Controller
     {
         $carousels = Carousel::all();
         $settings = Setting::all();
-        $risets = Riset::whereNotNull('url')->paginate(3);
+        //$risets = Riset::whereNotNull('url')->paginate(3);
         // if ($request->header('HX-Request')) {
         //     return view('visitor.partial.riset-item', compact('carousels', 'settings', 'risets'));
         // }
-        return view('visitor.riset', compact('carousels', 'settings', 'risets'));
+        return view('visitor.riset', compact('carousels', 'settings'));
     }
 
     /**

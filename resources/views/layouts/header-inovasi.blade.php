@@ -60,9 +60,9 @@
                             href="#about">Tentang</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3"
                             href="#contact">Kontak</a></li>
-                    <!-- <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-lg btn-outline-danger"
+                    <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-lg btn-outline-danger"
                             href="https://www.lapor.go.id/" target="_blank"><i class="fa fa-arrow-right fa-flip me-2"
-                                style="--fa-flip-x: 1; --fa-flip-y: 0;"></i>Lapor</a></li> -->
+                                style="--fa-flip-x: 1; --fa-flip-y: 0;"></i>Lapor</a></li>
                     @if (Auth::guest())
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded" hx-get="{{url('/login')}}" hx-trigger="click"

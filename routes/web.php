@@ -45,6 +45,8 @@ use App\Http\Controllers\Salat\SholatController;
 Route::get('/pengolahan-data-dashboard', [TugasController::class, 'index']);
 Route::get('database/inovasi', [TugasController::class, 'export'])->name('inovasi.export');
 Route::get('/sholat/jadwal', [SholatController::class, 'getJadwalSholat'])->name('sholat.jadwal');
+Route::get('publications', [SholatController::class, 'publications'])->name('publications');
+Route::get('table/pub', [SholatController::class, 'tablePub'])->name('publications.table');
 // sampai sini
 
 

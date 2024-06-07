@@ -26,7 +26,7 @@
             </ul>
         </div> -->
 
-        <div class="flex-sm-fill d-sm-flex align-items-sm-center justify-content-sm-center">
+        <div class="flex-fill d-flex align-items-center justify-content-center">
             <div class="p-2">
                 <p class="small text-white">
                     {!! __('Showing') !!}

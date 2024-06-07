@@ -1,0 +1,77 @@
+@fragment('publication-section')
+    <section class="page-section bg-inovation portfolio" id="publications">
+        <div class="container">
+            <h4 class="page-section-heading text-center text-uppercase text-white">Publikasi Daerah se Indonesia</h4>
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-newspaper"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-lg-9 col-md-12 p-1">
+                @include('visitor.partial.publications-table')
+                </div>
+                <div class="col-lg-3 col-md-12 p-1">
+                    <div class="p-3 bg-white rounded shadow">
+                        <form method="GET" action="{{ route('publications.table') }}" hx-get="{{ route('publications.table') }}" hx-target="#tabel-pub" hx-trigger="submit from:form" hx-indicator="#loadingPub" hx-swap="outerHTML transition:true">
+                            <div class="mb-3">
+                                <label for="searchInput" class="form-label">Keywords:</label>
+                                <input type="text" id="searchInput" name="keywords" class="form-control" placeholder="Keywords" value="{{ request('keywords') }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="yearFilter" class="form-label">Tahun:</label>
+                                <select id="yearFilter" name="year" class="form-select" data-searchable="true">
+                                    <option value="">-- Tahun --</option>
+                                    @for ($year = now()->year; $year >= now()->year - 3; $year--)
+                                        <option value="{{ $year }}" @if($year == request('year')) selected @endif>{{ $year }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="kabFilter" class="form-label">Kabupaten:</label>
+                                <select id="kabFilter" name="domain_id" class="form-select" data-searchable="true">
+                                    <option value="">-- Kabupaten --</option>
+                                    @foreach ($kabupatenData['data'][1] as $kabupaten)
+                                        <option value="{{ $kabupaten['domain_id'] }}" @if($kabupaten['domain_id'] == request('domain_id')) selected @endif>
+                                            {{ $kabupaten['domain_name'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3 text-center">
+                                <button type="submit" class="btn btn-primary w-100">Filter</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        const kabFilter = new UseBootstrapSelect(document.getElementById('kabFilter'));
+        const yearFilter = new UseBootstrapSelect(document.getElementById('yearFilter'));
+        const dataTable = $('#dataTable').DataTable();
+        $('.dt-search').addClass('d-none');
+        $('.dt-length').addClass('d-none');
+        $('#searchInput').on('keyup', function () {
+            dataTable.search(this.value).draw();
+        });
+    </script>
+    <style>
+        #tabel-pub {
+            position: relative;
+        }
+
+        #loadingPub {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none; /* Hide by default */
+        }
+
+        .htmx-request #loadingPub {
+            display: flex; /* Show when HTMX is making a request */
+        }
+    </style>
+@endfragment

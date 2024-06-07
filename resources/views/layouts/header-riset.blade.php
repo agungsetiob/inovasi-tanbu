@@ -60,6 +60,10 @@
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                             href="#riset-list">Riset</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                            hx-get="{{ route('publications') }}" hx-trigger="click"
+                            hx-target="#page-top" hx-swap="outerHTML transition:true" hx-push-url="true"
+                            hx-indicator="#loadingIndicator">Publikasi</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                             href="#about">Tentang</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                             href="#contact">Kontak</a></li>

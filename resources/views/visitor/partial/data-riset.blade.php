@@ -1,4 +1,4 @@
-<section class="page-section bg-inovation portfolio" id="riset-list">
+<section class="page-section bg-inovation portfolio slide-on" id="riset-list">
     <div class="container">
         <h4 class="page-section-heading text-center text-uppercase text-white">Riset Daerah Tanah Bumbu</h4>
         <div class="divider-custom divider-light">

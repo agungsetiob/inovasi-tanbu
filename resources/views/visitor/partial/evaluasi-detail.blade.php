@@ -1,4 +1,4 @@
-<div class="portfolio-modal modal fade" id="showEvaluasi" tabindex="-1" aria-labelledby="evaluasiModal1" aria-hidden="true">
+<div class="portfolio-modal modal fade slide-on" id="showEvaluasi" tabindex="-1" aria-labelledby="evaluasiModal1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header border-0">

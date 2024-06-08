@@ -14,10 +14,10 @@
                 <div class="col-lg-3 col-md-12 p-1">
                     <div class="p-3 bg-white rounded shadow">
                         <form method="GET" action="{{ route('publications.table') }}" hx-get="{{ route('publications.table') }}" hx-target="#tabel-pub" hx-trigger="submit from:form" hx-indicator="#loadingPub" hx-swap="outerHTML transition:true">
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
                                 <label for="searchInput" class="form-label">Keywords:</label>
                                 <input type="text" id="searchInput" name="keywords" class="form-control" placeholder="Keywords" value="{{ request('keywords') }}">
-                            </div>
+                            </div> -->
                             <div class="mb-3">
                                 <label for="yearFilter" class="form-label">Tahun:</label>
                                 <select id="yearFilter" name="year" class="form-select" data-searchable="true">
@@ -50,12 +50,6 @@
     <script>
         const kabFilter = new UseBootstrapSelect(document.getElementById('kabFilter'));
         const yearFilter = new UseBootstrapSelect(document.getElementById('yearFilter'));
-        const dataTable = $('#dataTable').DataTable();
-        $('.dt-search').addClass('d-none');
-        $('.dt-length').addClass('d-none');
-        $('#searchInput').on('keyup', function () {
-            dataTable.search(this.value).draw();
-        });
     </script>
     <style>
         #tabel-pub {

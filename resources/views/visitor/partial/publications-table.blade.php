@@ -13,7 +13,7 @@
                     <td>{{ $publication['title'] }}</td>
                     <td class="text-center">
                         {{ $publication['rl_date'] ? date('Y', strtotime($publication['rl_date'])) : '' }}</td>
-                    <td class="text-center"><a class="btn btn-primary text-center" href="{{ $publication['pdf'] }}"
+                    <td class="text-center"><a class="btn btn-sm btn-primary text-center" href="{{ $publication['pdf'] }}"
                             target="_blank">Lihat <i class="fas fa-graduation-cap"></i></a></td>
                 </tr>
             @empty

@@ -6,7 +6,7 @@
                 <h1 class="h3 mb-0 text-dark">Form Evaluasi</h1>
             </div>
             <div class="row">
-                <div class="col-md-12 slide-it">
+                <div class="col-md-12">
                     <div class="card border-0 shadow rounded mb-4">
                         <div class="card-body">
                             <form action="{{ route('evaluasi.store') }}" method="POST" enctype="multipart/form-data"

@@ -6,7 +6,6 @@ use App\Models\Background;
 use App\Models\Contact;
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 use URL;
@@ -16,9 +15,9 @@ class ContactController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\View\View
+     *
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();

@@ -30,7 +30,7 @@
     <script src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
 </head>
 
-<body id="page-top" class="slide-on" hx-ext="loading-states">
+<body id="page-top" hx-ext="loading-states">
     <noscript>
         @include('errors.noscript')
     </noscript>

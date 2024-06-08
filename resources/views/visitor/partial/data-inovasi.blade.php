@@ -1,4 +1,4 @@
-<section class="page-section bg-inovation portfolio" id="inovasi-info">
+<section class="page-section bg-inovation portfolio slide-on" id="inovasi-info">
     <div class="container">
         <h4 class="page-section-heading text-center text-uppercase text-white">Data Inovasi Daerah</h4>
         <div class="divider-custom divider-light">

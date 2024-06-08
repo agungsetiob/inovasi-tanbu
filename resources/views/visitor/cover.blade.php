@@ -28,7 +28,7 @@
     <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
 </head>
-<body id="page-top" class="slide-on rotate-and-zoom-out" style="background-image: url('../img/background.svg');" hx-ext="loading-states">
+<body id="page-top" class="rotate-and-zoom-out" style="background-image: url('../img/background.svg');" hx-ext="loading-states">
     <noscript>
         @include('errors.noscript')
     </noscript>

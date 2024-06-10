@@ -28,6 +28,6 @@
         {{ $paginator->links('pagination::simple-bootstrap-5') }}
     </div>
     <div id="loadingPub" class="htmx-indicator text-primary d-flex align-items-center justify-content-center">
-        <i class="fas fa-circle-notch fa-spin fa-4x"></i>
+        <i class="fas fa-spinner fa-spin fa-2x"></i>
     </div>
 </div>

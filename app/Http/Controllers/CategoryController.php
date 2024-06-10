@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Background;
 use App\Models\Category;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Auth;
-use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
@@ -15,9 +13,8 @@ class CategoryController extends Controller
      * Display a listing of the resource.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\View\View
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
@@ -35,9 +32,8 @@ class CategoryController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse;
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $category = new Category();
         $category->name = $request->name;

@@ -101,7 +101,7 @@
                 </noscript>
                 @yield ('content')
             </div>
-                <a class="text-success floating-wa-button" href="https://wa.me/082225976594" target="_blank" title="Chat with us on WhatsApp">
+                <a class="text-success floating-wa-button" href="https://wa.me/{{$telp}}" target="_blank" title="Chat with us on WhatsApp">
                     <i class="fa-brands fa-square-whatsapp fa-3x"></i>
                 </a>
             <x-footer />

@@ -1,7 +1,7 @@
 @extends('layouts.header')
 @section('content')
 <!-- Begin Page Content -->
-@fragment('backups')
+    @fragment('backups')
         @if (Auth::user()->role === 'admin')
         <div class="container-fluid slide-it" id="app">
             <!-- Page Heading -->
@@ -88,5 +88,5 @@
         <i class="fas fa-compass fa-spin fa-8x"></i>
         </div>
         @endif
-@endfragment
+    @endfragment
 @endsection

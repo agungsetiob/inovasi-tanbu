@@ -24,10 +24,10 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <!-- <div id="loadingPub"
-                                    class="htmx-indicator text-primary d-flex align-items-center justify-content-center mt-3">
-                                    <i class="fas fa-spinner fa-spin fa-2x"></i>
-                                </div> -->
+                        <div id="loadingPub"
+                            class="htmx-indicator text-primary d-flex align-items-center justify-content-center mt-3">
+                            <i class="fas fa-spinner fa-spin fa-2x"></i>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-12 p-1">
@@ -36,9 +36,9 @@
                             hx-get="{{ route('publications.table') }}" hx-target="#tabel-pub" hx-trigger="submit from:form"
                             hx-swap="outerHTML transition:true" hx-indicator="#loadingPub">
                             <!-- <div class="mb-3">
-                                    <label for="searchInput" class="form-label">Keywords:</label>
-                                        <input type="text" id="searchInput" name="keywords" class="form-control" placeholder="Keywords" value="{{ request('keywords') }}">
-                                </div> -->
+                                        <label for="searchInput" class="form-label">Keywords:</label>
+                                            <input type="text" id="searchInput" name="keywords" class="form-control" placeholder="Keywords" value="{{ request('keywords') }}">
+                                    </div> -->
                             <div class="mb-3">
                                 <label for="yearFilter" class="form-label">Tahun:</label>
                                 <select id="yearFilter" name="year" class="form-select" data-searchable="true">

@@ -47,6 +47,7 @@ Route::get('database/inovasi', [TugasController::class, 'export'])->name('inovas
 Route::get('/sholat/jadwal', [SholatController::class, 'getJadwalSholat'])->name('sholat.jadwal');
 Route::get('publications', [SholatController::class, 'publications'])->name('publications');
 Route::get('table/pub', [SholatController::class, 'tablePub'])->name('publications.table');
+Route::get('news', [SholatController::class, 'news'])->name('news.kemendagri');
 // sampai sini
 
 

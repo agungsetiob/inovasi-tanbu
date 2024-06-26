@@ -1,7 +1,6 @@
 @extends('layouts.header-sholat')
 @section('content')
 @include('visitor.partial.carousels')
-@include('visitor.partial.publications')
 @include('visitor.partial.news-list')
 @include('visitor.partial.about')
 @include('visitor.partial.send-message-form')

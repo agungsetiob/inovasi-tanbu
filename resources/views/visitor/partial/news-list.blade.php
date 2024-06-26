@@ -14,8 +14,8 @@
                             <div class="col-lg-7">
                                 <div class="img-container large">
                                     <img src="{{ $newsData[0]['photo_url'] }}" alt="News Image" style="width: 100%; height: 100%;">
-                                    <div class="text-container">
-                                        <a class="text-white" href="https://api.indeks.inovasi.litbang.kemendagri.go.id/v1/news/{{ $newsData[0]['id'] }}">
+                                    <div class="text-container" data-id="{{ $newsData[0]['id'] }}">
+                                        <a class="text-white" href="#" data-bs-toggle="modal" data-bs-target="#showNews">
                                             <h4>{{ $newsData[0]['title'] }}</h4>
                                         </a>
                                         <p>{{ date('F d, Y', strtotime($newsData[0]['created_at'])) }}</p>
@@ -27,8 +27,8 @@
                                     <div class="col-12">
                                         <div class="img-container small">
                                             <img src="{{ $newsData[1]['photo_url'] }}" alt="News Image" style="width: 100%; height: auto;">
-                                            <div class="text-container">
-                                                <a class="text-white" href="https://api.indeks.inovasi.litbang.kemendagri.go.id/v1/news/{{ $newsData[1]['id'] }}">
+                                            <div class="text-container" data-id="{{ $newsData[1]['id'] }}">
+                                                <a class="text-white" href="#" data-bs-toggle="modal" data-bs-target="#showNews">
                                                     <h4>{{ $newsData[1]['title'] }}</h4>
                                                 </a>
                                                 <p>{{ date('F d, Y', strtotime($newsData[1]['created_at'])) }}</p>
@@ -38,8 +38,8 @@
                                     <div class="col-12">
                                         <div class="img-container small">
                                             <img src="{{ $newsData[2]['photo_url'] }}" alt="News Image" style="width: 100%; height: auto;">
-                                            <div class="text-container">
-                                                <a class="text-white" href="https://api.indeks.inovasi.litbang.kemendagri.go.id/v1/news/{{ $newsData[2]['id'] }}">
+                                            <div class="text-container" data-id="{{ $newsData[2]['id'] }}">
+                                                <a class="text-white" href="#" data-bs-toggle="modal" data-bs-target="#showNews">
                                                     <h4>{{ $newsData[2]['title'] }}</h4>
                                                 </a>
                                                 <p>{{ date('F d, Y', strtotime($newsData[2]['created_at'])) }}</p>

@@ -49,4 +49,5 @@
         }
     });
 </script>
+@include('visitor.partial.news-detail')
 @endsection

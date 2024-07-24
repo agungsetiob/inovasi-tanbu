@@ -17,6 +17,7 @@
                     <table class="table table-borderless table-striped" width="100%" cellspacing="0" id="files-table">
                         <thead>
                             <tr>
+                                <th width="3%">#</th>
                                 <th>Indikator</th>
                                 <th width="53%">Bukti</th>
                                 <th>Bobot</th>
@@ -30,12 +31,14 @@
                                 <th>{{$totalBobot}}</th>
                             </tr>
                             <tr>
-                                <td>* wajib diisi</td>
+                                <td></td>
+                                <td  class="text-danger">* wajib diisi</td>
                             </tr>
                         </tfoot>
                         <tbody>
                             @foreach ($proposal->indikators as $indikator)
                             <tr>
+                                <td>{{$loop->iteration}}.</td>
                                 <td>{{$indikator->nama}}</td>
                                 <td>
                                     @foreach ($indikator->files()->where('proposal_id', $proposalId)->get() as $item)
@@ -48,7 +51,7 @@
                                     @endforeach
                                 </td>
                                 <td class="text-center">
-                                    @if ($proposal->status === 'draft' && Auth::user()->id === $proposal->user_id)
+                                    @if ($proposal->status == 'draft' && Auth::user()->id == $proposal->user_id)
                                         @forelse ($indikator->files()->where('proposal_id', $proposalId)->get() as $item)
                                             <a class="btn-edit btn btn-outline-secondary btn-sm" title="edit"
                                                 href="javascript:void(0)" data-toggle="modal" data-target="#editModal"
@@ -73,7 +76,7 @@
                                                 <i class="fa-regular fa-pen-to-square"></i>
                                             </button>
                                         @endforelse
-                                    @elseif ($proposal->status === 'sent')
+                                    @elseif ($proposal->status == 'sent')
                                         @foreach ($indikator->files()->where('proposal_id', $proposalId)->get() as $item)
                                             @if ($item->file)
                                                 <a class="btn btn-outline-success btn-sm" title="download"

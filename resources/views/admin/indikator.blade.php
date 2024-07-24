@@ -18,7 +18,7 @@
                             <table class="table table-borderless table-striped text-dark" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th>#</th>
                                         <th width="65%">Nama</th>
                                         <th>Jenis</th>
                                         <th></th>
@@ -66,7 +66,7 @@
 <x-delete-master-indikator/>
 <x-alert-modal/>
 <x-logout/>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     //load dataTable...
     var dataTable = $('#dataTable').DataTable({
         ajax: {
@@ -239,6 +239,179 @@
             });
         });
     });
+</script> -->
+<script type="text/javascript">
+    // Load dataTable...
+    var dataTable = $('#dataTable').DataTable({
+        ajax: {
+            url: '/api/indikator',
+            dataSrc: 'data'
+        },
+        columns: [
+            {
+                render: function (data, type, row, meta) {
+                    return meta.row + 1 + '.';
+                }
+            },
+            {
+                data: 'nama'
+            },
+            {
+                data: 'jenis'
+            },
+            {
+                render: function (data, type, row) {
+                    return `
+                        <button type="button" class="btn btn-outline-danger btn-sm delete-button" title="hapus" 
+                            data-toggle="modal" 
+                            data-target="#deleteModal" 
+                            data-indikator-id="${row.id}"
+                            data-indikator-name="${row.nama}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <div class="dropdown mb-4 d-inline">
+                            <button class="btn ${row.status === 'inactive' ? 'btn-outline-danger' : 'btn-outline-primary'} dropdown-toggle btn-sm"
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                                data-indikator-id="${row.id}"
+                                data-indikator-status="${row.status}">
+                                ${row.status}
+                            </button>
+                            <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+                                <button class="dropdown-item" data-action="toggle-status">change status</button>
+                            </div>
+                        </div>
+                    `;
+                }
+            },
+        ],
+        // Other DataTable options...
+    });
+
+    $('#store').click(function(e) {
+        e.preventDefault();
+        $('#store').prop('disabled', true).html('<i class="fas fa-circle-notch fa-spin"></i> Saving...');
+
+        // Define variable
+        let nama = $("#nama").val();
+        let jenis = $("#jenis").val();
+        let token = $("meta[name='csrf-token']").attr("content");
+
+        // Ajax
+        $.ajax({
+            url: `/master/indikator`,
+            type: "POST",
+            cache: false,
+            data: {
+                "nama": nama,
+                "jenis": jenis,
+                "_token": token
+            },
+            success:function(response){
+                // Data indikator
+                $('#success-modal').modal('show');
+                $('#success-message').text(response.message);
+                $('#store').prop('disabled', false).html('Save');
+
+                var newData = {
+                    render: function (data, type, row, meta, klas) {
+                        return meta.row + 1;
+                    },
+                    id: response.data.id,
+                    nama: response.data.nama,
+                    jenis: response.data.jenis,
+                    status: response.data.status,
+                    buttons: `
+                        <button type="button" class="btn btn-outline-danger btn-sm delete-button" 
+                            data-indikator-id="${response.data.id}"
+                            data-indikator-name="${response.data.nama}" 
+                            title="hapus">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <div class="dropdown mb-4 d-inline">
+                            <button class="btn ${response.data.status === 'inactive' ? 'btn-outline-danger' : 'btn-outline-primary'} dropdown-toggle btn-sm"
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                                data-indikator-id="${response.data.id}"
+                                data-indikator-status="${response.data.status}">
+                                ${response.data.status}
+                            </button>
+                            <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+                                <button class="dropdown-item" data-action="toggle-status">change status</button>
+                            </div>
+                        </div>
+                    `,
+                };
+
+                var newRow = $('#dataTable').DataTable().row.add(newData).draw(false).node();
+
+                // Clear form
+                $('#nama').val('');
+                $('#jenis').val('');
+                $('#addIndicator').modal('hide');
+                $.each(error.responseJSON.errors, function (field, errors) {
+                    let alertId = 'alert-' + field;
+                    $('#' + alertId).html(errors[0]).removeClass('d-block').addClass('d-none');
+                    $('#' + field).addClass('is-invalid');
+                });
+            },
+            error:function(error){
+                if (error.status === 422) {
+                    $.each(error.responseJSON.errors, function (field, errors) {
+                        let alertId = 'alert-' + field;
+                        $('#' + alertId).html(errors[0]).removeClass('d-none').addClass('d-block');
+                        $('#' + field).addClass('is-invalid');
+                        $('#store').prop('disabled', false).html('Save');
+                    });
+                } else {
+                    $('#error-message').text(error.status + ' ' + error.responseJSON.message);
+                    $('#error-modal').modal('show');
+                }
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $(document).on("click", ".dropdown-item[data-action='toggle-status']", function(){
+            var button = $(this);
+            var indikatorId = button.closest('.dropdown').find('.dropdown-toggle').data('indikator-id');
+            var currentStatus = button.closest('.dropdown').find('.dropdown-toggle').data('indikator-status');
+
+            $.ajax({
+                url: '/indikator/change-status/' + indikatorId,
+                type: 'PUT',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(response) {
+                    if (response.success) {
+                        var newStatus = response.newStatus;
+                        var dropdownButton = button.closest('.dropdown').find('.dropdown-toggle');
+                        dropdownButton.data('indikator-status', newStatus);
+                        dropdownButton.text(newStatus);
+                        dropdownButton.removeClass(currentStatus === 'inactive' ? 'btn-outline-danger' : 'btn-outline-primary');
+                        dropdownButton.addClass(newStatus === 'inactive' ? 'btn-outline-danger' : 'btn-outline-primary');
+                        $('#success-modal').modal('show');
+                        $('#success-message').html(response.message + '<p class="text-success">' + response.indikator + '</p>');
+                        setTimeout(function() {
+                            $('#success-modal').modal('hide');
+                        }, 3700);
+                    }
+                },
+                error: function(response) {
+                    $('#error-message').text('Error gagal merubah status');
+                    $('#error-modal').modal('show');
+                }
+            });
+        });
+    });
 </script>
+
 @endfragment
 @endsection

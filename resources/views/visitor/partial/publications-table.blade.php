@@ -27,7 +27,8 @@
     <div class="d-flex justify-content-end">
         {{ $paginator->links('pagination::simple-bootstrap-5') }}
     </div>
-    <div id="loadingPub" class="htmx-indicator text-primary d-flex align-items-center justify-content-center">
+    <div id="loadingPub" class="htmx-indicato text-primary d-flex align-items-center justify-content-center">
         <i class="fas fa-spinner fa-spin fa-2x"></i>
+        <!-- <img src="{{ asset('img/loader.gif') }}" alt="loading..."> -->
     </div>
 </div>

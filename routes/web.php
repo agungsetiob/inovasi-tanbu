@@ -75,7 +75,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('api/database/inovasi', [ProposalController::class, 'sentProposals']);
     Route::get('all/inovations', [ProposalController::class,'all']);
     Route::get('api/all/inovations', [ProposalController::class,'allProposals']);
-    Route::get('cetak/laporan/{startdate}/{enddate}', [ProposalController::class, 'report']);
+    Route::get('cetak/pdf/{startdate}/{enddate}', [ProposalController::class, 'reportPdf']);
+    Route::get('cetak/excel/{startdate}/{enddate}', [ProposalController::class, 'reportXls']);
     Route::post('note/create', [ProposalController::class, 'note']);
 
     Route::resource('/admin', \App\Http\Controllers\AdminController::class);

@@ -4,7 +4,7 @@
 <div class="container-fluid slide-it" id="app">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-dark">Daftar Inovasi</h1>
-        <a href="#" class="d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal"
+        <a href="#" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
             data-target="#cetakLap"><i class="fas fa-print fa-sm text-white fa-flip"></i> Cetak</a>
     </div>
     <div class="card shadow mb-4">

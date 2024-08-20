@@ -13,10 +13,15 @@
                                 <label for="enddate" class="font-weight-bold">Sampai tanggal :</label>
                                 <input type="date" name="enddate" class="form-control" id="enddate">
                             </div>
-                            <div class="col-md-4" style="padding-top: 2rem;">
+                            <div class="col-md-2" style="padding-top: 2rem;">
                                 <a href=""
-                                    onclick="this.href='/cetak/laporan/'+ document.getElementById('startdate').value + '/' +document.getElementById('enddate').value"
-                                    class=" d-sm-inline-block btn btn-danger shadow-sm w-100" target="_blank"><i class="fas fa-print text-white"></i> Cetak</a>
+                                    onclick="this.href='/cetak/pdf/'+ document.getElementById('startdate').value + '/' +document.getElementById('enddate').value"
+                                    class=" d-sm-inline-block btn btn-danger shadow-sm w-100" target="_blank"><i class="fas fa-file-pdf text-white"></i> Cetak</a>
+                            </div>
+                            <div class="col-md-2" style="padding-top: 2rem;">
+                                <a href=""
+                                    onclick="this.href='/cetak/excel/'+ document.getElementById('startdate').value + '/' +document.getElementById('enddate').value"
+                                    class=" d-sm-inline-block btn btn-success shadow-sm w-100" target="_blank"><i class="fas fa-file-excel text-white"></i> Cetak</a>
                             </div>
                         </div>
                     </div>

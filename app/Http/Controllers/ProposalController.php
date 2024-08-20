@@ -19,6 +19,8 @@ use Barryvdh\DomPDF\Facade\PDF;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use illuminate\Support\Facades\Auth;
+use App\Exports\InovationExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProposalController extends Controller
 {
@@ -504,7 +506,7 @@ class ProposalController extends Controller
     /**
     * Print proposals report
     */
-    public function report($startdate, $enddate)
+    public function reportPdf($startdate, $enddate)
     {
         $inovations = Proposal::with(['files', 'tahapan', 'skpd'])
             ->whereBetween('created_at', [$startdate, $enddate])
@@ -527,6 +529,29 @@ class ProposalController extends Controller
         $pdf = PDF::loadview('admin.inovation-report', ['inovations' => $results])->setPaper('A4', 'portrait');
         set_time_limit(300);
         return $pdf->stream(now() . '-report.pdf');
+    }
+
+    public function reportXls($startdate, $enddate)
+    {
+        $inovations = Proposal::with(['files', 'tahapan', 'skpd'])
+            ->whereBetween('created_at', [$startdate, $enddate])
+            ->get();
+
+        $results = $inovations->map(function ($proposal) {
+            $skor = $proposal->files->sum(function ($file) {
+                return $file->bukti->bobot;
+            });
+
+            return [
+                'proposal' => $proposal->nama,
+                'skor' => $skor,
+                'skpd' => $proposal->skpd->nama,
+                'tahun' => $proposal->created_at->format('Y'),
+            ];
+        });
+        $results = $results->sortByDesc('skor')->values();
+
+        return Excel::download(new InovationExport($results), now() . '-inovation-report.xlsx');
     }
 
 }

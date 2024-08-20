@@ -353,6 +353,9 @@ a:hover {
   color: var(--bs-link-hover-color);
 }
 
+a h4:hover{
+  color: #074d8d;
+}
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
   color: inherit;

@@ -20,7 +20,7 @@
         hx-indicator="#loadingIndicator">
         <i class="fas fa-fw fa-tachometer-alt fa-xl"></i>
         <span>Dashboard</span>
-    </a>
+        </a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
     <li class="nav-item {{ (request()->is('data/*')) ? 'active ' : '' }}" id="databaseMenu">

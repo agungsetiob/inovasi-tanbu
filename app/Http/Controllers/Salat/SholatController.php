@@ -54,19 +54,23 @@ class SholatController extends Controller
         // Fetch Kabupaten data from the first API
         $response = Http::withoutVerifying()->get('https://webapi.bps.go.id/v1/api/domain/type/kab/key/fdc28dc463144c072f113d02a5bf7aa5/');
         $kabupatenData = $response->json();
+        $news = Http::get('https://api.indeks.inovasi.litbang.kemendagri.go.id/v1/news');
+        $newsData = $news->json()['data'];
 
         //Return the view with both sets of data
         if ($request->header('HX-Request')) {
             return view('visitor.pub', [
                 'kabupatenData' => $kabupatenData,
                 'settings' => $settings,
-                'carousels' => $carousels
+                'carousels' => $carousels,
+                'newsData'=> $newsData
             ])->fragment('publications-section');
         }
         return view('visitor.pub', [
             'kabupatenData' => $kabupatenData,
             'settings' => $settings,
-            'carousels' => $carousels
+            'carousels' => $carousels,
+            'newsData'=> $newsData
         ]);
     }
 
@@ -94,6 +98,27 @@ class SholatController extends Controller
         // Return the partial view with the publications table
         return view('visitor.partial.publications-table', [
             'paginator' => $paginator
+        ]);
+    }
+
+    public function news(Request $request)
+    {
+        $settings = Setting::all();
+        $carousels = Carousel::all();
+        $response = Http::get('https://api.indeks.inovasi.litbang.kemendagri.go.id/v1/news');
+        $newsData = $response->json()['data'];
+
+        if ($request->header('HX-Request')) {
+            return view('visitor.news', [
+                'settings' => $settings,
+                'carousels' => $carousels,
+                'newsData' => $newsData
+            ])->fragment('news-section');
+        }
+        return view('visitor.news', [
+            'settings'=> $settings,
+            'carousels'=> $carousels,
+            'newsData'=> $newsData
         ]);
     }
 

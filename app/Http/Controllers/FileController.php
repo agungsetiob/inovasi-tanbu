@@ -73,7 +73,7 @@ class FileController extends Controller
         $this->validate($request, [
             'informasi' => 'required',
             'bukti' => 'required',
-            'file' => 'mimes:pdf,jpg,jpeg,png|max:3072',
+            'file' => 'mimes:pdf,jpg,jpeg,png|max:10240',
         ]);
 
         $proposal = Proposal::findOrFail($request->proposal_id);

@@ -54,7 +54,7 @@ class SholatController extends Controller
         // Fetch Kabupaten data from the first API
         $response = Http::withoutVerifying()->get('https://webapi.bps.go.id/v1/api/domain/type/kab/key/fdc28dc463144c072f113d02a5bf7aa5/');
         $kabupatenData = $response->json();
-        $news = Http::get('https://api.indeks.inovasi.litbang.kemendagri.go.id/v1/news');
+        $news = Http::withoutVerifying()->get('https://api.indeks.inovasi.litbang.kemendagri.go.id/v1/news');
         $newsData = $news->json()['data'];
 
         //Return the view with both sets of data

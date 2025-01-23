@@ -50,10 +50,10 @@
                             </div>
                         </div>
                     </div>
-                    <div id="loadingPub"
+                    <!-- <div id="loadingPub"
                         class="htmx-indicator text-primary d-flex align-items-center justify-content-center mt-3">
                         <i class="fas fa-spinner fa-spin fa-2x"></i>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

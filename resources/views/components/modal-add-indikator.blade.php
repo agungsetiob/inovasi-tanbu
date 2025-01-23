@@ -102,7 +102,6 @@
 
         $.ajax({
             url: '{{ url("/upload/file") }}',
-            //url: "/upload/file",
             type: "POST",
             cache: false,
             contentType: false,

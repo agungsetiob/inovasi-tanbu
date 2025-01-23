@@ -68,13 +68,63 @@ class FileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function store(Request $request)
+    // {
+    //     $this->validate($request, [
+    //         'informasi' => 'required',
+    //         'bukti' => 'required',
+    //         'file' => 'required|mimes:pdf,jpg,jpeg,png|max:10240',
+    //     ]);
+
+    //     $proposal = Proposal::findOrFail($request->proposal_id);
+
+    //     if (strtolower($proposal->status) === 'draft' && strtolower(auth()->user()->id) === strtolower($request->proposal_user_id)) {
+    //         $fileData = [
+    //             'informasi' => addslashes($request->informasi),
+    //             'user_id' => auth()->user()->id,
+    //             'proposal_id' => $request->proposal_id,
+    //             'bukti_id' => $request->bukti,
+    //             'indikator_id' => $request->indikator_id,
+    //         ];
+
+    //         if ($request->hasFile('file')) {
+    //             $file = $request->file('file');
+    //             $file->storeAs('public/docs', $file->hashName());
+    //             $fileData['file'] = $file->hashName();
+    //         }
+    //         $buktiDukung = File::create($fileData);
+            
+    //         return response()->json([
+    //             'success' => true,
+    //             'message' => 'Data Berhasil Disimpan!',
+    //             'data' => $buktiDukung
+    //         ]);
+    //     }
+    //     return response()->json([
+    //         'success' => false,
+    //         'message' => 'failed'
+    //     ]);
+    // }
+
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'informasi' => 'required',
             'bukti' => 'required',
-            'file' => 'mimes:pdf,jpg,jpeg,png|max:10240',
         ]);
+
+        $indikator = Indikator::findOrFail($request->indikator_id);
+
+        // Validasi tergantung pada deskripsi indikator
+        if ($indikator->nama != 'Kualitas Inovasi Daerah*') {
+            $request->validate([
+                'file' => 'required|mimes:pdf,jpg,jpeg,png|max:10240',
+            ], [
+                'file.required' => 'File bukti wajib diunggah kecuali untuk video.',
+                'file.mimes' => 'File bukti harus berupa file bertipe: pdf, jpg, jpeg, png.',
+                'file.max' => 'Ukuran file bukti maksimal 10MB.',
+            ]);
+        }
 
         $proposal = Proposal::findOrFail($request->proposal_id);
 
@@ -92,19 +142,22 @@ class FileController extends Controller
                 $file->storeAs('public/docs', $file->hashName());
                 $fileData['file'] = $file->hashName();
             }
+
             $buktiDukung = File::create($fileData);
-            
+
             return response()->json([
                 'success' => true,
                 'message' => 'Data Berhasil Disimpan!',
                 'data' => $buktiDukung
             ]);
         }
+
         return response()->json([
             'success' => false,
             'message' => 'failed'
         ]);
     }
+
 
 
     /**

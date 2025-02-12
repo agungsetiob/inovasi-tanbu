@@ -271,7 +271,7 @@ class FileController extends Controller
             $this->validate($request, [
                 'informasi' => 'required',
                 'bukti' => 'required',
-                'file' => 'nullable|mimes:pdf,png,jpg,jpeg|max:3072',
+                'file' => 'nullable|mimes:pdf,png,jpg,jpeg|max:10240',
             ]);
 
             if ($request->hasFile('file')) {

@@ -245,7 +245,8 @@ class ProposalController extends Controller
             'bentuk' => 'required',
             'category' => 'required',
             'urusans' => 'required',
-            'tematik' => 'required'
+            'tematik' => 'required',
+            'deskripsi' => 'required'
 
         ]);
 
@@ -264,7 +265,8 @@ class ProposalController extends Controller
             'skpd_id' => $request->skpd,
             'tematik_id' => $request->tematik,
             'user_id' => auth()->user()->id,
-            'status' => 'draft'
+            'status' => 'draft',
+            'deskripsi' => $request->deskripsi
         ];
         if ($request->hasFile('profil')) {
             $profil = $request->file('profil');
@@ -389,7 +391,8 @@ class ProposalController extends Controller
             'bentuk' => 'required',
             'category' => 'required',
             'urusans' => 'required',
-            'tematik' => 'required'
+            'tematik' => 'required',
+            'deskripsi' => 'required'
         ]);
 
         $data = [
@@ -407,7 +410,8 @@ class ProposalController extends Controller
             'skpd_id' => $request->skpd,
             'tematik_id' => $request->tematik,
             'user_id' => auth()->user()->id,
-            'status' => 'draft'
+            'status' => 'draft',
+            'deskripsi' => $request->deskripsi
         ];
 
         if ($request->hasFile('profil')) {
@@ -533,13 +537,21 @@ class ProposalController extends Controller
 
     public function reportXls($startdate, $enddate)
     {
-        $inovations = Proposal::with(['files', 'tahapan', 'skpd'])
+        $inovations = Proposal::with(['files.bukti', 'tahapan', 'skpd'])
             ->whereBetween('created_at', [$startdate, $enddate])
             ->get();
 
         $results = $inovations->map(function ($proposal) {
-            $skor = $proposal->files->sum(function ($file) {
-                return $file->bukti->bobot;
+            // Filter file dengan indikator_id = 4
+            $filteredFiles = $proposal->files->filter(function ($file) {
+                return $file->bukti->indikator_id == 4;
+            });
+
+            $skor = $filteredFiles->sum(fn ($file) => $file->bukti->bobot);
+
+            $fileLinks = $filteredFiles->map(function ($file) {
+                $url = asset('storage/docs/' . $file->file);
+                return ['text' => $file->informasi, 'url' => $url];
             });
 
             return [
@@ -547,8 +559,10 @@ class ProposalController extends Controller
                 'skor' => $skor,
                 'skpd' => $proposal->skpd->nama,
                 'tahun' => $proposal->created_at->format('Y'),
+                'bukti' => $fileLinks,
             ];
         });
+
         $results = $results->sortByDesc('skor')->values();
 
         return Excel::download(new InovationExport($results), now() . '-inovation-report.xlsx');

@@ -44,6 +44,7 @@
 			<div class="column">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<p><span style="font-size: 13pt; font-weight: 700;">1. PROFIL INOVASI</span></p>
 				<p><span style="font-size: 12pt; font-weight: 700;">1.1. Nama Inovasi</span></p>
 				<p><span style="font-size: 12pt;">{{ $proposal->nama }}</span></p>
+				<p><span style="font-size: 12pt;">{{ $proposal->deskripsi }}</span></p>
 				<p><span style="font-size: 12pt; font-weight: 700;">1.2. Dibuat Oleh</span></p>
 				<p><span style="font-size: 12pt;">{{$proposal->skpd->nama}}</span></p>
 				<p><span style="font-size: 12pt; font-weight: 700;">1.3. Tahapan Inovasi</span></p>

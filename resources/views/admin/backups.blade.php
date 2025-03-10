@@ -6,16 +6,22 @@
         <div class="container-fluid slide-it" id="app">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-dark">Backups</h1>
+                <!-- <h1 class="h3 mb-0 text-dark">Backups</h1> -->
                 <a 
                 hx-get="{{ url('/backup/only-db') }}" 
                 hx-trigger="click" 
                 hx-target="#app" 
                 hx-swap="outerHTML"
                 hx-push-url="true"
-                hx-indicator="#loadingIndicator" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Create Backup</a>
+                hx-indicator="#loadingIndicator" class="d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Backup DB</a>
+                <a 
+                hx-get="{{ url('/backup/full-backup') }}" 
+                hx-trigger="click" 
+                hx-target="#app" 
+                hx-swap="outerHTML"
+                hx-push-url="true"
+                hx-indicator="#loadingIndicator" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white fa-flip"></i> Full Backup</a>
             </div>
-            <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">List of Backups</h6>

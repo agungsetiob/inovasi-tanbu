@@ -58,9 +58,22 @@ class BackupController extends Controller{
           }
     }
 
+    public function fullBackup()
+    {
+          try {
+              Artisan::call('backup:run');
+               $output = Artisan::output();
+               Log::info("Backpack\BackupManager -- new backup started \r\n" . $output);
+               return redirect()->intended('backup')->with(['success' => $output]);
+          } catch (Exception $e) {
+               session()->flash('error', $e->getMessage());
+               return redirect()->back();
+          }
+    }
+
     public function download($file_name)
     {
-        $file = config('laravel-backup.backup.name') . 'public/RSUD/' . $file_name;
+        $file = config('laravel-backup.backup.name') . 'public/serasi/' . $file_name;
         $disk = Storage::disk(config('laravel-backup.backup.destination.disks'));
 
         if ($disk->exists($file)) {

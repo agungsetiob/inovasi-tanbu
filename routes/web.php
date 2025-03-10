@@ -131,6 +131,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('/backup', [BackupController::class, 'index']);
     Route::get('/backup/only-db', [BackupController::class, 'create']);
+    Route::get('/backup/full-backup', [BackupController::class, 'fullBackup']);
     Route::get('/backup/delete/{file_name}', [BackupController::class, 'delete']);
 
     Route::get('messages', [ContactController::class, 'index']);

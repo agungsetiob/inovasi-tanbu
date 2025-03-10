@@ -220,6 +220,15 @@
                                     </div>
                                     <div id="test-l-2" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
                                         <div class="form-group">
+                                            <label class="font-weight-bold" for="desc">Deskripsi:</label>
+                                            <input id="desc" type="text" class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi" value="{{ old('deskripsi', $inovasi->deskripsi) }}" placeholder="Deskripsi singkat inovasi">
+                                            @error('deskripsi')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
                                             <label class="font-weight-bold" for="rancang">Rancang bangun (minimal 300 kata):</label>
                                             <textarea rows="7" id="rancang" class="editor form-control @error('rancang_bangun') is-invalid @enderror" name="rancang_bangun" placeholder="Masukkan rancang bangun dan pokok perubahan yang dilakukan">{{ old('rancang_bangun', $inovasi->rancang_bangun) }}</textarea>
                                             @error('rancang_bangun')

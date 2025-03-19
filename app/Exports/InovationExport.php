@@ -21,66 +21,81 @@ class InovationExport implements FromCollection, WithHeadings, WithEvents, WithC
 
     public function collection()
     {
-        return collect($this->data)->map(function ($item) {
-            return collect($item['bukti'])->map(function ($bukti) use ($item) {
+        $base_url = config('app.url') . '/storage/docs/';
+    
+        return collect($this->data)->flatMap(function ($item) use ($base_url) {
+            $filteredFiles = isset($item['files']) && is_array($item['files'])
+                ? collect($item['files'])->filter(function ($file) {
+                    return $file['indikator_id'] == 4;
+                })
+                : collect();
+    
+            if ($filteredFiles->isEmpty()) {
+                return [[
+                    'Nama Proposal' => $item['proposal'],
+                    'SKPD' => $item['skpd'],
+                    'Skor' => $item['skor'],
+                    'Tahun' => $item['tahun'],
+                    'Bukti' => '', 
+                ]];
+            }
+            
+            return $filteredFiles->map(function ($file) use ($item, $base_url) {
                 return [
                     'Nama Proposal' => $item['proposal'],
                     'SKPD' => $item['skpd'],
                     'Skor' => $item['skor'],
                     'Tahun' => $item['tahun'],
-                    'Bukti' => $bukti['text'],
-                    'Download' => $bukti['url'],
+                    'Bukti' => $base_url . $file['name'],
                 ];
             });
-        })->collapse(); // Gabungkan hasil menjadi satu collection
-    }
-
+        })->values();
+    }    
+    
     public function headings(): array
     {
-        return ["Nama Proposal", "SKPD", "Skor", "Tahun", "Bukti", "Download"];
+        return ["Nama Proposal", "SKPD", "Skor", "Tahun", "Bukti"];
     }
 
     public function columnWidths(): array
     {
         return [
-            'A' => 25, // Nama Proposal
-            'B' => 20, // SKPD
+            'A' => 70, // Nama Proposal
+            'B' => 65, // SKPD
             'C' => 10, // Skor
             'D' => 10, // Tahun
             'E' => 40, // Bukti
         ];
     }
-
+    
     public function registerEvents(): array
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 $sheet = $event->sheet->getDelegate();
-
-                // Styling untuk header
-                $sheet->getStyle('A1:F1')->applyFromArray([
+    
+                $sheet->getStyle('A1:E1')->applyFromArray([
                     'font' => ['bold' => true],
                     'fill' => [
                         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                         'startColor' => ['rgb' => 'CCCCCC'],
                     ],
                 ]);
-
-                // Iterasi data untuk hyperlink
+    
+                $sheet->getStyle('A1:E' . ($sheet->getHighestRow()))->getAlignment()->setWrapText(true);
+    
                 foreach ($this->data as $index => $item) {
                     $rowIndex = $index + 2;
-
-                    foreach ($item['bukti'] as $b) {
-                        $cell = "F$rowIndex";
-
-                        // Set hyperlink dengan teks informasi
-                        $sheet->setCellValue($cell, $b['text']);
-                        $sheet->getCell($cell)->getHyperlink()->setUrl($b['url']);
-
-                        // Styling warna hijau untuk hyperlink
+    
+                    if (!empty($item['Bukti'])) {
+                        $cell = "E{$rowIndex}";
+    
+                        $sheet->setCellValue($cell, 'Download');
+                        $sheet->getCell($cell)->getHyperlink()->setUrl($item['Bukti']);
+    
                         $sheet->getStyle($cell)->applyFromArray([
                             'font' => [
-                                'color' => ['rgb' => '008000'],
+                                'color' => ['rgb' => '008000'], 
                                 'underline' => true,
                             ],
                         ]);
@@ -88,7 +103,6 @@ class InovationExport implements FromCollection, WithHeadings, WithEvents, WithC
                 }
             },
         ];
-    }
-
+    }           
+    
 }
-

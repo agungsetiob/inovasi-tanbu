@@ -537,35 +537,30 @@ class ProposalController extends Controller
 
     public function reportXls($startdate, $enddate)
     {
-        $inovations = Proposal::with(['files.bukti', 'tahapan', 'skpd'])
+        $inovations = Proposal::with(['files', 'tahapan', 'skpd'])
             ->whereBetween('created_at', [$startdate, $enddate])
             ->get();
-
+    
         $results = $inovations->map(function ($proposal) {
-            // Filter file dengan indikator_id = 4
-            $filteredFiles = $proposal->files->filter(function ($file) {
-                return $file->bukti->indikator_id == 4;
+            $skor = $proposal->files->sum(function ($file) {
+                return $file->bukti->bobot ?? 0;
             });
-
-            $skor = $filteredFiles->sum(fn ($file) => $file->bukti->bobot);
-
-            $fileLinks = $filteredFiles->map(function ($file) {
-                $url = asset('storage/docs/' . $file->file);
-                return ['text' => $file->informasi, 'url' => $url];
-            });
-
+    
             return [
-                'proposal' => $proposal->nama,
+                'proposal' => $proposal->nama ?? 'N/A',
                 'skor' => $skor,
-                'skpd' => $proposal->skpd->nama,
-                'tahun' => $proposal->created_at->format('Y'),
-                'bukti' => $fileLinks,
+                'skpd' => $proposal->skpd->nama ?? 'N/A',
+                'tahun' => $proposal->created_at ? $proposal->created_at->format('Y') : 'N/A',
+                'files' => $proposal->files->map(function ($file) {
+                    return [
+                        'name' => $file->file ?? '',
+                        'indikator_id' => $file->indikator_id ?? '',
+                    ];
+                })->toArray(),
             ];
-        });
-
-        $results = $results->sortByDesc('skor')->values();
-
+        })->toArray();
+    
         return Excel::download(new InovationExport($results), now() . '-inovation-report.xlsx');
-    }
+    }    
 
 }

@@ -231,7 +231,7 @@ class ProposalController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'profil'     => 'required|mimes:pdf|max:5120',
+            'profil'     => 'mimes:pdf|max:5120',
             'nama'     => 'required|unique:proposals',
             'tahapan'   => 'required',
             'inisiator'      => 'required',

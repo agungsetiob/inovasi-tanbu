@@ -47,10 +47,17 @@
                 <x-input id="username" class="block mt-1 w-full" type="text" name="username" value="{{ old('username', $user->username) }}" required autofocus />
             </div>
 
+            <!-- Email -->
+            <div class="mt-4">
+                <x-label for="email" :value="__('Email')" />
+
+                <x-input id="email" class="block mt-1 w-full" type="text" name="email" value="{{ old('email', $user->email) }}" required autofocus />
+            </div>
+
             <!-- skpd uptd -->
                 <div class="mt-4">
                     <x-label for="skpd_id" :value="__('SKPD/UPTD')" />
-                    <select name="skpd_id" id="skpd_id" class="hover:opacity-100 focus:opacity-100 opacity-50 text-gray-700 form-control @error('skpd_id') is-invalid @enderror" required>
+                    <select name="skpd_id" id="skpd_id" class="hover:opacity-100 focus:opacity-100 opacity-50 text-gray-700 form-control @error('skpd_id') is-invalid @enderror" disabled>
                         <option class="opacity-100" value="" disabled selected>Pilih SKPD/UPTD</option>
                         @foreach ($skpds as $s)
                         <option class="opacity-100" value="{{ $s->id }}" @selected($user->skpd_id == $s->id)>{{ $s->nama }}</option>

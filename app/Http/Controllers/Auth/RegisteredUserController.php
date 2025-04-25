@@ -169,6 +169,7 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
             'avatar'     => ['mimes:jpeg,png,jpg,gif,svg|max:2048'],
+            'email' => ['required', 'string', 'email', 'max:255'],
         ]);
 
         $user = User::findOrFail($id);
@@ -180,15 +181,17 @@ class RegisteredUserController extends Controller
             $user->update([
                 'name' => $request->name,
                 'username' => $request->username,
-                'skpd_id' => $request->skpd_id,
+                'skpd_id' => Auth::user()->skpd_id,
                 'avatar' => $image->hashName(),
+                'email' => $request->email,
             ]);
 
         } else {
             $user->update([
                 'name' => $request->name,
                 'username' => $request->username,
-                'skpd_id' => $request->skpd_id,
+                'skpd_id' => Auth::user()->skpd_id,
+                'email' => $request->email,
             ]);
         }
 

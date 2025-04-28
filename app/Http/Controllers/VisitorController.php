@@ -138,8 +138,11 @@ class VisitorController extends Controller
     */
     public function loadRiset()
     {
-        $risets = Riset::with('skpd')->whereNotNull('url')->get();
-        sleep(1);
+        $risets = Riset::with('skpd')
+        ->whereNotNull('url')
+        ->whereStatus('approved')
+        ->get();
+        //sleep(1);
         return response()->json([
             'data' => $risets,
             'message'=>'success',

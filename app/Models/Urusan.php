@@ -10,7 +10,7 @@ class Urusan extends Model
     use HasFactory;
     public function proposals()
     {
-        return $this->belongsToMany(Proposal::class);
+        return $this->belongsToMany(Proposal::class)->withTimestamps();
     }
 
     public function tematik()

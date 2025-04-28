@@ -19,7 +19,7 @@ class Indikator extends Model
         return $this->hasMany(File::class);
     }
     public function proposals(){
-        return $this->belongsToMany(Proposal::class);
+        return $this->belongsToMany(Proposal::class)->withTimestamps();
     }
     public function profiles()
     {

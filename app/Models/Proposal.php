@@ -15,7 +15,7 @@ class Proposal extends Model
         return $this->belongsTo(Bentuk::class);
     }
     public function urusans(){
-        return $this->belongsToMany(Urusan::class);
+        return $this->belongsToMany(Urusan::class)->withTimestamps();
     }
     public function category(){
         return $this->belongsTo(Category::class);
@@ -36,7 +36,7 @@ class Proposal extends Model
         return $this->belongsTo(Inisiator::class);
     }
     public function indikators(){
-        return $this->belongsToMany(Indikator::class);
+        return $this->belongsToMany(Indikator::class)->withTimestamps();
     }
     public function notes(){
         return $this->hasMany(Note::class);

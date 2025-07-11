@@ -25,28 +25,28 @@ class FileController extends Controller
         $buktis = Bukti::where('status', 'active')->get();
         $indikators = Indikator::where('status', 'active')->get();
         $totalBobot = File::with('bukti')
-        ->where('proposal_id', $id)
-        ->get()
-        ->pluck('bukti.bobot')
-        ->sum();
+            ->where('proposal_id', $id)
+            ->get()
+            ->pluck('bukti.bobot')
+            ->sum();
         //$files = Indikator::all();
         if ($request->header('HX-Request')) {
             return view('admin.file', compact(
                 //'files', 
-                'proposal', 
-                'buktis', 
-                'indikators', 
-                'totalBobot', 
+                'proposal',
+                'buktis',
+                'indikators',
+                'totalBobot',
                 'proposalId',
                 'backgrounds'
             ))->fragment('bukti-dukung');
-        }else{
+        } else {
             return view('admin.file', compact(
                 //'files', 
-                'proposal', 
-                'buktis', 
-                'indikators', 
-                'totalBobot', 
+                'proposal',
+                'buktis',
+                'indikators',
+                'totalBobot',
                 'proposalId',
                 'backgrounds'
             ));
@@ -58,7 +58,7 @@ class FileController extends Controller
         $files = File::with('bukti')->where('proposal_id', $id)->get()->pluck('bukti.bobot');
         return response()->json([
             'success' => true,
-            'data'    => $files
+            'data' => $files
         ]);
     }
 
@@ -93,7 +93,7 @@ class FileController extends Controller
     //             $fileData['file'] = $file->hashName();
     //         }
     //         $buktiDukung = File::create($fileData);
-            
+
     //         return response()->json([
     //             'success' => true,
     //             'message' => 'Data Berhasil Disimpan!',
@@ -174,25 +174,25 @@ class FileController extends Controller
             'file' => 'required|mimes:pdf|max:3072',
         ]);
 
-            if ($request->hasFile('file')) {
-                $file = $request->file('file');
-                $file->storeAs('public/docs', $file->hashName());
-            }
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $file->storeAs('public/docs', $file->hashName());
+        }
 
-            $file = File::create([
-                'file' => $file->hashName() ?? null,
-                'informasi' => addslashes($request->informasi),
-                'user_id' => auth()->user()->id,
-                'proposal_id' => $request->proposal_id,
-                'bukti_id' => $request->bukti,
-                'indikator_id' => $request->indikator_id,
-            ]);
+        $file = File::create([
+            'file' => $file->hashName() ?? null,
+            'informasi' => addslashes($request->informasi),
+            'user_id' => auth()->user()->id,
+            'proposal_id' => $request->proposal_id,
+            'bukti_id' => $request->bukti,
+            'indikator_id' => $request->indikator_id,
+        ]);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Data Berhasil Disimpan!',
-                'data' => $file
-            ]);
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Berhasil Disimpan!',
+            'data' => $file
+        ]);
     }
 
 
@@ -204,30 +204,40 @@ class FileController extends Controller
      */
     public function show(Indikator $indikator)
     {
-        $bukti = $indikator->buktis->map(function ($bukti) {
-            return [
-                'id' => $bukti->id,
-                'nama' => $bukti->nama,
-                'bobot' => $bukti->bobot,
-            ];
-        });
+        // $bukti = $indikator->buktis->map(function ($bukti) {
+        //     return [
+        //         'id' => $bukti->id,
+        //         'nama' => $bukti->nama,
+        //         'bobot' => $bukti->bobot,
+        //     ];
+        // });
+        $bukti = Bukti::where('indikator_id', $indikator->id)
+            ->where('status', 'active')
+            ->get()
+            ->map(function ($b) {
+                return [
+                    'id' => $b->id,
+                    'nama' => $b->nama,
+                    'bobot' => $b->bobot,
+                ];
+            });
 
-        $files = $indikator->files;
-        $fileData = [];
-        foreach ($files as $file) {
-            $fileData[] = [
-                'informasi' => $file->informasi,
-                'buktiId' => $file->bukti_id,
-                'id'    =>$file->id
-            ];
-        }
+        // $files = $indikator->files;
+        // $fileData = [];
+        // foreach ($files as $file) {
+        //     $fileData[] = [
+        //         'informasi' => $file->informasi,
+        //         'buktiId' => $file->bukti_id,
+        //         'id'    =>$file->id
+        //     ];
+        // }
 
         return response()->json([
             'success' => true,
             'message' => 'Detail Data Indikator',
             'data' => $indikator,
             'bukti' => $bukti,
-            'files' => $fileData,
+            //'files' => $fileData,
         ]);
     }
 
@@ -240,13 +250,23 @@ class FileController extends Controller
      */
     public function edit(Proposal $proposal, Indikator $indikator)
     {
-        $bukti = $indikator->buktis->map(function ($bukti) {
-            return [
-                'id' => $bukti->id,
-                'nama' => $bukti->nama,
-                'bobot' => $bukti->bobot,
-            ];
-        });
+        // $bukti = $indikator->buktis->map(function ($bukti) {
+        //     return [
+        //         'id' => $bukti->id,
+        //         'nama' => $bukti->nama,
+        //         'bobot' => $bukti->bobot,
+        //     ];
+        // });
+        $bukti = Bukti::where('indikator_id', $indikator->id)
+            ->where('status', 'active')
+            ->get()
+            ->map(function ($b) {
+                return [
+                    'id' => $b->id,
+                    'nama' => $b->nama,
+                    'bobot' => $b->bobot,
+                ];
+            });
 
         return response()->json([
             'success' => true,
@@ -335,7 +355,7 @@ class FileController extends Controller
             return response()->json([
                 'error' => 'Gagal update data',
                 'success' => false
-        ]);
+            ]);
         }
     }
 
@@ -357,7 +377,7 @@ class FileController extends Controller
     //             $newFile = $request->file('file');
     //             $newFileName = $newFile->hashName();
     //             $newFile->storeAs('public/docs', $newFileName);
-                
+
     //             // Use update method for mass assignment
     //             $file->update([
     //                 'file' => $newFileName,

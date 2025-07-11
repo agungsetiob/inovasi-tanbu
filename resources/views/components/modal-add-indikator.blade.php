@@ -1,19 +1,21 @@
 {{-- Add bukti dukung Modal --}}
-<div class="modal fade" id="uploadFile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="uploadFile" tabindex="-1" aria-labelledby="editIndikatorModal" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah bukti dukung</h5>
+                <h5 class="modal-title" id="editIndikatorModal">Tambah bukti dukung</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form action="#" method="POST" enctype="multipart/form-data" id="uploadForm">
                     @csrf
                     <input type="hidden" class="form-control" name="indikator_id" id="indikator_id">
-                    <input type="hidden" class="form-control" id="proposal_id" name="proposal_id" value="{{$proposal->id}}">
-                    <input type="hidden" class="form-control" id="proposal_user_id" name="proposal_user_id" value="{{$proposal->user_id}}">
+                    <input type="hidden" class="form-control" id="proposal_id" name="proposal_id"
+                        value="{{$proposal->id}}">
+                    <input type="hidden" class="form-control" id="proposal_user_id" name="proposal_user_id"
+                        value="{{$proposal->user_id}}">
                     <label for="indikator">Indikator</label>
                     <div class="form-group">
                         <input type="text" id="indikator" class="form-control" readonly>
@@ -28,7 +30,8 @@
                         <select name="bukti" id="bukti" class="select selectized">
                             <option value="">Pilih bukti</option>
                             {{--@foreach ($buktis as $bukti)
-                            <option value="{{ $bukti->id }}" {{ old('bukti') == $bukti->id ? 'selected' : ''}}>{{ $bukti->nama }} - bobot {{ $bukti->bobot}}</option>
+                            <option value="{{ $bukti->id }}" {{ old('bukti')==$bukti->id ? 'selected' : ''}}>{{
+                                $bukti->nama }} - bobot {{ $bukti->bobot}}</option>
                             @endforeach--}}
                         </select>
                         <p class="text-danger d-none" id="alert-bukti"></p>
@@ -38,18 +41,20 @@
                         <div class="input-group">
                             <label class="input-group-btn">
                                 <span class="btny btn-outline-primary">
-                                    Browse<input accept=".png, .jpg, .jpeg, .pdf" id="bFile" type="file" style="display: none;" name="file">
+                                    Browse<input accept=".png, .jpg, .jpeg, .pdf" id="bFile" type="file"
+                                        style="display: none;" name="file">
                                 </span>
                             </label>
                             <input id="file" type="text" class="form-control" readonly placeholder="Choose a file">
-                        </div> 
+                        </div>
                         <p class="text-danger d-none" id="alert-file"></p>
                     </div>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <button id="upload" type="submit" class="btn btn-primary">Save</button>
-                    <button id="loading" class="btn btn-primary d-none" disabled><i class="fa-solid fa-circle-notch fa-spin"></i> Saving...</button>
+                    <button id="loading" class="btn btn-primary d-none" disabled><i
+                            class="fa-solid fa-circle-notch fa-spin"></i> Saving...</button>
                 </form>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -69,15 +74,18 @@
             url: `/bukti-dukung/add/${indikator_id}`,
             type: "GET",
             cache: false,
-            success:function(response){
+            success: function (response) {
                 //fill data to form
                 $('#indikator_id').val(response.data.id);
                 $('#indikator').val(response.data.nama);
                 var indikatorValue = $('#indikator').val();
-                if ( indikatorValue == "Kualitas Inovasi Daerah*"){
+                if (indikatorValue == "Kualitas Inovasi Daerah*") {
                     $('#des').text('URL/Link Video');
                     $('#formFile').hide();
-                } else{
+                } if (indikatorValue == "Pedoman Teknis") {
+                    $('#des').text('Deskripsi bukti atau URL/Link Video jika ada');
+                    $('#formFile').show();
+                } else {
                     $('#des').text('Deskripsi bukti')
                     $('#formFile').show();
                 }
@@ -97,7 +105,7 @@
         e.preventDefault();
         $('#upload').addClass('d-none');
         $('#loading').removeClass('d-none');
-        
+
         var formData = new FormData(this);
 
         $.ajax({
@@ -110,7 +118,7 @@
             success: function (response) {
                 var id = $('#proposal_id').val();
                 var reloadUrl = '{{ url("/bukti-dukung") }}/' + id;
-                
+
                 // Reload the table
                 $("#files-table").load(reloadUrl + " #files-table");
 
@@ -123,7 +131,7 @@
 
                 $('#success-modal').modal('show');
                 $('#success-message').text(response.message);
-                setTimeout(function() {
+                setTimeout(function () {
                     $('#success-modal').modal('hide');
                     $('.modal-backdrop').remove();
                 }, 3900);
@@ -136,7 +144,7 @@
                 console.log(response);
             },
             error: function (error) {
-                if (error.status === 422) { 
+                if (error.status === 422) {
                     $('#upload').removeClass('d-none');
                     $('#loading').addClass('d-none');
                     $.each(error.responseJSON.errors, function (field, errors) {
@@ -156,5 +164,25 @@
             }
         });
     });
+
+    // Reset form and error states when modal is closed
+    $('#uploadFile').on('hidden.bs.modal', function () {
+        $('#informasi').val('');
+        $('#bukti').val('');
+        $('#bFile').val('');
+        $('#file').val('');
+
+        if ($('#bukti')[0].selectize) {
+            $('#bukti')[0].selectize.clear(true);
+        }
+
+        $('.text-danger').addClass('d-none').empty();
+        $('.is-invalid').removeClass('is-invalid');
+        $('.selectize-control').removeClass('is-invalid');
+
+        $('#des').text('Deskripsi bukti');
+        $('#formFile').show();
+    });
+
 
 </script>

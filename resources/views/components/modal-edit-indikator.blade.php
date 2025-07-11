@@ -1,11 +1,11 @@
 {{--edit indikator modal--}}
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editIndikatorModal">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ubah bukti</h5>
+                <h5 class="modal-title" id="editIndikatorModal">Ubah bukti</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -173,4 +173,18 @@
             }
         });
     });
+
+    $('#editModal').on('hidden.bs.modal', function () {
+        if ($('#bukti_edit')[0].selectize) {
+            $('#bukti_edit')[0].selectize.clear(true);
+        }
+
+        $('.text-danger').addClass('d-none').empty();
+        $('.is-invalid').removeClass('is-invalid');
+        $('.selectize-control').removeClass('is-invalid');
+
+        $('#des-edit').text('Deskripsi bukti');
+        $('#fileEdit').show();
+    });
+
 </script>

@@ -44,9 +44,9 @@
                         <p class="text-danger d-none" id="alert-file-edit"></p>
                     </div>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <button id="upload" type="submit" class="btn btn-primary">Upload</button>
-                    <button id="loading" type="submit" class="btn btn-primary d-none" disabled><i
-                            class="fa-solid fa-circle-notch fa-spin"></i></button>
+                    <button id="upload-edit" type="submit" class="btn btn-primary">Save</button>
+                    <button id="loading-edit" class="btn btn-primary d-none" disabled><i
+                            class="fa-solid fa-circle-notch fa-spin"></i> Saving...</button>
                 </form>
             </div>
         </div>
@@ -74,6 +74,13 @@
         $('#informasi_edit').val(informasi);
         $('#file_id').val(file_id);
 
+        // if (indikator_nama == "Kualitas Inovasi Daerah*") {
+        //     $('#des-edit').text('URL/Link Video');
+        //     $('#fileEdit').hide();
+        // } else {
+        //     $('#des').text('Deskripsi bukti')
+        //     $('#fileEdit').show();
+        // }
         if (indikator_nama == "Kualitas Inovasi Daerah*") {
             $('#des-edit').text('URL/Link Video');
             $('#fileEdit').hide();
@@ -84,7 +91,6 @@
             $('#des-edit').text('Deskripsi bukti');
             $('#fileEdit').show();
         }
-
         var buktiEditSelect = $('#bukti_edit');
         buktiEditSelect.empty();
         var buktiData = bukti_id;
@@ -115,8 +121,12 @@
 
     $('#updateForm').submit(function (e) {
         e.preventDefault();
-        $('#upload').addClass('d-none');
-        $('#loading').removeClass('d-none');
+
+        console.log('Form submission started.');
+
+    $('#upload-edit').addClass('d-none');
+    $('#loading-edit').removeClass('d-none');
+    console.log('Buttons have been switched.');
 
         var file_id = $('#file_id').val();
         var formData = new FormData(this);
@@ -131,7 +141,6 @@
             success: function (response) {
                 var id = $('#proposal_id').val();
                 var reloadUrl = '{{ url("/bukti-dukung") }}/' + id;
-
                 $("#files-table").load(reloadUrl + " #files-table");
 
                 $('#editModal').modal('hide');
@@ -146,31 +155,31 @@
                     $('#success-modal').modal('hide');
                     $('.modal-backdrop').remove();
                 }, 3900);
-                $('#upload').removeClass('d-none');
-                $('#loading').addClass('d-none');
+
+                // Reset tombol
+                $('#upload-edit').removeClass('d-none');
+                $('#loading-edit').addClass('d-none');
 
                 $('.text-danger').addClass('d-none').empty();
                 $('.is-invalid').removeClass('is-invalid');
             },
             error: function (error) {
+                $('#upload-edit').removeClass('d-none');
+                $('#loading-edit').addClass('d-none');
+
                 if (error.status === 422) {
-                    $('#upload').removeClass('d-none');
-                    $('#loading').addClass('d-none');
                     $.each(error.responseJSON.errors, function (field, errors) {
                         let alertId = 'alert-' + field + '-edit';
                         $('#' + alertId).html(errors[0]).removeClass('d-none').addClass('d-block');
-                        $('#' + field).html(errors[0]).addClass('is-invalid');
-                        $('#' + field + '_edit').html(errors[0]).addClass('is-invalid');
+                        $('#' + field).addClass('is-invalid');
+                        $('#' + field + '_edit').addClass('is-invalid');
                         if (field === 'bukti') {
                             $('.selectize-control').addClass('is-invalid');
                         }
                     });
-
                 } else {
                     $('#error-message').text(error.status + ' ' + error.responseJSON.message);
                     $('#error-modal').modal('show');
-                    $('#upload').removeClass('d-none');
-                    $('#loading').addClass('d-none');
                 }
                 console.log(error);
             }

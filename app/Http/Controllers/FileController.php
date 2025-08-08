@@ -66,7 +66,6 @@ class FileController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     // public function store(Request $request)
     // {
@@ -164,7 +163,6 @@ class FileController extends Controller
      * Store a newly created resource for spd in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function storeSpd(Request $request)
     {
@@ -200,7 +198,6 @@ class FileController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\File  $file
-     * @return \Illuminate\Http\Response
      */
     public function show(Indikator $indikator)
     {
@@ -246,7 +243,6 @@ class FileController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\File  $file
-     * @return \Illuminate\Http\Response
      */
     public function edit(Proposal $proposal, Indikator $indikator)
     {
@@ -281,17 +277,34 @@ class FileController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\File  $file
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, File $file)
     {
-        if (strtolower($file->user_id) === strtolower(Auth::user()->id) && strtolower($file->proposal->status) === 'draft') {
-            $this->validate($request, [
-                'informasi' => 'required',
-                'bukti' => 'required',
-                'file' => 'nullable|mimes:pdf,png,jpg,jpeg|max:10240',
-            ]);
+        // Cek apakah user berhak mengedit file
+        if (strtolower($file->user_id) !== strtolower(Auth::user()->id)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Akses ditolak: Anda tidak memiliki hak untuk mengubah file ini.',
+            ], 403);
+        }
 
+        // Cek apakah proposal masih dalam status draft
+        if (strtolower($file->proposal->status) !== 'draft') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Perubahan ditolak: Proposal sudah bukan dalam status draft.',
+            ], 403);
+        }
+
+        // Validasi input
+        $this->validate($request, [
+            'informasi' => 'required',
+            'bukti' => 'required',
+            'file' => 'nullable|mimes:pdf,png,jpg,jpeg|max:10240',
+        ]);
+
+        try {
+            // Jika ada file baru, hapus file lama dan simpan yang baru
             if ($request->hasFile('file')) {
                 Storage::delete('public/docs/' . $file->file);
                 $newFile = $request->file('file');
@@ -300,20 +313,22 @@ class FileController extends Controller
                 $file->file = $newFileName;
             }
 
+            // Update informasi dan bukti
             $file->informasi = $request->informasi;
             $file->bukti_id = $request->bukti;
             $file->save();
 
             return response()->json([
                 'success' => true,
-                'message' => 'Data Berhasil Diupdate!',
+                'message' => 'Data berhasil diupdate!',
                 'data' => $file,
             ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage(),
+            ], 500);
         }
-        return response()->json([
-            'success' => false,
-            'message' => 'failed'
-        ]);
     }
 
     /**
@@ -321,7 +336,6 @@ class FileController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\File  $file
-     * @return \Illuminate\Http\Response
      */
     public function updateSpd(Request $request, File $file)
     {

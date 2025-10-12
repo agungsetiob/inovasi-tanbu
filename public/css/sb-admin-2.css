@@ -9623,6 +9623,10 @@ a.text-secondary:hover, a.text-secondary:focus {
   color: #1cc88a !important;
 }
 
+.text-wa {
+  color: #25D366 !important;
+}
+
 a.text-success:hover, a.text-success:focus {
   color: #13855c !important;
 }

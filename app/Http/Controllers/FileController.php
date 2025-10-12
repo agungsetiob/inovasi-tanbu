@@ -157,8 +157,6 @@ class FileController extends Controller
         ]);
     }
 
-
-
     /**
      * Store a newly created resource for spd in storage.
      *
@@ -370,46 +368,5 @@ class FileController extends Controller
             ]);
         }
     }
-
-    // public function update(Request $request, File $file)
-    // {
-    //     if ($file->user_id === Auth::user()->id && $file->proposal->status === 'draft') {
-    //         $this->validate($request, [
-    //             'informasi' => 'required',
-    //             'bukti' => 'required',
-    //             'file' => 'nullable|mimes:pdf,png,jpg,jpeg|max:3072',
-    //         ]);
-
-    //         if ($request->hasFile('file')) {
-    //             // Check if the old file exists before deleting
-    //             if (Storage::exists('public/docs/' . $file->file)) {
-    //                 Storage::delete('public/docs/' . $file->file);
-    //             }
-
-    //             $newFile = $request->file('file');
-    //             $newFileName = $newFile->hashName();
-    //             $newFile->storeAs('public/docs', $newFileName);
-
-    //             // Use update method for mass assignment
-    //             $file->update([
-    //                 'file' => $newFileName,
-    //                 'informasi' => $request->informasi,
-    //                 'bukti_id' => $request->bukti,
-    //             ]);
-    //         } else {
-    //             // If no new file, only update other attributes
-    //             $file->update([
-    //                 'informasi' => $request->informasi,
-    //                 'bukti_id' => $request->bukti,
-    //             ]);
-    //         }
-
-    //         return response()->json([
-    //             'success' => true,
-    //             'message' => 'Data Berhasil Diupdate!',
-    //             'data' => $file,
-    //         ]);
-    //     }
-    // }
 
 }

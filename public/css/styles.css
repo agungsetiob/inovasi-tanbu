@@ -8177,6 +8177,11 @@ textarea.form-control-lg {
   color: rgba(var(--bs-success-rgb), var(--bs-text-opacity)) !important;
 }
 
+.text-wa {
+  --bs-text-opacity: 1;
+  color: #25D366 !important;
+}
+
 .text-info {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-info-rgb), var(--bs-text-opacity)) !important;
@@ -11037,6 +11042,21 @@ html {
 .btn-xl {
   padding: 1rem 1.75rem;
   font-size: 1.25rem;
+}
+
+.btn-download {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-download:hover {
+    background-color: #ffffff;
+    color: #0d6efd;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .btn-social {

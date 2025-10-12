@@ -27,6 +27,14 @@
     <script src="https://cdn.jsdelivr.net/npm/use-bootstrap-select@2.1.1/dist/use-bootstrap-select.min.js"></script>
     <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
     <script src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
+    <style>
+        .floating-wa-button {
+            position: fixed;
+            bottom: 17px;
+            right: 17px;
+            z-index: 1000;
+        }
+    </style>
 </head>
 
 <body id="page-top" hx-ext="loading-states">
@@ -90,6 +98,9 @@
         </div>
     </nav>
     @include('visitor.partial.htmx-indicator')
+    <a class="floating-wa-button" href="https://wa.me/{{$telp}}" target="_blank" title="Chat with us on WhatsApp">
+        <i class="fa-brands text-wa fa-square-whatsapp fa-3x"></i>
+    </a>
     @yield('content')
 </body>
 

@@ -8,9 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Sistem Informasi Riset dan Inovasi</title>
     <link rel="icon" type="image/x-icon" href="{{asset('assets/img/logo.png')}}" />
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
-        type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="{{asset('css/styles.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
@@ -27,75 +25,310 @@
     <script src="https://cdn.jsdelivr.net/npm/use-bootstrap-select@2.1.1/dist/use-bootstrap-select.min.js"></script>
     <script type="text/javascript" src="{{asset('vendor/tanbu/tanbu.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('vendor/tanbu/loading-states.js')}}"></script>
+    
+    <style>
+        :root {
+            --primary: #3a86ff;
+            --primary-light: #8bb4ff;
+            --secondary: #ff6b6b;
+            --accent: #06d6a0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #b1c5e7ff 0%, #e4edf5 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .logo {
+            height: 70px;
+            transition: var(--transition);
+        }
+        
+        .logo:hover {
+            transform: translateY(-3px);
+        }
+        
+        .hero-section {
+            text-align: center;
+            padding: 3rem 0 5rem;
+        }
+        
+        .main-logo {
+            max-height: 180px;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .menu-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .menu-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            box-shadow: 0 5px 15px rgba(58, 134, 255, 0.3);
+            transition: var(--transition);
+        }
+        
+        .menu-card:hover .menu-icon {
+            transform: scale(1.1);
+        }
+        
+        .menu-icon img {
+            width: 40px;
+            height: 40px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .menu-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .menu-description {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .menu-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .menu-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(58, 134, 255, 0.3);
+        }
+        
+        .loading-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            z-index: 9999;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        
+        .loading-indicator.active {
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% { transform: scaleX(0); }
+            50% { transform: scaleX(1); }
+            100% { transform: scaleX(0); transform-origin: right; }
+        }
+        
+        @media (max-width: 768px) {
+            .header-bar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .logo-container {
+                justify-content: center;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-<body id="page-top" class="rotate-and-zoom-out" style="background-image: url('../img/background.svg');" hx-ext="loading-states">
+<body id="page-top" hx-ext="loading-states">
     <noscript>
         @include('errors.noscript')
     </noscript>
+    
+    <div class="loading-indicator" id="loadingIndicator"></div>
+    
     <div class="container">
-        <div class="row justify-content-between pt-4">
-            <img style="width:93px" class="img-fluid" src="assets/img/logo.png" title="garuda" alt="garuda" />
-            <img style="width:175px" class="img-fluid" src="assets/img/akhlak.png" title="tanbu" alt="tanbu" />
+        <div class="header-bar">
+            <div class="logo-container">
+                <img class="logo" src="assets/img/logo.png" title="garuda" alt="garuda" />
+                <img class="logo" src="assets/img/akhlak.png" title="tanbu" alt="tanbu" />
+            </div>
         </div>
     </div>
-    <!-- Masthead-->
-    <header id="wrapper" class="masthead text-white text-center"
-        style="margin-top: 0px; padding-top: 0px; padding-bottom: 0.1rem; margin-bottom: 0px;" hx-history="false">
-        @foreach ($settings as $s)
-        <div class="container d-flex align-items-center justify-content-center">
-            <img style="height:193px" class="img-fluid mb-2" src="{{url('storage/system/' . $s->logo_cover)}}"
-                title="logo" alt="logo" />
-        </div>
-        @endforeach
-        <div class="container d-flex align-items-center flex-column">
-            <h3 class="text-uppercase text-dark">Kabupaten Tanah Bumbu</h3>
-            <!-- Icon Divider-->
-        </div>
 
+    <section class="hero-section">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
-                    <div class="portfolio-item mx-auto text-center">
-                        <img class="img-fluid menu-logo fa-bounce bounce-no-animation" src="assets/img/rocket.png"
-                            alt="..." />
-                        <a hx-get="{{url('inovasi')}}" hx-trigger="click" hx-target="#page-top"
-                            hx-swap="outerHTML transition:true" hx-push-url="true" hx-indicator="#loadingIndicator"
-                            class="btn btn-lg btn-outline-secondary btn-block masthead-subheading fw-semibold mb-0"
-                            style="display: flex; justify-content: center; align-items: center;">INOVASI</a>
+            @foreach ($settings as $s)
+            <div class="logo-container justify-content-center">
+                <img class="main-logo" src="{{url('storage/system/' . $s->logo_cover)}}" title="logo" alt="logo" />
+            </div>
+            @endforeach
+            
+            <h1 class="title">Sistem Informasi Riset dan Inovasi</h1>
+            <p class="subtitle">Kabupaten Tanah Bumbu - Menghadirkan solusi inovatif untuk kemajuan daerah</p>
+            
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="menu-icon">
+                        <img src="assets/img/rocket.png" alt="Inovasi" />
                     </div>
+                    <h3 class="menu-title">INOVASI</h3>
+                    <p class="menu-description">Temukan berbagai inovasi terbaru yang dikembangkan di Kabupaten Tanah Bumbu</p>
+                    <a hx-get="{{url('inovasi')}}" hx-trigger="click" hx-target="#page-top"
+                        hx-swap="outerHTML transition:true" hx-push-url="true" hx-indicator="#loadingIndicator"
+                        class="menu-button">Jelajahi</a>
                 </div>
-                <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
-                    <div class="portfolio-item mx-auto">
-                        <img class="img-fluid menu-logo-atom fa-spin-pulse" src="assets/img/atom.png" alt="..." />
-                        <a
-                        hx-get="{{url('risets')}}" 
-                        hx-trigger="click" 
-                        hx-target="#page-top" 
-                        hx-swap="outerHTML transition:true"
-                        hx-push-url="true"
-                        hx-indicator="#loadingIndicator"
-                        class="btn btn-lg btn-outline-secondary btn-block masthead-subheading fw-semibold mb-0"
-                        style="display: flex; justify-content: center; align-items: center;">RISET</a>
+                
+                <div class="menu-card">
+                    <div class="menu-icon">
+                        <img src="assets/img/atom.png" alt="Riset" />
                     </div>
+                    <h3 class="menu-title">RISET</h3>
+                    <p class="menu-description">Akses hasil penelitian dan riset yang mendukung pembangunan daerah</p>
+                    <a hx-get="{{url('risets')}}" hx-trigger="click" hx-target="#page-top" 
+                        hx-swap="outerHTML transition:true" hx-push-url="true" hx-indicator="#loadingIndicator"
+                        class="menu-button">Jelajahi</a>
                 </div>
-                <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
-                    <div class="portfolio-item mx-auto">
-                        <img class="img-fluid menu-logo fa-flip" src="assets/img/microscope.png" alt="..." />
-                        <a 
-                        hx-get="{{ url('evaluasi') }}"
-                        hx-trigger="click"
-                        hx-target="#page-top"
-                        hx-swap="outerHTML transition:true"
-                        hx-push-url="true"
-                        hx-indicator="#loadingIndicator"
-                        class="btn btn-lg btn-outline-secondary btn-block masthead-subheading fw-semibold mb-0" style="display: flex; justify-content: center; align-items: center;">EVALUASI</a>
+                
+                <div class="menu-card">
+                    <div class="menu-icon">
+                        <img src="assets/img/microscope.png" alt="Evaluasi" />
                     </div>
+                    <h3 class="menu-title">EVALUASI</h3>
+                    <p class="menu-description">Tinjau evaluasi program dan kebijakan untuk perbaikan berkelanjutan</p>
+                    <a hx-get="{{ url('evaluasi') }}" hx-trigger="click" hx-target="#page-top"
+                        hx-swap="outerHTML transition:true" hx-push-url="true" hx-indicator="#loadingIndicator"
+                        class="menu-button">Jelajahi</a>
                 </div>
             </div>
         </div>
-    </header>
-    @include('visitor.partial.htmx-indicator')
+    </section>
+
     <script>
+        // Add loading indicator animation
+        document.addEventListener('htmx:beforeRequest', function() {
+            document.getElementById('loadingIndicator').classList.add('active');
+        });
+        
+        document.addEventListener('htmx:afterRequest', function() {
+            document.getElementById('loadingIndicator').classList.remove('active');
+        });
+        
+        // Carousel initialization (if needed)
         $('#slider').owlCarousel({
             items: 1,
             lazyLoad: true,
@@ -118,12 +351,10 @@
                 },
                 1200: {
                     items: 1,
-                    // stagePadding: 250
                     stagePadding: 130
                 },
                 1400: {
                     items: 1,
-                    // stagePadding: 300
                     stagePadding: 130
                 },
                 1600: {
@@ -138,5 +369,4 @@
         });
     </script>
 </body>
-
 </html>

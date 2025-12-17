@@ -551,6 +551,9 @@ class ProposalController extends Controller
                 'skor' => $skor,
                 'skpd' => $proposal->skpd->nama ?? 'N/A',
                 'tahun' => $proposal->created_at ? $proposal->created_at->format('Y') : 'N/A',
+                'jenis' => optional($proposal->category)->name ?? 'N/A',
+                'bentuk' => $proposal->bentuk->nama ?? 'N/A',
+                'urusans' => $proposal->urusans->pluck('nama')->join(', '),
                 'files' => $proposal->files->map(function ($file) {
                     return [
                         'name' => $file->file ?? '',

@@ -36,7 +36,10 @@ class InovationExport implements FromCollection, WithHeadings, WithEvents, WithC
                     'SKPD' => $item['skpd'],
                     'Skor' => $item['skor'],
                     'Tahun' => $item['tahun'],
-                    'Bukti' => '', 
+                    'Bukti' => '',
+                    'Jenis' => $item['jenis'],
+                    'Bentuk' => $item['bentuk'],
+                    'Urusan' => $item['urusans'],
                 ]];
             }
             
@@ -47,6 +50,9 @@ class InovationExport implements FromCollection, WithHeadings, WithEvents, WithC
                     'Skor' => $item['skor'],
                     'Tahun' => $item['tahun'],
                     'Bukti' => $base_url . $file['name'],
+                    'Jenis' => $item['jenis'],
+                    'Bentuk' => $item['bentuk'],
+                    'Urusan' => $item['urusans'],
                 ];
             });
         })->values();
@@ -54,7 +60,7 @@ class InovationExport implements FromCollection, WithHeadings, WithEvents, WithC
     
     public function headings(): array
     {
-        return ["Nama Proposal", "SKPD", "Skor", "Tahun", "Bukti"];
+        return ["Nama Proposal", "SKPD", "Skor", "Tahun", "Bukti", "Jenis", "Bentuk", "Urusan"];
     }
 
     public function columnWidths(): array
@@ -65,6 +71,9 @@ class InovationExport implements FromCollection, WithHeadings, WithEvents, WithC
             'C' => 10, // Skor
             'D' => 10, // Tahun
             'E' => 40, // Bukti
+            'F' => 20, // Jenis
+            'G' => 20, // Bentuk
+            'H' => 50, // Urusan
         ];
     }
     
@@ -74,7 +83,7 @@ class InovationExport implements FromCollection, WithHeadings, WithEvents, WithC
             AfterSheet::class => function (AfterSheet $event) {
                 $sheet = $event->sheet->getDelegate();
     
-                $sheet->getStyle('A1:E1')->applyFromArray([
+                $sheet->getStyle('A1:H1')->applyFromArray([
                     'font' => ['bold' => true],
                     'fill' => [
                         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -82,7 +91,7 @@ class InovationExport implements FromCollection, WithHeadings, WithEvents, WithC
                     ],
                 ]);
     
-                $sheet->getStyle('A1:E' . ($sheet->getHighestRow()))->getAlignment()->setWrapText(true);
+                $sheet->getStyle('A1:H1' . ($sheet->getHighestRow()))->getAlignment()->setWrapText(true);
     
                 foreach ($this->data as $index => $item) {
                     $rowIndex = $index + 2;

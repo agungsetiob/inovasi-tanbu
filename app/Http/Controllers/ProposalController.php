@@ -133,12 +133,12 @@ class ProposalController extends Controller
     public function sentProposals()
     {
         $user = Auth::user();
-        $year = now()->year;
+        //$year = now()->year;
         //sleep(3);
         if ($user->role == 'admin') {
             $proposals = Proposal::with(['files', 'tahapan', 'skpd'])
                 ->where('status', 'sent')
-                ->whereYear('updated_at', $year)
+                //->whereYear('updated_at', $year)
                 ->get();
 
             $results = $proposals->map(function ($proposal) {
@@ -149,7 +149,7 @@ class ProposalController extends Controller
                 return [
                     'proposal' => $proposal,
                     'skor' => $skor,
-                    'ujicoba' => Carbon::parse($proposal->ujicoba)->format('d/m/Y'),
+                    'dikirim' => Carbon::parse($proposal->updated_at)->format('d/m/Y'),
                     'implementasi' => Carbon::parse($proposal->implementasi)->format('d/m/Y'),
                     'tahapan' => $proposal->tahapan->nama,
                     'skpd' => $proposal->skpd->nama,

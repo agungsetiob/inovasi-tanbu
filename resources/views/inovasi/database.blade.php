@@ -1,116 +1,128 @@
 {{--inovasi yang telah dikirim ke admin--}}
 @extends('layouts.header')
 @section('content')
-        <div class="container-fluid slide-it" id="app">
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-dark">Inovasi</h1>
+    <div class="container-fluid slide-it" id="app">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-dark">Inovasi</h1>
+        </div>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Proposals</h6>
             </div>
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Proposals</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive"  hx-history="false">
-                        <table class="table table-borderless table-striped" id="databaseInovasi" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th width="30%">Nama Inovasi</th>
-                                    <th>SKPD</th>
-                                    <th>Uji Coba</th>
-                                    <th>Implementasi</th>
-                                    <th>Skor</th>
-                                    <th width="7%">Tahapan</th>
-                                    <th width="4%">Bukti Dukung</th>
-                                    <th width="8%"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- server side datatable here -->
-                            </tbody>
-                            <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
-                                <i class="fa fa-solid fa-check"></i>
-                                <span id="success-message"></span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div id="error-alert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
-                                <i class="fa fa-solid fa-bell fa-shake"></i>
-                                <span id="error-message"></span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        </table>
-                    </div>
+            <div class="card-body">
+                <div class="table-responsive" hx-history="false">
+                    <table class="table table-borderless table-striped" id="databaseInovasi" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th width="30%">Nama Inovasi</th>
+                                <th>SKPD</th>
+                                <th>Dikirim</th>
+                                <th>Implementasi</th>
+                                <th>Skor</th>
+                                <th width="7%">Tahapan</th>
+                                <th width="4%">Bukti Dukung</th>
+                                <th width="8%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- server side datatable here -->
+                        </tbody>
+                        <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+                            <i class="fa fa-solid fa-check"></i>
+                            <span id="success-message"></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div id="error-alert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                            <i class="fa fa-solid fa-bell fa-shake"></i>
+                            <span id="error-message"></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </table>
                 </div>
             </div>
         </div>
-<x-logout/>
-<script type="text/javascript">
-    var databaseTable;
-    $(document).ready(function() {
-        databaseTable = $('#databaseInovasi').DataTable({
-            ajax: {
-                url: '/api/database/inovasi',
-                dataSrc: 'data',
-                processing: true,
-                serverSide: true,
-            },
-            columns: [
-                { data: 'proposal.nama' },
-                { data: 'skpd' },
-                { data: 'ujicoba' },
-                { data: 'implementasi', className: 'text-center', },
-                { data: 'skor', className: 'text-center', },
-                { 
-                    data: 'tahapan', className: 'text-center',
-                    render: function (data, type, row) {
-                        var badgeClass = '';
-                        if (data == 'ujicoba') {
-                            badgeClass = 'bg-indigo';
-                        } else if (data == 'implementasi') {
-                            badgeClass = 'bg-green';
-                        } else if (data == 'inisiatif') {
-                            badgeClass = 'bg-orange';
+    </div>
+    <x-logout />
+    <script type="text/javascript">
+        var databaseTable;
+        $(document).ready(function () {
+            databaseTable = $('#databaseInovasi').DataTable({
+                ajax: {
+                    url: '/api/database/inovasi',
+                    dataSrc: 'data',
+                    processing: true,
+                    serverSide: true,
+                },
+                columns: [
+                    { data: 'proposal.nama' },
+                    {
+                        data: 'skpd',
+                        render: function (data, type, row) {
+                            if (data === 'Non SKPD-Masyarakat-Sekolah') {
+                                return '<p class="text-success">' + data + '</p>';
+                            }
+                            return data;
                         }
+                    },
+                    { data: 'dikirim', className: 'text-center', },
+                    { data: 'implementasi', className: 'text-center', },
+                    { data: 'skor', className: 'text-center', },
+                    {
+                        data: 'tahapan', className: 'text-center',
+                        render: function (data, type, row) {
+                            var badgeClass = '';
+                            if (data == 'ujicoba') {
+                                badgeClass = 'bg-indigo';
+                            } else if (data == 'implementasi') {
+                                badgeClass = 'bg-green';
+                            } else if (data == 'inisiatif') {
+                                badgeClass = 'bg-orange';
+                            }
 
-                        return '<span class="badge ' + badgeClass + '">' + data + '</span>';
-                    }
-                },
-                { 
-                    data: 'proposal.id', className: 'text-center',
-                    render: function (data, type, row) {
-                        return '<a hx-get="{{ url("bukti-dukung")}}/'+ data +'" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-primary btn-sm mt-1"><i class="fas fa-folder-closed"></i></a>';
-                    }
-                },
-                { 
-                    data: 'proposal.id',
-                    render: function (data, type, row) {
-                        var buttonsHtml = '<div class="text-center">';
-                        buttonsHtml += '<a href="{{url("print/report")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
-                            buttonsHtml += '<button id="return-proposal-' + row.id + '" data-proposal-id="'+ data +'" data-toggle="modal" data-target="#returnModal" data-proposal-name="' + row.proposal.nama + '" class="return-proposal btn btn-outline-warning btn-sm mt-1" title="kembalikan"><i class="fa-solid fa-ban"></i></button>';
+                            return '<span class="badge ' + badgeClass + '">' + data + '</span>';
+                        }
+                    },
+                    {
+                        data: 'proposal.id', className: 'text-center',
+                        render: function (data, type, row) {
+                            if (row.skor > 0) {
+                                return '<a hx-get="{{ url("bukti-dukung")}}/' + data + '" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-primary btn-sm mt-1"><i class="fas fa-folder-closed"></i></a>';
+                            }
+                            return '';
+                        }
+                    },
 
-                        buttonsHtml += '</div>';
-                        return buttonsHtml;
-                    }
-                },
+                    {
+                        data: 'proposal.id',
+                        render: function (data, type, row) {
+                            var buttonsHtml = '<div class="text-center">';
+                            buttonsHtml += '<a href="{{url("print/report")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
+                            buttonsHtml += '<button id="return-proposal-' + row.id + '" data-proposal-id="' + data + '" data-toggle="modal" data-target="#returnModal" data-proposal-name="' + row.proposal.nama + '" class="return-proposal btn btn-outline-warning btn-sm mt-1" title="kembalikan"><i class="fa-solid fa-ban"></i></button>';
+
+                            buttonsHtml += '</div>';
+                            return buttonsHtml;
+                        }
+                    },
                 ],
-            "initComplete": function( settings, json ) {
-                htmx.process('#databaseInovasi');
-            },
-            "drawCallback": function(settings) {
-                htmx.process('#databaseInovasi');
-            }
-        });
+                "initComplete": function (settings, json) {
+                    htmx.process('#databaseInovasi');
+                },
+                "drawCallback": function (settings) {
+                    htmx.process('#databaseInovasi');
+                }
+            });
 
-        document.body.addEventListener("reloadDatabase", function(evt){
-            databaseTable.ajax.reload(function() {
-                htmx.process('#databaseInovasi');
-            }, false)
-        });
+            document.body.addEventListener("reloadDatabase", function (evt) {
+                databaseTable.ajax.reload(function () {
+                    htmx.process('#databaseInovasi');
+                }, false)
+            });
 
-    });
-</script>
-@include ('components.modal-return-proposal')
+        });
+    </script>
+    @include ('components.modal-return-proposal')
 @endsection

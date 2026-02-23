@@ -45,34 +45,34 @@ class SholatController extends Controller
         return view('jadwal-sholat', ['settings' => $settings]);
     }
 
-    public function publications(Request $request)
-    {
-        // Fetch all settings
-        $settings = Setting::all();
-        $carousels = Carousel::all();
+    // public function publications(Request $request)
+    // {
+    //     // Fetch all settings
+    //     $settings = Setting::all();
+    //     $carousels = Carousel::all();
 
-        // Fetch Kabupaten data from the first API
-        $response = Http::withoutVerifying()->get('https://webapi.bps.go.id/v1/api/domain/type/kab/key/fdc28dc463144c072f113d02a5bf7aa5/');
-        $kabupatenData = $response->json();
-        $news = Http::withoutVerifying()->get('https://api.indeks.inovasi.litbang.kemendagri.go.id/v1/news');
-        $newsData = $news->json()['data'];
+    //     // Fetch Kabupaten data from the first API
+    //     $response = Http::withoutVerifying()->get('https://webapi.bps.go.id/v1/api/domain/type/kab/key/fdc28dc463144c072f113d02a5bf7aa5/');
+    //     $kabupatenData = $response->json();
+    //     $news = Http::withoutVerifying()->get('https://api.indeks.inovasi.litbang.kemendagri.go.id/v1/news');
+    //     $newsData = $news->json()['data'];
 
-        //Return the view with both sets of data
-        if ($request->header('HX-Request')) {
-            return view('visitor.pub', [
-                'kabupatenData' => $kabupatenData,
-                'settings' => $settings,
-                'carousels' => $carousels,
-                'newsData'=> $newsData
-            ])->fragment('publications-section');
-        }
-        return view('visitor.pub', [
-            'kabupatenData' => $kabupatenData,
-            'settings' => $settings,
-            'carousels' => $carousels,
-            'newsData'=> $newsData
-        ]);
-    }
+    //     //Return the view with both sets of data
+    //     if ($request->header('HX-Request')) {
+    //         return view('visitor.pub', [
+    //             'kabupatenData' => $kabupatenData,
+    //             'settings' => $settings,
+    //             'carousels' => $carousels,
+    //             'newsData'=> $newsData
+    //         ])->fragment('publications-section');
+    //     }
+    //     return view('visitor.pub', [
+    //         'kabupatenData' => $kabupatenData,
+    //         'settings' => $settings,
+    //         'carousels' => $carousels,
+    //         'newsData'=> $newsData
+    //     ]);
+    // }
 
     public function tablePub(Request $request)
     {
@@ -101,25 +101,78 @@ class SholatController extends Controller
         ]);
     }
 
+    // public function news(Request $request)
+    // {
+    //     $settings = Setting::all();
+    //     $carousels = Carousel::all();
+    //     $response = Http::get('https://api.indeks.inovasi.litbang.kemendagri.go.id/v1/news');
+    //     $newsData = $response->json()['data'];
+
+    //     if ($request->header('HX-Request')) {
+    //         return view('visitor.news', [
+    //             'settings' => $settings,
+    //             'carousels' => $carousels,
+    //             'newsData' => $newsData
+    //         ])->fragment('news-section');
+    //     }
+    //     return view('visitor.news', [
+    //         'settings'=> $settings,
+    //         'carousels'=> $carousels,
+    //         'newsData'=> $newsData
+    //     ]);
+    // }
+
+    public function publications(Request $request)
+    {
+        $settings = Setting::all();
+        $carousels = Carousel::all();
+
+        // Fetch Kabupaten data
+        $response = Http::withoutVerifying()->get('https://webapi.bps.go.id/v1/api/domain/type/kab/key/fdc28dc463144c072f113d02a5bf7aa5/');
+        $kabupatenData = $response->json();
+
+        // Fetch News Kemendagri dengan fallback
+        try {
+            $news = Http::withoutVerifying()->get('https://api.indeks.inovasi.litbang.kemendagri.go.id/v1/news');
+            if ($news->successful()) {
+                $newsData = $news->json()['data'];
+            } else {
+                $newsData = []; // fallback kosong
+            }
+        } catch (\Exception $e) {
+            $newsData = []; // fallback kosong jika API down
+        }
+
+        if ($request->header('HX-Request')) {
+            return view('visitor.pub', compact('kabupatenData', 'settings', 'carousels', 'newsData'))
+                ->fragment('publications-section');
+        }
+        return view('visitor.pub', compact('kabupatenData', 'settings', 'carousels', 'newsData'));
+    }
+
     public function news(Request $request)
     {
         $settings = Setting::all();
         $carousels = Carousel::all();
-        $response = Http::get('https://api.indeks.inovasi.litbang.kemendagri.go.id/v1/news');
-        $newsData = $response->json()['data'];
+
+        // Fetch News Kemendagri dengan fallback
+        try {
+            $response = Http::withoutVerifying()->get('https://api.indeks.inovasi.litbang.kemendagri.go.id/v1/news');
+            if ($response->successful()) {
+                $newsData = $response->json()['data'];
+            } else {
+                $newsData = []; // fallback kosong
+            }
+        } catch (\Exception $e) {
+            $newsData = []; // fallback kosong
+        }
 
         if ($request->header('HX-Request')) {
-            return view('visitor.news', [
-                'settings' => $settings,
-                'carousels' => $carousels,
-                'newsData' => $newsData
-            ])->fragment('news-section');
+            return view('visitor.news', compact('settings', 'carousels', 'newsData'))
+                ->fragment('news-section');
         }
-        return view('visitor.news', [
-            'settings'=> $settings,
-            'carousels'=> $carousels,
-            'newsData'=> $newsData
-        ]);
+        return view('visitor.news', compact('settings', 'carousels', 'newsData'));
     }
+
 
 }

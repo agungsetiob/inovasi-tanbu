@@ -18,11 +18,15 @@ class WinnerController extends Controller
     {
         if (Auth::user()->role === 'admin') {
             $backgrounds = Background::all();
-            $proposals = Proposal::whereYear('updated_at', Carbon::now()->year)->get();
+            $proposals = Proposal::whereIn('updated_at', [
+                Carbon::now()->year,
+                Carbon::now()->subYear()->year
+            ])->get();
+
             if ($request->header('HX-Request')) {
-                return view ('admin.winners', compact('backgrounds', 'proposals'))->fragment('winner');
+                return view('admin.winners', compact('backgrounds', 'proposals'))->fragment('winner');
             }
-            return view ('admin.winners', compact('backgrounds', 'proposals'));
+            return view('admin.winners', compact('backgrounds', 'proposals'));
         } else {
             return view('cukrukuk');
         }
@@ -48,9 +52,9 @@ class WinnerController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'pengusul'     => 'required|min:10',
-            'proposal'     => 'required|exists:proposals,id|unique:winners,proposal_id',
-            'kategori'   => 'required',
+            'pengusul' => 'required|min:10',
+            'proposal' => 'required|exists:proposals,id|unique:winners,proposal_id',
+            'kategori' => 'required',
         ]);
 
         $winner = new Winner();

@@ -15,7 +15,7 @@ use App\Models\Klasifikasi;
 use App\Models\Tahapan;
 use App\Models\Inisiator;
 use App\Models\Note;
-use Barryvdh\DomPDF\Facade\PDF;
+use PDF;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use illuminate\Support\Facades\Auth;

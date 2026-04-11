@@ -19,7 +19,7 @@
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('js/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('js/owl.carousel.min.js')}}"></script>
-    <script src="js/font-awesome.js" crossorigin="anonymous" defer></script>
+    <script src="{{ asset('js/font-awesome.js') }}" crossorigin="anonymous" defer></script>
     <script src="{{asset('js/js/scripts.js')}}"></script>
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/use-bootstrap-select@2.1.1/dist/use-bootstrap-select.min.css">

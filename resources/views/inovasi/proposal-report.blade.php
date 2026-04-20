@@ -60,7 +60,7 @@
 				<p><span style="font-size: 12pt; font-weight: 700;">1.8. Rancang Bangun dan Pokok Perubahan Yang Dilakukan</span></p>
 				<p><span style="font-size: 12pt;">{!!$proposal->rancang_bangun!!}&nbsp;</span></p>
 				<p><span style="font-size: 12pt; font-weight: 700;">1.9. Tujuan Inovasi Daerah</span></p>
-				<p><span style="font-size: 12pt;">{{$proposal->tujuan}}</span></p>
+				<p><span style="font-size: 12pt;">{!! $proposal->tujuan !!}</span></p>
 				<p><span style="font-size: 12pt; font-weight: 700;">1.12. Manfaat Yang Diperoleh</span></p>
 				<p><span style="font-size: 12pt;">{!!$proposal->manfaat!!}</span></p>
 				<p><span style="font-size: 12pt; font-weight: 700;">1.11. Hasil Inovasi</span>

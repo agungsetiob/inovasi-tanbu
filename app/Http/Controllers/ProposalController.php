@@ -38,8 +38,8 @@ class ProposalController extends Controller
 
 
     /*
-    * load proposal in json format
-    */
+     * load proposal in json format
+     */
     public function loadProposals()
     {
         $proposals = Proposal::with(['files', 'tahapan', 'category'])
@@ -68,8 +68,8 @@ class ProposalController extends Controller
     }
 
     /*
-    * all inovations/proposals
-    */
+     * all inovations/proposals
+     */
     public function all(Request $request)
     {
         $backgrounds = Background::all();
@@ -80,56 +80,99 @@ class ProposalController extends Controller
     }
 
     /*
-    * load all proposal in json format
-    */
-    public function allProposals()
+     * load all proposal in json format
+     */
+    // public function allProposals()
+    // {
+    //     $proposals = Proposal::with(['files', 'tahapan', 'skpd'])
+    //         //->where('status', 'draft')
+    //         ->get();
+
+    //     $results = $proposals->map(function ($proposal) {
+    //         $skor = $proposal->files->sum(function ($file) {
+    //             return $file->bukti->bobot;
+    //         });
+
+    //         return [
+    //             'proposal' => $proposal,
+    //             'skor' => $skor,
+    //             'skpd' => $proposal->skpd->nama,
+    //             'tahapan' => optional($proposal->tahapan)->nama,
+    //             'category' => optional($proposal->category)->name,
+    //         ];
+    //     });
+
+    //     return response()->json([
+    //         'success' => true,
+    //         'data' => $results,
+    //     ])->header('HX-Trigger', 'reloadAll');
+    // }
+
+    public function allProposals(Request $request)
     {
-        $proposals = Proposal::with(['files', 'tahapan', 'skpd'])
-            //->where('status', 'draft')
-            ->get();
+        $draw = $request->get('draw');
+        $start = $request->get('start', 0);
+        $length = $request->get('length', 10);
+        $search = $request->get('search')['value'] ?? null;
+
+        $query = Proposal::with(['files.bukti', 'tahapan', 'skpd', 'category']);
+
+        if ($search) {
+            $query->where('nama', 'like', "%{$search}%")
+                ->orWhereHas('skpd', function ($q) use ($search) {
+                    $q->where('nama', 'like', "%{$search}%");
+                });
+        }
+
+        $recordsTotal = Proposal::count();
+        $recordsFiltered = $query->count();
+
+        $proposals = $query->skip($start)->take($length)->get();
 
         $results = $proposals->map(function ($proposal) {
             $skor = $proposal->files->sum(function ($file) {
-                return $file->bukti->bobot;
+                return $file->bukti->bobot ?? 0;
             });
 
             return [
                 'proposal' => $proposal,
                 'skor' => $skor,
-                'skpd' => $proposal->skpd->nama,
+                'skpd' => $proposal->skpd->nama ?? '-',
                 'tahapan' => optional($proposal->tahapan)->nama,
                 'category' => optional($proposal->category)->name,
             ];
         });
 
         return response()->json([
-            'success' => true,
+            'draw' => intval($draw),
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
             'data' => $results,
-        ])->header('HX-Trigger', 'reloadAll');
+        ]);
     }
 
     /**
-    * Display proposal with status 'sent'
-    *
-    */
+     * Display proposal with status 'sent'
+     *
+     */
     public function database(Request $request)
     {
         if (Auth::user()->role == 'admin') {
             $backgrounds = Background::all();
             if ($request->header('HX-Request')) {
-                return view ('inovasi.partial.database', compact('backgrounds'));
+                return view('inovasi.partial.database', compact('backgrounds'));
             } else {
-                return view ('inovasi.database', compact('backgrounds'));
+                return view('inovasi.database', compact('backgrounds'));
             }
-            
+
         } else {
             return redirect()->back()->with(['error' => 'wong kongene kok dibandingke']);
         }
     }
 
     /*
-    * load all sent proposal in json format
-    */
+     * load all sent proposal in json format
+     */
     public function sentProposals()
     {
         $user = Auth::user();
@@ -177,9 +220,11 @@ class ProposalController extends Controller
         $tematiks = Tematik::where('status', 'active')->orderBy('id')->get();
         $tahapans = Tahapan::where('status', 'active')->get();
         $inisiators = Inisiator::where('status', 'active')->get();
-        $klasifikasis = Klasifikasi::with(['urusans' => function ($query) {
-            $query->where('status', 'active');
-        }])->whereHas('urusans', function ($query) {
+        $klasifikasis = Klasifikasi::with([
+            'urusans' => function ($query) {
+                $query->where('status', 'active');
+            }
+        ])->whereHas('urusans', function ($query) {
             $query->where('status', 'active');
         })->get();
         // $options = [];
@@ -195,11 +240,11 @@ class ProposalController extends Controller
         //     }
         // }
 
-        if($request->header('HX-Request')) {
+        if ($request->header('HX-Request')) {
             return view('inovasi.create', compact(
-                'categories', 
-                'skpds', 
-                'bentuks', 
+                'categories',
+                'skpds',
+                'bentuks',
                 'urusans',
                 'tematiks',
                 'klasifikasis',
@@ -211,9 +256,9 @@ class ProposalController extends Controller
             ))->fragment('create-proposal');
         }
         return view('inovasi.create', compact(
-            'categories', 
-            'skpds', 
-            'bentuks', 
+            'categories',
+            'skpds',
+            'bentuks',
             'urusans',
             'tematiks',
             'klasifikasis',
@@ -231,12 +276,12 @@ class ProposalController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'profil'     => 'mimes:pdf|max:5120',
-            'nama'     => 'required|unique:proposals',
-            'tahapan'   => 'required',
-            'inisiator'      => 'required',
+            'profil' => 'mimes:pdf|max:5120',
+            'nama' => 'required|unique:proposals',
+            'tahapan' => 'required',
+            'inisiator' => 'required',
             'rancang_bangun' => 'required',
-            'tujuan'    => 'required',
+            'tujuan' => 'required',
             'manfaat' => 'required',
             'hasil' => 'required',
             'ujicoba' => 'required',
@@ -252,10 +297,10 @@ class ProposalController extends Controller
 
         $data = [
             'nama' => $request->nama,
-            'tahapan_id'   => $request->tahapan,
-            'inisiator_id'      => $request->inisiator,
+            'tahapan_id' => $request->tahapan,
+            'inisiator_id' => $request->inisiator,
             'rancang_bangun' => addslashes($request->rancang_bangun),
-            'tujuan'    => $request->tujuan,
+            'tujuan' => $request->tujuan,
             'manfaat' => $request->manfaat,
             'hasil' => $request->hasil,
             'ujicoba' => $request->ujicoba,
@@ -286,14 +331,14 @@ class ProposalController extends Controller
         try {
             $proposal = Proposal::create($data);
             $indikatorIds = Indikator::where('status', 'active')->where('jenis', 'sid')->get()->pluck('id')->toArray();
-            
+
             $proposal->urusans()->sync($request->urusans);
             $proposal->indikators()->sync($indikatorIds);
 
             return redirect()->intended('proyek/inovasi')->with(['success' => 'Berhasil simpan inovasi']);
         } catch (\Exception $e) {
             return redirect()->back()->with(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
-        }   
+        }
     }
 
     /**
@@ -318,9 +363,11 @@ class ProposalController extends Controller
         $tematiks = Tematik::where('status', 'active')->orderBy('id')->get();
         $tahapans = Tahapan::where('status', 'active')->get();
         $inisiators = Inisiator::where('status', 'active')->get();
-        $klasifikasis = Klasifikasi::with(['urusans' => function ($query) {
-            $query->where('status', 'active');
-        }])->whereHas('urusans', function ($query) {
+        $klasifikasis = Klasifikasi::with([
+            'urusans' => function ($query) {
+                $query->where('status', 'active');
+            }
+        ])->whereHas('urusans', function ($query) {
             $query->where('status', 'active');
         })->get();
         $selectedUrusans = $inovasi->urusans->pluck('id')->toArray();
@@ -337,12 +384,12 @@ class ProposalController extends Controller
         //     }
         // }
         if (auth()->user()->id == $inovasi->user_id && $inovasi->status === 'draft') {
-            if($request->header('HX-Request')) {
+            if ($request->header('HX-Request')) {
                 return view('inovasi.edit', compact(
                     'inovasi',
-                    'categories', 
-                    'skpds', 
-                    'bentuks', 
+                    'categories',
+                    'skpds',
+                    'bentuks',
                     'urusans',
                     'tematiks',
                     'selectedUrusans',
@@ -351,12 +398,12 @@ class ProposalController extends Controller
                     'inisiators',
                     'backgrounds'
                 ))->fragment('edit-proposal');
-            } else{
+            } else {
                 return view('inovasi.edit', compact(
                     'inovasi',
-                    'categories', 
-                    'skpds', 
-                    'bentuks', 
+                    'categories',
+                    'skpds',
+                    'bentuks',
                     'urusans',
                     'tematiks',
                     'selectedUrusans',
@@ -366,7 +413,7 @@ class ProposalController extends Controller
                     'backgrounds'
                 ));
             }
-        } else{
+        } else {
             return redirect()->back()->with('error', 'kebaikan akan menghasilkan kebaikan');
         }
     }
@@ -377,12 +424,12 @@ class ProposalController extends Controller
     public function update(Request $request, Proposal $inovasi)
     {
         $this->validate($request, [
-            'profil'     => 'mimes:pdf|max:5120',
-            'nama'     => 'required',
-            'tahapan'   => 'required',
-            'inisiator'      => 'required',
+            'profil' => 'mimes:pdf|max:5120',
+            'nama' => 'required',
+            'tahapan' => 'required',
+            'inisiator' => 'required',
             'rancang_bangun' => 'required',
-            'tujuan'    => 'required',
+            'tujuan' => 'required',
             'manfaat' => 'required',
             'hasil' => 'required',
             'ujicoba' => 'required',
@@ -397,10 +444,10 @@ class ProposalController extends Controller
 
         $data = [
             'nama' => $request->nama,
-            'tahapan_id'   => $request->tahapan,
-            'inisiator_id'      => $request->inisiator,
+            'tahapan_id' => $request->tahapan,
+            'inisiator_id' => $request->inisiator,
             'rancang_bangun' => addslashes($request->rancang_bangun),
-            'tujuan'    => $request->tujuan,
+            'tujuan' => $request->tujuan,
             'manfaat' => $request->manfaat,
             'hasil' => $request->hasil,
             'ujicoba' => $request->ujicoba,
@@ -490,27 +537,27 @@ class ProposalController extends Controller
             $inovasi->delete();
 
             return response()->json(['success' => true]);
-        } else{
+        } else {
             return response()->json(['success' => false]);
         }
 
     }
 
     /**
-    * Print proposal
-    */
+     * Print proposal
+     */
     public function proposalReport($id)
     {
         $proposal = Proposal::findOrFail($id);
         $files = Indikator::where('status', 'active')->get();
-        $pdf = PDF::loadview('inovasi.proposal-report',compact('proposal', 'files'))->setPaper('A4', 'portrait');
+        $pdf = PDF::loadview('inovasi.proposal-report', compact('proposal', 'files'))->setPaper('A4', 'portrait');
         set_time_limit(300);
-        return $pdf->stream('proposal-inovasi'.$id.'.pdf');
+        return $pdf->stream('proposal-inovasi' . $id . '.pdf');
     }
 
     /**
-    * Print proposals report
-    */
+     * Print proposals report
+     */
     public function reportPdf($startdate, $enddate)
     {
         $inovations = Proposal::with(['files', 'tahapan', 'skpd'])
@@ -541,12 +588,12 @@ class ProposalController extends Controller
         $inovations = Proposal::with(['files', 'tahapan', 'skpd'])
             ->whereBetween('created_at', [$startdate, $enddate])
             ->get();
-    
+
         $results = $inovations->map(function ($proposal) {
             $skor = $proposal->files->sum(function ($file) {
                 return $file->bukti->bobot ?? 0;
             });
-    
+
             return [
                 'proposal' => $proposal->nama ?? 'N/A',
                 'skor' => $skor,
@@ -563,8 +610,8 @@ class ProposalController extends Controller
                 })->toArray(),
             ];
         })->toArray();
-    
+
         return Excel::download(new InovationExport($results), now() . '-inovation-report.xlsx');
-    }    
+    }
 
 }

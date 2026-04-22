@@ -40,31 +40,73 @@ class ProposalController extends Controller
     /*
      * load proposal in json format
      */
-    public function loadProposals()
+    // public function loadProposals()
+    // {
+    //     $proposals = Proposal::with(['files', 'tahapan', 'category'])
+    //         ->where('user_id', Auth::user()->id)
+    //         ->get();
+
+    //     $results = $proposals->map(function ($proposal) {
+    //         $skor = $proposal->files->sum(function ($file) {
+    //             return $file->bukti->bobot;
+    //         });
+
+    //         return [
+    //             'proposal' => $proposal,
+    //             'skor' => $skor,
+    //             'ujicoba' => optional(Carbon::parse($proposal->ujicoba))->format('d/m/Y'),
+    //             'implementasi' => optional(Carbon::parse($proposal->implementasi))->format('d/m/Y'),
+    //             'tahapan' => optional($proposal->tahapan)->nama,
+    //             'category' => optional($proposal->category)->name,
+    //         ];
+    //     });
+
+    //     return response()->json([
+    //         'success' => true,
+    //         'data' => $results,
+    //     ])->header('HX-Trigger', 'reloadTable');
+    // }
+    public function loadProposals(Request $request)
     {
-        $proposals = Proposal::with(['files', 'tahapan', 'category'])
-            ->where('user_id', Auth::user()->id)
-            ->get();
+        $draw = $request->get('draw');
+        $start = $request->get('start', 0);
+        $length = $request->get('length', 10);
+        $search = $request->get('search')['value'] ?? null;
+
+        $query = Proposal::with(['files.bukti', 'tahapan', 'category'])
+            ->where('user_id', Auth::id());
+
+        if ($search) {
+            $query->where('nama', 'like', "%{$search}%")
+                ->orWhereHas('category', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%");
+                });
+        }
+
+        $recordsTotal = Proposal::where('user_id', Auth::id())->count();
+        $recordsFiltered = $query->count();
+
+        $proposals = $query->skip($start)->take($length)->get();
 
         $results = $proposals->map(function ($proposal) {
-            $skor = $proposal->files->sum(function ($file) {
-                return $file->bukti->bobot;
-            });
+            $skor = $proposal->files->sum(fn($file) => $file->bukti->bobot ?? 0);
 
             return [
                 'proposal' => $proposal,
                 'skor' => $skor,
-                'ujicoba' => optional(Carbon::parse($proposal->ujicoba))->format('d/m/Y'),
-                'implementasi' => optional(Carbon::parse($proposal->implementasi))->format('d/m/Y'),
+                'ujicoba' => optional($proposal->ujicoba)->format('d/m/Y'),
+                'implementasi' => optional($proposal->implementasi)->format('d/m/Y'),
                 'tahapan' => optional($proposal->tahapan)->nama,
                 'category' => optional($proposal->category)->name,
             ];
         });
 
         return response()->json([
-            'success' => true,
+            'draw' => intval($draw),
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
             'data' => $results,
-        ])->header('HX-Trigger', 'reloadTable');
+        ]);
     }
 
     /*

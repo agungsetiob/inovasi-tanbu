@@ -173,8 +173,8 @@
                             return '<span class="badge ' + badgeCategory + '">' + data + '</span>';
                         }
                     },
-                    { data: 'ujicoba' },
-                    { data: 'implementasi' },
+                    { data: 'proposal.ujicoba' },
+                    { data: 'proposal.implementasi' },
                     {
                         data: 'skor',
                         className: 'text-center',

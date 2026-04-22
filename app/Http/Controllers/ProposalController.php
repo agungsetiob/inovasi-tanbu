@@ -481,6 +481,7 @@ class ProposalController extends Controller
                 $fullFilePath = 'public/docs/' . $file->file;
                 Storage::delete($fullFilePath);
             }
+            $inovasi->notes()->delete();
             $inovasi->urusans()->detach();
             $inovasi->indikators()->detach();
             $inovasi->files()->delete();

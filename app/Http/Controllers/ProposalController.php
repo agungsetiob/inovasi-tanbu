@@ -215,36 +215,79 @@ class ProposalController extends Controller
     /*
      * load all sent proposal in json format
      */
-    public function sentProposals()
+    // public function sentProposals()
+    // {
+    //     $user = Auth::user();
+    //     //$year = now()->year;
+    //     //sleep(3);
+    //     if ($user->role == 'admin') {
+    //         $proposals = Proposal::with(['files', 'tahapan', 'skpd'])
+    //             ->where('status', 'sent')
+    //             //->whereYear('updated_at', $year)
+    //             ->get();
+
+    //         $results = $proposals->map(function ($proposal) {
+    //             $skor = $proposal->files->sum(function ($file) {
+    //                 return $file->bukti->bobot;
+    //             });
+
+    //             return [
+    //                 'proposal' => $proposal,
+    //                 'skor' => $skor,
+    //                 'dikirim' => Carbon::parse($proposal->updated_at)->format('d/m/Y'),
+    //                 'implementasi' => Carbon::parse($proposal->implementasi)->format('d/m/Y'),
+    //                 'tahapan' => $proposal->tahapan->nama,
+    //                 'skpd' => $proposal->skpd->nama,
+    //             ];
+    //         });
+
+    //         return response()->json(['success' => true, 'data' => $results])->header('HX-Trigger', 'reloadDatabase');
+    //     }
+
+    //     return false;
+    // }
+    public function sentProposals(Request $request)
     {
-        $user = Auth::user();
-        //$year = now()->year;
-        //sleep(3);
-        if ($user->role == 'admin') {
-            $proposals = Proposal::with(['files', 'tahapan', 'skpd'])
-                ->where('status', 'sent')
-                //->whereYear('updated_at', $year)
-                ->get();
+        $draw = $request->get('draw');
+        $start = $request->get('start', 0);
+        $length = $request->get('length', 10);
+        $search = $request->get('search')['value'] ?? null;
 
-            $results = $proposals->map(function ($proposal) {
-                $skor = $proposal->files->sum(function ($file) {
-                    return $file->bukti->bobot;
-                });
+        $query = Proposal::with(['files.bukti', 'tahapan', 'skpd'])
+            ->where('status', 'sent');
 
-                return [
-                    'proposal' => $proposal,
-                    'skor' => $skor,
-                    'dikirim' => Carbon::parse($proposal->updated_at)->format('d/m/Y'),
-                    'implementasi' => Carbon::parse($proposal->implementasi)->format('d/m/Y'),
-                    'tahapan' => $proposal->tahapan->nama,
-                    'skpd' => $proposal->skpd->nama,
-                ];
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                    ->orWhereHas('skpd', fn($q2) => $q2->where('nama', 'like', "%{$search}%"))
+                    ->orWhereHas('tahapan', fn($q3) => $q3->where('nama', 'like', "%{$search}%"));
             });
-
-            return response()->json(['success' => true, 'data' => $results])->header('HX-Trigger', 'reloadDatabase');
         }
 
-        return false;
+        $recordsTotal = Proposal::where('status', 'sent')->count();
+        $recordsFiltered = $query->count();
+
+        $proposals = $query->skip($start)->take($length)->get();
+
+        $results = $proposals->map(function ($proposal) {
+            $skor = $proposal->files->sum(fn($file) => $file->bukti->bobot ?? 0);
+
+            return [
+                'proposal' => $proposal,
+                'skor' => $skor,
+                'dikirim' => $proposal->updated_at ? $proposal->updated_at->format('d/m/Y') : '-',
+                'implementasi' => $proposal->implementasi ? $proposal->implementasi->format('d/m/Y') : '-',
+                'tahapan' => optional($proposal->tahapan)->nama,
+                'skpd' => optional($proposal->skpd)->nama,
+            ];
+        });
+
+        return response()->json([
+            'draw' => intval($draw),
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data' => $results,
+        ])->header('HX-Trigger', 'reloadDatabase');
     }
 
 

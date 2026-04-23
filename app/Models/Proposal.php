@@ -8,37 +8,48 @@ use Illuminate\Database\Eloquent\Model;
 class Proposal extends Model
 {
     use HasFactory;
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-    public function bentuk(){
+    public function bentuk()
+    {
         return $this->belongsTo(Bentuk::class);
     }
-    public function urusans(){
+    public function urusans()
+    {
         return $this->belongsToMany(Urusan::class)->withTimestamps();
     }
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
-    public function skpd(){
+    public function skpd()
+    {
         return $this->belongsTo(Skpd::class);
     }
-    public function files() {
+    public function files()
+    {
         return $this->hasMany(File::class);
     }
-    public function tematik(){
+    public function tematik()
+    {
         return $this->belongsTo(Tematik::class);
     }
-    public function tahapan(){
+    public function tahapan()
+    {
         return $this->belongsTo(Tahapan::class);
     }
-    public function inisiator(){
+    public function inisiator()
+    {
         return $this->belongsTo(Inisiator::class);
     }
-    public function indikators(){
+    public function indikators()
+    {
         return $this->belongsToMany(Indikator::class)->withTimestamps();
     }
-    public function notes(){
+    public function notes()
+    {
         return $this->hasMany(Note::class);
     }
     public function winner()
@@ -47,6 +58,8 @@ class Proposal extends Model
     }
     protected $guarded = [];
     protected $casts = [
-        'proposals' => 'array'
+        'proposals' => 'array',
+        'implementasi' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 }

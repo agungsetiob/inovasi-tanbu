@@ -17,6 +17,7 @@
                                 <th width="30%">Nama Inovasi</th>
                                 <th>SKPD</th>
                                 <th>Dikirim</th>
+                                <th>Uji Coba</th>
                                 <th>Implementasi</th>
                                 <th>Skor</th>
                                 <th width="7%">Tahapan</th>
@@ -69,6 +70,7 @@
                                 }
                             },
                             { data: 'dikirim', className: 'text-center', },
+                            { data: 'ujicoba', className: 'text-center', },
                             { data: 'implementasi', className: 'text-center', },
                             { data: 'skor', className: 'text-center', },
                             {
@@ -144,6 +146,7 @@
                     }
                 },
                 { data: 'dikirim', className: 'text-center' },
+                { data: 'ujicoba', className: 'text-center' },
                 { data: 'implementasi', className: 'text-center' },
                 { data: 'skor', className: 'text-center' },
                 {

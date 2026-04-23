@@ -59,7 +59,5 @@ class Proposal extends Model
     protected $guarded = [];
     protected $casts = [
         'proposals' => 'array',
-        'implementasi' => 'datetime',
-        'updated_at' => 'datetime',
     ];
 }

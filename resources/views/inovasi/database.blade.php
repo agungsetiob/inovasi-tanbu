@@ -48,82 +48,82 @@
     </div>
     <x-logout />
     <!-- <script type="text/javascript">
-            var databaseTable;
-            $(document).ready(function () {
-                databaseTable = $('#databaseInovasi').DataTable({
-                    ajax: {
-                        url: '/api/database/inovasi',
-                        dataSrc: 'data',
-                        processing: true,
-                        serverSide: true,
-                    },
-                    columns: [
-                        { data: 'proposal.nama' },
-                        {
-                            data: 'skpd',
-                            render: function (data, type, row) {
-                                if (data === 'Non SKPD-Masyarakat-Sekolah') {
-                                    return '<p class="text-success">' + data + '</p>';
+                var databaseTable;
+                $(document).ready(function () {
+                    databaseTable = $('#databaseInovasi').DataTable({
+                        ajax: {
+                            url: '/api/database/inovasi',
+                            dataSrc: 'data',
+                            processing: true,
+                            serverSide: true,
+                        },
+                        columns: [
+                            { data: 'proposal.nama' },
+                            {
+                                data: 'skpd',
+                                render: function (data, type, row) {
+                                    if (data === 'Non SKPD-Masyarakat-Sekolah') {
+                                        return '<p class="text-success">' + data + '</p>';
+                                    }
+                                    return data;
                                 }
-                                return data;
-                            }
-                        },
-                        { data: 'dikirim', className: 'text-center', },
-                        { data: 'implementasi', className: 'text-center', },
-                        { data: 'skor', className: 'text-center', },
-                        {
-                            data: 'tahapan', className: 'text-center',
-                            render: function (data, type, row) {
-                                var badgeClass = '';
-                                if (data == 'ujicoba') {
-                                    badgeClass = 'bg-indigo';
-                                } else if (data == 'implementasi') {
-                                    badgeClass = 'bg-green';
-                                } else if (data == 'inisiatif') {
-                                    badgeClass = 'bg-orange';
+                            },
+                            { data: 'dikirim', className: 'text-center', },
+                            { data: 'implementasi', className: 'text-center', },
+                            { data: 'skor', className: 'text-center', },
+                            {
+                                data: 'tahapan', className: 'text-center',
+                                render: function (data, type, row) {
+                                    var badgeClass = '';
+                                    if (data == 'ujicoba') {
+                                        badgeClass = 'bg-indigo';
+                                    } else if (data == 'implementasi') {
+                                        badgeClass = 'bg-green';
+                                    } else if (data == 'inisiatif') {
+                                        badgeClass = 'bg-orange';
+                                    }
+
+                                    return '<span class="badge ' + badgeClass + '">' + data + '</span>';
                                 }
-
-                                return '<span class="badge ' + badgeClass + '">' + data + '</span>';
-                            }
-                        },
-                        {
-                            data: 'proposal.id', className: 'text-center',
-                            render: function (data, type, row) {
-                                if (row.skor > 0) {
-                                    return '<a hx-get="{{ url("bukti-dukung")}}/' + data + '" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-primary btn-sm mt-1"><i class="fas fa-folder-closed"></i></a>';
+                            },
+                            {
+                                data: 'proposal.id', className: 'text-center',
+                                render: function (data, type, row) {
+                                    if (row.skor > 0) {
+                                        return '<a hx-get="{{ url("bukti-dukung")}}/' + data + '" hx-trigger="click" hx-target="#app" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#loadingIndicator" class="btn btn-outline-primary btn-sm mt-1"><i class="fas fa-folder-closed"></i></a>';
+                                    }
+                                    return '';
                                 }
-                                return '';
-                            }
-                        },
+                            },
 
-                        {
-                            data: 'proposal.id',
-                            render: function (data, type, row) {
-                                var buttonsHtml = '<div class="text-center">';
-                                buttonsHtml += '<a href="{{url("print/report")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
-                                buttonsHtml += '<button id="return-proposal-' + row.id + '" data-proposal-id="' + data + '" data-toggle="modal" data-target="#returnModal" data-proposal-name="' + row.proposal.nama + '" class="return-proposal btn btn-outline-warning btn-sm mt-1" title="kembalikan"><i class="fa-solid fa-ban"></i></button>';
+                            {
+                                data: 'proposal.id',
+                                render: function (data, type, row) {
+                                    var buttonsHtml = '<div class="text-center">';
+                                    buttonsHtml += '<a href="{{url("print/report")}}/' + data + '" target="_blank" class="btn btn-outline-secondary btn-sm mr-1 mt-1" title="Cetak"><i class="fas fa-file-alt"></i></a>';
+                                    buttonsHtml += '<button id="return-proposal-' + row.id + '" data-proposal-id="' + data + '" data-toggle="modal" data-target="#returnModal" data-proposal-name="' + row.proposal.nama + '" class="return-proposal btn btn-outline-warning btn-sm mt-1" title="kembalikan"><i class="fa-solid fa-ban"></i></button>';
 
-                                buttonsHtml += '</div>';
-                                return buttonsHtml;
-                            }
+                                    buttonsHtml += '</div>';
+                                    return buttonsHtml;
+                                }
+                            },
+                        ],
+                        "initComplete": function (settings, json) {
+                            htmx.process('#databaseInovasi');
                         },
-                    ],
-                    "initComplete": function (settings, json) {
-                        htmx.process('#databaseInovasi');
-                    },
-                    "drawCallback": function (settings) {
-                        htmx.process('#databaseInovasi');
-                    }
+                        "drawCallback": function (settings) {
+                            htmx.process('#databaseInovasi');
+                        }
+                    });
+
+                    document.body.addEventListener("reloadDatabase", function (evt) {
+                        databaseTable.ajax.reload(function () {
+                            htmx.process('#databaseInovasi');
+                        }, false)
+                    });
+
                 });
-
-                document.body.addEventListener("reloadDatabase", function (evt) {
-                    databaseTable.ajax.reload(function () {
-                        htmx.process('#databaseInovasi');
-                    }, false)
-                });
-
-            });
-        </script> -->
+            </script> -->
     <script type="text/javascript">
         var databaseTable = $('#databaseInovasi').DataTable({
             processing: true,
@@ -180,7 +180,10 @@
                 return 'index_' + row.proposal.id;
             },
             initComplete: function () {
-                htmx.process('#databaseInovasi'); // cukup sekali
+                htmx.process('#databaseInovasi');
+            },
+            drawCallback: function (settings) {
+                htmx.process('#databaseInovasi');
             },
             error: function (xhr, error, thrown) {
                 console.error('DataTables error:', error, thrown);

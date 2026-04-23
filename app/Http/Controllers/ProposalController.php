@@ -94,8 +94,8 @@ class ProposalController extends Controller
             return [
                 'proposal' => $proposal,
                 'skor' => $skor,
-                'ujicoba' => optional($proposal->ujicoba)->format('d/m/Y'),
-                'implementasi' => optional($proposal->implementasi)->format('d/m/Y'),
+                'ujicoba' => optional(Carbon::parse($proposal->ujicoba))->format('d/m/Y'),
+                'implementasi' => optional(Carbon::parse($proposal->implementasi))->format('d/m/Y'),
                 'tahapan' => optional($proposal->tahapan)->nama,
                 'category' => optional($proposal->category)->name,
             ];
@@ -276,7 +276,7 @@ class ProposalController extends Controller
                 'proposal' => $proposal,
                 'skor' => $skor,
                 'dikirim' => $proposal->updated_at ? $proposal->updated_at->format('d/m/Y') : '-',
-                'implementasi' => $proposal->implementasi ? $proposal->implementasi->format('d/m/Y') : '-',
+                'implementasi' => optional(Carbon::parse($proposal->implementasi))->format('d/m/Y'),
                 'tahapan' => optional($proposal->tahapan)->nama,
                 'skpd' => optional($proposal->skpd)->nama,
             ];

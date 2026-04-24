@@ -40,32 +40,6 @@ class ProposalController extends Controller
     /*
      * load proposal in json format
      */
-    // public function loadProposals()
-    // {
-    //     $proposals = Proposal::with(['files', 'tahapan', 'category'])
-    //         ->where('user_id', Auth::user()->id)
-    //         ->get();
-
-    //     $results = $proposals->map(function ($proposal) {
-    //         $skor = $proposal->files->sum(function ($file) {
-    //             return $file->bukti->bobot;
-    //         });
-
-    //         return [
-    //             'proposal' => $proposal,
-    //             'skor' => $skor,
-    //             'ujicoba' => optional(Carbon::parse($proposal->ujicoba))->format('d/m/Y'),
-    //             'implementasi' => optional(Carbon::parse($proposal->implementasi))->format('d/m/Y'),
-    //             'tahapan' => optional($proposal->tahapan)->nama,
-    //             'category' => optional($proposal->category)->name,
-    //         ];
-    //     });
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'data' => $results,
-    //     ])->header('HX-Trigger', 'reloadTable');
-    // }
     public function loadProposals(Request $request)
     {
         $draw = $request->get('draw');
@@ -73,29 +47,55 @@ class ProposalController extends Controller
         $length = $request->get('length', 10);
         $search = $request->get('search')['value'] ?? null;
 
-        $query = Proposal::with(['files.bukti', 'tahapan', 'category'])
-            ->where('user_id', Auth::id());
+        $columns = [
+            0 => 'nama',
+            1 => 'category_id',
+            2 => 'ujicoba',
+            3 => 'implementasi',
+            4 => 'total_skor',
+            5 => 'tahapan_id'
+        ];
+
+        $orderColumnIndex = $request->get('order')[0]['column'] ?? 0;
+        $orderDir = $request->get('order')[0]['dir'] ?? 'asc';
+        $orderBy = $columns[$orderColumnIndex] ?? 'id';
+
+        $query = Proposal::select('id', 'nama', 'status', 'category_id', 'tahapan_id', 'ujicoba', 'implementasi', 'user_id', 'created_at')
+            ->where('user_id', Auth::id())
+            ->withSum([
+                'files as total_skor' => function ($q) {
+                    $q->join('buktis', 'files.bukti_id', '=', 'buktis.id');
+                }
+            ], 'buktis.bobot')
+            ->with([
+                'tahapan:id,nama',
+                'category:id,name'
+            ]);
 
         if ($search) {
-            $query->where('nama', 'like', "%{$search}%")
-                ->orWhereHas('category', function ($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%");
-                });
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                    ->orWhereYear('created_at', $search)
+                    ->orWhereHas('category', function ($sq) use ($search) {
+                        $sq->where('name', 'like', "%{$search}%");
+                    });
+            });
         }
 
         $recordsTotal = Proposal::where('user_id', Auth::id())->count();
         $recordsFiltered = $query->count();
 
-        $proposals = $query->skip($start)->take($length)->get();
+        $proposals = $query->orderBy($orderBy, $orderDir)
+            ->skip($start)
+            ->take($length)
+            ->get();
 
         $results = $proposals->map(function ($proposal) {
-            $skor = $proposal->files->sum(fn($file) => $file->bukti->bobot ?? 0);
-
             return [
                 'proposal' => $proposal,
-                'skor' => $skor,
-                'ujicoba' => optional(Carbon::parse($proposal->ujicoba))->format('d/m/Y'),
-                'implementasi' => optional(Carbon::parse($proposal->implementasi))->format('d/m/Y'),
+                'skor' => $proposal->total_skor ?? 0,
+                'ujicoba' => $proposal->ujicoba ? Carbon::parse($proposal->ujicoba)->format('d/m/Y') : '-',
+                'implementasi' => $proposal->implementasi ? Carbon::parse($proposal->implementasi)->format('d/m/Y') : '-',
                 'tahapan' => optional($proposal->tahapan)->nama,
                 'category' => optional($proposal->category)->name,
             ];
@@ -124,32 +124,6 @@ class ProposalController extends Controller
     /*
      * load all proposal in json format
      */
-    // public function allProposals()
-    // {
-    //     $proposals = Proposal::with(['files', 'tahapan', 'skpd'])
-    //         //->where('status', 'draft')
-    //         ->get();
-
-    //     $results = $proposals->map(function ($proposal) {
-    //         $skor = $proposal->files->sum(function ($file) {
-    //             return $file->bukti->bobot;
-    //         });
-
-    //         return [
-    //             'proposal' => $proposal,
-    //             'skor' => $skor,
-    //             'skpd' => $proposal->skpd->nama,
-    //             'tahapan' => optional($proposal->tahapan)->nama,
-    //             'category' => optional($proposal->category)->name,
-    //         ];
-    //     });
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'data' => $results,
-    //     ])->header('HX-Trigger', 'reloadAll');
-    // }
-
     public function allProposals(Request $request)
     {
         $draw = $request->get('draw');
@@ -157,28 +131,51 @@ class ProposalController extends Controller
         $length = $request->get('length', 10);
         $search = $request->get('search')['value'] ?? null;
 
-        $query = Proposal::with(['files.bukti', 'tahapan', 'skpd', 'category']);
+        $columns = [
+            0 => 'nama',
+            1 => 'skpd_id',
+            2 => 'total_skor',
+            3 => 'created_at'
+        ];
+
+        $orderColumnIndex = $request->get('order')[0]['column'] ?? 3;
+        $orderDir = $request->get('order')[0]['dir'] ?? 'desc';
+        $orderBy = $columns[$orderColumnIndex] ?? 'created_at';
+
+        $query = Proposal::select('id', 'nama', 'status', 'skpd_id', 'tahapan_id', 'category_id', 'created_at')
+            ->withSum([
+                'files as total_skor' => function ($q) {
+                    $q->join('buktis', 'files.bukti_id', '=', 'buktis.id');
+                }
+            ], 'buktis.bobot')
+            ->with([
+                'tahapan:id,nama',
+                'skpd:id,nama',
+                'category:id,name'
+            ]);
 
         if ($search) {
-            $query->where('nama', 'like', "%{$search}%")
-                ->orWhereHas('skpd', function ($q) use ($search) {
-                    $q->where('nama', 'like', "%{$search}%");
-                });
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                    ->orWhereYear('created_at', $search)
+                    ->orWhereHas('skpd', function ($sq) use ($search) {
+                        $sq->where('nama', 'like', "%{$search}%");
+                    });
+            });
         }
 
         $recordsTotal = Proposal::count();
         $recordsFiltered = $query->count();
 
-        $proposals = $query->skip($start)->take($length)->get();
+        $proposals = $query->orderBy($orderBy, $orderDir)
+            ->skip($start)
+            ->take($length)
+            ->get();
 
         $results = $proposals->map(function ($proposal) {
-            $skor = $proposal->files->sum(function ($file) {
-                return $file->bukti->bobot ?? 0;
-            });
-
             return [
                 'proposal' => $proposal,
-                'skor' => $skor,
+                'skor' => $proposal->total_skor ?? 0,
                 'skpd' => $proposal->skpd->nama ?? '-',
                 'tahapan' => optional($proposal->tahapan)->nama,
                 'category' => optional($proposal->category)->name,
@@ -215,37 +212,6 @@ class ProposalController extends Controller
     /*
      * load all sent proposal in json format
      */
-    // public function sentProposals()
-    // {
-    //     $user = Auth::user();
-    //     //$year = now()->year;
-    //     //sleep(3);
-    //     if ($user->role == 'admin') {
-    //         $proposals = Proposal::with(['files', 'tahapan', 'skpd'])
-    //             ->where('status', 'sent')
-    //             //->whereYear('updated_at', $year)
-    //             ->get();
-
-    //         $results = $proposals->map(function ($proposal) {
-    //             $skor = $proposal->files->sum(function ($file) {
-    //                 return $file->bukti->bobot;
-    //             });
-
-    //             return [
-    //                 'proposal' => $proposal,
-    //                 'skor' => $skor,
-    //                 'dikirim' => Carbon::parse($proposal->updated_at)->format('d/m/Y'),
-    //                 'implementasi' => Carbon::parse($proposal->implementasi)->format('d/m/Y'),
-    //                 'tahapan' => $proposal->tahapan->nama,
-    //                 'skpd' => $proposal->skpd->nama,
-    //             ];
-    //         });
-
-    //         return response()->json(['success' => true, 'data' => $results])->header('HX-Trigger', 'reloadDatabase');
-    //     }
-
-    //     return false;
-    // }
     public function sentProposals(Request $request)
     {
         $draw = $request->get('draw');
@@ -253,12 +219,35 @@ class ProposalController extends Controller
         $length = $request->get('length', 10);
         $search = $request->get('search')['value'] ?? null;
 
-        $query = Proposal::with(['files.bukti', 'tahapan', 'skpd'])
-            ->where('status', 'sent');
+        $columns = [
+            0 => 'nama',
+            1 => 'skpd_id',
+            2 => 'updated_at',
+            3 => 'ujicoba',
+            4 => 'implementasi',
+            5 => 'total_skor',
+        ];
+
+        $orderColumnIndex = $request->get('order')[0]['column'] ?? 2;
+        $orderDir = $request->get('order')[0]['dir'] ?? 'desc';
+        $orderBy = $columns[$orderColumnIndex] ?? 'updated_at';
+
+        $query = Proposal::select('id', 'nama', 'status', 'skpd_id', 'tahapan_id', 'ujicoba', 'implementasi', 'updated_at')
+            ->where('status', 'sent')
+            ->withSum([
+                'files as total_skor' => function ($q) {
+                    $q->join('buktis', 'files.bukti_id', '=', 'buktis.id');
+                }
+            ], 'buktis.bobot')
+            ->with([
+                'tahapan:id,nama',
+                'skpd:id,nama'
+            ]);
 
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('nama', 'like', "%{$search}%")
+                    ->orWhereYear('updated_at', $search)
                     ->orWhereHas('skpd', fn($q2) => $q2->where('nama', 'like', "%{$search}%"))
                     ->orWhereHas('tahapan', fn($q3) => $q3->where('nama', 'like', "%{$search}%"));
             });
@@ -267,17 +256,18 @@ class ProposalController extends Controller
         $recordsTotal = Proposal::where('status', 'sent')->count();
         $recordsFiltered = $query->count();
 
-        $proposals = $query->skip($start)->take($length)->get();
+        $proposals = $query->orderBy($orderBy, $orderDir)
+            ->skip($start)
+            ->take($length)
+            ->get();
 
         $results = $proposals->map(function ($proposal) {
-            $skor = $proposal->files->sum(fn($file) => $file->bukti->bobot ?? 0);
-
             return [
                 'proposal' => $proposal,
-                'skor' => $skor,
-                'ujicoba' => optional(Carbon::parse($proposal->ujicoba))->format('d/m/Y'),
+                'skor' => $proposal->total_skor ?? 0,
+                'ujicoba' => $proposal->ujicoba ? Carbon::parse($proposal->ujicoba)->format('d/m/Y') : '-',
                 'dikirim' => $proposal->updated_at ? $proposal->updated_at->format('d/m/Y') : '-',
-                'implementasi' => optional(Carbon::parse($proposal->implementasi))->format('d/m/Y'),
+                'implementasi' => $proposal->implementasi ? Carbon::parse($proposal->implementasi)->format('d/m/Y') : '-',
                 'tahapan' => optional($proposal->tahapan)->nama,
                 'skpd' => optional($proposal->skpd)->nama,
             ];
@@ -290,7 +280,6 @@ class ProposalController extends Controller
             'data' => $results,
         ])->header('HX-Trigger', 'reloadDatabase');
     }
-
 
     /**
      * Show the form for creating a new resource.

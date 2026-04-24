@@ -26,9 +26,10 @@
                         </thead>
                         <tfoot>
                             <tr>
+                                <th></th>
                                 <th>Total</th>
                                 <th></th>
-                                <th>{{$totalBobot}}</th>
+                                <th class="text-center">{{$totalBobot}}</th>
                             </tr>
                             <tr>
                                 <td></td>

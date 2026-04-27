@@ -82,11 +82,11 @@
                 if (indikatorValue == "Kualitas Inovasi Daerah*") {
                     $('#des').text('URL/Link Video');
                     $('#formFile').hide();
-                } if (indikatorValue == "Pedoman Teknis") {
+                } else if (indikatorValue == "Pedoman Teknis") {
                     $('#des').text('Deskripsi bukti atau URL/Link Video jika ada');
                     $('#formFile').show();
                 } else {
-                    $('#des').text('Deskripsi bukti')
+                    $('#des').text('Deskripsi bukti');
                     $('#formFile').show();
                 }
                 $('#bukti').empty();
